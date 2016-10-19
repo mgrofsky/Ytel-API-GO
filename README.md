@@ -86,6 +86,7 @@ To configure these for your generated code, open the file "Configuration.go" and
 * [transcription_pkg](#transcription_pkg)
 * [phonenumber_pkg](#phonenumber_pkg)
 * [usage_pkg](#usage_pkg)
+* [email_pkg](#email_pkg)
 * [sms_pkg](#sms_pkg)
 * [account_pkg](#account_pkg)
 * [recording_pkg](#recording_pkg)
@@ -167,8 +168,8 @@ func (me *CONFERENCE_IMPL) CreateListParticipant(
 
 ```go
 conferenceSid := "ConferenceSid"
-page,_ := strconv.ParseInt("65", 10, 8)
-pagesize,_ := strconv.ParseInt("65", 10, 8)
+page,_ := strconv.ParseInt("112", 10, 8)
+pagesize,_ := strconv.ParseInt("112", 10, 8)
 muted := false
 deaf := false
 responseType := "json"
@@ -211,7 +212,7 @@ func (me *CONFERENCE_IMPL) AddParticipant(
 ```go
 conferencesid := "conferencesid"
 participantnumber := "participantnumber"
-tocountrycode,_ := strconv.ParseInt("65", 10, 8)
+tocountrycode,_ := strconv.ParseInt("112", 10, 8)
 muted := false
 deaf := false
 responseType := "json"
@@ -285,8 +286,8 @@ func (me *CONFERENCE_IMPL) CreateListConference(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("65", 10, 8)
-pageSize,_ := strconv.ParseInt("65", 10, 8)
+page,_ := strconv.ParseInt("112", 10, 8)
+pageSize,_ := strconv.ParseInt("112", 10, 8)
 friendlyName := "FriendlyName"
 status := models_pkg.InterruptedCallStatus_CANCELED
 dateCreated := "DateCreated"
@@ -339,8 +340,8 @@ func (me *TRANSCRIPTION_IMPL) CreateListTranscription(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("65", 10, 8)
-pageSize,_ := strconv.ParseInt("65", 10, 8)
+page,_ := strconv.ParseInt("112", 10, 8)
+pageSize,_ := strconv.ParseInt("112", 10, 8)
 status := models_pkg.Status_INPROGRESS
 dateTranscribed := "DateTranscribed"
 responseType := "json"
@@ -484,7 +485,7 @@ func (me *PHONENUMBER_IMPL) CreateAvailablePhoneNumber(
 ```go
 numberType := "NumberType"
 areaCode := "AreaCode"
-pageSize,_ := strconv.ParseInt("65", 10, 8)
+pageSize,_ := strconv.ParseInt("112", 10, 8)
 responseType := "json"
 
 var result string
@@ -521,8 +522,8 @@ func (me *PHONENUMBER_IMPL) CreateListNumber(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("65", 10, 8)
-pageSize,_ := strconv.ParseInt("65", 10, 8)
+page,_ := strconv.ParseInt("112", 10, 8)
+pageSize,_ := strconv.ParseInt("112", 10, 8)
 numberType := "NumberType"
 friendlyName := "FriendlyName"
 responseType := "json"
@@ -747,6 +748,395 @@ result,_ = usage.CreateListUsage(productCode, startDate, endDate, responseType)
 
 [Back to List of Controllers](#list_of_controllers)
 
+### <a name="email_pkg"></a>![Class: ](http://apidocs.io/img/class.png ".email_pkg") email_pkg
+
+#### Get instance
+
+Factory for the ``` EMAIL ``` interface can be accessed from the package email_pkg.
+
+```go
+email := email_pkg.NewEMAIL()
+```
+
+#### <a name="create_send_email"></a>![Method: ](http://apidocs.io/img/method.png ".email_pkg.CreateSendEmail") CreateSendEmail
+
+> Send out an email
+
+
+```go
+func (me *EMAIL_IMPL) CreateSendEmail(
+            to string,
+            from string,
+            mtype string,
+            subject string,
+            message string,
+            cc *string,
+            bcc *string,
+            attachment []byte,
+            responseType *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| to |  ``` Required ```  | The to email address |
+| from |  ``` Required ```  | The from email address |
+| mtype |  ``` Required ```  ``` DefaultValue ```  | email format type, html or text |
+| subject |  ``` Required ```  | Email subject |
+| message |  ``` Required ```  | The body of the email message |
+| cc |  ``` Optional ```  | CC Email address |
+| bcc |  ``` Optional ```  | BCC Email address |
+| attachment |  ``` Optional ```  | File to be attached.File must be less than 7MB. |
+| responseType |  ``` Optional ```  ``` DefaultValue ```  | Response format, xml or json |
+
+
+#### Example Usage
+
+```go
+to := "to"
+from := "from"
+mtype := "html"
+subject := "subject"
+message := "message"
+cc := "cc"
+bcc := "bcc"
+attachment :=  []byte("")
+responseType := "json"
+
+var result string
+result,_ = email.CreateSendEmail(to, from, mtype, subject, message, cc, bcc, attachment, responseType)
+
+```
+
+
+#### <a name="create_delete_unsubscribes"></a>![Method: ](http://apidocs.io/img/method.png ".email_pkg.CreateDeleteUnsubscribes") CreateDeleteUnsubscribes
+
+> Delete emails from the unsubscribe list
+
+
+```go
+func (me *EMAIL_IMPL) CreateDeleteUnsubscribes(
+            email string,
+            responseType *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| email |  ``` Required ```  | The email to remove from the unsubscribe list |
+| responseType |  ``` Optional ```  ``` DefaultValue ```  | Response format, xml or json |
+
+
+#### Example Usage
+
+```go
+email := "email"
+responseType := "json"
+
+var result string
+result,_ = email.CreateDeleteUnsubscribes(email, responseType)
+
+```
+
+
+#### <a name="create_list_unsubscribes"></a>![Method: ](http://apidocs.io/img/method.png ".email_pkg.CreateListUnsubscribes") CreateListUnsubscribes
+
+> List all unsubscribed email addresses
+
+
+```go
+func (me *EMAIL_IMPL) CreateListUnsubscribes(
+            responseType *string,
+            offset *string,
+            limit *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Optional ```  ``` DefaultValue ```  | Response format, xml or json |
+| offset |  ``` Optional ```  | Starting record of the list |
+| limit |  ``` Optional ```  | Maximum number of records to be returned |
+
+
+#### Example Usage
+
+```go
+responseType := "json"
+offset := "offset"
+limit := "limit"
+
+var result string
+result,_ = email.CreateListUnsubscribes(responseType, offset, limit)
+
+```
+
+
+#### <a name="add_unsubscribes"></a>![Method: ](http://apidocs.io/img/method.png ".email_pkg.AddUnsubscribes") AddUnsubscribes
+
+> Add an email to the unsubscribe list
+
+
+```go
+func (me *EMAIL_IMPL) AddUnsubscribes(
+            email string,
+            responseType *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| email |  ``` Required ```  | The email to add to the unsubscribe list |
+| responseType |  ``` Optional ```  ``` DefaultValue ```  | Response format, xml or json |
+
+
+#### Example Usage
+
+```go
+email := "email"
+responseType := "json"
+
+var result string
+result,_ = email.AddUnsubscribes(email, responseType)
+
+```
+
+
+#### <a name="create_delete_spam"></a>![Method: ](http://apidocs.io/img/method.png ".email_pkg.CreateDeleteSpam") CreateDeleteSpam
+
+> Deletes a email address marked as spam from the spam list
+
+
+```go
+func (me *EMAIL_IMPL) CreateDeleteSpam(
+            email string,
+            responseType *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| email |  ``` Required ```  | Email address |
+| responseType |  ``` Optional ```  ``` DefaultValue ```  | Response format, xml or json |
+
+
+#### Example Usage
+
+```go
+email := "email"
+responseType := "json"
+
+var result string
+result,_ = email.CreateDeleteSpam(email, responseType)
+
+```
+
+
+#### <a name="create_delete_block"></a>![Method: ](http://apidocs.io/img/method.png ".email_pkg.CreateDeleteBlock") CreateDeleteBlock
+
+> Deletes a blocked email
+
+
+```go
+func (me *EMAIL_IMPL) CreateDeleteBlock(
+            email string,
+            responseType *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| email |  ``` Required ```  | Email address to remove from block list |
+| responseType |  ``` Optional ```  ``` DefaultValue ```  | Response format, xml or json |
+
+
+#### Example Usage
+
+```go
+email := "email"
+responseType := "json"
+
+var result string
+result,_ = email.CreateDeleteBlock(email, responseType)
+
+```
+
+
+#### <a name="create_list_invalid"></a>![Method: ](http://apidocs.io/img/method.png ".email_pkg.CreateListInvalid") CreateListInvalid
+
+> List out all invalid email addresses
+
+
+```go
+func (me *EMAIL_IMPL) CreateListInvalid(
+            responseType *string,
+            offet *string,
+            limit *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Optional ```  ``` DefaultValue ```  | Response format, xml or json |
+| offet |  ``` Optional ```  | Starting record for listing out emails |
+| limit |  ``` Optional ```  | Maximum number of records to return |
+
+
+#### Example Usage
+
+```go
+responseType := "json"
+offet := "offet"
+limit := "limit"
+
+var result string
+result,_ = email.CreateListInvalid(responseType, offet, limit)
+
+```
+
+
+#### <a name="create_delete_bounces"></a>![Method: ](http://apidocs.io/img/method.png ".email_pkg.CreateDeleteBounces") CreateDeleteBounces
+
+> Delete an email address from the bounced address list
+
+
+```go
+func (me *EMAIL_IMPL) CreateDeleteBounces(
+            email string,
+            responseType *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| email |  ``` Required ```  | The email address to remove from the bounce list |
+| responseType |  ``` Optional ```  ``` DefaultValue ```  | Response format, xml or json |
+
+
+#### Example Usage
+
+```go
+email := "email"
+responseType := "json"
+
+var result string
+result,_ = email.CreateDeleteBounces(email, responseType)
+
+```
+
+
+#### <a name="create_list_bounces"></a>![Method: ](http://apidocs.io/img/method.png ".email_pkg.CreateListBounces") CreateListBounces
+
+> List out all email addresses that have bounced
+
+
+```go
+func (me *EMAIL_IMPL) CreateListBounces(
+            responseType *string,
+            offset *string,
+            limit *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Optional ```  ``` DefaultValue ```  | Response format, xml or json |
+| offset |  ``` Optional ```  | The record to start the list at |
+| limit |  ``` Optional ```  | The maximum number of records to return |
+
+
+#### Example Usage
+
+```go
+responseType := "json"
+offset := "offset"
+limit := "limit"
+
+var result string
+result,_ = email.CreateListBounces(responseType, offset, limit)
+
+```
+
+
+#### <a name="create_list_spam"></a>![Method: ](http://apidocs.io/img/method.png ".email_pkg.CreateListSpam") CreateListSpam
+
+> List out all email addresses marked as spam
+
+
+```go
+func (me *EMAIL_IMPL) CreateListSpam(
+            responseType string,
+            offset *string,
+            limit *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response format, xml or json |
+| offset |  ``` Optional ```  | The record number to start the list at |
+| limit |  ``` Optional ```  | Maximum number of records to return |
+
+
+#### Example Usage
+
+```go
+responseType := "json"
+offset := "offset"
+limit := "limit"
+
+var result string
+result,_ = email.CreateListSpam(responseType, offset, limit)
+
+```
+
+
+#### <a name="create_list_blocks"></a>![Method: ](http://apidocs.io/img/method.png ".email_pkg.CreateListBlocks") CreateListBlocks
+
+> Outputs email addresses on your blocklist
+
+
+```go
+func (me *EMAIL_IMPL) CreateListBlocks(
+            offset *string,
+            limit *string,
+            responseType *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| offset |  ``` Optional ```  | Where to start in the output list |
+| limit |  ``` Optional ```  | Maximum number of records to return |
+| responseType |  ``` Optional ```  ``` DefaultValue ```  | Response format, xml or json |
+
+
+#### Example Usage
+
+```go
+offset := "offset"
+limit := "limit"
+responseType := "json"
+
+var result string
+result,_ = email.CreateListBlocks(offset, limit, responseType)
+
+```
+
+
+[Back to List of Controllers](#list_of_controllers)
+
 ### <a name="sms_pkg"></a>![Class: ](http://apidocs.io/img/class.png ".sms_pkg") sms_pkg
 
 #### Get instance
@@ -867,8 +1257,8 @@ func (me *SMS_IMPL) CreateListSMS(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("65", 10, 8)
-pagesize,_ := strconv.ParseInt("65", 10, 8)
+page,_ := strconv.ParseInt("20", 10, 8)
+pagesize,_ := strconv.ParseInt("20", 10, 8)
 from := "from"
 to := "to"
 datesent := "datesent"
@@ -908,7 +1298,7 @@ func (me *SMS_IMPL) CreateListInboundSMS(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("65", 10, 8)
+page,_ := strconv.ParseInt("20", 10, 8)
 pagesize := "pagesize"
 from := "from"
 to := "to"
@@ -1065,8 +1455,8 @@ func (me *RECORDING_IMPL) CreateListRecording(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("65", 10, 8)
-pageSize,_ := strconv.ParseInt("65", 10, 8)
+page,_ := strconv.ParseInt("20", 10, 8)
+pageSize,_ := strconv.ParseInt("20", 10, 8)
 dateCreated := "DateCreated"
 callSid := "CallSid"
 responseType := "json"
@@ -1194,7 +1584,7 @@ fallBackUrl := "FallBackUrl"
 fallBackMethod := models_pkg.HttpMethod_GET
 heartBeatUrl := "HeartBeatUrl"
 heartBeatMethod := false
-timeout,_ := strconv.ParseInt("65", 10, 8)
+timeout,_ := strconv.ParseInt("20", 10, 8)
 playDtmf := "PlayDtmf"
 hideCallerId := false
 record := false
@@ -1243,7 +1633,7 @@ func (me *CALL_IMPL) CreatePlayAudio(
 #### Example Usage
 
 ```go
-length,_ := strconv.ParseInt("65", 10, 8)
+length,_ := strconv.ParseInt("20", 10, 8)
 direction := models_pkg.Direction_IN
 loop := false
 mix := false
@@ -1292,7 +1682,7 @@ func (me *CALL_IMPL) CreateRecordCall(
 callSid := "CallSid"
 record := false
 direction := models_pkg.Direction_IN
-timeLimit,_ := strconv.ParseInt("65", 10, 8)
+timeLimit,_ := strconv.ParseInt("20", 10, 8)
 callBackUrl := "CallBackUrl"
 fileformat := models_pkg.AudioFormat_MP3
 responseType := "json"
@@ -1339,11 +1729,11 @@ func (me *CALL_IMPL) CreateVoiceEffect(
 ```go
 callSid := "CallSid"
 audioDirection := models_pkg.AudioDirection_IN
-pitchSemiTones := 65.0491316756462
-pitchOctaves := 65.0491316756462
-pitch := 65.0491316756462
-rate := 65.0491316756462
-tempo := 65.0491316756462
+pitchSemiTones := 20.6740192373628
+pitchOctaves := 20.6740192373628
+pitch := 20.6740192373628
+rate := 20.6740192373628
+tempo := 20.6740192373628
 responseType := "json"
 
 var result string
