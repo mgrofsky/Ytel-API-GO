@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/18/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
  */
 
 package phonenumber_pkg
@@ -22,7 +22,7 @@ type PHONENUMBER interface {
 
     CreateViewNumberDetails (string, *string) (string, error)
 
-    UpdatePhoneNumber (string, *string, *string, models_pkg.HttpMethodEnum, *string, models_pkg.HttpMethodEnum, *string, models_pkg.HttpMethodEnum, *string, models_pkg.HttpMethodEnum, *string, models_pkg.HttpMethodEnum, *string, models_pkg.HttpMethodEnum, *string) (string, error)
+    UpdatePhoneNumber (string, *string, *string, models_pkg.HttpMethod, *string, models_pkg.HttpMethod, *string, models_pkg.HttpMethod, *string, models_pkg.HttpMethod, *string, models_pkg.HttpMethod, *string, models_pkg.HttpMethod, *string) (string, error)
 }
 
 /*

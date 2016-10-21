@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/18/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
  */
 
 package call_pkg
@@ -14,17 +14,17 @@ import "message360_lib/models_pkg"
 type CALL interface {
     CreateViewCall (string, *string) (string, error)
 
-    CreateMakeCall (string, string, string, string, string, models_pkg.HttpMethodEnum, *string, models_pkg.HttpMethodEnum, *string, models_pkg.HttpMethodEnum, *string, *bool, *int64, *string, *bool, *bool, *string, models_pkg.HttpMethodEnum, *bool, *string, models_pkg.IfMachineEnum, *string) (string, error)
+    CreateMakeCall (string, string, string, string, string, models_pkg.HttpMethod, *string, models_pkg.HttpMethod, *string, models_pkg.HttpMethod, *string, *bool, *int64, *string, *bool, *bool, *string, models_pkg.HttpMethod, *bool, *string, models_pkg.IfMachine, *string) (string, error)
 
-    CreatePlayAudio (int64, models_pkg.DirectionEnum, bool, bool, *string, *string, *string) (string, error)
+    CreatePlayAudio (int64, models_pkg.Direction, bool, bool, *string, *string, *string) (string, error)
 
-    CreateRecordCall (string, bool, models_pkg.DirectionEnum, *int64, *string, models_pkg.AudioFormatEnum, *string) (string, error)
+    CreateRecordCall (string, bool, models_pkg.Direction, *int64, *string, models_pkg.AudioFormat, *string) (string, error)
 
-    CreateVoiceEffect (string, models_pkg.AudioDirectionEnum, *float64, *float64, *float64, *float64, *float64, *string) (string, error)
+    CreateVoiceEffect (string, models_pkg.AudioDirection, *float64, *float64, *float64, *float64, *float64, *string) (string, error)
 
-    CreateSendDigit (string, string, models_pkg.DirectionEnum, *string) (string, error)
+    CreateSendDigit (string, string, models_pkg.Direction, *string) (string, error)
 
-    CreateInterruptedCall (string, *string, models_pkg.HttpMethodEnum, models_pkg.InterruptedCallStatusEnum, *string) (string, error)
+    CreateInterruptedCall (string, *string, models_pkg.HttpMethod, models_pkg.InterruptedCallStatus, *string) (string, error)
 
     CreateListCalls (*string, *string, *string, *string, *string, *string) (error)
 }

@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/18/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
  */
 package conference_pkg
 
@@ -318,20 +318,20 @@ func (me *CONFERENCE_IMPL) CreateViewConference (
 
 /**
  * List Conference
- * @param    *int64                                      page             parameter: Optional
- * @param    *int64                                      pageSize         parameter: Optional
- * @param    *string                                     friendlyName     parameter: Optional
- * @param    models_pkg.InterruptedCallStatusEnum        status           parameter: Optional
- * @param    *string                                     dateCreated      parameter: Optional
- * @param    *string                                     dateUpdated      parameter: Optional
- * @param    *string                                     responseType     parameter: Optional
+ * @param    *int64                                  page             parameter: Optional
+ * @param    *int64                                  pageSize         parameter: Optional
+ * @param    *string                                 friendlyName     parameter: Optional
+ * @param    models_pkg.InterruptedCallStatus        status           parameter: Optional
+ * @param    *string                                 dateCreated      parameter: Optional
+ * @param    *string                                 dateUpdated      parameter: Optional
+ * @param    *string                                 responseType     parameter: Optional
  * @return	Returns the string response from the API call
  */
 func (me *CONFERENCE_IMPL) CreateListConference (
             page *int64,
             pageSize *int64,
             friendlyName *string,
-            status models_pkg.InterruptedCallStatusEnum,
+            status models_pkg.InterruptedCallStatus,
             dateCreated *string,
             dateUpdated *string,
             responseType *string) (string, error) {
@@ -370,7 +370,7 @@ func (me *CONFERENCE_IMPL) CreateListConference (
         "Page" : page,
         "PageSize" : pageSize,
         "FriendlyName" : friendlyName,
-        "Status" : models_pkg.InterruptedCallStatusEnumToValue(status),
+        "Status" : models_pkg.InterruptedCallStatusToValue(status),
         "DateCreated" : dateCreated,
         "DateUpdated" : dateUpdated,
 

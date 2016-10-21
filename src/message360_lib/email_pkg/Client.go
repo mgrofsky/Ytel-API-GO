@@ -1,12 +1,13 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/18/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
  */
 package email_pkg
 
 
 import(
+	"message360_lib/models_pkg"
 	"github.com/apimatic/unirest-go"
 	"message360_lib"
 	"message360_lib/apihelper_pkg"
@@ -18,26 +19,26 @@ type EMAIL_IMPL struct { }
 
 /**
  * Send out an email
- * @param    string         to               parameter: Required
- * @param    string         from             parameter: Required
- * @param    string         mtype            parameter: Required
- * @param    string         subject          parameter: Required
- * @param    string         message          parameter: Required
- * @param    *string        cc               parameter: Optional
- * @param    *string        bcc              parameter: Optional
- * @param    []byte         attachment       parameter: Optional
- * @param    *string        responseType     parameter: Optional
+ * @param    string                        to               parameter: Required
+ * @param    string                        from             parameter: Required
+ * @param    models_pkg.SendEmailAs        mtype            parameter: Required
+ * @param    string                        subject          parameter: Required
+ * @param    string                        message          parameter: Required
+ * @param    *string                       cc               parameter: Optional
+ * @param    *string                       bcc              parameter: Optional
+ * @param    *string                       attachment       parameter: Optional
+ * @param    *string                       responseType     parameter: Optional
  * @return	Returns the string response from the API call
  */
 func (me *EMAIL_IMPL) CreateSendEmail (
             to string,
             from string,
-            mtype string,
+            mtype models_pkg.SendEmailAs,
             subject string,
             message string,
             cc *string,
             bcc *string,
-            attachment []byte,
+            attachment *string,
             responseType *string) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
@@ -73,7 +74,7 @@ func (me *EMAIL_IMPL) CreateSendEmail (
 
         "to" : to,
         "from" : from,
-        "type" : mtype,
+        "type" : models_pkg.SendEmailAsToValue(mtype),
         "subject" : subject,
         "message" : message,
         "cc" : cc,
