@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/18/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
  */
 package models_pkg
 
@@ -10,38 +10,38 @@ import(
 )
 
 /**
- * Type definition for StatusEnum enum
+ * Type definition for Status enum
  */
-type StatusEnum int
+type Status int
 
 /**
- * Value collection for StatusEnum enum
+ * Value collection for Status enum
  */
 const (
-    Status_INPROGRESS StatusEnum = 1 + iota
+    Status_INPROGRESS Status = 1 + iota
     Status_SUCCESS
     Status_FAILURE
 )
 
-func (r StatusEnum) MarshalJSON() ([]byte, error) { 
-    s := StatusEnumToValue(r)
+func (r Status) MarshalJSON() ([]byte, error) { 
+    s := StatusToValue(r)
     return json.Marshal(s) 
 } 
 
-func (r *StatusEnum) UnmarshalJSON(data []byte) error { 
+func (r *Status) UnmarshalJSON(data []byte) error { 
     var s string 
     json.Unmarshal(data, &s)
-    v :=  StatusEnumFromValue(s)
+    v :=  StatusFromValue(s)
     *r = v 
     return nil 
  } 
 
 
 /**
- * Converts StatusEnum to its string representation
+ * Converts Status to its string representation
  */
-func StatusEnumToValue(statusEnum StatusEnum) string {
-    switch statusEnum {
+func StatusToValue(status Status) string {
+    switch status {
         case Status_INPROGRESS:
     		return "INPROGRESS"		
         case Status_SUCCESS:
@@ -54,12 +54,12 @@ func StatusEnumToValue(statusEnum StatusEnum) string {
 }
 
 /**
- * Converts StatusEnum Array to its string Array representation
+ * Converts Status Array to its string Array representation
 */
-func StatusEnumArrayToValue(statusEnum []StatusEnum) []string {
-    convArray := make([]string,len( statusEnum))
-    for i:=0; i<len(statusEnum);i++ {
-        convArray[i] = StatusEnumToValue(statusEnum[i])
+func StatusArrayToValue(status []Status) []string {
+    convArray := make([]string,len( status))
+    for i:=0; i<len(status);i++ {
+        convArray[i] = StatusToValue(status[i])
     }
     return convArray
 }
@@ -68,7 +68,7 @@ func StatusEnumArrayToValue(statusEnum []StatusEnum) []string {
 /**
  * Converts given value to its enum representation
  */
-func StatusEnumFromValue(value string) StatusEnum {
+func StatusFromValue(value string) Status {
     switch value {
         case "INPROGRESS":
             return Status_INPROGRESS

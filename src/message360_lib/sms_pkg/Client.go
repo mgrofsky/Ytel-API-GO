@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/18/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
  */
 package sms_pkg
 
@@ -19,14 +19,14 @@ type SMS_IMPL struct { }
 
 /**
  * Send an SMS from a message360 number
- * @param    int64                            fromcountrycode           parameter: Required
- * @param    string                           from                      parameter: Required
- * @param    int64                            tocountrycode             parameter: Required
- * @param    string                           to                        parameter: Required
- * @param    string                           body                      parameter: Required
- * @param    models_pkg.HttpMethodEnum        method                    parameter: Optional
- * @param    *string                          messagestatuscallback     parameter: Optional
- * @param    *string                          responseType              parameter: Optional
+ * @param    int64                        fromcountrycode           parameter: Required
+ * @param    string                       from                      parameter: Required
+ * @param    int64                        tocountrycode             parameter: Required
+ * @param    string                       to                        parameter: Required
+ * @param    string                       body                      parameter: Required
+ * @param    models_pkg.HttpMethod        method                    parameter: Optional
+ * @param    *string                      messagestatuscallback     parameter: Optional
+ * @param    *string                      responseType              parameter: Optional
  * @return	Returns the string response from the API call
  */
 func (me *SMS_IMPL) CreateSendSMS (
@@ -35,7 +35,7 @@ func (me *SMS_IMPL) CreateSendSMS (
             tocountrycode int64,
             to string,
             body string,
-            method models_pkg.HttpMethodEnum,
+            method models_pkg.HttpMethod,
             messagestatuscallback *string,
             responseType *string) (string, error) {
         //the base uri for api requests
@@ -75,7 +75,7 @@ func (me *SMS_IMPL) CreateSendSMS (
         "tocountrycode" : tocountrycode,
         "to" : to,
         "body" : body,
-        "method" : models_pkg.HttpMethodEnumToValue(method),
+        "method" : models_pkg.HttpMethodToValue(method),
         "messagestatuscallback" : messagestatuscallback,
 
     }

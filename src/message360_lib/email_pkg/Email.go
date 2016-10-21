@@ -1,17 +1,18 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/18/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
  */
 
 package email_pkg
 
+import "message360_lib/models_pkg"
 
 /*
  * Interface for the EMAIL_IMPL
  */
 type EMAIL interface {
-    CreateSendEmail (string, string, string, string, string, *string, *string, []byte, *string) (string, error)
+    CreateSendEmail (string, string, models_pkg.SendEmailAs, string, string, *string, *string, *string, *string) (string, error)
 
     CreateDeleteUnsubscribes (string, *string) (string, error)
 

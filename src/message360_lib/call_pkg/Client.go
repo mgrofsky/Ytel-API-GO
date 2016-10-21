@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/18/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
  */
 package call_pkg
 
@@ -87,28 +87,28 @@ func (me *CALL_IMPL) CreateViewCall (
 
 /**
  * You can experiment with initiating a call through Message360 and view the request response generated when doing so and get the response in json
- * @param    string                           fromCountryCode           parameter: Required
- * @param    string                           from                      parameter: Required
- * @param    string                           toCountryCode             parameter: Required
- * @param    string                           to                        parameter: Required
- * @param    string                           url                       parameter: Required
- * @param    models_pkg.HttpMethodEnum        method                    parameter: Optional
- * @param    *string                          statusCallBackUrl         parameter: Optional
- * @param    models_pkg.HttpMethodEnum        statusCallBackMethod      parameter: Optional
- * @param    *string                          fallBackUrl               parameter: Optional
- * @param    models_pkg.HttpMethodEnum        fallBackMethod            parameter: Optional
- * @param    *string                          heartBeatUrl              parameter: Optional
- * @param    *bool                            heartBeatMethod           parameter: Optional
- * @param    *int64                           timeout                   parameter: Optional
- * @param    *string                          playDtmf                  parameter: Optional
- * @param    *bool                            hideCallerId              parameter: Optional
- * @param    *bool                            record                    parameter: Optional
- * @param    *string                          recordCallBackUrl         parameter: Optional
- * @param    models_pkg.HttpMethodEnum        recordCallBackMethod      parameter: Optional
- * @param    *bool                            transcribe                parameter: Optional
- * @param    *string                          transcribeCallBackUrl     parameter: Optional
- * @param    models_pkg.IfMachineEnum         ifMachine                 parameter: Optional
- * @param    *string                          responseType              parameter: Optional
+ * @param    string                       fromCountryCode           parameter: Required
+ * @param    string                       from                      parameter: Required
+ * @param    string                       toCountryCode             parameter: Required
+ * @param    string                       to                        parameter: Required
+ * @param    string                       url                       parameter: Required
+ * @param    models_pkg.HttpMethod        method                    parameter: Optional
+ * @param    *string                      statusCallBackUrl         parameter: Optional
+ * @param    models_pkg.HttpMethod        statusCallBackMethod      parameter: Optional
+ * @param    *string                      fallBackUrl               parameter: Optional
+ * @param    models_pkg.HttpMethod        fallBackMethod            parameter: Optional
+ * @param    *string                      heartBeatUrl              parameter: Optional
+ * @param    *bool                        heartBeatMethod           parameter: Optional
+ * @param    *int64                       timeout                   parameter: Optional
+ * @param    *string                      playDtmf                  parameter: Optional
+ * @param    *bool                        hideCallerId              parameter: Optional
+ * @param    *bool                        record                    parameter: Optional
+ * @param    *string                      recordCallBackUrl         parameter: Optional
+ * @param    models_pkg.HttpMethod        recordCallBackMethod      parameter: Optional
+ * @param    *bool                        transcribe                parameter: Optional
+ * @param    *string                      transcribeCallBackUrl     parameter: Optional
+ * @param    models_pkg.IfMachine         ifMachine                 parameter: Optional
+ * @param    *string                      responseType              parameter: Optional
  * @return	Returns the string response from the API call
  */
 func (me *CALL_IMPL) CreateMakeCall (
@@ -117,11 +117,11 @@ func (me *CALL_IMPL) CreateMakeCall (
             toCountryCode string,
             to string,
             url string,
-            method models_pkg.HttpMethodEnum,
+            method models_pkg.HttpMethod,
             statusCallBackUrl *string,
-            statusCallBackMethod models_pkg.HttpMethodEnum,
+            statusCallBackMethod models_pkg.HttpMethod,
             fallBackUrl *string,
-            fallBackMethod models_pkg.HttpMethodEnum,
+            fallBackMethod models_pkg.HttpMethod,
             heartBeatUrl *string,
             heartBeatMethod *bool,
             timeout *int64,
@@ -129,10 +129,10 @@ func (me *CALL_IMPL) CreateMakeCall (
             hideCallerId *bool,
             record *bool,
             recordCallBackUrl *string,
-            recordCallBackMethod models_pkg.HttpMethodEnum,
+            recordCallBackMethod models_pkg.HttpMethod,
             transcribe *bool,
             transcribeCallBackUrl *string,
-            ifMachine models_pkg.IfMachineEnum,
+            ifMachine models_pkg.IfMachine,
             responseType *string) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
@@ -153,7 +153,7 @@ func (me *CALL_IMPL) CreateMakeCall (
 
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
-        "Method" : models_pkg.HttpMethodEnumToValue(method),
+        "Method" : models_pkg.HttpMethodToValue(method),
     })
     if err != nil {
         //error in query param handling
@@ -181,9 +181,9 @@ func (me *CALL_IMPL) CreateMakeCall (
         "To" : to,
         "Url" : url,
         "StatusCallBackUrl" : statusCallBackUrl,
-        "StatusCallBackMethod" : models_pkg.HttpMethodEnumToValue(statusCallBackMethod),
+        "StatusCallBackMethod" : models_pkg.HttpMethodToValue(statusCallBackMethod),
         "FallBackUrl" : fallBackUrl,
-        "FallBackMethod" : models_pkg.HttpMethodEnumToValue(fallBackMethod),
+        "FallBackMethod" : models_pkg.HttpMethodToValue(fallBackMethod),
         "HeartBeatUrl" : heartBeatUrl,
         "HeartBeatMethod" : heartBeatMethod,
         "Timeout" : timeout,
@@ -191,10 +191,10 @@ func (me *CALL_IMPL) CreateMakeCall (
         "HideCallerId" : hideCallerId,
         "Record" : record,
         "RecordCallBackUrl" : recordCallBackUrl,
-        "RecordCallBackMethod" : models_pkg.HttpMethodEnumToValue(recordCallBackMethod),
+        "RecordCallBackMethod" : models_pkg.HttpMethodToValue(recordCallBackMethod),
         "Transcribe" : transcribe,
         "TranscribeCallBackUrl" : transcribeCallBackUrl,
-        "IfMachine" : models_pkg.IfMachineEnumToValue(ifMachine),
+        "IfMachine" : models_pkg.IfMachineToValue(ifMachine),
 
     }
 
@@ -223,18 +223,18 @@ func (me *CALL_IMPL) CreateMakeCall (
 
 /**
  * Play Dtmf and send the Digit
- * @param    int64                           length           parameter: Required
- * @param    models_pkg.DirectionEnum        direction        parameter: Required
- * @param    bool                            loop             parameter: Required
- * @param    bool                            mix              parameter: Required
- * @param    *string                         callSid          parameter: Optional
- * @param    *string                         audioUrl         parameter: Optional
- * @param    *string                         responseType     parameter: Optional
+ * @param    int64                       length           parameter: Required
+ * @param    models_pkg.Direction        direction        parameter: Required
+ * @param    bool                        loop             parameter: Required
+ * @param    bool                        mix              parameter: Required
+ * @param    *string                     callSid          parameter: Optional
+ * @param    *string                     audioUrl         parameter: Optional
+ * @param    *string                     responseType     parameter: Optional
  * @return	Returns the string response from the API call
  */
 func (me *CALL_IMPL) CreatePlayAudio (
             length int64,
-            direction models_pkg.DirectionEnum,
+            direction models_pkg.Direction,
             loop bool,
             mix bool,
             callSid *string,
@@ -273,7 +273,7 @@ func (me *CALL_IMPL) CreatePlayAudio (
     parameters := map[string]interface{} {
 
         "Length" : length,
-        "Direction" : models_pkg.DirectionEnumToValue(direction),
+        "Direction" : models_pkg.DirectionToValue(direction),
         "Loop" : loop,
         "Mix" : mix,
         "CallSid" : callSid,
@@ -306,22 +306,22 @@ func (me *CALL_IMPL) CreatePlayAudio (
 
 /**
  * Record a Call
- * @param    string                            callSid          parameter: Required
- * @param    bool                              record           parameter: Required
- * @param    models_pkg.DirectionEnum          direction        parameter: Optional
- * @param    *int64                            timeLimit        parameter: Optional
- * @param    *string                           callBackUrl      parameter: Optional
- * @param    models_pkg.AudioFormatEnum        fileformat       parameter: Optional
- * @param    *string                           responseType     parameter: Optional
+ * @param    string                        callSid          parameter: Required
+ * @param    bool                          record           parameter: Required
+ * @param    models_pkg.Direction          direction        parameter: Optional
+ * @param    *int64                        timeLimit        parameter: Optional
+ * @param    *string                       callBackUrl      parameter: Optional
+ * @param    models_pkg.AudioFormat        fileformat       parameter: Optional
+ * @param    *string                       responseType     parameter: Optional
  * @return	Returns the string response from the API call
  */
 func (me *CALL_IMPL) CreateRecordCall (
             callSid string,
             record bool,
-            direction models_pkg.DirectionEnum,
+            direction models_pkg.Direction,
             timeLimit *int64,
             callBackUrl *string,
-            fileformat models_pkg.AudioFormatEnum,
+            fileformat models_pkg.AudioFormat,
             responseType *string) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
@@ -357,10 +357,10 @@ func (me *CALL_IMPL) CreateRecordCall (
 
         "CallSid" : callSid,
         "Record" : record,
-        "Direction" : models_pkg.DirectionEnumToValue(direction),
+        "Direction" : models_pkg.DirectionToValue(direction),
         "TimeLimit" : timeLimit,
         "CallBackUrl" : callBackUrl,
-        "Fileformat" : models_pkg.AudioFormatEnumToValue(fileformat),
+        "Fileformat" : models_pkg.AudioFormatToValue(fileformat),
 
     }
 
@@ -389,19 +389,19 @@ func (me *CALL_IMPL) CreateRecordCall (
 
 /**
  * Voice Effect
- * @param    string                               callSid            parameter: Required
- * @param    models_pkg.AudioDirectionEnum        audioDirection     parameter: Optional
- * @param    *float64                             pitchSemiTones     parameter: Optional
- * @param    *float64                             pitchOctaves       parameter: Optional
- * @param    *float64                             pitch              parameter: Optional
- * @param    *float64                             rate               parameter: Optional
- * @param    *float64                             tempo              parameter: Optional
- * @param    *string                              responseType       parameter: Optional
+ * @param    string                           callSid            parameter: Required
+ * @param    models_pkg.AudioDirection        audioDirection     parameter: Optional
+ * @param    *float64                         pitchSemiTones     parameter: Optional
+ * @param    *float64                         pitchOctaves       parameter: Optional
+ * @param    *float64                         pitch              parameter: Optional
+ * @param    *float64                         rate               parameter: Optional
+ * @param    *float64                         tempo              parameter: Optional
+ * @param    *string                          responseType       parameter: Optional
  * @return	Returns the string response from the API call
  */
 func (me *CALL_IMPL) CreateVoiceEffect (
             callSid string,
-            audioDirection models_pkg.AudioDirectionEnum,
+            audioDirection models_pkg.AudioDirection,
             pitchSemiTones *float64,
             pitchOctaves *float64,
             pitch *float64,
@@ -441,7 +441,7 @@ func (me *CALL_IMPL) CreateVoiceEffect (
     parameters := map[string]interface{} {
 
         "CallSid" : callSid,
-        "AudioDirection" : models_pkg.AudioDirectionEnumToValue(audioDirection),
+        "AudioDirection" : models_pkg.AudioDirectionToValue(audioDirection),
         "PitchSemiTones" : pitchSemiTones,
         "PitchOctaves" : pitchOctaves,
         "Pitch" : pitch,
@@ -475,16 +475,16 @@ func (me *CALL_IMPL) CreateVoiceEffect (
 
 /**
  * Play Dtmf and send the Digit
- * @param    string                          callSid               parameter: Required
- * @param    string                          playDtmf              parameter: Required
- * @param    models_pkg.DirectionEnum        playDtmfDirection     parameter: Optional
- * @param    *string                         responseType          parameter: Optional
+ * @param    string                      callSid               parameter: Required
+ * @param    string                      playDtmf              parameter: Required
+ * @param    models_pkg.Direction        playDtmfDirection     parameter: Optional
+ * @param    *string                     responseType          parameter: Optional
  * @return	Returns the string response from the API call
  */
 func (me *CALL_IMPL) CreateSendDigit (
             callSid string,
             playDtmf string,
-            playDtmfDirection models_pkg.DirectionEnum,
+            playDtmfDirection models_pkg.Direction,
             responseType *string) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
@@ -520,7 +520,7 @@ func (me *CALL_IMPL) CreateSendDigit (
 
         "CallSid" : callSid,
         "PlayDtmf" : playDtmf,
-        "PlayDtmfDirection" : models_pkg.DirectionEnumToValue(playDtmfDirection),
+        "PlayDtmfDirection" : models_pkg.DirectionToValue(playDtmfDirection),
 
     }
 
@@ -549,18 +549,18 @@ func (me *CALL_IMPL) CreateSendDigit (
 
 /**
  * Interrupt the Call by Call Sid
- * @param    string                                      callSid          parameter: Required
- * @param    *string                                     url              parameter: Optional
- * @param    models_pkg.HttpMethodEnum                   method           parameter: Optional
- * @param    models_pkg.InterruptedCallStatusEnum        status           parameter: Optional
- * @param    *string                                     responseType     parameter: Optional
+ * @param    string                                  callSid          parameter: Required
+ * @param    *string                                 url              parameter: Optional
+ * @param    models_pkg.HttpMethod                   method           parameter: Optional
+ * @param    models_pkg.InterruptedCallStatus        status           parameter: Optional
+ * @param    *string                                 responseType     parameter: Optional
  * @return	Returns the string response from the API call
  */
 func (me *CALL_IMPL) CreateInterruptedCall (
             callSid string,
             url *string,
-            method models_pkg.HttpMethodEnum,
-            status models_pkg.InterruptedCallStatusEnum,
+            method models_pkg.HttpMethod,
+            status models_pkg.InterruptedCallStatus,
             responseType *string) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
@@ -596,8 +596,8 @@ func (me *CALL_IMPL) CreateInterruptedCall (
 
         "CallSid" : callSid,
         "Url" : url,
-        "Method" : models_pkg.HttpMethodEnumToValue(method),
-        "Status" : models_pkg.InterruptedCallStatusEnumToValue(status),
+        "Method" : models_pkg.HttpMethodToValue(method),
+        "Status" : models_pkg.InterruptedCallStatusToValue(status),
 
     }
 

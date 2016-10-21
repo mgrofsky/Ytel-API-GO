@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/18/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
  */
 
 package conference_pkg
@@ -20,7 +20,7 @@ type CONFERENCE interface {
 
     CreateViewConference (string, *string) (string, error)
 
-    CreateListConference (*int64, *int64, *string, models_pkg.InterruptedCallStatusEnum, *string, *string, *string) (string, error)
+    CreateListConference (*int64, *int64, *string, models_pkg.InterruptedCallStatus, *string, *string, *string) (string, error)
 }
 
 /*

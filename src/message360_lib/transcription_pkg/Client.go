@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/18/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
  */
 package transcription_pkg
 
@@ -19,17 +19,17 @@ type TRANSCRIPTION_IMPL struct { }
 
 /**
  * Get All transcriptions
- * @param    *int64                       page                parameter: Optional
- * @param    *int64                       pageSize            parameter: Optional
- * @param    models_pkg.StatusEnum        status              parameter: Optional
- * @param    *string                      dateTranscribed     parameter: Optional
- * @param    *string                      responseType        parameter: Optional
+ * @param    *int64                   page                parameter: Optional
+ * @param    *int64                   pageSize            parameter: Optional
+ * @param    models_pkg.Status        status              parameter: Optional
+ * @param    *string                  dateTranscribed     parameter: Optional
+ * @param    *string                  responseType        parameter: Optional
  * @return	Returns the string response from the API call
  */
 func (me *TRANSCRIPTION_IMPL) CreateListTranscription (
             page *int64,
             pageSize *int64,
-            status models_pkg.StatusEnum,
+            status models_pkg.Status,
             dateTranscribed *string,
             responseType *string) (string, error) {
         //the base uri for api requests
@@ -66,7 +66,7 @@ func (me *TRANSCRIPTION_IMPL) CreateListTranscription (
 
         "Page" : page,
         "PageSize" : pageSize,
-        "Status" : models_pkg.StatusEnumToValue(status),
+        "Status" : models_pkg.StatusToValue(status),
         "DateTranscribed" : dateTranscribed,
 
     }

@@ -1,4 +1,4 @@
-# Getting Started
+#
 
 ## How to Build
 
@@ -168,8 +168,8 @@ func (me *CONFERENCE_IMPL) CreateListParticipant(
 
 ```go
 conferenceSid := "ConferenceSid"
-page,_ := strconv.ParseInt("112", 10, 8)
-pagesize,_ := strconv.ParseInt("112", 10, 8)
+page,_ := strconv.ParseInt("8", 10, 8)
+pagesize,_ := strconv.ParseInt("8", 10, 8)
 muted := false
 deaf := false
 responseType := "json"
@@ -212,7 +212,7 @@ func (me *CONFERENCE_IMPL) AddParticipant(
 ```go
 conferencesid := "conferencesid"
 participantnumber := "participantnumber"
-tocountrycode,_ := strconv.ParseInt("112", 10, 8)
+tocountrycode,_ := strconv.ParseInt("8", 10, 8)
 muted := false
 deaf := false
 responseType := "json"
@@ -264,7 +264,7 @@ func (me *CONFERENCE_IMPL) CreateListConference(
             page *int64,
             pageSize *int64,
             friendlyName *string,
-            status models_pkg.InterruptedCallStatusEnum,
+            status models_pkg.InterruptedCallStatus,
             dateCreated *string,
             dateUpdated *string,
             responseType *string)(string,error)
@@ -286,8 +286,8 @@ func (me *CONFERENCE_IMPL) CreateListConference(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("112", 10, 8)
-pageSize,_ := strconv.ParseInt("112", 10, 8)
+page,_ := strconv.ParseInt("8", 10, 8)
+pageSize,_ := strconv.ParseInt("8", 10, 8)
 friendlyName := "FriendlyName"
 status := models_pkg.InterruptedCallStatus_CANCELED
 dateCreated := "DateCreated"
@@ -321,7 +321,7 @@ transcription := transcription_pkg.NewTRANSCRIPTION()
 func (me *TRANSCRIPTION_IMPL) CreateListTranscription(
             page *int64,
             pageSize *int64,
-            status models_pkg.StatusEnum,
+            status models_pkg.Status,
             dateTranscribed *string,
             responseType *string)(string,error)
 ```
@@ -340,8 +340,8 @@ func (me *TRANSCRIPTION_IMPL) CreateListTranscription(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("112", 10, 8)
-pageSize,_ := strconv.ParseInt("112", 10, 8)
+page,_ := strconv.ParseInt("8", 10, 8)
+pageSize,_ := strconv.ParseInt("8", 10, 8)
 status := models_pkg.Status_INPROGRESS
 dateTranscribed := "DateTranscribed"
 responseType := "json"
@@ -485,7 +485,7 @@ func (me *PHONENUMBER_IMPL) CreateAvailablePhoneNumber(
 ```go
 numberType := "NumberType"
 areaCode := "AreaCode"
-pageSize,_ := strconv.ParseInt("112", 10, 8)
+pageSize,_ := strconv.ParseInt("8", 10, 8)
 responseType := "json"
 
 var result string
@@ -522,8 +522,8 @@ func (me *PHONENUMBER_IMPL) CreateListNumber(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("112", 10, 8)
-pageSize,_ := strconv.ParseInt("112", 10, 8)
+page,_ := strconv.ParseInt("8", 10, 8)
+pageSize,_ := strconv.ParseInt("8", 10, 8)
 numberType := "NumberType"
 friendlyName := "FriendlyName"
 responseType := "json"
@@ -637,17 +637,17 @@ func (me *PHONENUMBER_IMPL) UpdatePhoneNumber(
             phoneNumber string,
             friendlyName *string,
             voiceUrl *string,
-            voiceMethod models_pkg.HttpMethodEnum,
+            voiceMethod models_pkg.HttpMethod,
             voiceFallbackUrl *string,
-            voiceFallbackMethod models_pkg.HttpMethodEnum,
+            voiceFallbackMethod models_pkg.HttpMethod,
             hangupCallback *string,
-            hangupCallbackMethod models_pkg.HttpMethodEnum,
+            hangupCallbackMethod models_pkg.HttpMethod,
             heartbeatUrl *string,
-            heartbeatMethod models_pkg.HttpMethodEnum,
+            heartbeatMethod models_pkg.HttpMethod,
             smsUrl *string,
-            smsMethod models_pkg.HttpMethodEnum,
+            smsMethod models_pkg.HttpMethod,
             smsFallbackUrl *string,
-            smsFallbackMethod models_pkg.HttpMethodEnum,
+            smsFallbackMethod models_pkg.HttpMethod,
             responseType *string)(string,error)
 ```
 
@@ -767,12 +767,12 @@ email := email_pkg.NewEMAIL()
 func (me *EMAIL_IMPL) CreateSendEmail(
             to string,
             from string,
-            mtype string,
+            mtype models_pkg.SendEmailAs,
             subject string,
             message string,
             cc *string,
             bcc *string,
-            attachment []byte,
+            attachment *string,
             responseType *string)(string,error)
 ```
 
@@ -796,12 +796,12 @@ func (me *EMAIL_IMPL) CreateSendEmail(
 ```go
 to := "to"
 from := "from"
-mtype := "html"
+mtype := models_pkg.SendEmailAs_HTML
 subject := "subject"
 message := "message"
 cc := "cc"
 bcc := "bcc"
-attachment :=  []byte("")
+attachment := "attachment"
 responseType := "json"
 
 var result string
@@ -1159,7 +1159,7 @@ func (me *SMS_IMPL) CreateSendSMS(
             tocountrycode int64,
             to string,
             body string,
-            method models_pkg.HttpMethodEnum,
+            method models_pkg.HttpMethod,
             messagestatuscallback *string,
             responseType *string)(string,error)
 ```
@@ -1257,8 +1257,8 @@ func (me *SMS_IMPL) CreateListSMS(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("20", 10, 8)
-pagesize,_ := strconv.ParseInt("20", 10, 8)
+page,_ := strconv.ParseInt("172", 10, 8)
+pagesize,_ := strconv.ParseInt("172", 10, 8)
 from := "from"
 to := "to"
 datesent := "datesent"
@@ -1298,7 +1298,7 @@ func (me *SMS_IMPL) CreateListInboundSMS(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("20", 10, 8)
+page,_ := strconv.ParseInt("172", 10, 8)
 pagesize := "pagesize"
 from := "from"
 to := "to"
@@ -1455,8 +1455,8 @@ func (me *RECORDING_IMPL) CreateListRecording(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("20", 10, 8)
-pageSize,_ := strconv.ParseInt("20", 10, 8)
+page,_ := strconv.ParseInt("172", 10, 8)
+pageSize,_ := strconv.ParseInt("172", 10, 8)
 dateCreated := "DateCreated"
 callSid := "CallSid"
 responseType := "json"
@@ -1522,11 +1522,11 @@ func (me *CALL_IMPL) CreateMakeCall(
             toCountryCode string,
             to string,
             url string,
-            method models_pkg.HttpMethodEnum,
+            method models_pkg.HttpMethod,
             statusCallBackUrl *string,
-            statusCallBackMethod models_pkg.HttpMethodEnum,
+            statusCallBackMethod models_pkg.HttpMethod,
             fallBackUrl *string,
-            fallBackMethod models_pkg.HttpMethodEnum,
+            fallBackMethod models_pkg.HttpMethod,
             heartBeatUrl *string,
             heartBeatMethod *bool,
             timeout *int64,
@@ -1534,10 +1534,10 @@ func (me *CALL_IMPL) CreateMakeCall(
             hideCallerId *bool,
             record *bool,
             recordCallBackUrl *string,
-            recordCallBackMethod models_pkg.HttpMethodEnum,
+            recordCallBackMethod models_pkg.HttpMethod,
             transcribe *bool,
             transcribeCallBackUrl *string,
-            ifMachine models_pkg.IfMachineEnum,
+            ifMachine models_pkg.IfMachine,
             responseType *string)(string,error)
 ```
 
@@ -1583,14 +1583,14 @@ statusCallBackMethod := models_pkg.HttpMethod_GET
 fallBackUrl := "FallBackUrl"
 fallBackMethod := models_pkg.HttpMethod_GET
 heartBeatUrl := "HeartBeatUrl"
-heartBeatMethod := false
-timeout,_ := strconv.ParseInt("20", 10, 8)
+heartBeatMethod := true
+timeout,_ := strconv.ParseInt("172", 10, 8)
 playDtmf := "PlayDtmf"
-hideCallerId := false
-record := false
+hideCallerId := true
+record := true
 recordCallBackUrl := "RecordCallBackUrl"
 recordCallBackMethod := models_pkg.HttpMethod_GET
-transcribe := false
+transcribe := true
 transcribeCallBackUrl := "TranscribeCallBackUrl"
 ifMachine := models_pkg.ifMachine_CONTINUE
 responseType := "json"
@@ -1609,7 +1609,7 @@ result,_ = call.CreateMakeCall(fromCountryCode, from, toCountryCode, to, url, me
 ```go
 func (me *CALL_IMPL) CreatePlayAudio(
             length int64,
-            direction models_pkg.DirectionEnum,
+            direction models_pkg.Direction,
             loop bool,
             mix bool,
             callSid *string,
@@ -1633,10 +1633,10 @@ func (me *CALL_IMPL) CreatePlayAudio(
 #### Example Usage
 
 ```go
-length,_ := strconv.ParseInt("20", 10, 8)
+length,_ := strconv.ParseInt("172", 10, 8)
 direction := models_pkg.Direction_IN
-loop := false
-mix := false
+loop := true
+mix := true
 callSid := "CallSid"
 audioUrl := "AudioUrl"
 responseType := "json"
@@ -1656,10 +1656,10 @@ result,_ = call.CreatePlayAudio(length, direction, loop, mix, callSid, audioUrl,
 func (me *CALL_IMPL) CreateRecordCall(
             callSid string,
             record bool,
-            direction models_pkg.DirectionEnum,
+            direction models_pkg.Direction,
             timeLimit *int64,
             callBackUrl *string,
-            fileformat models_pkg.AudioFormatEnum,
+            fileformat models_pkg.AudioFormat,
             responseType *string)(string,error)
 ```
 
@@ -1680,9 +1680,9 @@ func (me *CALL_IMPL) CreateRecordCall(
 
 ```go
 callSid := "CallSid"
-record := false
+record := true
 direction := models_pkg.Direction_IN
-timeLimit,_ := strconv.ParseInt("20", 10, 8)
+timeLimit,_ := strconv.ParseInt("172", 10, 8)
 callBackUrl := "CallBackUrl"
 fileformat := models_pkg.AudioFormat_MP3
 responseType := "json"
@@ -1701,7 +1701,7 @@ result,_ = call.CreateRecordCall(callSid, record, direction, timeLimit, callBack
 ```go
 func (me *CALL_IMPL) CreateVoiceEffect(
             callSid string,
-            audioDirection models_pkg.AudioDirectionEnum,
+            audioDirection models_pkg.AudioDirection,
             pitchSemiTones *float64,
             pitchOctaves *float64,
             pitch *float64,
@@ -1729,11 +1729,11 @@ func (me *CALL_IMPL) CreateVoiceEffect(
 ```go
 callSid := "CallSid"
 audioDirection := models_pkg.AudioDirection_IN
-pitchSemiTones := 20.6740192373628
-pitchOctaves := 20.6740192373628
-pitch := 20.6740192373628
-rate := 20.6740192373628
-tempo := 20.6740192373628
+pitchSemiTones := 172.460441758139
+pitchOctaves := 172.460441758139
+pitch := 172.460441758139
+rate := 172.460441758139
+tempo := 172.460441758139
 responseType := "json"
 
 var result string
@@ -1751,7 +1751,7 @@ result,_ = call.CreateVoiceEffect(callSid, audioDirection, pitchSemiTones, pitch
 func (me *CALL_IMPL) CreateSendDigit(
             callSid string,
             playDtmf string,
-            playDtmfDirection models_pkg.DirectionEnum,
+            playDtmfDirection models_pkg.Direction,
             responseType *string)(string,error)
 ```
 
@@ -1788,8 +1788,8 @@ result,_ = call.CreateSendDigit(callSid, playDtmf, playDtmfDirection, responseTy
 func (me *CALL_IMPL) CreateInterruptedCall(
             callSid string,
             url *string,
-            method models_pkg.HttpMethodEnum,
-            status models_pkg.InterruptedCallStatusEnum,
+            method models_pkg.HttpMethod,
+            status models_pkg.InterruptedCallStatus,
             responseType *string)(string,error)
 ```
 

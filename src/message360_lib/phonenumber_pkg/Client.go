@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/18/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
  */
 package phonenumber_pkg
 
@@ -374,38 +374,38 @@ func (me *PHONENUMBER_IMPL) CreateViewNumberDetails (
 
 /**
  * Update Phone Number Details
- * @param    string                           phoneNumber              parameter: Required
- * @param    *string                          friendlyName             parameter: Optional
- * @param    *string                          voiceUrl                 parameter: Optional
- * @param    models_pkg.HttpMethodEnum        voiceMethod              parameter: Optional
- * @param    *string                          voiceFallbackUrl         parameter: Optional
- * @param    models_pkg.HttpMethodEnum        voiceFallbackMethod      parameter: Optional
- * @param    *string                          hangupCallback           parameter: Optional
- * @param    models_pkg.HttpMethodEnum        hangupCallbackMethod     parameter: Optional
- * @param    *string                          heartbeatUrl             parameter: Optional
- * @param    models_pkg.HttpMethodEnum        heartbeatMethod          parameter: Optional
- * @param    *string                          smsUrl                   parameter: Optional
- * @param    models_pkg.HttpMethodEnum        smsMethod                parameter: Optional
- * @param    *string                          smsFallbackUrl           parameter: Optional
- * @param    models_pkg.HttpMethodEnum        smsFallbackMethod        parameter: Optional
- * @param    *string                          responseType             parameter: Optional
+ * @param    string                       phoneNumber              parameter: Required
+ * @param    *string                      friendlyName             parameter: Optional
+ * @param    *string                      voiceUrl                 parameter: Optional
+ * @param    models_pkg.HttpMethod        voiceMethod              parameter: Optional
+ * @param    *string                      voiceFallbackUrl         parameter: Optional
+ * @param    models_pkg.HttpMethod        voiceFallbackMethod      parameter: Optional
+ * @param    *string                      hangupCallback           parameter: Optional
+ * @param    models_pkg.HttpMethod        hangupCallbackMethod     parameter: Optional
+ * @param    *string                      heartbeatUrl             parameter: Optional
+ * @param    models_pkg.HttpMethod        heartbeatMethod          parameter: Optional
+ * @param    *string                      smsUrl                   parameter: Optional
+ * @param    models_pkg.HttpMethod        smsMethod                parameter: Optional
+ * @param    *string                      smsFallbackUrl           parameter: Optional
+ * @param    models_pkg.HttpMethod        smsFallbackMethod        parameter: Optional
+ * @param    *string                      responseType             parameter: Optional
  * @return	Returns the string response from the API call
  */
 func (me *PHONENUMBER_IMPL) UpdatePhoneNumber (
             phoneNumber string,
             friendlyName *string,
             voiceUrl *string,
-            voiceMethod models_pkg.HttpMethodEnum,
+            voiceMethod models_pkg.HttpMethod,
             voiceFallbackUrl *string,
-            voiceFallbackMethod models_pkg.HttpMethodEnum,
+            voiceFallbackMethod models_pkg.HttpMethod,
             hangupCallback *string,
-            hangupCallbackMethod models_pkg.HttpMethodEnum,
+            hangupCallbackMethod models_pkg.HttpMethod,
             heartbeatUrl *string,
-            heartbeatMethod models_pkg.HttpMethodEnum,
+            heartbeatMethod models_pkg.HttpMethod,
             smsUrl *string,
-            smsMethod models_pkg.HttpMethodEnum,
+            smsMethod models_pkg.HttpMethod,
             smsFallbackUrl *string,
-            smsFallbackMethod models_pkg.HttpMethodEnum,
+            smsFallbackMethod models_pkg.HttpMethod,
             responseType *string) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
@@ -442,17 +442,17 @@ func (me *PHONENUMBER_IMPL) UpdatePhoneNumber (
         "PhoneNumber" : phoneNumber,
         "FriendlyName" : friendlyName,
         "VoiceUrl" : voiceUrl,
-        "VoiceMethod" : models_pkg.HttpMethodEnumToValue(voiceMethod),
+        "VoiceMethod" : models_pkg.HttpMethodToValue(voiceMethod),
         "VoiceFallbackUrl" : voiceFallbackUrl,
-        "VoiceFallbackMethod" : models_pkg.HttpMethodEnumToValue(voiceFallbackMethod),
+        "VoiceFallbackMethod" : models_pkg.HttpMethodToValue(voiceFallbackMethod),
         "HangupCallback" : hangupCallback,
-        "HangupCallbackMethod" : models_pkg.HttpMethodEnumToValue(hangupCallbackMethod),
+        "HangupCallbackMethod" : models_pkg.HttpMethodToValue(hangupCallbackMethod),
         "HeartbeatUrl" : heartbeatUrl,
-        "HeartbeatMethod" : models_pkg.HttpMethodEnumToValue(heartbeatMethod),
+        "HeartbeatMethod" : models_pkg.HttpMethodToValue(heartbeatMethod),
         "SmsUrl" : smsUrl,
-        "SmsMethod" : models_pkg.HttpMethodEnumToValue(smsMethod),
+        "SmsMethod" : models_pkg.HttpMethodToValue(smsMethod),
         "SmsFallbackUrl" : smsFallbackUrl,
-        "SmsFallbackMethod" : models_pkg.HttpMethodEnumToValue(smsFallbackMethod),
+        "SmsFallbackMethod" : models_pkg.HttpMethodToValue(smsFallbackMethod),
 
     }
 

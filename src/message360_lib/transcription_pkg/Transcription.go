@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/18/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
  */
 
 package transcription_pkg
@@ -12,7 +12,7 @@ import "message360_lib/models_pkg"
  * Interface for the TRANSCRIPTION_IMPL
  */
 type TRANSCRIPTION interface {
-    CreateListTranscription (*int64, *int64, models_pkg.StatusEnum, *string, *string) (string, error)
+    CreateListTranscription (*int64, *int64, models_pkg.Status, *string, *string) (string, error)
 
     CreateRecordingTranscription (string, *string) (string, error)
 
