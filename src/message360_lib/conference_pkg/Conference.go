@@ -1,26 +1,27 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/01/2016
  */
 
 package conference_pkg
 
-import "message360_lib/models_pkg"
 
 /*
  * Interface for the CONFERENCE_IMPL
  */
 type CONFERENCE interface {
-    CreateViewParticipant (string, string, *string) (string, error)
+    CreateDeafMuteParticipant (*CreateDeafMuteParticipantInput) (string, error)
 
-    CreateListParticipant (string, *int64, *int64, *bool, *bool, *string) (string, error)
+    CreateListConference (*CreateListConferenceInput) (string, error)
 
-    AddParticipant (string, string, int64, *bool, *bool, *string) (string, error)
+    CreateViewConference (*CreateViewConferenceInput) (string, error)
 
-    CreateViewConference (string, *string) (string, error)
+    AddParticipant (*AddParticipantInput) (string, error)
 
-    CreateListConference (*int64, *int64, *string, models_pkg.InterruptedCallStatus, *string, *string, *string) (string, error)
+    CreateListParticipant (*CreateListParticipantInput) (string, error)
+
+    CreateViewParticipant (*CreateViewParticipantInput) (string, error)
 }
 
 /*

@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/01/2016
  */
 package account_pkg
 
@@ -11,6 +11,15 @@ import(
 	"message360_lib"
 	"message360_lib/apihelper_pkg"
 )
+
+/*
+ * Input structure for the method CreateViewAccount
+ */
+type CreateViewAccountInput struct {
+    Date            string          //TODO: Write general description for this field
+    ResponseType    *string         //Response type format xml or json
+}
+
 /*
  * Client structure as interface implementation
  */
@@ -18,13 +27,10 @@ type ACCOUNT_IMPL struct { }
 
 /**
  * Display Account Description
- * @param    string         date             parameter: Required
- * @param    *string        responseType     parameter: Optional
+ * @param  CreateViewAccountInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *ACCOUNT_IMPL) CreateViewAccount (
-            date string,
-            responseType *string) (string, error) {
+func (me *ACCOUNT_IMPL) CreateViewAccount (input *CreateViewAccountInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -35,7 +41,7 @@ func (me *ACCOUNT_IMPL) CreateViewAccount (
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*responseType, "json"),
+        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
     })
     if err != nil {
         //error in template param handling
@@ -57,7 +63,7 @@ func (me *ACCOUNT_IMPL) CreateViewAccount (
     //form parameters
     parameters := map[string]interface{} {
 
-        "date" : date,
+        "date" : input.Date,
 
     }
 

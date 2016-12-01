@@ -1,38 +1,39 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/01/2016
  */
 
 package email_pkg
 
-import "message360_lib/models_pkg"
 
 /*
  * Interface for the EMAIL_IMPL
  */
 type EMAIL interface {
-    CreateSendEmail (string, string, models_pkg.SendEmailAs, string, string, *string, *string, *string, *string) (string, error)
+    CreateDeleteInvalid (*CreateDeleteInvalidInput) (string, error)
 
-    CreateDeleteUnsubscribes (string, *string) (string, error)
+    CreateListBlocks (*CreateListBlocksInput) (string, error)
 
-    CreateListUnsubscribes (*string, *string, *string) (string, error)
+    CreateListSpam (*CreateListSpamInput) (string, error)
 
-    AddUnsubscribes (string, *string) (string, error)
+    CreateListBounces (*CreateListBouncesInput) (string, error)
 
-    CreateDeleteSpam (string, *string) (string, error)
+    CreateDeleteBounces (*CreateDeleteBouncesInput) (string, error)
 
-    CreateDeleteBlock (string, *string) (string, error)
+    CreateListInvalid (*CreateListInvalidInput) (string, error)
 
-    CreateListInvalid (*string, *string, *string) (string, error)
+    CreateListUnsubscribes (*CreateListUnsubscribesInput) (string, error)
 
-    CreateDeleteBounces (string, *string) (string, error)
+    CreateDeleteUnsubscribes (*CreateDeleteUnsubscribesInput) (string, error)
 
-    CreateListBounces (*string, *string, *string) (string, error)
+    AddUnsubscribes (*AddUnsubscribesInput) (string, error)
 
-    CreateListSpam (string, *string, *string) (string, error)
+    CreateDeleteBlock (*CreateDeleteBlockInput) (string, error)
 
-    CreateListBlocks (*string, *string, *string) (string, error)
+    CreateDeleteSpam (*CreateDeleteSpamInput) (string, error)
+
+    CreateSendEmail (*CreateSendEmailInput) (string, error)
 }
 
 /*

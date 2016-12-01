@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/01/2016
  */
 package phonenumber_pkg
 
@@ -12,35 +12,95 @@ import(
 	"message360_lib"
 	"message360_lib/apihelper_pkg"
 )
+
+/*
+ * Input structure for the method UpdatePhoneNumber
+ */
+type UpdatePhoneNumberInput struct {
+    PhoneNumber          string          //TODO: Write general description for this field
+    FriendlyName         *string         //TODO: Write general description for this field
+    VoiceUrl             *string         //URL requested once the call connects
+    VoiceMethod          models_pkg.HttpAction //TODO: Write general description for this field
+    VoiceFallbackUrl     *string         //URL requested if the voice URL is not available
+    VoiceFallbackMethod  models_pkg.HttpAction //TODO: Write general description for this field
+    HangupCallback       *string         //TODO: Write general description for this field
+    HangupCallbackMethod models_pkg.HttpAction //TODO: Write general description for this field
+    HeartbeatUrl         *string         //URL requested once the call connects
+    HeartbeatMethod      models_pkg.HttpAction //URL that can be requested every 60 seconds during the call to notify of elapsed time
+    SmsUrl               *string         //URL requested when an SMS is received
+    SmsMethod            models_pkg.HttpAction //TODO: Write general description for this field
+    SmsFallbackUrl       *string         //URL requested once the call connects
+    SmsFallbackMethod    models_pkg.HttpAction //URL requested if the sms URL is not available
+    ResponseType         *string         //Response type format xml or json
+}
+
+/*
+ * Input structure for the method CreateBuyNumber
+ */
+type CreateBuyNumberInput struct {
+    PhoneNumber     string          //Phone number to be purchase
+    ResponseType    *string         //Response type format xml or json
+}
+
+/*
+ * Input structure for the method CreateReleaseNumber
+ */
+type CreateReleaseNumberInput struct {
+    PhoneNumber     string          //Phone number to be relase
+    ResponseType    *string         //Response type format xml or json
+}
+
+/*
+ * Input structure for the method CreateViewNumberDetails
+ */
+type CreateViewNumberDetailsInput struct {
+    PhoneNumber     string          //Get Phone number Detail
+    ResponseType    *string         //Response type format xml or json
+}
+
+/*
+ * Input structure for the method CreateListNumber
+ */
+type CreateListNumberInput struct {
+    Page            *int64          //Which page of the overall response will be returned. Zero indexed
+    PageSize        *int64          //Number of individual resources listed in the response per page
+    NumberType      models_pkg.NumberType //TODO: Write general description for this field
+    FriendlyName    *string         //TODO: Write general description for this field
+    ResponseType    *string         //Response type format xml or json
+}
+
+/*
+ * Input structure for the method CreateAvailablePhoneNumber
+ */
+type CreateAvailablePhoneNumberInput struct {
+    NumberType      models_pkg.NumberType //Number type either SMS,Voice or all
+    AreaCode        string          //Phone Number Area Code
+    PageSize        *int64          //Page Size
+    ResponseType    *string         //Response type format xml or json
+}
+
 /*
  * Client structure as interface implementation
  */
 type PHONENUMBER_IMPL struct { }
 
 /**
- * Available Phone Number
- * @param    string         numberType       parameter: Required
- * @param    string         areaCode         parameter: Required
- * @param    *int64         pageSize         parameter: Optional
- * @param    *string        responseType     parameter: Optional
+ * Update Phone Number Details
+ * @param  UpdatePhoneNumberInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *PHONENUMBER_IMPL) CreateAvailablePhoneNumber (
-            numberType string,
-            areaCode string,
-            pageSize *int64,
-            responseType *string) (string, error) {
+func (me *PHONENUMBER_IMPL) UpdatePhoneNumber (input *UpdatePhoneNumberInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/incomingphone/availablenumber.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/incomingphone/updatenumber.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*responseType, "json"),
+        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
     })
     if err != nil {
         //error in template param handling
@@ -62,154 +122,20 @@ func (me *PHONENUMBER_IMPL) CreateAvailablePhoneNumber (
     //form parameters
     parameters := map[string]interface{} {
 
-        "NumberType" : numberType,
-        "AreaCode" : areaCode,
-        "PageSize" : pageSize,
-
-    }
-
-
-    //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
-    if err != nil {
-        //error in API invocation
-        return "", err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return "", err
-    }
-
-    //returning the response
-    return _response.Body, nil
-}
-
-/**
- * List Account's Phone number details
- * @param    *int64         page             parameter: Optional
- * @param    *int64         pageSize         parameter: Optional
- * @param    *string        numberType       parameter: Optional
- * @param    *string        friendlyName     parameter: Optional
- * @param    *string        responseType     parameter: Optional
- * @return	Returns the string response from the API call
- */
-func (me *PHONENUMBER_IMPL) CreateListNumber (
-            page *int64,
-            pageSize *int64,
-            numberType *string,
-            friendlyName *string,
-            responseType *string) (string, error) {
-        //the base uri for api requests
-    _queryBuilder := message360_lib.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/incomingphone/listnumber.{ResponseType}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*responseType, "json"),
-    })
-    if err != nil {
-        //error in template param handling
-        return "", err
-    }
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return "", err
-    }
-
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "message360-api",
-    }
-
-    //form parameters
-    parameters := map[string]interface{} {
-
-        "Page" : page,
-        "PageSize" : pageSize,
-        "NumberType" : numberType,
-        "FriendlyName" : friendlyName,
-
-    }
-
-
-    //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
-    if err != nil {
-        //error in API invocation
-        return "", err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return "", err
-    }
-
-    //returning the response
-    return _response.Body, nil
-}
-
-/**
- * Release number from account
- * @param    string         phoneNumber      parameter: Required
- * @param    *string        responseType     parameter: Optional
- * @return	Returns the string response from the API call
- */
-func (me *PHONENUMBER_IMPL) CreateReleaseNumber (
-            phoneNumber string,
-            responseType *string) (string, error) {
-        //the base uri for api requests
-    _queryBuilder := message360_lib.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/incomingphone/releasenumber.{ResponseType}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*responseType, "json"),
-    })
-    if err != nil {
-        //error in template param handling
-        return "", err
-    }
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return "", err
-    }
-
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "message360-api",
-    }
-
-    //form parameters
-    parameters := map[string]interface{} {
-
-        "PhoneNumber" : phoneNumber,
+        "PhoneNumber" : input.PhoneNumber,
+        "FriendlyName" : input.FriendlyName,
+        "VoiceUrl" : input.VoiceUrl,
+        "VoiceMethod" : models_pkg.HttpActionToValue(input.VoiceMethod),
+        "VoiceFallbackUrl" : input.VoiceFallbackUrl,
+        "VoiceFallbackMethod" : models_pkg.HttpActionToValue(input.VoiceFallbackMethod),
+        "HangupCallback" : input.HangupCallback,
+        "HangupCallbackMethod" : models_pkg.HttpActionToValue(input.HangupCallbackMethod),
+        "HeartbeatUrl" : input.HeartbeatUrl,
+        "HeartbeatMethod" : models_pkg.HttpActionToValue(input.HeartbeatMethod),
+        "SmsUrl" : input.SmsUrl,
+        "SmsMethod" : models_pkg.HttpActionToValue(input.SmsMethod),
+        "SmsFallbackUrl" : input.SmsFallbackUrl,
+        "SmsFallbackMethod" : models_pkg.HttpActionToValue(input.SmsFallbackMethod),
 
     }
 
@@ -238,13 +164,10 @@ func (me *PHONENUMBER_IMPL) CreateReleaseNumber (
 
 /**
  * Buy Phone Number 
- * @param    string         phoneNumber      parameter: Required
- * @param    *string        responseType     parameter: Optional
+ * @param  CreateBuyNumberInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *PHONENUMBER_IMPL) CreateBuyNumber (
-            phoneNumber string,
-            responseType *string) (string, error) {
+func (me *PHONENUMBER_IMPL) CreateBuyNumber (input *CreateBuyNumberInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -255,7 +178,7 @@ func (me *PHONENUMBER_IMPL) CreateBuyNumber (
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*responseType, "json"),
+        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
     })
     if err != nil {
         //error in template param handling
@@ -277,7 +200,72 @@ func (me *PHONENUMBER_IMPL) CreateBuyNumber (
     //form parameters
     parameters := map[string]interface{} {
 
-        "PhoneNumber" : phoneNumber,
+        "PhoneNumber" : input.PhoneNumber,
+
+    }
+
+
+    //prepare API request
+    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request);
+    if err != nil {
+        //error in API invocation
+        return "", err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return "", err
+    }
+
+    //returning the response
+    return _response.Body, nil
+}
+
+/**
+ * Release number from account
+ * @param  CreateReleaseNumberInput     Structure with all inputs
+ * @return	Returns the string response from the API call
+ */
+func (me *PHONENUMBER_IMPL) CreateReleaseNumber (input *CreateReleaseNumberInput) (string, error) {
+        //the base uri for api requests
+    _queryBuilder := message360_lib.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + "/incomingphone/releasenumber.{ResponseType}"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional query parameters
+    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
+        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+    })
+    if err != nil {
+        //error in template param handling
+        return "", err
+    }
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return "", err
+    }
+
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "message360-api",
+    }
+
+    //form parameters
+    parameters := map[string]interface{} {
+
+        "PhoneNumber" : input.PhoneNumber,
 
     }
 
@@ -306,13 +294,10 @@ func (me *PHONENUMBER_IMPL) CreateBuyNumber (
 
 /**
  * Get Phone Number Details
- * @param    string         phoneNumber      parameter: Required
- * @param    *string        responseType     parameter: Optional
+ * @param  CreateViewNumberDetailsInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *PHONENUMBER_IMPL) CreateViewNumberDetails (
-            phoneNumber string,
-            responseType *string) (string, error) {
+func (me *PHONENUMBER_IMPL) CreateViewNumberDetails (input *CreateViewNumberDetailsInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -323,7 +308,7 @@ func (me *PHONENUMBER_IMPL) CreateViewNumberDetails (
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*responseType, "json"),
+        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
     })
     if err != nil {
         //error in template param handling
@@ -345,7 +330,7 @@ func (me *PHONENUMBER_IMPL) CreateViewNumberDetails (
     //form parameters
     parameters := map[string]interface{} {
 
-        "PhoneNumber" : phoneNumber,
+        "PhoneNumber" : input.PhoneNumber,
 
     }
 
@@ -373,51 +358,22 @@ func (me *PHONENUMBER_IMPL) CreateViewNumberDetails (
 }
 
 /**
- * Update Phone Number Details
- * @param    string                       phoneNumber              parameter: Required
- * @param    *string                      friendlyName             parameter: Optional
- * @param    *string                      voiceUrl                 parameter: Optional
- * @param    models_pkg.HttpMethod        voiceMethod              parameter: Optional
- * @param    *string                      voiceFallbackUrl         parameter: Optional
- * @param    models_pkg.HttpMethod        voiceFallbackMethod      parameter: Optional
- * @param    *string                      hangupCallback           parameter: Optional
- * @param    models_pkg.HttpMethod        hangupCallbackMethod     parameter: Optional
- * @param    *string                      heartbeatUrl             parameter: Optional
- * @param    models_pkg.HttpMethod        heartbeatMethod          parameter: Optional
- * @param    *string                      smsUrl                   parameter: Optional
- * @param    models_pkg.HttpMethod        smsMethod                parameter: Optional
- * @param    *string                      smsFallbackUrl           parameter: Optional
- * @param    models_pkg.HttpMethod        smsFallbackMethod        parameter: Optional
- * @param    *string                      responseType             parameter: Optional
+ * List Account's Phone number details
+ * @param  CreateListNumberInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *PHONENUMBER_IMPL) UpdatePhoneNumber (
-            phoneNumber string,
-            friendlyName *string,
-            voiceUrl *string,
-            voiceMethod models_pkg.HttpMethod,
-            voiceFallbackUrl *string,
-            voiceFallbackMethod models_pkg.HttpMethod,
-            hangupCallback *string,
-            hangupCallbackMethod models_pkg.HttpMethod,
-            heartbeatUrl *string,
-            heartbeatMethod models_pkg.HttpMethod,
-            smsUrl *string,
-            smsMethod models_pkg.HttpMethod,
-            smsFallbackUrl *string,
-            smsFallbackMethod models_pkg.HttpMethod,
-            responseType *string) (string, error) {
+func (me *PHONENUMBER_IMPL) CreateListNumber (input *CreateListNumberInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/incomingphone/updatenumber.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/incomingphone/listnumber.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*responseType, "json"),
+        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
     })
     if err != nil {
         //error in template param handling
@@ -439,20 +395,77 @@ func (me *PHONENUMBER_IMPL) UpdatePhoneNumber (
     //form parameters
     parameters := map[string]interface{} {
 
-        "PhoneNumber" : phoneNumber,
-        "FriendlyName" : friendlyName,
-        "VoiceUrl" : voiceUrl,
-        "VoiceMethod" : models_pkg.HttpMethodToValue(voiceMethod),
-        "VoiceFallbackUrl" : voiceFallbackUrl,
-        "VoiceFallbackMethod" : models_pkg.HttpMethodToValue(voiceFallbackMethod),
-        "HangupCallback" : hangupCallback,
-        "HangupCallbackMethod" : models_pkg.HttpMethodToValue(hangupCallbackMethod),
-        "HeartbeatUrl" : heartbeatUrl,
-        "HeartbeatMethod" : models_pkg.HttpMethodToValue(heartbeatMethod),
-        "SmsUrl" : smsUrl,
-        "SmsMethod" : models_pkg.HttpMethodToValue(smsMethod),
-        "SmsFallbackUrl" : smsFallbackUrl,
-        "SmsFallbackMethod" : models_pkg.HttpMethodToValue(smsFallbackMethod),
+        "Page" : input.Page,
+        "PageSize" : input.PageSize,
+        "NumberType" : models_pkg.NumberTypeToValue(input.NumberType),
+        "FriendlyName" : input.FriendlyName,
+
+    }
+
+
+    //prepare API request
+    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request);
+    if err != nil {
+        //error in API invocation
+        return "", err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return "", err
+    }
+
+    //returning the response
+    return _response.Body, nil
+}
+
+/**
+ * Available Phone Number
+ * @param  CreateAvailablePhoneNumberInput     Structure with all inputs
+ * @return	Returns the string response from the API call
+ */
+func (me *PHONENUMBER_IMPL) CreateAvailablePhoneNumber (input *CreateAvailablePhoneNumberInput) (string, error) {
+        //the base uri for api requests
+    _queryBuilder := message360_lib.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + "/incomingphone/availablenumber.{ResponseType}"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional query parameters
+    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
+        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+    })
+    if err != nil {
+        //error in template param handling
+        return "", err
+    }
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return "", err
+    }
+
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "message360-api",
+    }
+
+    //form parameters
+    parameters := map[string]interface{} {
+
+        "NumberType" : models_pkg.NumberTypeToValue(input.NumberType),
+        "AreaCode" : input.AreaCode,
+        "PageSize" : input.PageSize,
 
     }
 

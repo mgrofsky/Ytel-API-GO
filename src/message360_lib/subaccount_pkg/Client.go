@@ -3,7 +3,7 @@
  *
  * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/01/2016
  */
-package sms_pkg
+package subaccount_pkg
 
 
 import(
@@ -14,66 +14,49 @@ import(
 )
 
 /*
- * Input structure for the method CreateViewSMS
+ * Input structure for the method CreateSubAccount
  */
-type CreateViewSMSInput struct {
-    Messagesid      string          //Message sid
-    ResponseType    *string         //Response type format xml or json
+type CreateSubAccountInput struct {
+    Firstname       string          //TODO: Write general description for this field
+    Lastname        string          //TODO: Write general description for this field
+    Email           string          //TODO: Write general description for this field
+    ResponseType    *string         //ResponseType Format either json or xml
 }
 
 /*
- * Input structure for the method CreateListInboundSMS
+ * Input structure for the method CreateSuspendSubAccount
  */
-type CreateListInboundSMSInput struct {
-    Page            *int64          //Which page of the overall response will be returned. Zero indexed
-    Pagesize        *string         //Number of individual resources listed in the response per page
-    From            *string         //From Number to Inbound SMS
-    To              *string         //To Number to get Inbound SMS
-    ResponseType    *string         //Response type format xml or json
+type CreateSuspendSubAccountInput struct {
+    Subaccountsid   string          //TODO: Write general description for this field
+    Activate        models_pkg.ActivateStatus //TODO: Write general description for this field
+    ResponseType    *string         //TODO: Write general description for this field
 }
 
 /*
- * Input structure for the method CreateListSMS
+ * Input structure for the method CreateDeleteMergeSubAccount
  */
-type CreateListSMSInput struct {
-    Page            *int64          //Which page of the overall response will be returned. Zero indexed
-    Pagesize        *int64          //Number of individual resources listed in the response per page
-    From            *string         //Messages sent from this number
-    To              *string         //Messages sent to this number
-    Datesent        *string         //Only list SMS messages sent in the specified date range
-    ResponseType    *string         //Response type format xml or json
-}
-
-/*
- * Input structure for the method CreateSendSMS
- */
-type CreateSendSMSInput struct {
-    Fromcountrycode       int64           //From Country Code
-    From                  string          //SMS enabled Message360 number to send this message from
-    Tocountrycode         int64           //To country code
-    To                    string          //Number to send the SMS to
-    Body                  string          //Text Message To Send
-    Method                models_pkg.HttpAction //Specifies the HTTP method used to request the required URL once SMS sent.
-    Messagestatuscallback *string         //URL that can be requested to receive notification when SMS has Sent. A set of default parameters will be sent here once the SMS is finished.
-    ResponseType          *string         //Response type format xml or json
+type CreateDeleteMergeSubAccountInput struct {
+    Subaccountsid   string          //TODO: Write general description for this field
+    Mergenumber     models_pkg.MergeNumberStatus //TODO: Write general description for this field
+    ResponseType    *string         //Response type format either json or xml
 }
 
 /*
  * Client structure as interface implementation
  */
-type SMS_IMPL struct { }
+type SUBACCOUNT_IMPL struct { }
 
 /**
- * View Particular SMS
- * @param  CreateViewSMSInput     Structure with all inputs
+ * Create Sub account
+ * @param  CreateSubAccountInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *SMS_IMPL) CreateViewSMS (input *CreateViewSMSInput) (string, error) {
+func (me *SUBACCOUNT_IMPL) CreateSubAccount (input *CreateSubAccountInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/sms/viewsms.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/user/createsubaccount.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -101,7 +84,9 @@ func (me *SMS_IMPL) CreateViewSMS (input *CreateViewSMSInput) (string, error) {
     //form parameters
     parameters := map[string]interface{} {
 
-        "messagesid" : input.Messagesid,
+        "firstname" : input.Firstname,
+        "lastname" : input.Lastname,
+        "email" : input.Email,
 
     }
 
@@ -129,22 +114,22 @@ func (me *SMS_IMPL) CreateViewSMS (input *CreateViewSMSInput) (string, error) {
 }
 
 /**
- * List All Inbound SMS
- * @param  CreateListInboundSMSInput     Structure with all inputs
+ * Suspend or unsuspend
+ * @param  CreateSuspendSubAccountInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *SMS_IMPL) CreateListInboundSMS (input *CreateListInboundSMSInput) (string, error) {
+func (me *SUBACCOUNT_IMPL) CreateSuspendSubAccount (input *CreateSuspendSubAccountInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/sms/getInboundsms.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/user/subaccountactivation.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -166,10 +151,8 @@ func (me *SMS_IMPL) CreateListInboundSMS (input *CreateListInboundSMSInput) (str
     //form parameters
     parameters := map[string]interface{} {
 
-        "page" : input.Page,
-        "pagesize" : input.Pagesize,
-        "from" : input.From,
-        "to" : input.To,
+        "subaccountsid" : input.Subaccountsid,
+        "activate" : models_pkg.ActivateStatusToValue(input.Activate),
 
     }
 
@@ -197,16 +180,16 @@ func (me *SMS_IMPL) CreateListInboundSMS (input *CreateListInboundSMSInput) (str
 }
 
 /**
- * List All SMS
- * @param  CreateListSMSInput     Structure with all inputs
+ * Delete or Merge Sub account
+ * @param  CreateDeleteMergeSubAccountInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *SMS_IMPL) CreateListSMS (input *CreateListSMSInput) (string, error) {
+func (me *SUBACCOUNT_IMPL) CreateDeleteMergeSubAccount (input *CreateDeleteMergeSubAccountInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/sms/listsms.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/user/deletesubaccount.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -234,82 +217,8 @@ func (me *SMS_IMPL) CreateListSMS (input *CreateListSMSInput) (string, error) {
     //form parameters
     parameters := map[string]interface{} {
 
-        "page" : input.Page,
-        "pagesize" : input.Pagesize,
-        "from" : input.From,
-        "to" : input.To,
-        "datesent" : input.Datesent,
-
-    }
-
-
-    //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
-    if err != nil {
-        //error in API invocation
-        return "", err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return "", err
-    }
-
-    //returning the response
-    return _response.Body, nil
-}
-
-/**
- * Send an SMS from a message360 number
- * @param  CreateSendSMSInput     Structure with all inputs
- * @return	Returns the string response from the API call
- */
-func (me *SMS_IMPL) CreateSendSMS (input *CreateSendSMSInput) (string, error) {
-        //the base uri for api requests
-    _queryBuilder := message360_lib.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/sms/sendsms.{ResponseType}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
-    })
-    if err != nil {
-        //error in template param handling
-        return "", err
-    }
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return "", err
-    }
-
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "message360-api",
-    }
-
-    //form parameters
-    parameters := map[string]interface{} {
-
-        "fromcountrycode" : input.Fromcountrycode,
-        "from" : input.From,
-        "tocountrycode" : input.Tocountrycode,
-        "to" : input.To,
-        "body" : input.Body,
-        "method" : models_pkg.HttpActionToValue(input.Method),
-        "messagestatuscallback" : input.Messagestatuscallback,
+        "subaccountsid" : input.Subaccountsid,
+        "mergenumber" : models_pkg.MergeNumberStatusToValue(input.Mergenumber),
 
     }
 

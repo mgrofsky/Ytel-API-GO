@@ -1,28 +1,27 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/01/2016
  */
 
 package phonenumber_pkg
 
-import "message360_lib/models_pkg"
 
 /*
  * Interface for the PHONENUMBER_IMPL
  */
 type PHONENUMBER interface {
-    CreateAvailablePhoneNumber (string, string, *int64, *string) (string, error)
+    UpdatePhoneNumber (*UpdatePhoneNumberInput) (string, error)
 
-    CreateListNumber (*int64, *int64, *string, *string, *string) (string, error)
+    CreateBuyNumber (*CreateBuyNumberInput) (string, error)
 
-    CreateReleaseNumber (string, *string) (string, error)
+    CreateReleaseNumber (*CreateReleaseNumberInput) (string, error)
 
-    CreateBuyNumber (string, *string) (string, error)
+    CreateViewNumberDetails (*CreateViewNumberDetailsInput) (string, error)
 
-    CreateViewNumberDetails (string, *string) (string, error)
+    CreateListNumber (*CreateListNumberInput) (string, error)
 
-    UpdatePhoneNumber (string, *string, *string, models_pkg.HttpMethod, *string, models_pkg.HttpMethod, *string, models_pkg.HttpMethod, *string, models_pkg.HttpMethod, *string, models_pkg.HttpMethod, *string, models_pkg.HttpMethod, *string) (string, error)
+    CreateAvailablePhoneNumber (*CreateAvailablePhoneNumberInput) (string, error)
 }
 
 /*

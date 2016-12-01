@@ -3,42 +3,40 @@
  *
  * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/01/2016
  */
-package usage_pkg
+package numberverification_pkg
 
 
 import(
-	"message360_lib/models_pkg"
 	"github.com/apimatic/unirest-go"
 	"message360_lib"
 	"message360_lib/apihelper_pkg"
 )
 
 /*
- * Input structure for the method CreateListUsage
+ * Input structure for the method CreateVerifyNumber
  */
-type CreateListUsageInput struct {
-    ProductCode     models_pkg.ProductCode //Product Code
-    StartDate       string          //Start Usage Date
-    EndDate         string          //End Usage Date
-    ResponseType    *string         //Response type format xml or json
+type CreateVerifyNumberInput struct {
+    Phonenumber     string          //TODO: Write general description for this field
+    Type            string          //TODO: Write general description for this field
+    ResponseType    *string         //Response Type either json or xml
 }
 
 /*
  * Client structure as interface implementation
  */
-type USAGE_IMPL struct { }
+type NUMBERVERIFICATION_IMPL struct { }
 
 /**
- * Get all usage 
- * @param  CreateListUsageInput     Structure with all inputs
+ * Number Verification
+ * @param  CreateVerifyNumberInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *USAGE_IMPL) CreateListUsage (input *CreateListUsageInput) (string, error) {
+func (me *NUMBERVERIFICATION_IMPL) CreateVerifyNumber (input *CreateVerifyNumberInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/usage/listusage.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/verifycallerid/verifynumber.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -66,9 +64,8 @@ func (me *USAGE_IMPL) CreateListUsage (input *CreateListUsageInput) (string, err
     //form parameters
     parameters := map[string]interface{} {
 
-        "ProductCode" : models_pkg.ProductCodeToValue(input.ProductCode),
-        "startDate" : input.StartDate,
-        "endDate" : input.EndDate,
+        "phonenumber" : input.Phonenumber,
+        "type" : input.Type,
 
     }
 

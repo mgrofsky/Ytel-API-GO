@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/01/2016
  */
 package transcription_pkg
 
@@ -12,37 +12,64 @@ import(
 	"message360_lib"
 	"message360_lib/apihelper_pkg"
 )
+
+/*
+ * Input structure for the method CreateAudioURLTranscription
+ */
+type CreateAudioURLTranscriptionInput struct {
+    AudioUrl        string          //Audio url
+    ResponseType    *string         //Response type format xml or json
+}
+
+/*
+ * Input structure for the method CreateRecordingTranscription
+ */
+type CreateRecordingTranscriptionInput struct {
+    RecordingSid    string          //Unique Recording sid
+    ResponseType    *string         //Response type format xml or json
+}
+
+/*
+ * Input structure for the method CreateViewTranscription
+ */
+type CreateViewTranscriptionInput struct {
+    TranscriptionSid string          //Unique Transcription ID
+    ResponseType     *string         //Response type format xml or json
+}
+
+/*
+ * Input structure for the method CreateListTranscription
+ */
+type CreateListTranscriptionInput struct {
+    Page            *int64          //TODO: Write general description for this field
+    PageSize        *int64          //TODO: Write general description for this field
+    Status          models_pkg.Status //TODO: Write general description for this field
+    DateTranscribed *string         //TODO: Write general description for this field
+    ResponseType    *string         //Response type format xml or json
+}
+
 /*
  * Client structure as interface implementation
  */
 type TRANSCRIPTION_IMPL struct { }
 
 /**
- * Get All transcriptions
- * @param    *int64                   page                parameter: Optional
- * @param    *int64                   pageSize            parameter: Optional
- * @param    models_pkg.Status        status              parameter: Optional
- * @param    *string                  dateTranscribed     parameter: Optional
- * @param    *string                  responseType        parameter: Optional
+ * Audio URL Transcriptions
+ * @param  CreateAudioURLTranscriptionInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *TRANSCRIPTION_IMPL) CreateListTranscription (
-            page *int64,
-            pageSize *int64,
-            status models_pkg.Status,
-            dateTranscribed *string,
-            responseType *string) (string, error) {
+func (me *TRANSCRIPTION_IMPL) CreateAudioURLTranscription (input *CreateAudioURLTranscriptionInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/transcriptions/listtranscription.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/transcriptions/audiourltranscription.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*responseType, "json"),
+        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
     })
     if err != nil {
         //error in template param handling
@@ -64,10 +91,7 @@ func (me *TRANSCRIPTION_IMPL) CreateListTranscription (
     //form parameters
     parameters := map[string]interface{} {
 
-        "Page" : page,
-        "PageSize" : pageSize,
-        "Status" : models_pkg.StatusToValue(status),
-        "DateTranscribed" : dateTranscribed,
+        "AudioUrl" : input.AudioUrl,
 
     }
 
@@ -96,13 +120,10 @@ func (me *TRANSCRIPTION_IMPL) CreateListTranscription (
 
 /**
  * Recording Transcriptions
- * @param    string         recordingSid     parameter: Required
- * @param    *string        responseType     parameter: Optional
+ * @param  CreateRecordingTranscriptionInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *TRANSCRIPTION_IMPL) CreateRecordingTranscription (
-            recordingSid string,
-            responseType *string) (string, error) {
+func (me *TRANSCRIPTION_IMPL) CreateRecordingTranscription (input *CreateRecordingTranscriptionInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -113,7 +134,7 @@ func (me *TRANSCRIPTION_IMPL) CreateRecordingTranscription (
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*responseType, "json"),
+        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
     })
     if err != nil {
         //error in template param handling
@@ -135,7 +156,7 @@ func (me *TRANSCRIPTION_IMPL) CreateRecordingTranscription (
     //form parameters
     parameters := map[string]interface{} {
 
-        "RecordingSid" : recordingSid,
+        "RecordingSid" : input.RecordingSid,
 
     }
 
@@ -164,13 +185,10 @@ func (me *TRANSCRIPTION_IMPL) CreateRecordingTranscription (
 
 /**
  * View Specific Transcriptions
- * @param    string         transcriptionSid     parameter: Required
- * @param    *string        responseType         parameter: Optional
+ * @param  CreateViewTranscriptionInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *TRANSCRIPTION_IMPL) CreateViewTranscription (
-            transcriptionSid string,
-            responseType *string) (string, error) {
+func (me *TRANSCRIPTION_IMPL) CreateViewTranscription (input *CreateViewTranscriptionInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -181,7 +199,7 @@ func (me *TRANSCRIPTION_IMPL) CreateViewTranscription (
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*responseType, "json"),
+        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
     })
     if err != nil {
         //error in template param handling
@@ -203,7 +221,7 @@ func (me *TRANSCRIPTION_IMPL) CreateViewTranscription (
     //form parameters
     parameters := map[string]interface{} {
 
-        "TranscriptionSid" : transcriptionSid,
+        "TranscriptionSid" : input.TranscriptionSid,
 
     }
 
@@ -231,25 +249,22 @@ func (me *TRANSCRIPTION_IMPL) CreateViewTranscription (
 }
 
 /**
- * Audio URL Transcriptions
- * @param    string         audioUrl         parameter: Required
- * @param    *string        responseType     parameter: Optional
+ * Get All transcriptions
+ * @param  CreateListTranscriptionInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *TRANSCRIPTION_IMPL) CreateAudioURLTranscription (
-            audioUrl string,
-            responseType *string) (string, error) {
+func (me *TRANSCRIPTION_IMPL) CreateListTranscription (input *CreateListTranscriptionInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/transcriptions/audiourltranscription.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/transcriptions/listtranscription.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*responseType, "json"),
+        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
     })
     if err != nil {
         //error in template param handling
@@ -271,7 +286,10 @@ func (me *TRANSCRIPTION_IMPL) CreateAudioURLTranscription (
     //form parameters
     parameters := map[string]interface{} {
 
-        "AudioUrl" : audioUrl,
+        "Page" : input.Page,
+        "PageSize" : input.PageSize,
+        "Status" : models_pkg.StatusToValue(input.Status),
+        "DateTranscribed" : input.DateTranscribed,
 
     }
 

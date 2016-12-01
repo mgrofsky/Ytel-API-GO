@@ -3,7 +3,7 @@
  *
  * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/01/2016
  */
-package recording_pkg
+package webrtc_pkg
 
 
 import(
@@ -13,65 +13,54 @@ import(
 )
 
 /*
- * Input structure for the method CreateListRecording
+ * Input structure for the method CreateToken
  */
-type CreateListRecordingInput struct {
-    Page            *int64          //Which page of the overall response will be returned. Zero indexed
-    PageSize        *int64          //Number of individual resources listed in the response per page
-    DateCreated     *string         //TODO: Write general description for this field
-    CallSid         *string         //TODO: Write general description for this field
-    ResponseType    *string         //Response type format xml or json
+type CreateTokenInput struct {
+    AccountSid      string          //Your message360 Account SID
+    AuthToken       string          //Your message360 Token
 }
 
 /*
- * Input structure for the method CreateDeleteRecording
+ * Input structure for the method CreateCheckFunds
  */
-type CreateDeleteRecordingInput struct {
-    RecordingSid    string          //Unique Recording Sid to be delete
-    ResponseType    *string         //Response type format xml or json
+type CreateCheckFundsInput struct {
+    AccountSid      string          //Your message360 Account SID
+    AuthToken       string          //Your message360 Token
 }
 
 /*
- * Input structure for the method CreateViewRecording
+ * Input structure for the method CreateAuthenticateNumber
  */
-type CreateViewRecordingInput struct {
-    RecordingSid    string          //Search Recording sid
-    ResponseType    *string         //Response type format xml or json
+type CreateAuthenticateNumberInput struct {
+    PhoneNumber     string          //Phone number to authenticate for use
+    AccountSid      string          //Your message360 Account SID
+    AuthToken       string          //Your message360 token
 }
 
 /*
  * Client structure as interface implementation
  */
-type RECORDING_IMPL struct { }
+type WEBRTC_IMPL struct { }
 
 /**
- * List out Recordings
- * @param  CreateListRecordingInput     Structure with all inputs
- * @return	Returns the string response from the API call
+ * message360 webrtc
+ * @param  CreateTokenInput     Structure with all inputs
+ * @return	Returns the  response from the API call
  */
-func (me *RECORDING_IMPL) CreateListRecording (input *CreateListRecordingInput) (string, error) {
+func (me *WEBRTC_IMPL) CreateToken (input *CreateTokenInput) (error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/recording/listrecording.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/webrtc/createToken.json"
 
     //variable to hold errors
     var err error = nil
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
-    })
-    if err != nil {
-        //error in template param handling
-        return "", err
-    }
-
     //validate and preprocess url
     _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
     if err != nil {
         //error in url validation or cleaning
-        return "", err
+        return err
     }
 
     //prepare headers for the outgoing request
@@ -82,10 +71,8 @@ func (me *RECORDING_IMPL) CreateListRecording (input *CreateListRecordingInput) 
     //form parameters
     parameters := map[string]interface{} {
 
-        "Page" : input.Page,
-        "PageSize" : input.PageSize,
-        "DateCreated" : input.DateCreated,
-        "CallSid" : input.CallSid,
+        "account_sid" : input.AccountSid,
+        "auth_token" : input.AuthToken,
 
     }
 
@@ -96,7 +83,7 @@ func (me *RECORDING_IMPL) CreateListRecording (input *CreateListRecordingInput) 
     _response, err := unirest.AsString(_request);
     if err != nil {
         //error in API invocation
-        return "", err
+        return err
     }
 
     //error handling using HTTP status codes
@@ -105,41 +92,32 @@ func (me *RECORDING_IMPL) CreateListRecording (input *CreateListRecordingInput) 
     }
     if(err != nil) {
         //error detected in status code validation
-        return "", err
+        return err
     }
 
     //returning the response
-    return _response.Body, nil
+    return nil
 }
 
 /**
- * Delete Recording Record
- * @param  CreateDeleteRecordingInput     Structure with all inputs
- * @return	Returns the string response from the API call
+ * TODO: type endpoint description here
+ * @param  CreateCheckFundsInput     Structure with all inputs
+ * @return	Returns the  response from the API call
  */
-func (me *RECORDING_IMPL) CreateDeleteRecording (input *CreateDeleteRecordingInput) (string, error) {
+func (me *WEBRTC_IMPL) CreateCheckFunds (input *CreateCheckFundsInput) (error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/recording/deleterecording.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/webrtc/checkFunds.json"
 
     //variable to hold errors
     var err error = nil
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
-    })
-    if err != nil {
-        //error in template param handling
-        return "", err
-    }
-
     //validate and preprocess url
     _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
     if err != nil {
         //error in url validation or cleaning
-        return "", err
+        return err
     }
 
     //prepare headers for the outgoing request
@@ -150,7 +128,8 @@ func (me *RECORDING_IMPL) CreateDeleteRecording (input *CreateDeleteRecordingInp
     //form parameters
     parameters := map[string]interface{} {
 
-        "RecordingSid" : input.RecordingSid,
+        "account_sid" : input.AccountSid,
+        "auth_token" : input.AuthToken,
 
     }
 
@@ -161,7 +140,7 @@ func (me *RECORDING_IMPL) CreateDeleteRecording (input *CreateDeleteRecordingInp
     _response, err := unirest.AsString(_request);
     if err != nil {
         //error in API invocation
-        return "", err
+        return err
     }
 
     //error handling using HTTP status codes
@@ -170,41 +149,32 @@ func (me *RECORDING_IMPL) CreateDeleteRecording (input *CreateDeleteRecordingInp
     }
     if(err != nil) {
         //error detected in status code validation
-        return "", err
+        return err
     }
 
     //returning the response
-    return _response.Body, nil
+    return nil
 }
 
 /**
- * View a specific Recording
- * @param  CreateViewRecordingInput     Structure with all inputs
- * @return	Returns the string response from the API call
+ * Authenticate a message360 number for use
+ * @param  CreateAuthenticateNumberInput     Structure with all inputs
+ * @return	Returns the  response from the API call
  */
-func (me *RECORDING_IMPL) CreateViewRecording (input *CreateViewRecordingInput) (string, error) {
+func (me *WEBRTC_IMPL) CreateAuthenticateNumber (input *CreateAuthenticateNumberInput) (error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/recording/viewrecording.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/webrtc/authenticateNumber.json"
 
     //variable to hold errors
     var err error = nil
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
-    })
-    if err != nil {
-        //error in template param handling
-        return "", err
-    }
-
     //validate and preprocess url
     _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
     if err != nil {
         //error in url validation or cleaning
-        return "", err
+        return err
     }
 
     //prepare headers for the outgoing request
@@ -215,7 +185,9 @@ func (me *RECORDING_IMPL) CreateViewRecording (input *CreateViewRecordingInput) 
     //form parameters
     parameters := map[string]interface{} {
 
-        "RecordingSid" : input.RecordingSid,
+        "phone_number" : input.PhoneNumber,
+        "account_sid" : input.AccountSid,
+        "auth_token" : input.AuthToken,
 
     }
 
@@ -226,7 +198,7 @@ func (me *RECORDING_IMPL) CreateViewRecording (input *CreateViewRecordingInput) 
     _response, err := unirest.AsString(_request);
     if err != nil {
         //error in API invocation
-        return "", err
+        return err
     }
 
     //error handling using HTTP status codes
@@ -235,10 +207,10 @@ func (me *RECORDING_IMPL) CreateViewRecording (input *CreateViewRecordingInput) 
     }
     if(err != nil) {
         //error detected in status code validation
-        return "", err
+        return err
     }
 
     //returning the response
-    return _response.Body, nil
+    return nil
 }
 

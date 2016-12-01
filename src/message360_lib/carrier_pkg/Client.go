@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/01/2016
  */
 package carrier_pkg
 
@@ -11,6 +11,24 @@ import(
 	"message360_lib"
 	"message360_lib/apihelper_pkg"
 )
+
+/*
+ * Input structure for the method CreateCarrierLookup
+ */
+type CreateCarrierLookupInput struct {
+    Phonenumber     string          //The number to lookup
+    ResponseType    *string         //Response type format xml or json
+}
+
+/*
+ * Input structure for the method CreateCarrierLookupList
+ */
+type CreateCarrierLookupListInput struct {
+    Page            *int64          //Page Number
+    Pagesize        *int64          //Page Size
+    ResponseType    *string         //Response type format xml or json
+}
+
 /*
  * Client structure as interface implementation
  */
@@ -18,13 +36,10 @@ type CARRIER_IMPL struct { }
 
 /**
  * Get the Carrier Lookup
- * @param    string         phonenumber      parameter: Required
- * @param    *string        responseType     parameter: Optional
+ * @param  CreateCarrierLookupInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CARRIER_IMPL) CreateCarrierLookup (
-            phonenumber string,
-            responseType *string) (string, error) {
+func (me *CARRIER_IMPL) CreateCarrierLookup (input *CreateCarrierLookupInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -35,7 +50,7 @@ func (me *CARRIER_IMPL) CreateCarrierLookup (
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*responseType, "json"),
+        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
     })
     if err != nil {
         //error in template param handling
@@ -57,7 +72,7 @@ func (me *CARRIER_IMPL) CreateCarrierLookup (
     //form parameters
     parameters := map[string]interface{} {
 
-        "phonenumber" : phonenumber,
+        "phonenumber" : input.Phonenumber,
 
     }
 
@@ -86,15 +101,10 @@ func (me *CARRIER_IMPL) CreateCarrierLookup (
 
 /**
  * Get the All Purchase Number's Carrier lookup
- * @param    *string        page             parameter: Optional
- * @param    *string        pagesize         parameter: Optional
- * @param    *string        responseType     parameter: Optional
+ * @param  CreateCarrierLookupListInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CARRIER_IMPL) CreateCarrierLookupList (
-            page *string,
-            pagesize *string,
-            responseType *string) (string, error) {
+func (me *CARRIER_IMPL) CreateCarrierLookupList (input *CreateCarrierLookupListInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -105,7 +115,7 @@ func (me *CARRIER_IMPL) CreateCarrierLookupList (
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*responseType, "json"),
+        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
     })
     if err != nil {
         //error in template param handling
@@ -127,8 +137,8 @@ func (me *CARRIER_IMPL) CreateCarrierLookupList (
     //form parameters
     parameters := map[string]interface{} {
 
-        "page" : page,
-        "pagesize" : pagesize,
+        "page" : input.Page,
+        "pagesize" : input.Pagesize,
 
     }
 
