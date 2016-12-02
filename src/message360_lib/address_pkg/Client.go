@@ -3,98 +3,82 @@
  *
  * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/02/2016
  */
-package phonenumber_pkg
+package address_pkg
 
 
 import(
-	"message360_lib/models_pkg"
 	"github.com/apimatic/unirest-go"
 	"message360_lib"
 	"message360_lib/apihelper_pkg"
 )
 
 /*
- * Input structure for the method UpdatePhoneNumber
+ * Input structure for the method CreateAddress
  */
-type UpdatePhoneNumberInput struct {
-    PhoneNumber          string          //TODO: Write general description for this field
-    FriendlyName         *string         //TODO: Write general description for this field
-    VoiceUrl             *string         //URL requested once the call connects
-    VoiceMethod          models_pkg.HttpAction //TODO: Write general description for this field
-    VoiceFallbackUrl     *string         //URL requested if the voice URL is not available
-    VoiceFallbackMethod  models_pkg.HttpAction //TODO: Write general description for this field
-    HangupCallback       *string         //TODO: Write general description for this field
-    HangupCallbackMethod models_pkg.HttpAction //TODO: Write general description for this field
-    HeartbeatUrl         *string         //URL requested once the call connects
-    HeartbeatMethod      models_pkg.HttpAction //URL that can be requested every 60 seconds during the call to notify of elapsed time
-    SmsUrl               *string         //URL requested when an SMS is received
-    SmsMethod            models_pkg.HttpAction //TODO: Write general description for this field
-    SmsFallbackUrl       *string         //URL requested once the call connects
-    SmsFallbackMethod    models_pkg.HttpAction //URL requested if the sms URL is not available
-    ResponseType         *string         //Response type format xml or json
+type CreateAddressInput struct {
+    Name            string          //Name of user
+    Address         string          //Address of user.
+    Country         string          //Must be a 2 letter country short-name code (ISO 3166)
+    State           string          //Must be a 2 letter State eg. CA for US. For Some Countries it can be greater than 2 letters.
+    City            string          //City Name.
+    Zip             string          //Zip code of city.
+    Description     *string         //Description of addresses.
+    Email           *string         //Email Id of user.
+    Phone           *string         //Phone number of user.
+    ResponseType    *string         //Response Type Either json or xml
 }
 
 /*
- * Input structure for the method CreateBuyNumber
+ * Input structure for the method CreateDeleteAddress
  */
-type CreateBuyNumberInput struct {
-    PhoneNumber     string          //Phone number to be purchase
-    ResponseType    *string         //Response type format xml or json
+type CreateDeleteAddressInput struct {
+    Addressid       string          //The identifier of the address to be deleted.
+    ResponseType    *string         //Response type either json or xml
 }
 
 /*
- * Input structure for the method CreateReleaseNumber
+ * Input structure for the method CreateVerifyAddress
  */
-type CreateReleaseNumberInput struct {
-    PhoneNumber     string          //Phone number to be relase
-    ResponseType    *string         //Response type format xml or json
+type CreateVerifyAddressInput struct {
+    Addressid       string          //The identifier of the address to be verified.
+    ResponseType    *string         //Response type either JSON or xml
 }
 
 /*
- * Input structure for the method CreateViewNumberDetails
+ * Input structure for the method CreateListAddress
  */
-type CreateViewNumberDetailsInput struct {
-    PhoneNumber     string          //Get Phone number Detail
-    ResponseType    *string         //Response type format xml or json
+type CreateListAddressInput struct {
+    Page            *int64          //Return requested # of items starting the value, default=0, must be an integer
+    PageSize        *int64          //How many results to return, default=10, max 100, must be an integer
+    AddressId       *string         //addresses Sid
+    DateCreated     *string         //date created address.
+    ResponseType    *string         //Response Type either json or xml
 }
 
 /*
- * Input structure for the method CreateListNumber
+ * Input structure for the method CreateViewAddress
  */
-type CreateListNumberInput struct {
-    Page            *int64          //Which page of the overall response will be returned. Zero indexed
-    PageSize        *int64          //Number of individual resources listed in the response per page
-    NumberType      models_pkg.NumberType //TODO: Write general description for this field
-    FriendlyName    *string         //TODO: Write general description for this field
-    ResponseType    *string         //Response type format xml or json
-}
-
-/*
- * Input structure for the method CreateAvailablePhoneNumber
- */
-type CreateAvailablePhoneNumberInput struct {
-    NumberType      models_pkg.NumberType //Number type either SMS,Voice or all
-    AreaCode        string          //Phone Number Area Code
-    PageSize        *int64          //Page Size
-    ResponseType    *string         //Response type format xml or json
+type CreateViewAddressInput struct {
+    AddressId       string          //The identifier of the address to be retrieved.
+    ResponseType    *string         //Response Type either json or xml
 }
 
 /*
  * Client structure as interface implementation
  */
-type PHONENUMBER_IMPL struct { }
+type ADDRESS_IMPL struct { }
 
 /**
- * Update Phone Number Details
- * @param  UpdatePhoneNumberInput     Structure with all inputs
+ * To add an address to your address book, you create a new address object. You can retrieve and delete individual addresses as well as get a list of addresses. Addresses are identified by a unique random ID.
+ * @param  CreateAddressInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *PHONENUMBER_IMPL) UpdatePhoneNumber (input *UpdatePhoneNumberInput) (string, error) {
+func (me *ADDRESS_IMPL) CreateAddress (input *CreateAddressInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/incomingphone/updatenumber.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/address/createaddress.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -122,20 +106,15 @@ func (me *PHONENUMBER_IMPL) UpdatePhoneNumber (input *UpdatePhoneNumberInput) (s
     //form parameters
     parameters := map[string]interface{} {
 
-        "PhoneNumber" : input.PhoneNumber,
-        "FriendlyName" : input.FriendlyName,
-        "VoiceUrl" : input.VoiceUrl,
-        "VoiceMethod" : models_pkg.HttpActionToValue(input.VoiceMethod),
-        "VoiceFallbackUrl" : input.VoiceFallbackUrl,
-        "VoiceFallbackMethod" : models_pkg.HttpActionToValue(input.VoiceFallbackMethod),
-        "HangupCallback" : input.HangupCallback,
-        "HangupCallbackMethod" : models_pkg.HttpActionToValue(input.HangupCallbackMethod),
-        "HeartbeatUrl" : input.HeartbeatUrl,
-        "HeartbeatMethod" : models_pkg.HttpActionToValue(input.HeartbeatMethod),
-        "SmsUrl" : input.SmsUrl,
-        "SmsMethod" : models_pkg.HttpActionToValue(input.SmsMethod),
-        "SmsFallbackUrl" : input.SmsFallbackUrl,
-        "SmsFallbackMethod" : models_pkg.HttpActionToValue(input.SmsFallbackMethod),
+        "name" : input.Name,
+        "address" : input.Address,
+        "country" : input.Country,
+        "state" : input.State,
+        "city" : input.City,
+        "zip" : input.Zip,
+        "description" : input.Description,
+        "email" : input.Email,
+        "phone" : input.Phone,
 
     }
 
@@ -163,16 +142,16 @@ func (me *PHONENUMBER_IMPL) UpdatePhoneNumber (input *UpdatePhoneNumberInput) (s
 }
 
 /**
- * Buy Phone Number 
- * @param  CreateBuyNumberInput     Structure with all inputs
+ * To delete Address to your address book
+ * @param  CreateDeleteAddressInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *PHONENUMBER_IMPL) CreateBuyNumber (input *CreateBuyNumberInput) (string, error) {
+func (me *ADDRESS_IMPL) CreateDeleteAddress (input *CreateDeleteAddressInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/incomingphone/buynumber.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/address/deleteaddress.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -200,7 +179,7 @@ func (me *PHONENUMBER_IMPL) CreateBuyNumber (input *CreateBuyNumberInput) (strin
     //form parameters
     parameters := map[string]interface{} {
 
-        "PhoneNumber" : input.PhoneNumber,
+        "addressid" : input.Addressid,
 
     }
 
@@ -228,16 +207,16 @@ func (me *PHONENUMBER_IMPL) CreateBuyNumber (input *CreateBuyNumberInput) (strin
 }
 
 /**
- * Release number from account
- * @param  CreateReleaseNumberInput     Structure with all inputs
+ * Validates an address given.
+ * @param  CreateVerifyAddressInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *PHONENUMBER_IMPL) CreateReleaseNumber (input *CreateReleaseNumberInput) (string, error) {
+func (me *ADDRESS_IMPL) CreateVerifyAddress (input *CreateVerifyAddressInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/incomingphone/releasenumber.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/address/verifyaddress.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -265,7 +244,7 @@ func (me *PHONENUMBER_IMPL) CreateReleaseNumber (input *CreateReleaseNumberInput
     //form parameters
     parameters := map[string]interface{} {
 
-        "PhoneNumber" : input.PhoneNumber,
+        "addressid" : input.Addressid,
 
     }
 
@@ -293,16 +272,16 @@ func (me *PHONENUMBER_IMPL) CreateReleaseNumber (input *CreateReleaseNumberInput
 }
 
 /**
- * Get Phone Number Details
- * @param  CreateViewNumberDetailsInput     Structure with all inputs
+ * List All Address 
+ * @param  CreateListAddressInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *PHONENUMBER_IMPL) CreateViewNumberDetails (input *CreateViewNumberDetailsInput) (string, error) {
+func (me *ADDRESS_IMPL) CreateListAddress (input *CreateListAddressInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/incomingphone/viewnumber.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/address/listaddress.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -330,7 +309,10 @@ func (me *PHONENUMBER_IMPL) CreateViewNumberDetails (input *CreateViewNumberDeta
     //form parameters
     parameters := map[string]interface{} {
 
-        "PhoneNumber" : input.PhoneNumber,
+        "page" : apihelper_pkg.ToString(*input.Page, "1"),
+        "pageSize" : apihelper_pkg.ToString(*input.PageSize, "10"),
+        "addressId" : input.AddressId,
+        "dateCreated" : input.DateCreated,
 
     }
 
@@ -358,16 +340,16 @@ func (me *PHONENUMBER_IMPL) CreateViewNumberDetails (input *CreateViewNumberDeta
 }
 
 /**
- * List Account's Phone number details
- * @param  CreateListNumberInput     Structure with all inputs
+ * View Address Specific address Book by providing the address id
+ * @param  CreateViewAddressInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *PHONENUMBER_IMPL) CreateListNumber (input *CreateListNumberInput) (string, error) {
+func (me *ADDRESS_IMPL) CreateViewAddress (input *CreateViewAddressInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/incomingphone/listnumber.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/address/viewaddress.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -395,77 +377,7 @@ func (me *PHONENUMBER_IMPL) CreateListNumber (input *CreateListNumberInput) (str
     //form parameters
     parameters := map[string]interface{} {
 
-        "Page" : input.Page,
-        "PageSize" : input.PageSize,
-        "NumberType" : models_pkg.NumberTypeToValue(input.NumberType),
-        "FriendlyName" : input.FriendlyName,
-
-    }
-
-
-    //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
-    if err != nil {
-        //error in API invocation
-        return "", err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return "", err
-    }
-
-    //returning the response
-    return _response.Body, nil
-}
-
-/**
- * Available Phone Number
- * @param  CreateAvailablePhoneNumberInput     Structure with all inputs
- * @return	Returns the string response from the API call
- */
-func (me *PHONENUMBER_IMPL) CreateAvailablePhoneNumber (input *CreateAvailablePhoneNumberInput) (string, error) {
-        //the base uri for api requests
-    _queryBuilder := message360_lib.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/incomingphone/availablenumber.{ResponseType}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
-    })
-    if err != nil {
-        //error in template param handling
-        return "", err
-    }
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return "", err
-    }
-
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "message360-api",
-    }
-
-    //form parameters
-    parameters := map[string]interface{} {
-
-        "NumberType" : models_pkg.NumberTypeToValue(input.NumberType),
-        "AreaCode" : input.AreaCode,
-        "PageSize" : input.PageSize,
+        "addressId" : input.AddressId,
 
     }
 

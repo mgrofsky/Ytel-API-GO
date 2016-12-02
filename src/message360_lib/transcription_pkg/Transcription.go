@@ -1,24 +1,23 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 10/21/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/02/2016
  */
 
 package transcription_pkg
 
-import "message360_lib/models_pkg"
 
 /*
  * Interface for the TRANSCRIPTION_IMPL
  */
 type TRANSCRIPTION interface {
-    CreateListTranscription (*int64, *int64, models_pkg.Status, *string, *string) (string, error)
+    CreateAudioURLTranscription (*CreateAudioURLTranscriptionInput) (string, error)
 
-    CreateRecordingTranscription (string, *string) (string, error)
+    CreateRecordingTranscription (*CreateRecordingTranscriptionInput) (string, error)
 
-    CreateViewTranscription (string, *string) (string, error)
+    CreateViewTranscription (*CreateViewTranscriptionInput) (string, error)
 
-    CreateAudioURLTranscription (string, *string) (string, error)
+    CreateListTranscription (*CreateListTranscriptionInput) (string, error)
 }
 
 /*
