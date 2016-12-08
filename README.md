@@ -214,10 +214,10 @@ func (me *CONFERENCE_IMPL) CreateListConference(input *CreateListConferenceInput
 ```go
 collect := new (conference_pkg.CreateListConferenceInput)
 
-page,_ := strconv.ParseInt("30", 10, 8)
+page,_ := strconv.ParseInt("114", 10, 8)
 collect.Page = page
 
-pageSize,_ := strconv.ParseInt("30", 10, 8)
+pageSize,_ := strconv.ParseInt("114", 10, 8)
 collect.PageSize = pageSize
 
 friendlyName := "FriendlyName"
@@ -309,7 +309,7 @@ collect.Conferencesid = conferencesid
 participantnumber := "participantnumber"
 collect.Participantnumber = participantnumber
 
-tocountrycode,_ := strconv.ParseInt("30", 10, 8)
+tocountrycode,_ := strconv.ParseInt("114", 10, 8)
 collect.Tocountrycode = tocountrycode
 
 muted := false
@@ -357,10 +357,10 @@ collect := new (conference_pkg.CreateListParticipantInput)
 conferenceSid := "ConferenceSid"
 collect.ConferenceSid = conferenceSid
 
-page,_ := strconv.ParseInt("30", 10, 8)
+page,_ := strconv.ParseInt("114", 10, 8)
 collect.Page = page
 
-pagesize,_ := strconv.ParseInt("30", 10, 8)
+pagesize,_ := strconv.ParseInt("114", 10, 8)
 collect.Pagesize = pagesize
 
 muted := false
@@ -1019,10 +1019,10 @@ func (me *CARRIER_IMPL) CreateCarrierLookupList(input *CreateCarrierLookupListIn
 ```go
 collect := new (carrier_pkg.CreateCarrierLookupListInput)
 
-page,_ := strconv.ParseInt("30", 10, 8)
+page,_ := strconv.ParseInt("114", 10, 8)
 collect.Page = page
 
-pagesize,_ := strconv.ParseInt("30", 10, 8)
+pagesize,_ := strconv.ParseInt("114", 10, 8)
 collect.Pagesize = pagesize
 
 responseType := "json"
@@ -1159,7 +1159,7 @@ collect.HeartBeatUrl = heartBeatUrl
 heartBeatMethod := models_pkg.HttpAction_GET
 collect.HeartBeatMethod = heartBeatMethod
 
-timeout,_ := strconv.ParseInt("121", 10, 8)
+timeout,_ := strconv.ParseInt("114", 10, 8)
 collect.Timeout = timeout
 
 playDtmf := "PlayDtmf"
@@ -1227,19 +1227,19 @@ collect.CallSid = callSid
 audioDirection := models_pkg.AudioDirection_IN
 collect.AudioDirection = audioDirection
 
-pitchSemiTones := 121.925709264784
+pitchSemiTones := 114.525013104791
 collect.PitchSemiTones = pitchSemiTones
 
-pitchOctaves := 121.925709264784
+pitchOctaves := 114.525013104791
 collect.PitchOctaves = pitchOctaves
 
-pitch := 121.925709264784
+pitch := 114.525013104791
 collect.Pitch = pitch
 
-rate := 121.925709264784
+rate := 114.525013104791
 collect.Rate = rate
 
-tempo := 121.925709264784
+tempo := 114.525013104791
 collect.Tempo = tempo
 
 responseType := "json"
@@ -1288,7 +1288,7 @@ collect.Record = record
 direction := models_pkg.Direction_IN
 collect.Direction = direction
 
-timeLimit,_ := strconv.ParseInt("121", 10, 8)
+timeLimit,_ := strconv.ParseInt("72", 10, 8)
 collect.TimeLimit = timeLimit
 
 callBackUrl := "CallBackUrl"
@@ -1340,7 +1340,7 @@ collect.CallSid = callSid
 audioUrl := "AudioUrl"
 collect.AudioUrl = audioUrl
 
-length,_ := strconv.ParseInt("121", 10, 8)
+length,_ := strconv.ParseInt("72", 10, 8)
 collect.Length = length
 
 direction := models_pkg.Direction_IN
@@ -1388,10 +1388,10 @@ func (me *CALL_IMPL) CreateListCalls(input *CreateListCallsInput)(string,error)
 ```go
 collect := new (call_pkg.CreateListCallsInput)
 
-page,_ := strconv.ParseInt("121", 10, 8)
+page,_ := strconv.ParseInt("72", 10, 8)
 collect.Page = page
 
-pageSize,_ := strconv.ParseInt("121", 10, 8)
+pageSize,_ := strconv.ParseInt("72", 10, 8)
 collect.PageSize = pageSize
 
 to := "To"
@@ -1581,7 +1581,7 @@ collect.HeartBeatUrl = heartBeatUrl
 heartBeatMethod := false
 collect.HeartBeatMethod = heartBeatMethod
 
-timeout,_ := strconv.ParseInt("121", 10, 8)
+timeout,_ := strconv.ParseInt("72", 10, 8)
 collect.Timeout = timeout
 
 playDtmf := "PlayDtmf"
@@ -1690,7 +1690,7 @@ func (me *SMS_IMPL) CreateListInboundSMS(input *CreateListInboundSMSInput)(strin
 ```go
 collect := new (sms_pkg.CreateListInboundSMSInput)
 
-page,_ := strconv.ParseInt("121", 10, 8)
+page,_ := strconv.ParseInt("72", 10, 8)
 collect.Page = page
 
 pagesize := "pagesize"
@@ -1738,10 +1738,10 @@ func (me *SMS_IMPL) CreateListSMS(input *CreateListSMSInput)(string,error)
 ```go
 collect := new (sms_pkg.CreateListSMSInput)
 
-page,_ := strconv.ParseInt("121", 10, 8)
+page,_ := strconv.ParseInt("72", 10, 8)
 collect.Page = page
 
-pagesize,_ := strconv.ParseInt("121", 10, 8)
+pagesize,_ := strconv.ParseInt("72", 10, 8)
 collect.Pagesize = pagesize
 
 from := "from"
@@ -2583,10 +2583,10 @@ func (me *PHONENUMBER_IMPL) CreateListNumber(input *CreateListNumberInput)(strin
 ```go
 collect := new (phonenumber_pkg.CreateListNumberInput)
 
-page,_ := strconv.ParseInt("121", 10, 8)
+page,_ := strconv.ParseInt("72", 10, 8)
 collect.Page = page
 
-pageSize,_ := strconv.ParseInt("121", 10, 8)
+pageSize,_ := strconv.ParseInt("72", 10, 8)
 collect.PageSize = pageSize
 
 numberType := models_pkg.Number Type_ALL
@@ -2635,7 +2635,7 @@ collect.NumberType = numberType
 areaCode := "AreaCode"
 collect.AreaCode = areaCode
 
-pageSize,_ := strconv.ParseInt("121", 10, 8)
+pageSize,_ := strconv.ParseInt("72", 10, 8)
 collect.PageSize = pageSize
 
 responseType := "json"
@@ -2685,10 +2685,10 @@ func (me *RECORDING_IMPL) CreateListRecording(input *CreateListRecordingInput)(s
 ```go
 collect := new (recording_pkg.CreateListRecordingInput)
 
-page,_ := strconv.ParseInt("121", 10, 8)
+page,_ := strconv.ParseInt("72", 10, 8)
 collect.Page = page
 
-pageSize,_ := strconv.ParseInt("121", 10, 8)
+pageSize,_ := strconv.ParseInt("72", 10, 8)
 collect.PageSize = pageSize
 
 dateCreated := "DateCreated"
@@ -2919,10 +2919,10 @@ func (me *TRANSCRIPTION_IMPL) CreateListTranscription(input *CreateListTranscrip
 ```go
 collect := new (transcription_pkg.CreateListTranscriptionInput)
 
-page,_ := strconv.ParseInt("121", 10, 8)
+page,_ := strconv.ParseInt("72", 10, 8)
 collect.Page = page
 
-pageSize,_ := strconv.ParseInt("121", 10, 8)
+pageSize,_ := strconv.ParseInt("72", 10, 8)
 collect.PageSize = pageSize
 
 status := models_pkg.Status_INPROGRESS
