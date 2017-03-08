@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/12/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io )
  */
 
 package call_pkg
@@ -21,13 +21,13 @@ type CALL interface {
 
     CreatePlayAudio (*CreatePlayAudioInput) (string, error)
 
-    CreateListCalls (*CreateListCallsInput) (string, error)
-
     CreateInterruptedCall (*CreateInterruptedCallInput) (string, error)
 
     CreateSendDigit (*CreateSendDigitInput) (string, error)
 
     CreateMakeCall (*CreateMakeCallInput) (string, error)
+
+    CreateListCalls (*CreateListCallsInput) (string, error)
 }
 
 /*

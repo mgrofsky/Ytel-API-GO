@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/12/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io )
  */
 
 package subaccount_pkg
@@ -15,7 +15,7 @@ type SUBACCOUNT interface {
 
     CreateSuspendSubAccount (*CreateSuspendSubAccountInput) (string, error)
 
-    CreateDeleteMergeSubAccount (*CreateDeleteMergeSubAccountInput) (string, error)
+    CreateDeleteSubAccount (*CreateDeleteSubAccountInput) (string, error)
 }
 
 /*

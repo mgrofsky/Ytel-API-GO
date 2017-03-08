@@ -3,103 +3,105 @@
  *
  * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io )
  */
-package conference_pkg
+package shortcode_pkg
 
 
 import(
-	"message360_lib/models_pkg"
+	"errors"
+	"github.com/satori/go.uuid"
 	"github.com/apimatic/unirest-go"
 	"message360_lib"
 	"message360_lib/apihelper_pkg"
 )
 
 /*
- * Input structure for the method CreateDeafMuteParticipant
+ * Input structure for the method CreateViewTemplate
  */
-type CreateDeafMuteParticipantInput struct {
-    ConferenceSid   string          //TODO: Write general description for this field
-    ParticipantSid  string          //TODO: Write general description for this field
-    Muted           *bool           //TODO: Write general description for this field
-    Deaf            *bool           //TODO: Write general description for this field
-    ResponseType    *string         //Response Type either json or xml
+type CreateViewTemplateInput struct {
+    Templateid      uuid.UUID       //The unique identifier for a template object
+    ResponseType    string          //Response type format xml or json
 }
 
 /*
- * Input structure for the method CreateListConference
+ * Input structure for the method CreateSendShortCode
  */
-type CreateListConferenceInput struct {
+type CreateSendShortCodeInput struct {
+    Shortcode             string          //The Short Code number that is the sender of this message
+    Tocountrycode         string          //The country code for sending this message
+    To                    string          //A valid 10-digit number that should receive the message+
+    Templateid            uuid.UUID       //The unique identifier for the template used for the message
+    Method                *string         //Specifies the HTTP method used to request the required URL once the Short Code message is sent.
+    MessageStatusCallback *string         //URL that can be requested to receive notification when Short Code message was sent.
+    ResponseType          *string         //Response type format xml or json
+}
+
+/*
+ * Input structure for the method CreateListInboundShortCode
+ */
+type CreateListInboundShortCodeInput struct {
     Page            *int64          //Which page of the overall response will be returned. Zero indexed
-    PageSize        *int64          //Number of individual resources listed in the response per page
-    FriendlyName    *string         //Only return conferences with the specified FriendlyName
-    Status          models_pkg.InterruptedCallStatus //TODO: Write general description for this field
-    DateCreated     *string         //TODO: Write general description for this field
-    DateUpdated     *string         //TODO: Write general description for this field
+    Pagesize        *int64          //Number of individual resources listed in the response per page
+    From            *string         //From Number to Inbound ShortCode
+    Shortcode       *string         //Only list messages sent to this Short Code
+    DateReceived    *string         //Only list messages sent with the specified date
     ResponseType    *string         //Response type format xml or json
 }
 
 /*
- * Input structure for the method CreateViewConference
+ * Input structure for the method CreateListShortCode
  */
-type CreateViewConferenceInput struct {
-    Conferencesid   string          //The unique identifier of each conference resource
+type CreateListShortCodeInput struct {
+    Page            *int64          //Which page of the overall response will be returned. Zero indexed
+    Pagesize        *int64          //Number of individual resources listed in the response per page
+    From            *string         //Messages sent from this number
+    To              *string         //Messages sent to this number
+    Datesent        *string         //Only list SMS messages sent in the specified date range
     ResponseType    *string         //Response type format xml or json
 }
 
 /*
- * Input structure for the method AddParticipant
+ * Input structure for the method CreateListTemplates
  */
-type AddParticipantInput struct {
-    Conferencesid     string          //Unique Conference Sid
-    Participantnumber string          //Particiant Number
-    Tocountrycode     int64           //TODO: Write general description for this field
-    Muted             *bool           //TODO: Write general description for this field
-    Deaf              *bool           //TODO: Write general description for this field
-    ResponseType      *string         //Response type format xml or json
+type CreateListTemplatesInput struct {
+    Type            *string         //The type (category) of template Valid values: marketing, authorization
+    Page            *int64          //The page count to retrieve from the total results in the collection. Page indexing starts at 1.
+    Pagesize        *int64          //The count of objects to return per page.
+    ResponseType    *string         //Response type format xml or json
 }
 
 /*
- * Input structure for the method CreateListParticipant
+ * Input structure for the method CreateViewShortCode
  */
-type CreateListParticipantInput struct {
-    ConferenceSid   string          //unique conference sid
-    Page            *int64          //page number
-    Pagesize        *int64          //TODO: Write general description for this field
-    Muted           *bool           //TODO: Write general description for this field
-    Deaf            *bool           //TODO: Write general description for this field
-    ResponseType    *string         //Response format, xml or json
-}
-
-/*
- * Input structure for the method CreateViewParticipant
- */
-type CreateViewParticipantInput struct {
-    ConferenceSid   string          //unique conference sid
-    ParticipantSid  string          //TODO: Write general description for this field
+type CreateViewShortCodeInput struct {
+    Messagesid      string          //Message sid
     ResponseType    *string         //Response type format xml or json
 }
 
 /*
  * Client structure as interface implementation
  */
-type CONFERENCE_IMPL struct { }
+type SHORTCODE_IMPL struct { }
 
 /**
- * Deaf Mute Participant
- * @param  CreateDeafMuteParticipantInput     Structure with all inputs
+ * View a Shared ShortCode Template
+ * @param  CreateViewTemplateInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CONFERENCE_IMPL) CreateDeafMuteParticipant (input *CreateDeafMuteParticipantInput) (string, error) {
-        //the base uri for api requests
+func (me *SHORTCODE_IMPL) CreateViewTemplate (input *CreateViewTemplateInput) (string, error) {
+    //validating required parameters
+    if (input.Templateid == nil){
+        return nil,errors.New("The property 'templateid' in the input object cannot be nil.")
+}     //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/conferences/deafMuteParticipant.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/template/view.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -121,10 +123,7 @@ func (me *CONFERENCE_IMPL) CreateDeafMuteParticipant (input *CreateDeafMuteParti
     //form parameters
     parameters := map[string]interface{} {
 
-        "conferenceSid" : input.ConferenceSid,
-        "ParticipantSid" : input.ParticipantSid,
-        "Muted" : input.Muted,
-        "Deaf" : input.Deaf,
+        "templateid" : input.Templateid,
 
     }
 
@@ -152,16 +151,20 @@ func (me *CONFERENCE_IMPL) CreateDeafMuteParticipant (input *CreateDeafMuteParti
 }
 
 /**
- * List Conference
- * @param  CreateListConferenceInput     Structure with all inputs
+ * Send an SMS from a message360 ShortCode
+ * @param  CreateSendShortCodeInput     Structure with all inputs
+ * @param    fieldParameters    Additional optional form parameters are supported by this endpoint
  * @return	Returns the string response from the API call
  */
-func (me *CONFERENCE_IMPL) CreateListConference (input *CreateListConferenceInput) (string, error) {
-        //the base uri for api requests
+func (me *SHORTCODE_IMPL) CreateSendShortCode (input *CreateSendShortCodeInput, fieldParameters map[string]interface{}) (string, error) {
+    //validating required parameters
+    if (input.Templateid == nil){
+        return nil,errors.New("The property 'templateid' in the input object cannot be nil.")
+}     //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/conferences/listconference.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/shortcode/sendsms.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -189,146 +192,95 @@ func (me *CONFERENCE_IMPL) CreateListConference (input *CreateListConferenceInpu
     //form parameters
     parameters := map[string]interface{} {
 
-        "Page" : input.Page,
-        "PageSize" : input.PageSize,
-        "FriendlyName" : input.FriendlyName,
-        "Status" : models_pkg.InterruptedCallStatusToValue(input.Status),
-        "DateCreated" : input.DateCreated,
-        "DateUpdated" : input.DateUpdated,
-
-    }
-
-
-    //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
-    if err != nil {
-        //error in API invocation
-        return "", err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return "", err
-    }
-
-    //returning the response
-    return _response.Body, nil
-}
-
-/**
- * View Conference
- * @param  CreateViewConferenceInput     Structure with all inputs
- * @return	Returns the string response from the API call
- */
-func (me *CONFERENCE_IMPL) CreateViewConference (input *CreateViewConferenceInput) (string, error) {
-        //the base uri for api requests
-    _queryBuilder := message360_lib.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/conferences/viewconference.{ResponseType}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
-    })
-    if err != nil {
-        //error in template param handling
-        return "", err
-    }
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return "", err
-    }
-
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "message360-api",
-    }
-
-    //form parameters
-    parameters := map[string]interface{} {
-
-        "conferencesid" : input.Conferencesid,
-
-    }
-
-
-    //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
-    if err != nil {
-        //error in API invocation
-        return "", err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return "", err
-    }
-
-    //returning the response
-    return _response.Body, nil
-}
-
-/**
- * Add Participant in conference 
- * @param  AddParticipantInput     Structure with all inputs
- * @return	Returns the string response from the API call
- */
-func (me *CONFERENCE_IMPL) AddParticipant (input *AddParticipantInput) (string, error) {
-        //the base uri for api requests
-    _queryBuilder := message360_lib.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/conferences/addParticipant.{ResponseType}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
-    })
-    if err != nil {
-        //error in template param handling
-        return "", err
-    }
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return "", err
-    }
-
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "message360-api",
-    }
-
-    //form parameters
-    parameters := map[string]interface{} {
-
-        "conferencesid" : input.Conferencesid,
-        "participantnumber" : input.Participantnumber,
+        "shortcode" : input.Shortcode,
         "tocountrycode" : input.Tocountrycode,
-        "muted" : input.Muted,
-        "deaf" : input.Deaf,
+        "to" : input.To,
+        "templateid" : input.Templateid,
+        "Method" : apihelper_pkg.ToString(*input.Method, "GET"),
+        "MessageStatusCallback" : input.MessageStatusCallback,
+
+    }
+
+    //append optional form parameters
+    if fieldParameters != nil {
+        for k, v := range fieldParameters {
+            parameters[k] = v
+        }
+    }
+
+    //prepare API request
+    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request);
+    if err != nil {
+        //error in API invocation
+        return "", err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return "", err
+    }
+
+    //returning the response
+    return _response.Body, nil
+}
+
+/**
+ * List All Inbound ShortCode
+ * @param  CreateListInboundShortCodeInput     Structure with all inputs
+ * @return	Returns the string response from the API call
+ */
+func (me *SHORTCODE_IMPL) CreateListInboundShortCode (input *CreateListInboundShortCodeInput) (string, error) {
+        //the base uri for api requests
+    _queryBuilder := message360_lib.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + "/shortcode/getinboundsms.{ResponseType}"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional query parameters
+    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
+        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+    })
+    if err != nil {
+        //error in template param handling
+        return "", err
+    }
+
+    //process optional query parameters
+    _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
+        "DateReceived" : input.DateReceived,
+    })
+    if err != nil {
+        //error in query param handling
+        return "", err
+    }
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return "", err
+    }
+
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "message360-api",
+    }
+
+    //form parameters
+    parameters := map[string]interface{} {
+
+        "page" : input.Page,
+        "pagesize" : apihelper_pkg.ToString(*input.Pagesize, "10"),
+        "from" : input.From,
+        "Shortcode" : input.Shortcode,
 
     }
 
@@ -356,16 +308,16 @@ func (me *CONFERENCE_IMPL) AddParticipant (input *AddParticipantInput) (string, 
 }
 
 /**
- * List Participant
- * @param  CreateListParticipantInput     Structure with all inputs
+ * List ShortCode Messages
+ * @param  CreateListShortCodeInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CONFERENCE_IMPL) CreateListParticipant (input *CreateListParticipantInput) (string, error) {
+func (me *SHORTCODE_IMPL) CreateListShortCode (input *CreateListShortCodeInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/conferences/listparticipant.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/shortcode/listsms.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -393,11 +345,11 @@ func (me *CONFERENCE_IMPL) CreateListParticipant (input *CreateListParticipantIn
     //form parameters
     parameters := map[string]interface{} {
 
-        "ConferenceSid" : input.ConferenceSid,
-        "Page" : input.Page,
-        "Pagesize" : input.Pagesize,
-        "Muted" : input.Muted,
-        "Deaf" : input.Deaf,
+        "page" : input.Page,
+        "pagesize" : apihelper_pkg.ToString(*input.Pagesize, "10"),
+        "from" : input.From,
+        "to" : input.To,
+        "datesent" : input.Datesent,
 
     }
 
@@ -425,16 +377,16 @@ func (me *CONFERENCE_IMPL) CreateListParticipant (input *CreateListParticipantIn
 }
 
 /**
- * View Participant
- * @param  CreateViewParticipantInput     Structure with all inputs
+ * List Shortcode Templates by Type
+ * @param  CreateListTemplatesInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CONFERENCE_IMPL) CreateViewParticipant (input *CreateViewParticipantInput) (string, error) {
+func (me *SHORTCODE_IMPL) CreateListTemplates (input *CreateListTemplatesInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/conferences/viewparticipant.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/template/lists.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -462,8 +414,74 @@ func (me *CONFERENCE_IMPL) CreateViewParticipant (input *CreateViewParticipantIn
     //form parameters
     parameters := map[string]interface{} {
 
-        "ConferenceSid" : input.ConferenceSid,
-        "ParticipantSid" : input.ParticipantSid,
+        "type" : apihelper_pkg.ToString(*input.Type, "authorization"),
+        "page" : input.Page,
+        "pagesize" : apihelper_pkg.ToString(*input.Pagesize, "10"),
+
+    }
+
+
+    //prepare API request
+    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request);
+    if err != nil {
+        //error in API invocation
+        return "", err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return "", err
+    }
+
+    //returning the response
+    return _response.Body, nil
+}
+
+/**
+ * View a ShortCode Message
+ * @param  CreateViewShortCodeInput     Structure with all inputs
+ * @return	Returns the string response from the API call
+ */
+func (me *SHORTCODE_IMPL) CreateViewShortCode (input *CreateViewShortCodeInput) (string, error) {
+        //the base uri for api requests
+    _queryBuilder := message360_lib.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + "/shortcode/viewsms.{ResponseType}"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional query parameters
+    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
+        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+    })
+    if err != nil {
+        //error in template param handling
+        return "", err
+    }
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return "", err
+    }
+
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "message360-api",
+    }
+
+    //form parameters
+    parameters := map[string]interface{} {
+
+        "messagesid" : input.Messagesid,
 
     }
 

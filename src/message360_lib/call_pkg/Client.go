@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/12/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io )
  */
 package call_pkg
 
@@ -89,18 +89,6 @@ type CreatePlayAudioInput struct {
 }
 
 /*
- * Input structure for the method CreateListCalls
- */
-type CreateListCallsInput struct {
-    Page            *int64          //Which page of the overall response will be returned. Zero indexed
-    PageSize        *int64          //Number of individual resources listed in the response per page
-    To              *string         //Only list calls to this number
-    From            *string         //Only list calls from this number
-    DateCreated     *string         //Only list calls starting within the specified date range
-    ResponseType    *string         //Response type format xml or json
-}
-
-/*
  * Input structure for the method CreateInterruptedCall
  */
 type CreateInterruptedCallInput struct {
@@ -147,6 +135,18 @@ type CreateMakeCallInput struct {
     TranscribeCallBackUrl *string         //Transcription parameters will be sent here upon completion
     IfMachine             models_pkg.IfMachine //How Message360 should handle the receiving numbers voicemail machine
     ResponseType          *string         //Response type format xml or json
+}
+
+/*
+ * Input structure for the method CreateListCalls
+ */
+type CreateListCallsInput struct {
+    Page            *int64          //Which page of the overall response will be returned. Zero indexed
+    PageSize        *int64          //Number of individual resources listed in the response per page
+    To              *string         //Only list calls to this number
+    From            *string         //Only list calls from this number
+    DateCreated     *string         //Only list calls starting within the specified date range
+    ResponseType    *string         //Response type format xml or json
 }
 
 /*
@@ -515,75 +515,6 @@ func (me *CALL_IMPL) CreatePlayAudio (input *CreatePlayAudioInput) (string, erro
 }
 
 /**
- * A list of calls associated with your Message360 account
- * @param  CreateListCallsInput     Structure with all inputs
- * @return	Returns the string response from the API call
- */
-func (me *CALL_IMPL) CreateListCalls (input *CreateListCallsInput) (string, error) {
-        //the base uri for api requests
-    _queryBuilder := message360_lib.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/calls/listcalls.{ResponseType}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
-    })
-    if err != nil {
-        //error in template param handling
-        return "", err
-    }
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return "", err
-    }
-
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "message360-api",
-    }
-
-    //form parameters
-    parameters := map[string]interface{} {
-
-        "Page" : input.Page,
-        "PageSize" : input.PageSize,
-        "To" : input.To,
-        "From" : input.From,
-        "DateCreated" : input.DateCreated,
-
-    }
-
-
-    //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
-    if err != nil {
-        //error in API invocation
-        return "", err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return "", err
-    }
-
-    //returning the response
-    return _response.Body, nil
-}
-
-/**
  * Interrupt the Call by Call Sid
  * @param  CreateInterruptedCallInput     Structure with all inputs
  * @return	Returns the string response from the API call
@@ -785,6 +716,75 @@ func (me *CALL_IMPL) CreateMakeCall (input *CreateMakeCallInput) (string, error)
         "Transcribe" : input.Transcribe,
         "TranscribeCallBackUrl" : input.TranscribeCallBackUrl,
         "IfMachine" : models_pkg.IfMachineToValue(input.IfMachine),
+
+    }
+
+
+    //prepare API request
+    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request);
+    if err != nil {
+        //error in API invocation
+        return "", err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return "", err
+    }
+
+    //returning the response
+    return _response.Body, nil
+}
+
+/**
+ * A list of calls associated with your Message360 account
+ * @param  CreateListCallsInput     Structure with all inputs
+ * @return	Returns the string response from the API call
+ */
+func (me *CALL_IMPL) CreateListCalls (input *CreateListCallsInput) (string, error) {
+        //the base uri for api requests
+    _queryBuilder := message360_lib.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + "/calls/listcalls.{ResponseType}"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional query parameters
+    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
+        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+    })
+    if err != nil {
+        //error in template param handling
+        return "", err
+    }
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return "", err
+    }
+
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "message360-api",
+    }
+
+    //form parameters
+    parameters := map[string]interface{} {
+
+        "Page" : input.Page,
+        "PageSize" : apihelper_pkg.ToString(*input.PageSize, "10"),
+        "To" : input.To,
+        "From" : input.From,
+        "DateCreated" : input.DateCreated,
 
     }
 

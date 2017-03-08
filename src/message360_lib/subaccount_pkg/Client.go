@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/12/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io )
  */
 package subaccount_pkg
 
@@ -17,28 +17,28 @@ import(
  * Input structure for the method CreateSubAccount
  */
 type CreateSubAccountInput struct {
-    Firstname       string          //TODO: Write general description for this field
-    Lastname        string          //TODO: Write general description for this field
-    Email           string          //TODO: Write general description for this field
-    ResponseType    *string         //ResponseType Format either json or xml
+    FirstName       string          //Sub account user first name
+    LastName        string          //sub account user last name
+    Email           string          //Sub account email address
+    ResponseType    *string         //Response type format xml or json
 }
 
 /*
  * Input structure for the method CreateSuspendSubAccount
  */
 type CreateSuspendSubAccountInput struct {
-    Subaccountsid   string          //TODO: Write general description for this field
-    Activate        models_pkg.ActivateStatus //TODO: Write general description for this field
+    SubAccountSID   string          //The SubaccountSid to be activated or suspended
+    Activate        models_pkg.ActivateStatus //0 to suspend or 1 to activate
     ResponseType    *string         //TODO: Write general description for this field
 }
 
 /*
- * Input structure for the method CreateDeleteMergeSubAccount
+ * Input structure for the method CreateDeleteSubAccount
  */
-type CreateDeleteMergeSubAccountInput struct {
-    Subaccountsid   string          //TODO: Write general description for this field
-    Mergenumber     models_pkg.MergeNumberStatus //TODO: Write general description for this field
-    ResponseType    *string         //Response type format either json or xml
+type CreateDeleteSubAccountInput struct {
+    SubAccountSID   string          //The SubaccountSid to be deleted
+    MergeNumber     models_pkg.MergeNumberStatus //0 to delete or 1 to merge numbers to parent account.
+    ResponseType    *string         //Response type format xml or json
 }
 
 /*
@@ -47,7 +47,7 @@ type CreateDeleteMergeSubAccountInput struct {
 type SUBACCOUNT_IMPL struct { }
 
 /**
- * Create Sub account
+ * Create a sub user account under the parent account
  * @param  CreateSubAccountInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
@@ -84,9 +84,9 @@ func (me *SUBACCOUNT_IMPL) CreateSubAccount (input *CreateSubAccountInput) (stri
     //form parameters
     parameters := map[string]interface{} {
 
-        "firstname" : input.Firstname,
-        "lastname" : input.Lastname,
-        "email" : input.Email,
+        "FirstName" : input.FirstName,
+        "LastName" : input.LastName,
+        "Email" : input.Email,
 
     }
 
@@ -151,8 +151,8 @@ func (me *SUBACCOUNT_IMPL) CreateSuspendSubAccount (input *CreateSuspendSubAccou
     //form parameters
     parameters := map[string]interface{} {
 
-        "subaccountsid" : input.Subaccountsid,
-        "activate" : models_pkg.ActivateStatusToValue(input.Activate),
+        "SubAccountSID" : input.SubAccountSID,
+        "Activate" : models_pkg.ActivateStatusToValue(input.Activate),
 
     }
 
@@ -180,11 +180,11 @@ func (me *SUBACCOUNT_IMPL) CreateSuspendSubAccount (input *CreateSuspendSubAccou
 }
 
 /**
- * Delete or Merge Sub account
- * @param  CreateDeleteMergeSubAccountInput     Structure with all inputs
+ * Delete sub account or merge numbers into parent
+ * @param  CreateDeleteSubAccountInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *SUBACCOUNT_IMPL) CreateDeleteMergeSubAccount (input *CreateDeleteMergeSubAccountInput) (string, error) {
+func (me *SUBACCOUNT_IMPL) CreateDeleteSubAccount (input *CreateDeleteSubAccountInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -217,8 +217,8 @@ func (me *SUBACCOUNT_IMPL) CreateDeleteMergeSubAccount (input *CreateDeleteMerge
     //form parameters
     parameters := map[string]interface{} {
 
-        "subaccountsid" : input.Subaccountsid,
-        "mergenumber" : models_pkg.MergeNumberStatusToValue(input.Mergenumber),
+        "SubAccountSID" : input.SubAccountSID,
+        "MergeNumber" : models_pkg.MergeNumberStatusToValue(input.MergeNumber),
 
     }
 

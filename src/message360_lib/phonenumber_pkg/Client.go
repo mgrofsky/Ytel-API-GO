@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/12/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io )
  */
 package phonenumber_pkg
 
@@ -396,7 +396,7 @@ func (me *PHONENUMBER_IMPL) CreateListNumber (input *CreateListNumberInput) (str
     parameters := map[string]interface{} {
 
         "Page" : input.Page,
-        "PageSize" : input.PageSize,
+        "PageSize" : apihelper_pkg.ToString(*input.PageSize, "10"),
         "NumberType" : models_pkg.NumberTypeToValue(input.NumberType),
         "FriendlyName" : input.FriendlyName,
 
@@ -465,7 +465,7 @@ func (me *PHONENUMBER_IMPL) CreateAvailablePhoneNumber (input *CreateAvailablePh
 
         "NumberType" : models_pkg.NumberTypeToValue(input.NumberType),
         "AreaCode" : input.AreaCode,
-        "PageSize" : input.PageSize,
+        "PageSize" : apihelper_pkg.ToString(*input.PageSize, "10"),
 
     }
 

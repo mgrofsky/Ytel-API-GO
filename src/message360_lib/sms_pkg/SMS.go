@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/12/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io )
  */
 
 package sms_pkg
@@ -11,13 +11,13 @@ package sms_pkg
  * Interface for the SMS_IMPL
  */
 type SMS interface {
-    CreateViewSMS (*CreateViewSMSInput) (string, error)
-
     CreateListInboundSMS (*CreateListInboundSMSInput) (string, error)
 
     CreateListSMS (*CreateListSMSInput) (string, error)
 
     CreateSendSMS (*CreateSendSMSInput) (string, error)
+
+    CreateViewSMS (*CreateViewSMSInput) (string, error)
 }
 
 /*
