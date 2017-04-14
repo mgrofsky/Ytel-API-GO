@@ -10,38 +10,38 @@ import(
 )
 
 /**
- * Type definition for Status enum
+ * Type definition for StatusEnum enum
  */
-type Status int
+type StatusEnum int
 
 /**
- * Value collection for Status enum
+ * Value collection for StatusEnum enum
  */
 const (
-    Status_INPROGRESS Status = 1 + iota
+    Status_INPROGRESS StatusEnum = 1 + iota
     Status_SUCCESS
     Status_FAILURE
 )
 
-func (r Status) MarshalJSON() ([]byte, error) { 
-    s := StatusToValue(r)
+func (r StatusEnum) MarshalJSON() ([]byte, error) { 
+    s := StatusEnumToValue(r)
     return json.Marshal(s) 
 } 
 
-func (r *Status) UnmarshalJSON(data []byte) error { 
+func (r *StatusEnum) UnmarshalJSON(data []byte) error { 
     var s string 
     json.Unmarshal(data, &s)
-    v :=  StatusFromValue(s)
+    v :=  StatusEnumFromValue(s)
     *r = v 
     return nil 
  } 
 
 
 /**
- * Converts Status to its string representation
+ * Converts StatusEnum to its string representation
  */
-func StatusToValue(status Status) string {
-    switch status {
+func StatusEnumToValue(statusEnum StatusEnum) string {
+    switch statusEnum {
         case Status_INPROGRESS:
     		return "INPROGRESS"		
         case Status_SUCCESS:
@@ -54,12 +54,12 @@ func StatusToValue(status Status) string {
 }
 
 /**
- * Converts Status Array to its string Array representation
+ * Converts StatusEnum Array to its string Array representation
 */
-func StatusArrayToValue(status []Status) []string {
-    convArray := make([]string,len( status))
-    for i:=0; i<len(status);i++ {
-        convArray[i] = StatusToValue(status[i])
+func StatusEnumArrayToValue(statusEnum []StatusEnum) []string {
+    convArray := make([]string,len( statusEnum))
+    for i:=0; i<len(statusEnum);i++ {
+        convArray[i] = StatusEnumToValue(statusEnum[i])
     }
     return convArray
 }
@@ -68,7 +68,7 @@ func StatusArrayToValue(status []Status) []string {
 /**
  * Converts given value to its enum representation
  */
-func StatusFromValue(value string) Status {
+func StatusEnumFromValue(value string) StatusEnum {
     switch value {
         case "INPROGRESS":
             return Status_INPROGRESS

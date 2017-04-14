@@ -7,7 +7,7 @@
 package message360_lib
 
 /** The base Uri for API calls */
-const BASEURI string = "https://api.message360.com/api/v2"
+const BASEURI string = "https://api.message360.com/api/v3"
 
 var Config struct {
     /** The username to use with basic authentication */

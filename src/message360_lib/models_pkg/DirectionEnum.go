@@ -10,38 +10,38 @@ import(
 )
 
 /**
- * Type definition for Direction enum
+ * Type definition for DirectionEnum enum
  */
-type Direction int
+type DirectionEnum int
 
 /**
- * Value collection for Direction enum
+ * Value collection for DirectionEnum enum
  */
 const (
-    Direction_IN Direction = 1 + iota
+    Direction_IN DirectionEnum = 1 + iota
     Direction_OUT
     Direction_BOTH
 )
 
-func (r Direction) MarshalJSON() ([]byte, error) { 
-    s := DirectionToValue(r)
+func (r DirectionEnum) MarshalJSON() ([]byte, error) { 
+    s := DirectionEnumToValue(r)
     return json.Marshal(s) 
 } 
 
-func (r *Direction) UnmarshalJSON(data []byte) error { 
+func (r *DirectionEnum) UnmarshalJSON(data []byte) error { 
     var s string 
     json.Unmarshal(data, &s)
-    v :=  DirectionFromValue(s)
+    v :=  DirectionEnumFromValue(s)
     *r = v 
     return nil 
  } 
 
 
 /**
- * Converts Direction to its string representation
+ * Converts DirectionEnum to its string representation
  */
-func DirectionToValue(direction Direction) string {
-    switch direction {
+func DirectionEnumToValue(directionEnum DirectionEnum) string {
+    switch directionEnum {
         case Direction_IN:
     		return "IN"		
         case Direction_OUT:
@@ -54,12 +54,12 @@ func DirectionToValue(direction Direction) string {
 }
 
 /**
- * Converts Direction Array to its string Array representation
+ * Converts DirectionEnum Array to its string Array representation
 */
-func DirectionArrayToValue(direction []Direction) []string {
-    convArray := make([]string,len( direction))
-    for i:=0; i<len(direction);i++ {
-        convArray[i] = DirectionToValue(direction[i])
+func DirectionEnumArrayToValue(directionEnum []DirectionEnum) []string {
+    convArray := make([]string,len( directionEnum))
+    for i:=0; i<len(directionEnum);i++ {
+        convArray[i] = DirectionEnumToValue(directionEnum[i])
     }
     return convArray
 }
@@ -68,7 +68,7 @@ func DirectionArrayToValue(direction []Direction) []string {
 /**
  * Converts given value to its enum representation
  */
-func DirectionFromValue(value string) Direction {
+func DirectionEnumFromValue(value string) DirectionEnum {
     switch value {
         case "IN":
             return Direction_IN

@@ -43,7 +43,7 @@ type CreateViewTranscriptionInput struct {
 type CreateListTranscriptionInput struct {
     Page            *int64          //TODO: Write general description for this field
     PageSize        *int64          //TODO: Write general description for this field
-    Status          models_pkg.Status //TODO: Write general description for this field
+    Status          models_pkg.StatusEnum //TODO: Write general description for this field
     DateTranscribed *string         //TODO: Write general description for this field
     ResponseType    *string         //Response type format xml or json
 }
@@ -288,7 +288,7 @@ func (me *TRANSCRIPTION_IMPL) CreateListTranscription (input *CreateListTranscri
 
         "Page" : input.Page,
         "PageSize" : input.PageSize,
-        "Status" : models_pkg.StatusToValue(input.Status),
+        "Status" : models_pkg.StatusEnumToValue(input.Status),
         "DateTranscribed" : input.DateTranscribed,
 
     }

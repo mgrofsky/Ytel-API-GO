@@ -20,17 +20,17 @@ type UpdatePhoneNumberInput struct {
     PhoneNumber          string          //TODO: Write general description for this field
     FriendlyName         *string         //TODO: Write general description for this field
     VoiceUrl             *string         //URL requested once the call connects
-    VoiceMethod          models_pkg.HttpAction //TODO: Write general description for this field
+    VoiceMethod          models_pkg.HttpActionEnum //TODO: Write general description for this field
     VoiceFallbackUrl     *string         //URL requested if the voice URL is not available
-    VoiceFallbackMethod  models_pkg.HttpAction //TODO: Write general description for this field
+    VoiceFallbackMethod  models_pkg.HttpActionEnum //TODO: Write general description for this field
     HangupCallback       *string         //TODO: Write general description for this field
-    HangupCallbackMethod models_pkg.HttpAction //TODO: Write general description for this field
+    HangupCallbackMethod models_pkg.HttpActionEnum //TODO: Write general description for this field
     HeartbeatUrl         *string         //URL requested once the call connects
-    HeartbeatMethod      models_pkg.HttpAction //URL that can be requested every 60 seconds during the call to notify of elapsed time
+    HeartbeatMethod      models_pkg.HttpActionEnum //URL that can be requested every 60 seconds during the call to notify of elapsed time
     SmsUrl               *string         //URL requested when an SMS is received
-    SmsMethod            models_pkg.HttpAction //TODO: Write general description for this field
+    SmsMethod            models_pkg.HttpActionEnum //TODO: Write general description for this field
     SmsFallbackUrl       *string         //URL requested once the call connects
-    SmsFallbackMethod    models_pkg.HttpAction //URL requested if the sms URL is not available
+    SmsFallbackMethod    models_pkg.HttpActionEnum //URL requested if the sms URL is not available
     ResponseType         *string         //Response type format xml or json
 }
 
@@ -64,7 +64,7 @@ type CreateViewNumberDetailsInput struct {
 type CreateListNumberInput struct {
     Page            *int64          //Which page of the overall response will be returned. Zero indexed
     PageSize        *int64          //Number of individual resources listed in the response per page
-    NumberType      models_pkg.NumberType //TODO: Write general description for this field
+    NumberType      models_pkg.NumberTypeEnum //TODO: Write general description for this field
     FriendlyName    *string         //TODO: Write general description for this field
     ResponseType    *string         //Response type format xml or json
 }
@@ -73,7 +73,7 @@ type CreateListNumberInput struct {
  * Input structure for the method CreateAvailablePhoneNumber
  */
 type CreateAvailablePhoneNumberInput struct {
-    NumberType      models_pkg.NumberType //Number type either SMS,Voice or all
+    NumberType      models_pkg.NumberTypeEnum //Number type either SMS,Voice or all
     AreaCode        string          //Phone Number Area Code
     PageSize        *int64          //Page Size
     ResponseType    *string         //Response type format xml or json
@@ -125,17 +125,17 @@ func (me *PHONENUMBER_IMPL) UpdatePhoneNumber (input *UpdatePhoneNumberInput) (s
         "PhoneNumber" : input.PhoneNumber,
         "FriendlyName" : input.FriendlyName,
         "VoiceUrl" : input.VoiceUrl,
-        "VoiceMethod" : models_pkg.HttpActionToValue(input.VoiceMethod),
+        "VoiceMethod" : models_pkg.HttpActionEnumToValue(input.VoiceMethod),
         "VoiceFallbackUrl" : input.VoiceFallbackUrl,
-        "VoiceFallbackMethod" : models_pkg.HttpActionToValue(input.VoiceFallbackMethod),
+        "VoiceFallbackMethod" : models_pkg.HttpActionEnumToValue(input.VoiceFallbackMethod),
         "HangupCallback" : input.HangupCallback,
-        "HangupCallbackMethod" : models_pkg.HttpActionToValue(input.HangupCallbackMethod),
+        "HangupCallbackMethod" : models_pkg.HttpActionEnumToValue(input.HangupCallbackMethod),
         "HeartbeatUrl" : input.HeartbeatUrl,
-        "HeartbeatMethod" : models_pkg.HttpActionToValue(input.HeartbeatMethod),
+        "HeartbeatMethod" : models_pkg.HttpActionEnumToValue(input.HeartbeatMethod),
         "SmsUrl" : input.SmsUrl,
-        "SmsMethod" : models_pkg.HttpActionToValue(input.SmsMethod),
+        "SmsMethod" : models_pkg.HttpActionEnumToValue(input.SmsMethod),
         "SmsFallbackUrl" : input.SmsFallbackUrl,
-        "SmsFallbackMethod" : models_pkg.HttpActionToValue(input.SmsFallbackMethod),
+        "SmsFallbackMethod" : models_pkg.HttpActionEnumToValue(input.SmsFallbackMethod),
 
     }
 
@@ -397,7 +397,7 @@ func (me *PHONENUMBER_IMPL) CreateListNumber (input *CreateListNumberInput) (str
 
         "Page" : input.Page,
         "PageSize" : apihelper_pkg.ToString(*input.PageSize, "10"),
-        "NumberType" : models_pkg.NumberTypeToValue(input.NumberType),
+        "NumberType" : models_pkg.NumberTypeEnumToValue(input.NumberType),
         "FriendlyName" : input.FriendlyName,
 
     }
@@ -463,7 +463,7 @@ func (me *PHONENUMBER_IMPL) CreateAvailablePhoneNumber (input *CreateAvailablePh
     //form parameters
     parameters := map[string]interface{} {
 
-        "NumberType" : models_pkg.NumberTypeToValue(input.NumberType),
+        "NumberType" : models_pkg.NumberTypeEnumToValue(input.NumberType),
         "AreaCode" : input.AreaCode,
         "PageSize" : apihelper_pkg.ToString(*input.PageSize, "10"),
 

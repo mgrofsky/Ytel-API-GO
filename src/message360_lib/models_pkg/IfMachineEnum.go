@@ -10,37 +10,37 @@ import(
 )
 
 /**
- * Type definition for IfMachine enum
+ * Type definition for IfMachineEnum enum
  */
-type IfMachine int
+type IfMachineEnum int
 
 /**
- * Value collection for IfMachine enum
+ * Value collection for IfMachineEnum enum
  */
 const (
-    IfMachine_CONTINUE IfMachine = 1 + iota
+    IfMachine_CONTINUE IfMachineEnum = 1 + iota
     IfMachine_HANGUP
 )
 
-func (r IfMachine) MarshalJSON() ([]byte, error) { 
-    s := IfMachineToValue(r)
+func (r IfMachineEnum) MarshalJSON() ([]byte, error) { 
+    s := IfMachineEnumToValue(r)
     return json.Marshal(s) 
 } 
 
-func (r *IfMachine) UnmarshalJSON(data []byte) error { 
+func (r *IfMachineEnum) UnmarshalJSON(data []byte) error { 
     var s string 
     json.Unmarshal(data, &s)
-    v :=  IfMachineFromValue(s)
+    v :=  IfMachineEnumFromValue(s)
     *r = v 
     return nil 
  } 
 
 
 /**
- * Converts IfMachine to its string representation
+ * Converts IfMachineEnum to its string representation
  */
-func IfMachineToValue(ifMachine IfMachine) string {
-    switch ifMachine {
+func IfMachineEnumToValue(ifMachineEnum IfMachineEnum) string {
+    switch ifMachineEnum {
         case IfMachine_CONTINUE:
     		return "CONTINUE"		
         case IfMachine_HANGUP:
@@ -51,12 +51,12 @@ func IfMachineToValue(ifMachine IfMachine) string {
 }
 
 /**
- * Converts IfMachine Array to its string Array representation
+ * Converts IfMachineEnum Array to its string Array representation
 */
-func IfMachineArrayToValue(ifMachine []IfMachine) []string {
-    convArray := make([]string,len( ifMachine))
-    for i:=0; i<len(ifMachine);i++ {
-        convArray[i] = IfMachineToValue(ifMachine[i])
+func IfMachineEnumArrayToValue(ifMachineEnum []IfMachineEnum) []string {
+    convArray := make([]string,len( ifMachineEnum))
+    for i:=0; i<len(ifMachineEnum);i++ {
+        convArray[i] = IfMachineEnumToValue(ifMachineEnum[i])
     }
     return convArray
 }
@@ -65,7 +65,7 @@ func IfMachineArrayToValue(ifMachine []IfMachine) []string {
 /**
  * Converts given value to its enum representation
  */
-func IfMachineFromValue(value string) IfMachine {
+func IfMachineEnumFromValue(value string) IfMachineEnum {
     switch value {
         case "CONTINUE":
             return IfMachine_CONTINUE

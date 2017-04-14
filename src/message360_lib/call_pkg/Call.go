@@ -28,6 +28,8 @@ type CALL interface {
     CreateMakeCall (*CreateMakeCallInput) (string, error)
 
     CreateListCalls (*CreateListCallsInput) (string, error)
+
+    CreateSendRinglessVM (*CreateSendRinglessVMInput) (string, error)
 }
 
 /*

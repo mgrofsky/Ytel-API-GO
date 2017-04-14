@@ -10,38 +10,38 @@ import(
 )
 
 /**
- * Type definition for NumberType enum
+ * Type definition for NumberTypeEnum enum
  */
-type NumberType int
+type NumberTypeEnum int
 
 /**
- * Value collection for NumberType enum
+ * Value collection for NumberTypeEnum enum
  */
 const (
-    NumberType_ALL NumberType = 1 + iota
+    NumberType_ALL NumberTypeEnum = 1 + iota
     NumberType_VOICE
     NumberType_SMS
 )
 
-func (r NumberType) MarshalJSON() ([]byte, error) { 
-    s := NumberTypeToValue(r)
+func (r NumberTypeEnum) MarshalJSON() ([]byte, error) { 
+    s := NumberTypeEnumToValue(r)
     return json.Marshal(s) 
 } 
 
-func (r *NumberType) UnmarshalJSON(data []byte) error { 
+func (r *NumberTypeEnum) UnmarshalJSON(data []byte) error { 
     var s string 
     json.Unmarshal(data, &s)
-    v :=  NumberTypeFromValue(s)
+    v :=  NumberTypeEnumFromValue(s)
     *r = v 
     return nil 
  } 
 
 
 /**
- * Converts NumberType to its string representation
+ * Converts NumberTypeEnum to its string representation
  */
-func NumberTypeToValue(numberType NumberType) string {
-    switch numberType {
+func NumberTypeEnumToValue(numberTypeEnum NumberTypeEnum) string {
+    switch numberTypeEnum {
         case NumberType_ALL:
     		return "ALL"		
         case NumberType_VOICE:
@@ -54,12 +54,12 @@ func NumberTypeToValue(numberType NumberType) string {
 }
 
 /**
- * Converts NumberType Array to its string Array representation
+ * Converts NumberTypeEnum Array to its string Array representation
 */
-func NumberTypeArrayToValue(numberType []NumberType) []string {
-    convArray := make([]string,len( numberType))
-    for i:=0; i<len(numberType);i++ {
-        convArray[i] = NumberTypeToValue(numberType[i])
+func NumberTypeEnumArrayToValue(numberTypeEnum []NumberTypeEnum) []string {
+    convArray := make([]string,len( numberTypeEnum))
+    for i:=0; i<len(numberTypeEnum);i++ {
+        convArray[i] = NumberTypeEnumToValue(numberTypeEnum[i])
     }
     return convArray
 }
@@ -68,7 +68,7 @@ func NumberTypeArrayToValue(numberType []NumberType) []string {
 /**
  * Converts given value to its enum representation
  */
-func NumberTypeFromValue(value string) NumberType {
+func NumberTypeEnumFromValue(value string) NumberTypeEnum {
     switch value {
         case "ALL":
             return NumberType_ALL

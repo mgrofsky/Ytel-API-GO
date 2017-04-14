@@ -28,7 +28,7 @@ type CreateSubAccountInput struct {
  */
 type CreateSuspendSubAccountInput struct {
     SubAccountSID   string          //The SubaccountSid to be activated or suspended
-    Activate        models_pkg.ActivateStatus //0 to suspend or 1 to activate
+    Activate        models_pkg.ActivateStatusEnum //0 to suspend or 1 to activate
     ResponseType    *string         //TODO: Write general description for this field
 }
 
@@ -37,7 +37,7 @@ type CreateSuspendSubAccountInput struct {
  */
 type CreateDeleteSubAccountInput struct {
     SubAccountSID   string          //The SubaccountSid to be deleted
-    MergeNumber     models_pkg.MergeNumberStatus //0 to delete or 1 to merge numbers to parent account.
+    MergeNumber     models_pkg.MergeNumberStatusEnum //0 to delete or 1 to merge numbers to parent account.
     ResponseType    *string         //Response type format xml or json
 }
 
@@ -152,7 +152,7 @@ func (me *SUBACCOUNT_IMPL) CreateSuspendSubAccount (input *CreateSuspendSubAccou
     parameters := map[string]interface{} {
 
         "SubAccountSID" : input.SubAccountSID,
-        "Activate" : models_pkg.ActivateStatusToValue(input.Activate),
+        "Activate" : models_pkg.ActivateStatusEnumToValue(input.Activate),
 
     }
 
@@ -218,7 +218,7 @@ func (me *SUBACCOUNT_IMPL) CreateDeleteSubAccount (input *CreateDeleteSubAccount
     parameters := map[string]interface{} {
 
         "SubAccountSID" : input.SubAccountSID,
-        "MergeNumber" : models_pkg.MergeNumberStatusToValue(input.MergeNumber),
+        "MergeNumber" : models_pkg.MergeNumberStatusEnumToValue(input.MergeNumber),
 
     }
 

@@ -45,7 +45,7 @@ type CreateSendSMSInput struct {
     Tocountrycode         int64           //To country code
     To                    string          //Number to send the SMS to
     Body                  string          //Text Message To Send
-    Method                models_pkg.HttpAction //Specifies the HTTP method used to request the required URL once SMS sent.
+    Method                models_pkg.HttpActionEnum //Specifies the HTTP method used to request the required URL once SMS sent.
     Messagestatuscallback *string         //URL that can be requested to receive notification when SMS has Sent. A set of default parameters will be sent here once the SMS is finished.
     ResponseType          *string         //Response type format xml or json
 }
@@ -243,7 +243,7 @@ func (me *SMS_IMPL) CreateSendSMS (input *CreateSendSMSInput) (string, error) {
         "tocountrycode" : input.Tocountrycode,
         "to" : input.To,
         "body" : input.Body,
-        "method" : models_pkg.HttpActionToValue(input.Method),
+        "method" : models_pkg.HttpActionEnumToValue(input.Method),
         "messagestatuscallback" : input.Messagestatuscallback,
 
     }

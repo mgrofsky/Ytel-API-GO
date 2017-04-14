@@ -31,7 +31,7 @@ type CreateListConferenceInput struct {
     Page            *int64          //Which page of the overall response will be returned. Zero indexed
     PageSize        *int64          //Number of individual resources listed in the response per page
     FriendlyName    *string         //Only return conferences with the specified FriendlyName
-    Status          models_pkg.InterruptedCallStatus //TODO: Write general description for this field
+    Status          models_pkg.InterruptedCallStatusEnum //TODO: Write general description for this field
     DateCreated     *string         //TODO: Write general description for this field
     DateUpdated     *string         //TODO: Write general description for this field
     ResponseType    *string         //Response type format xml or json
@@ -192,7 +192,7 @@ func (me *CONFERENCE_IMPL) CreateListConference (input *CreateListConferenceInpu
         "Page" : input.Page,
         "PageSize" : input.PageSize,
         "FriendlyName" : input.FriendlyName,
-        "Status" : models_pkg.InterruptedCallStatusToValue(input.Status),
+        "Status" : models_pkg.InterruptedCallStatusEnumToValue(input.Status),
         "DateCreated" : input.DateCreated,
         "DateUpdated" : input.DateUpdated,
 
