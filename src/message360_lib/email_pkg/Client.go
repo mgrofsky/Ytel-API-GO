@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/12/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io )
  */
 package email_pkg
 
@@ -112,7 +112,7 @@ type CreateDeleteSpamInput struct {
 type CreateSendEmailInput struct {
     To              string          //The to email address
     From            string          //The from email address
-    Type            models_pkg.SendEmailAs //email format type, html or text
+    Type            models_pkg.SendEmailAsEnum //email format type, html or text
     Subject         string          //Email subject
     Message         string          //The body of the email message
     Cc              *string         //CC Email address
@@ -886,7 +886,7 @@ func (me *EMAIL_IMPL) CreateSendEmail (input *CreateSendEmailInput) (string, err
 
         "to" : input.To,
         "from" : input.From,
-        "type" : models_pkg.SendEmailAsToValue(input.Type),
+        "type" : models_pkg.SendEmailAsEnumToValue(input.Type),
         "subject" : input.Subject,
         "message" : input.Message,
         "cc" : input.Cc,

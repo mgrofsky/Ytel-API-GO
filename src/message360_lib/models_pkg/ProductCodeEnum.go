@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/12/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io )
  */
 package models_pkg
 
@@ -10,15 +10,15 @@ import(
 )
 
 /**
- * Type definition for ProductCode enum
+ * Type definition for ProductCodeEnum enum
  */
-type ProductCode int
+type ProductCodeEnum int
 
 /**
- * Value collection for ProductCode enum
+ * Value collection for ProductCodeEnum enum
  */
 const (
-    ProductCode_ALL ProductCode = 0
+    ProductCode_ALL ProductCodeEnum = 0
     ProductCode_OUTBOUND_CALL = 1
     ProductCode_INBOUND_CALL = 2
     ProductCode_OUTBOUND_SMS = 3
@@ -34,25 +34,25 @@ const (
     ProductCode_DIRECT_MAIL_VERIFIED_ADDRESS = 13
 )
 
-func (r ProductCode) MarshalJSON() ([]byte, error) { 
-    s := ProductCodeToValue(r)
+func (r ProductCodeEnum) MarshalJSON() ([]byte, error) { 
+    s := ProductCodeEnumToValue(r)
     return json.Marshal(s) 
 } 
 
-func (r *ProductCode) UnmarshalJSON(data []byte) error { 
+func (r *ProductCodeEnum) UnmarshalJSON(data []byte) error { 
     var s int 
     json.Unmarshal(data, &s)
-    v :=  ProductCodeFromValue(s)
+    v :=  ProductCodeEnumFromValue(s)
     *r = v 
     return nil 
  } 
 
 
 /**
- * Converts ProductCode to its int representation
+ * Converts ProductCodeEnum to its int representation
  */
-func ProductCodeToValue(productCode ProductCode) int {
-    switch productCode {
+func ProductCodeEnumToValue(productCodeEnum ProductCodeEnum) int {
+    switch productCodeEnum {
         case ProductCode_ALL:
     		return 0		
         case ProductCode_OUTBOUND_CALL:
@@ -87,12 +87,12 @@ func ProductCodeToValue(productCode ProductCode) int {
 }
 
 /**
- * Converts ProductCode Array to its string Array representation
+ * Converts ProductCodeEnum Array to its string Array representation
 */
-func ProductCodeArrayToValue(productCode []ProductCode) []int {
-    convArray := make([]int,len( productCode))
-    for i:=0; i<len(productCode);i++ {
-        convArray[i] = ProductCodeToValue(productCode[i])
+func ProductCodeEnumArrayToValue(productCodeEnum []ProductCodeEnum) []int {
+    convArray := make([]int,len( productCodeEnum))
+    for i:=0; i<len(productCodeEnum);i++ {
+        convArray[i] = ProductCodeEnumToValue(productCodeEnum[i])
     }
     return convArray
 }
@@ -101,7 +101,7 @@ func ProductCodeArrayToValue(productCode []ProductCode) []int {
 /**
  * Converts given value to its enum representation
  */
-func ProductCodeFromValue(value int) ProductCode {
+func ProductCodeEnumFromValue(value int) ProductCodeEnum {
     switch value {
         case 0:
             return ProductCode_ALL

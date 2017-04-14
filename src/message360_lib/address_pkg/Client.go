@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/12/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io )
  */
 package address_pkg
 
@@ -25,14 +25,14 @@ type CreateAddressInput struct {
     Description     *string         //Description of addresses.
     Email           *string         //Email Id of user.
     Phone           *string         //Phone number of user.
-    ResponseType    *string         //Response Type Either json or xml
+    ResponseType    *string         //Response type either json or xml
 }
 
 /*
  * Input structure for the method CreateDeleteAddress
  */
 type CreateDeleteAddressInput struct {
-    Addressid       string          //The identifier of the address to be deleted.
+    AddressSID      string          //The identifier of the address to be deleted.
     ResponseType    *string         //Response type either json or xml
 }
 
@@ -40,8 +40,8 @@ type CreateDeleteAddressInput struct {
  * Input structure for the method CreateVerifyAddress
  */
 type CreateVerifyAddressInput struct {
-    Addressid       string          //The identifier of the address to be verified.
-    ResponseType    *string         //Response type either JSON or xml
+    AddressSID      string          //The identifier of the address to be verified.
+    ResponseType    *string         //Response type either json or xml
 }
 
 /*
@@ -49,8 +49,8 @@ type CreateVerifyAddressInput struct {
  */
 type CreateListAddressInput struct {
     Page            *int64          //Return requested # of items starting the value, default=0, must be an integer
-    PageSize        *int64          //How many results to return, default=10, max 100, must be an integer
-    AddressId       *string         //addresses Sid
+    PageSize        *int64          //How many results to return, default is 10, max is 100, must be an integer
+    AddressSID      *string         //addresses Sid
     DateCreated     *string         //date created address.
     ResponseType    *string         //Response Type either json or xml
 }
@@ -59,7 +59,7 @@ type CreateListAddressInput struct {
  * Input structure for the method CreateViewAddress
  */
 type CreateViewAddressInput struct {
-    AddressId       string          //The identifier of the address to be retrieved.
+    AddressSID      string          //The identifier of the address to be retrieved.
     ResponseType    *string         //Response Type either json or xml
 }
 
@@ -106,15 +106,15 @@ func (me *ADDRESS_IMPL) CreateAddress (input *CreateAddressInput) (string, error
     //form parameters
     parameters := map[string]interface{} {
 
-        "name" : input.Name,
-        "address" : input.Address,
-        "country" : input.Country,
-        "state" : input.State,
-        "city" : input.City,
-        "zip" : input.Zip,
-        "description" : input.Description,
+        "Name" : input.Name,
+        "Address" : input.Address,
+        "Country" : input.Country,
+        "State" : input.State,
+        "City" : input.City,
+        "Zip" : input.Zip,
+        "Description" : input.Description,
         "email" : input.Email,
-        "phone" : input.Phone,
+        "Phone" : input.Phone,
 
     }
 
@@ -179,7 +179,7 @@ func (me *ADDRESS_IMPL) CreateDeleteAddress (input *CreateDeleteAddressInput) (s
     //form parameters
     parameters := map[string]interface{} {
 
-        "addressid" : input.Addressid,
+        "AddressSID" : input.AddressSID,
 
     }
 
@@ -244,7 +244,7 @@ func (me *ADDRESS_IMPL) CreateVerifyAddress (input *CreateVerifyAddressInput) (s
     //form parameters
     parameters := map[string]interface{} {
 
-        "addressid" : input.Addressid,
+        "AddressSID" : input.AddressSID,
 
     }
 
@@ -309,10 +309,10 @@ func (me *ADDRESS_IMPL) CreateListAddress (input *CreateListAddressInput) (strin
     //form parameters
     parameters := map[string]interface{} {
 
-        "page" : apihelper_pkg.ToString(*input.Page, "1"),
-        "pageSize" : apihelper_pkg.ToString(*input.PageSize, "10"),
-        "addressId" : input.AddressId,
-        "dateCreated" : input.DateCreated,
+        "Page" : apihelper_pkg.ToString(*input.Page, "1"),
+        "PageSize" : apihelper_pkg.ToString(*input.PageSize, "10"),
+        "AddressSID" : input.AddressSID,
+        "DateCreated" : input.DateCreated,
 
     }
 
@@ -377,7 +377,7 @@ func (me *ADDRESS_IMPL) CreateViewAddress (input *CreateViewAddressInput) (strin
     //form parameters
     parameters := map[string]interface{} {
 
-        "addressId" : input.AddressId,
+        "AddressSID" : input.AddressSID,
 
     }
 

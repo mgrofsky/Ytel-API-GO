@@ -1,13 +1,13 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/12/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io )
  */
 
 package message360_lib
 
 /** The base Uri for API calls */
-const BASEURI string = "https://api.message360.com/api/v2"
+const BASEURI string = "https://api.message360.com/api/v3"
 
 var Config struct {
     /** The username to use with basic authentication */

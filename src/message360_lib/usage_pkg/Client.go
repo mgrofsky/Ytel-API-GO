@@ -1,7 +1,7 @@
 /*
  * message360_lib
  *
- * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io ) on 12/12/2016
+ * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io )
  */
 package usage_pkg
 
@@ -17,7 +17,7 @@ import(
  * Input structure for the method CreateListUsage
  */
 type CreateListUsageInput struct {
-    ProductCode     models_pkg.ProductCode //Product Code
+    ProductCode     models_pkg.ProductCodeEnum //Product Code
     StartDate       string          //Start Usage Date
     EndDate         string          //End Usage Date
     ResponseType    *string         //Response type format xml or json
@@ -66,7 +66,7 @@ func (me *USAGE_IMPL) CreateListUsage (input *CreateListUsageInput) (string, err
     //form parameters
     parameters := map[string]interface{} {
 
-        "ProductCode" : models_pkg.ProductCodeToValue(input.ProductCode),
+        "ProductCode" : models_pkg.ProductCodeEnumToValue(input.ProductCode),
         "startDate" : input.StartDate,
         "endDate" : input.EndDate,
 
