@@ -264,7 +264,7 @@ collect := new (shortcode_pkg.CreateListInboundShortCodeInput)
 responseType := "json"
 collect.ResponseType = responseType
 
-page,_ := strconv.ParseInt("151", 10, 8)
+page,_ := strconv.ParseInt("61", 10, 8)
 collect.Page = page
 
 pagesize,_ := strconv.ParseInt("10", 10, 8)
@@ -315,7 +315,7 @@ collect := new (shortcode_pkg.CreateListShortCodeInput)
 responseType := "json"
 collect.ResponseType = responseType
 
-page,_ := strconv.ParseInt("151", 10, 8)
+page,_ := strconv.ParseInt("61", 10, 8)
 collect.Page = page
 
 pagesize,_ := strconv.ParseInt("10", 10, 8)
@@ -367,7 +367,7 @@ collect.ResponseType = responseType
 mtype := "authorization"
 collect.Mtype = mtype
 
-page,_ := strconv.ParseInt("151", 10, 8)
+page,_ := strconv.ParseInt("61", 10, 8)
 collect.Page = page
 
 pagesize,_ := strconv.ParseInt("10", 10, 8)
@@ -461,10 +461,10 @@ collect.ParticipantSid = participantSid
 responseType := "json"
 collect.ResponseType = responseType
 
-muted := true
+muted := false
 collect.Muted = muted
 
-deaf := true
+deaf := false
 collect.Deaf = deaf
 
 
@@ -504,10 +504,10 @@ collect := new (conference_pkg.CreateListConferenceInput)
 responseType := "json"
 collect.ResponseType = responseType
 
-page,_ := strconv.ParseInt("242", 10, 8)
+page,_ := strconv.ParseInt("61", 10, 8)
 collect.Page = page
 
-pageSize,_ := strconv.ParseInt("242", 10, 8)
+pageSize,_ := strconv.ParseInt("61", 10, 8)
 collect.PageSize = pageSize
 
 friendlyName := "FriendlyName"
@@ -596,16 +596,16 @@ collect.Conferencesid = conferencesid
 participantnumber := "participantnumber"
 collect.Participantnumber = participantnumber
 
-tocountrycode,_ := strconv.ParseInt("242", 10, 8)
+tocountrycode,_ := strconv.ParseInt("61", 10, 8)
 collect.Tocountrycode = tocountrycode
 
 responseType := "json"
 collect.ResponseType = responseType
 
-muted := true
+muted := false
 collect.Muted = muted
 
-deaf := true
+deaf := false
 collect.Deaf = deaf
 
 
@@ -647,16 +647,16 @@ collect.ConferenceSid = conferenceSid
 responseType := "json"
 collect.ResponseType = responseType
 
-page,_ := strconv.ParseInt("242", 10, 8)
+page,_ := strconv.ParseInt("61", 10, 8)
 collect.Page = page
 
-pagesize,_ := strconv.ParseInt("242", 10, 8)
+pagesize,_ := strconv.ParseInt("61", 10, 8)
 collect.Pagesize = pagesize
 
-muted := true
+muted := false
 collect.Muted = muted
 
-deaf := true
+deaf := false
 collect.Deaf = deaf
 
 
@@ -938,7 +938,7 @@ collect.HeartBeatUrl = heartBeatUrl
 heartBeatMethod := models_pkg.HttpAction_GET
 collect.HeartBeatMethod = heartBeatMethod
 
-timeout,_ := strconv.ParseInt("242", 10, 8)
+timeout,_ := strconv.ParseInt("61", 10, 8)
 collect.Timeout = timeout
 
 playDtmf := "PlayDtmf"
@@ -947,7 +947,7 @@ collect.PlayDtmf = playDtmf
 hideCallerId := "HideCallerId"
 collect.HideCallerId = hideCallerId
 
-record := true
+record := false
 collect.Record = record
 
 recordCallBackUrl := "RecordCallBackUrl"
@@ -956,7 +956,7 @@ collect.RecordCallBackUrl = recordCallBackUrl
 recordCallBackMethod := models_pkg.HttpAction_GET
 collect.RecordCallBackMethod = recordCallBackMethod
 
-transcribe := true
+transcribe := false
 collect.Transcribe = transcribe
 
 transcribeCallBackUrl := "TranscribeCallBackUrl"
@@ -1006,19 +1006,19 @@ collect.ResponseType = responseType
 audioDirection := models_pkg.AudioDirection_IN
 collect.AudioDirection = audioDirection
 
-pitchSemiTones := 242.834760876296
+pitchSemiTones := 61.7488090306282
 collect.PitchSemiTones = pitchSemiTones
 
-pitchOctaves := 242.834760876296
+pitchOctaves := 61.7488090306282
 collect.PitchOctaves = pitchOctaves
 
-pitch := 242.834760876296
+pitch := 61.7488090306282
 collect.Pitch = pitch
 
-rate := 242.834760876296
+rate := 61.7488090306282
 collect.Rate = rate
 
-tempo := 242.834760876296
+tempo := 61.7488090306282
 collect.Tempo = tempo
 
 
@@ -1058,7 +1058,7 @@ collect := new (call_pkg.CreateRecordCallInput)
 callSid := "CallSid"
 collect.CallSid = callSid
 
-record := true
+record := false
 collect.Record = record
 
 responseType := "json"
@@ -1067,7 +1067,7 @@ collect.ResponseType = responseType
 direction := models_pkg.Direction_IN
 collect.Direction = direction
 
-timeLimit,_ := strconv.ParseInt("242", 10, 8)
+timeLimit,_ := strconv.ParseInt("61", 10, 8)
 collect.TimeLimit = timeLimit
 
 callBackUrl := "CallBackUrl"
@@ -1119,16 +1119,16 @@ collect.AudioUrl = audioUrl
 responseType := "json"
 collect.ResponseType = responseType
 
-length,_ := strconv.ParseInt("242", 10, 8)
+length,_ := strconv.ParseInt("61", 10, 8)
 collect.Length = length
 
 direction := models_pkg.Direction_IN
 collect.Direction = direction
 
-loop := true
+loop := false
 collect.Loop = loop
 
-mix := true
+mix := false
 collect.Mix = mix
 
 
@@ -1306,19 +1306,19 @@ collect.FallBackMethod = fallBackMethod
 heartBeatUrl := "HeartBeatUrl"
 collect.HeartBeatUrl = heartBeatUrl
 
-heartBeatMethod := true
+heartBeatMethod := false
 collect.HeartBeatMethod = heartBeatMethod
 
-timeout,_ := strconv.ParseInt("242", 10, 8)
+timeout,_ := strconv.ParseInt("61", 10, 8)
 collect.Timeout = timeout
 
 playDtmf := "PlayDtmf"
 collect.PlayDtmf = playDtmf
 
-hideCallerId := true
+hideCallerId := false
 collect.HideCallerId = hideCallerId
 
-record := true
+record := false
 collect.Record = record
 
 recordCallBackUrl := "RecordCallBackUrl"
@@ -1327,7 +1327,7 @@ collect.RecordCallBackUrl = recordCallBackUrl
 recordCallBackMethod := models_pkg.HttpAction_GET
 collect.RecordCallBackMethod = recordCallBackMethod
 
-transcribe := true
+transcribe := false
 collect.Transcribe = transcribe
 
 transcribeCallBackUrl := "TranscribeCallBackUrl"
@@ -1372,7 +1372,7 @@ collect := new (call_pkg.CreateListCallsInput)
 responseType := "json"
 collect.ResponseType = responseType
 
-page,_ := strconv.ParseInt("242", 10, 8)
+page,_ := strconv.ParseInt("61", 10, 8)
 collect.Page = page
 
 pageSize,_ := strconv.ParseInt("10", 10, 8)
@@ -2377,10 +2377,10 @@ collect := new (sms_pkg.CreateListSMSInput)
 responseType := "json"
 collect.ResponseType = responseType
 
-page,_ := strconv.ParseInt("242", 10, 8)
+page,_ := strconv.ParseInt("153", 10, 8)
 collect.Page = page
 
-pagesize,_ := strconv.ParseInt("242", 10, 8)
+pagesize,_ := strconv.ParseInt("153", 10, 8)
 collect.Pagesize = pagesize
 
 from := "from"
@@ -2427,7 +2427,7 @@ collect := new (sms_pkg.CreateListInboundSMSInput)
 responseType := "json"
 collect.ResponseType = responseType
 
-page,_ := strconv.ParseInt("242", 10, 8)
+page,_ := strconv.ParseInt("153", 10, 8)
 collect.Page = page
 
 pagesize := "pagesize"
@@ -2580,10 +2580,10 @@ collect := new (recording_pkg.CreateListRecordingInput)
 responseType := "json"
 collect.ResponseType = responseType
 
-page,_ := strconv.ParseInt("201", 10, 8)
+page,_ := strconv.ParseInt("153", 10, 8)
 collect.Page = page
 
-pageSize,_ := strconv.ParseInt("201", 10, 8)
+pageSize,_ := strconv.ParseInt("153", 10, 8)
 collect.PageSize = pageSize
 
 dateCreated := "DateCreated"
@@ -2707,10 +2707,10 @@ collect := new (carrier_pkg.CreateCarrierLookupListInput)
 responseType := "json"
 collect.ResponseType = responseType
 
-page,_ := strconv.ParseInt("201", 10, 8)
+page,_ := strconv.ParseInt("153", 10, 8)
 collect.Page = page
 
-pagesize,_ := strconv.ParseInt("201", 10, 8)
+pagesize,_ := strconv.ParseInt("153", 10, 8)
 collect.Pagesize = pagesize
 
 
@@ -2900,7 +2900,7 @@ collect := new (phonenumber_pkg.CreateListNumberInput)
 responseType := "json"
 collect.ResponseType = responseType
 
-page,_ := strconv.ParseInt("201", 10, 8)
+page,_ := strconv.ParseInt("153", 10, 8)
 collect.Page = page
 
 pageSize,_ := strconv.ParseInt("10", 10, 8)
@@ -3194,10 +3194,10 @@ collect := new (transcription_pkg.CreateListTranscriptionInput)
 responseType := "json"
 collect.ResponseType = responseType
 
-page,_ := strconv.ParseInt("201", 10, 8)
+page,_ := strconv.ParseInt("153", 10, 8)
 collect.Page = page
 
-pageSize,_ := strconv.ParseInt("201", 10, 8)
+pageSize,_ := strconv.ParseInt("153", 10, 8)
 collect.PageSize = pageSize
 
 status := models_pkg.Status_INPROGRESS
