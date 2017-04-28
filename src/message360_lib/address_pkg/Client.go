@@ -22,10 +22,10 @@ type CreateAddressInput struct {
     State           string          //Must be a 2 letter State eg. CA for US. For Some Countries it can be greater than 2 letters.
     City            string          //City Name.
     Zip             string          //Zip code of city.
+    ResponseType    string          //Response type either json or xml
     Description     *string         //Description of addresses.
     Email           *string         //Email Id of user.
     Phone           *string         //Phone number of user.
-    ResponseType    *string         //Response type either json or xml
 }
 
 /*
@@ -33,7 +33,7 @@ type CreateAddressInput struct {
  */
 type CreateDeleteAddressInput struct {
     AddressSID      string          //The identifier of the address to be deleted.
-    ResponseType    *string         //Response type either json or xml
+    ResponseType    string          //Response type either json or xml
 }
 
 /*
@@ -41,18 +41,18 @@ type CreateDeleteAddressInput struct {
  */
 type CreateVerifyAddressInput struct {
     AddressSID      string          //The identifier of the address to be verified.
-    ResponseType    *string         //Response type either json or xml
+    ResponseType    string          //Response type either json or xml
 }
 
 /*
  * Input structure for the method CreateListAddress
  */
 type CreateListAddressInput struct {
+    ResponseType    string          //Response Type either json or xml
     Page            *int64          //Return requested # of items starting the value, default=0, must be an integer
     PageSize        *int64          //How many results to return, default is 10, max is 100, must be an integer
     AddressSID      *string         //addresses Sid
     DateCreated     *string         //date created address.
-    ResponseType    *string         //Response Type either json or xml
 }
 
 /*
@@ -60,7 +60,7 @@ type CreateListAddressInput struct {
  */
 type CreateViewAddressInput struct {
     AddressSID      string          //The identifier of the address to be retrieved.
-    ResponseType    *string         //Response Type either json or xml
+    ResponseType    string          //Response Type either json or xml
 }
 
 /*
@@ -84,7 +84,7 @@ func (me *ADDRESS_IMPL) CreateAddress (input *CreateAddressInput) (string, error
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -157,7 +157,7 @@ func (me *ADDRESS_IMPL) CreateDeleteAddress (input *CreateDeleteAddressInput) (s
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -222,7 +222,7 @@ func (me *ADDRESS_IMPL) CreateVerifyAddress (input *CreateVerifyAddressInput) (s
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -287,7 +287,7 @@ func (me *ADDRESS_IMPL) CreateListAddress (input *CreateListAddressInput) (strin
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -355,7 +355,7 @@ func (me *ADDRESS_IMPL) CreateViewAddress (input *CreateViewAddressInput) (strin
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling

@@ -20,7 +20,7 @@ type CreateSubAccountInput struct {
     FirstName       string          //Sub account user first name
     LastName        string          //sub account user last name
     Email           string          //Sub account email address
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
 }
 
 /*
@@ -29,7 +29,7 @@ type CreateSubAccountInput struct {
 type CreateSuspendSubAccountInput struct {
     SubAccountSID   string          //The SubaccountSid to be activated or suspended
     Activate        models_pkg.ActivateStatusEnum //0 to suspend or 1 to activate
-    ResponseType    *string         //TODO: Write general description for this field
+    ResponseType    string          //TODO: Write general description for this field
 }
 
 /*
@@ -38,7 +38,7 @@ type CreateSuspendSubAccountInput struct {
 type CreateDeleteSubAccountInput struct {
     SubAccountSID   string          //The SubaccountSid to be deleted
     MergeNumber     models_pkg.MergeNumberStatusEnum //0 to delete or 1 to merge numbers to parent account.
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
 }
 
 /*
@@ -62,7 +62,7 @@ func (me *SUBACCOUNT_IMPL) CreateSubAccount (input *CreateSubAccountInput) (stri
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -195,7 +195,7 @@ func (me *SUBACCOUNT_IMPL) CreateDeleteSubAccount (input *CreateDeleteSubAccount
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling

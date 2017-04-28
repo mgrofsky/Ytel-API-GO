@@ -11,8 +11,6 @@ package phonenumber_pkg
  * Interface for the PHONENUMBER_IMPL
  */
 type PHONENUMBER interface {
-    UpdatePhoneNumber (*UpdatePhoneNumberInput) (string, error)
-
     CreateBuyNumber (*CreateBuyNumberInput) (string, error)
 
     CreateReleaseNumber (*CreateReleaseNumberInput) (string, error)
@@ -22,6 +20,8 @@ type PHONENUMBER interface {
     CreateListNumber (*CreateListNumberInput) (string, error)
 
     CreateAvailablePhoneNumber (*CreateAvailablePhoneNumberInput) (string, error)
+
+    UpdatePhoneNumber (*UpdatePhoneNumberInput) (string, error)
 }
 
 /*

@@ -14,27 +14,19 @@ import(
 )
 
 /*
- * Input structure for the method CreateDeleteInvalid
- */
-type CreateDeleteInvalidInput struct {
-    Email           string          //TODO: Write general description for this field
-    ResponseType    *string         //TODO: Write general description for this field
-}
-
-/*
  * Input structure for the method CreateListBlocks
  */
 type CreateListBlocksInput struct {
+    ResponseType    string          //Response type format xml or json
     Offset          *string         //Where to start in the output list
     Limit           *string         //Maximum number of records to return
-    ResponseType    *string         //Response type format xml or json
 }
 
 /*
  * Input structure for the method CreateListSpam
  */
 type CreateListSpamInput struct {
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
     Offset          *string         //The record number to start the list at
     Limit           *string         //Maximum number of records to return
 }
@@ -43,7 +35,7 @@ type CreateListSpamInput struct {
  * Input structure for the method CreateListBounces
  */
 type CreateListBouncesInput struct {
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
     Offset          *string         //The record to start the list at
     Limit           *string         //The maximum number of records to return
 }
@@ -52,15 +44,15 @@ type CreateListBouncesInput struct {
  * Input structure for the method CreateDeleteBounces
  */
 type CreateDeleteBouncesInput struct {
+    ResponseType    string          //Response type format xml or json
     Email           string          //The email address to remove from the bounce list
-    ResponseType    *string         //Response type format xml or json
 }
 
 /*
  * Input structure for the method CreateListInvalid
  */
 type CreateListInvalidInput struct {
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
     Offet           *string         //Starting record for listing out emails
     Limit           *string         //Maximum number of records to return
 }
@@ -69,7 +61,7 @@ type CreateListInvalidInput struct {
  * Input structure for the method CreateListUnsubscribes
  */
 type CreateListUnsubscribesInput struct {
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
     Offset          *string         //Starting record of the list
     Limit           *string         //Maximum number of records to be returned
 }
@@ -79,7 +71,7 @@ type CreateListUnsubscribesInput struct {
  */
 type CreateDeleteUnsubscribesInput struct {
     Email           string          //The email to remove from the unsubscribe list
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
 }
 
 /*
@@ -87,7 +79,7 @@ type CreateDeleteUnsubscribesInput struct {
  */
 type AddUnsubscribesInput struct {
     Email           string          //The email to add to the unsubscribe list
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
 }
 
 /*
@@ -95,15 +87,15 @@ type AddUnsubscribesInput struct {
  */
 type CreateDeleteBlockInput struct {
     Email           string          //Email address to remove from block list
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
 }
 
 /*
  * Input structure for the method CreateDeleteSpam
  */
 type CreateDeleteSpamInput struct {
+    ResponseType    string          //Response type format xml or json
     Email           string          //Email address
-    ResponseType    *string         //Response type format xml or json
 }
 
 /*
@@ -115,81 +107,24 @@ type CreateSendEmailInput struct {
     Type            models_pkg.SendEmailAsEnum //email format type, html or text
     Subject         string          //Email subject
     Message         string          //The body of the email message
+    ResponseType    string          //Response type format xml or json
     Cc              *string         //CC Email address
     Bcc             *string         //BCC Email address
     Attachment      *string         //File to be attached.File must be less than 7MB.
-    ResponseType    *string         //Response type format xml or json
+}
+
+/*
+ * Input structure for the method CreateDeleteInvalid
+ */
+type CreateDeleteInvalidInput struct {
+    Email           string          //TODO: Write general description for this field
+    ResponseType    string          //TODO: Write general description for this field
 }
 
 /*
  * Client structure as interface implementation
  */
 type EMAIL_IMPL struct { }
-
-/**
- * This endpoint allows you to delete entries in the Invalid Emails list.
- * @param  CreateDeleteInvalidInput     Structure with all inputs
- * @return	Returns the string response from the API call
- */
-func (me *EMAIL_IMPL) CreateDeleteInvalid (input *CreateDeleteInvalidInput) (string, error) {
-        //the base uri for api requests
-    _queryBuilder := message360_lib.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/email/deleteinvalidemail.{ResponseType}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
-    })
-    if err != nil {
-        //error in template param handling
-        return "", err
-    }
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return "", err
-    }
-
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "message360-api",
-    }
-
-    //form parameters
-    parameters := map[string]interface{} {
-
-        "email" : input.Email,
-
-    }
-
-
-    //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
-    if err != nil {
-        //error in API invocation
-        return "", err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return "", err
-    }
-
-    //returning the response
-    return _response.Body, nil
-}
 
 /**
  * Outputs email addresses on your blocklist
@@ -207,7 +142,7 @@ func (me *EMAIL_IMPL) CreateListBlocks (input *CreateListBlocksInput) (string, e
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -273,7 +208,7 @@ func (me *EMAIL_IMPL) CreateListSpam (input *CreateListSpamInput) (string, error
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -339,7 +274,7 @@ func (me *EMAIL_IMPL) CreateListBounces (input *CreateListBouncesInput) (string,
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -405,7 +340,7 @@ func (me *EMAIL_IMPL) CreateDeleteBounces (input *CreateDeleteBouncesInput) (str
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -470,7 +405,7 @@ func (me *EMAIL_IMPL) CreateListInvalid (input *CreateListInvalidInput) (string,
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -536,7 +471,7 @@ func (me *EMAIL_IMPL) CreateListUnsubscribes (input *CreateListUnsubscribesInput
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -602,7 +537,7 @@ func (me *EMAIL_IMPL) CreateDeleteUnsubscribes (input *CreateDeleteUnsubscribesI
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -667,7 +602,7 @@ func (me *EMAIL_IMPL) AddUnsubscribes (input *AddUnsubscribesInput) (string, err
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -732,7 +667,7 @@ func (me *EMAIL_IMPL) CreateDeleteBlock (input *CreateDeleteBlockInput) (string,
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -797,7 +732,7 @@ func (me *EMAIL_IMPL) CreateDeleteSpam (input *CreateDeleteSpamInput) (string, e
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -862,7 +797,7 @@ func (me *EMAIL_IMPL) CreateSendEmail (input *CreateSendEmailInput) (string, err
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -892,6 +827,71 @@ func (me *EMAIL_IMPL) CreateSendEmail (input *CreateSendEmailInput) (string, err
         "cc" : input.Cc,
         "bcc" : input.Bcc,
         "attachment" : input.Attachment,
+
+    }
+
+
+    //prepare API request
+    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request);
+    if err != nil {
+        //error in API invocation
+        return "", err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return "", err
+    }
+
+    //returning the response
+    return _response.Body, nil
+}
+
+/**
+ * This endpoint allows you to delete entries in the Invalid Emails list.
+ * @param  CreateDeleteInvalidInput     Structure with all inputs
+ * @return	Returns the string response from the API call
+ */
+func (me *EMAIL_IMPL) CreateDeleteInvalid (input *CreateDeleteInvalidInput) (string, error) {
+        //the base uri for api requests
+    _queryBuilder := message360_lib.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + "/email/deleteinvalidemail.{ResponseType}"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional query parameters
+    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
+        "ResponseType" : input.ResponseType,
+    })
+    if err != nil {
+        //error in template param handling
+        return "", err
+    }
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return "", err
+    }
+
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "message360-api",
+    }
+
+    //form parameters
+    parameters := map[string]interface{} {
+
+        "email" : input.Email,
 
     }
 

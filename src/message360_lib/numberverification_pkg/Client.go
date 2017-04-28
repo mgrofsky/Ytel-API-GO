@@ -18,7 +18,7 @@ import(
 type CreateVerifyNumberInput struct {
     Phonenumber     string          //TODO: Write general description for this field
     Type            string          //TODO: Write general description for this field
-    ResponseType    *string         //Response Type either json or xml
+    ResponseType    string          //Response Type either json or xml
 }
 
 /*
@@ -42,7 +42,7 @@ func (me *NUMBERVERIFICATION_IMPL) CreateVerifyNumber (input *CreateVerifyNumber
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
