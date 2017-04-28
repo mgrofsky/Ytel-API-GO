@@ -19,22 +19,22 @@ import(
 type CreateDeafMuteParticipantInput struct {
     ConferenceSid   string          //TODO: Write general description for this field
     ParticipantSid  string          //TODO: Write general description for this field
+    ResponseType    string          //Response Type either json or xml
     Muted           *bool           //TODO: Write general description for this field
     Deaf            *bool           //TODO: Write general description for this field
-    ResponseType    *string         //Response Type either json or xml
 }
 
 /*
  * Input structure for the method CreateListConference
  */
 type CreateListConferenceInput struct {
+    ResponseType    string          //Response type format xml or json
     Page            *int64          //Which page of the overall response will be returned. Zero indexed
     PageSize        *int64          //Number of individual resources listed in the response per page
     FriendlyName    *string         //Only return conferences with the specified FriendlyName
     Status          models_pkg.InterruptedCallStatusEnum //TODO: Write general description for this field
     DateCreated     *string         //TODO: Write general description for this field
     DateUpdated     *string         //TODO: Write general description for this field
-    ResponseType    *string         //Response type format xml or json
 }
 
 /*
@@ -42,7 +42,7 @@ type CreateListConferenceInput struct {
  */
 type CreateViewConferenceInput struct {
     Conferencesid   string          //The unique identifier of each conference resource
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
 }
 
 /*
@@ -52,9 +52,9 @@ type AddParticipantInput struct {
     Conferencesid     string          //Unique Conference Sid
     Participantnumber string          //Particiant Number
     Tocountrycode     int64           //TODO: Write general description for this field
+    ResponseType      string          //Response type format xml or json
     Muted             *bool           //TODO: Write general description for this field
     Deaf              *bool           //TODO: Write general description for this field
-    ResponseType      *string         //Response type format xml or json
 }
 
 /*
@@ -62,11 +62,11 @@ type AddParticipantInput struct {
  */
 type CreateListParticipantInput struct {
     ConferenceSid   string          //unique conference sid
+    ResponseType    string          //Response format, xml or json
     Page            *int64          //page number
     Pagesize        *int64          //TODO: Write general description for this field
     Muted           *bool           //TODO: Write general description for this field
     Deaf            *bool           //TODO: Write general description for this field
-    ResponseType    *string         //Response format, xml or json
 }
 
 /*
@@ -75,7 +75,7 @@ type CreateListParticipantInput struct {
 type CreateViewParticipantInput struct {
     ConferenceSid   string          //unique conference sid
     ParticipantSid  string          //TODO: Write general description for this field
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
 }
 
 /*
@@ -99,7 +99,7 @@ func (me *CONFERENCE_IMPL) CreateDeafMuteParticipant (input *CreateDeafMuteParti
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -167,7 +167,7 @@ func (me *CONFERENCE_IMPL) CreateListConference (input *CreateListConferenceInpu
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -237,7 +237,7 @@ func (me *CONFERENCE_IMPL) CreateViewConference (input *CreateViewConferenceInpu
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -302,7 +302,7 @@ func (me *CONFERENCE_IMPL) AddParticipant (input *AddParticipantInput) (string, 
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -371,7 +371,7 @@ func (me *CONFERENCE_IMPL) CreateListParticipant (input *CreateListParticipantIn
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -440,7 +440,7 @@ func (me *CONFERENCE_IMPL) CreateViewParticipant (input *CreateViewParticipantIn
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling

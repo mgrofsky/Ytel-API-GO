@@ -13,20 +13,20 @@ import(
 )
 
 /*
+ * Input structure for the method CreateCarrierLookupList
+ */
+type CreateCarrierLookupListInput struct {
+    ResponseType    string          //Response type format xml or json
+    Page            *int64          //Page Number
+    Pagesize        *int64          //Page Size
+}
+
+/*
  * Input structure for the method CreateCarrierLookup
  */
 type CreateCarrierLookupInput struct {
     Phonenumber     string          //The number to lookup
-    ResponseType    *string         //Response type format xml or json
-}
-
-/*
- * Input structure for the method CreateCarrierLookupList
- */
-type CreateCarrierLookupListInput struct {
-    Page            *int64          //Page Number
-    Pagesize        *int64          //Page Size
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
 }
 
 /*
@@ -35,22 +35,22 @@ type CreateCarrierLookupListInput struct {
 type CARRIER_IMPL struct { }
 
 /**
- * Get the Carrier Lookup
- * @param  CreateCarrierLookupInput     Structure with all inputs
+ * Get the All Purchase Number's Carrier lookup
+ * @param  CreateCarrierLookupListInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CARRIER_IMPL) CreateCarrierLookup (input *CreateCarrierLookupInput) (string, error) {
+func (me *CARRIER_IMPL) CreateCarrierLookupList (input *CreateCarrierLookupListInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/carrier/lookup.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/carrier/lookuplist.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -72,7 +72,8 @@ func (me *CARRIER_IMPL) CreateCarrierLookup (input *CreateCarrierLookupInput) (s
     //form parameters
     parameters := map[string]interface{} {
 
-        "phonenumber" : input.Phonenumber,
+        "page" : input.Page,
+        "pagesize" : input.Pagesize,
 
     }
 
@@ -100,22 +101,22 @@ func (me *CARRIER_IMPL) CreateCarrierLookup (input *CreateCarrierLookupInput) (s
 }
 
 /**
- * Get the All Purchase Number's Carrier lookup
- * @param  CreateCarrierLookupListInput     Structure with all inputs
+ * Get the Carrier Lookup
+ * @param  CreateCarrierLookupInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CARRIER_IMPL) CreateCarrierLookupList (input *CreateCarrierLookupListInput) (string, error) {
+func (me *CARRIER_IMPL) CreateCarrierLookup (input *CreateCarrierLookupInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/carrier/lookuplist.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/carrier/lookup.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -137,8 +138,7 @@ func (me *CARRIER_IMPL) CreateCarrierLookupList (input *CreateCarrierLookupListI
     //form parameters
     parameters := map[string]interface{} {
 
-        "page" : input.Page,
-        "pagesize" : input.Pagesize,
+        "phonenumber" : input.Phonenumber,
 
     }
 

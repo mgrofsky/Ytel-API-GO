@@ -16,11 +16,11 @@ import(
  * Input structure for the method CreateListRecording
  */
 type CreateListRecordingInput struct {
+    ResponseType    string          //Response type format xml or json
     Page            *int64          //Which page of the overall response will be returned. Zero indexed
     PageSize        *int64          //Number of individual resources listed in the response per page
     DateCreated     *string         //TODO: Write general description for this field
     CallSid         *string         //TODO: Write general description for this field
-    ResponseType    *string         //Response type format xml or json
 }
 
 /*
@@ -28,7 +28,7 @@ type CreateListRecordingInput struct {
  */
 type CreateDeleteRecordingInput struct {
     RecordingSid    string          //Unique Recording Sid to be delete
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
 }
 
 /*
@@ -36,7 +36,7 @@ type CreateDeleteRecordingInput struct {
  */
 type CreateViewRecordingInput struct {
     RecordingSid    string          //Search Recording sid
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
 }
 
 /*
@@ -60,7 +60,7 @@ func (me *RECORDING_IMPL) CreateListRecording (input *CreateListRecordingInput) 
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -128,7 +128,7 @@ func (me *RECORDING_IMPL) CreateDeleteRecording (input *CreateDeleteRecordingInp
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -193,7 +193,7 @@ func (me *RECORDING_IMPL) CreateViewRecording (input *CreateViewRecordingInput) 
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling

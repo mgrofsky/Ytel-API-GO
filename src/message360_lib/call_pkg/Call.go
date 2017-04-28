@@ -11,8 +11,6 @@ package call_pkg
  * Interface for the CALL_IMPL
  */
 type CALL interface {
-    CreateViewCall (*CreateViewCallInput) (string, error)
-
     CreateGroupCall (*CreateGroupCallInput) (string, error)
 
     CreateVoiceEffect (*CreateVoiceEffectInput) (string, error)
@@ -30,6 +28,8 @@ type CALL interface {
     CreateListCalls (*CreateListCallsInput) (string, error)
 
     CreateSendRinglessVM (*CreateSendRinglessVMInput) (string, error)
+
+    CreateViewCall (*CreateViewCallInput) (string, error)
 }
 
 /*

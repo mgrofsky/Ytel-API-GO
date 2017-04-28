@@ -11,8 +11,6 @@ package email_pkg
  * Interface for the EMAIL_IMPL
  */
 type EMAIL interface {
-    CreateDeleteInvalid (*CreateDeleteInvalidInput) (string, error)
-
     CreateListBlocks (*CreateListBlocksInput) (string, error)
 
     CreateListSpam (*CreateListSpamInput) (string, error)
@@ -34,6 +32,8 @@ type EMAIL interface {
     CreateDeleteSpam (*CreateDeleteSpamInput) (string, error)
 
     CreateSendEmail (*CreateSendEmailInput) (string, error)
+
+    CreateDeleteInvalid (*CreateDeleteInvalidInput) (string, error)
 }
 
 /*

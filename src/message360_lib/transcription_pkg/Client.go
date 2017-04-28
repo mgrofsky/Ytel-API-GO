@@ -18,7 +18,7 @@ import(
  */
 type CreateAudioURLTranscriptionInput struct {
     AudioUrl        string          //Audio url
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
 }
 
 /*
@@ -26,7 +26,7 @@ type CreateAudioURLTranscriptionInput struct {
  */
 type CreateRecordingTranscriptionInput struct {
     RecordingSid    string          //Unique Recording sid
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
 }
 
 /*
@@ -34,18 +34,18 @@ type CreateRecordingTranscriptionInput struct {
  */
 type CreateViewTranscriptionInput struct {
     TranscriptionSid string          //Unique Transcription ID
-    ResponseType     *string         //Response type format xml or json
+    ResponseType     string          //Response type format xml or json
 }
 
 /*
  * Input structure for the method CreateListTranscription
  */
 type CreateListTranscriptionInput struct {
+    ResponseType    string          //Response type format xml or json
     Page            *int64          //TODO: Write general description for this field
     PageSize        *int64          //TODO: Write general description for this field
     Status          models_pkg.StatusEnum //TODO: Write general description for this field
     DateTranscribed *string         //TODO: Write general description for this field
-    ResponseType    *string         //Response type format xml or json
 }
 
 /*
@@ -69,7 +69,7 @@ func (me *TRANSCRIPTION_IMPL) CreateAudioURLTranscription (input *CreateAudioURL
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -134,7 +134,7 @@ func (me *TRANSCRIPTION_IMPL) CreateRecordingTranscription (input *CreateRecordi
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -199,7 +199,7 @@ func (me *TRANSCRIPTION_IMPL) CreateViewTranscription (input *CreateViewTranscri
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -264,7 +264,7 @@ func (me *TRANSCRIPTION_IMPL) CreateListTranscription (input *CreateListTranscri
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling

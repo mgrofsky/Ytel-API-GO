@@ -14,7 +14,7 @@ import "github.com/satori/go.uuid"
 type SHORTCODE interface {
     CreateViewTemplate (*CreateViewTemplateInput) (string, error)
 
-    CreateSendShortCode (*CreateSendShortCodeInput, map[string]interface{}) (string, error)
+    CreateSendShortCode (*CreateSendShortCodeInput) (string, error)
 
     CreateListInboundShortCode (*CreateListInboundShortCodeInput) (string, error)
 

@@ -30,43 +30,44 @@ type CreateSendShortCodeInput struct {
     Tocountrycode         string          //The country code for sending this message
     To                    string          //A valid 10-digit number that should receive the message+
     Templateid            uuid.UUID       //The unique identifier for the template used for the message
+    ResponseType          string          //Response type format xml or json
+    Data                  string          //format of your data, example: {companyname}:test,{otpcode}:1234
     Method                *string         //Specifies the HTTP method used to request the required URL once the Short Code message is sent.
     MessageStatusCallback *string         //URL that can be requested to receive notification when Short Code message was sent.
-    ResponseType          *string         //Response type format xml or json
 }
 
 /*
  * Input structure for the method CreateListInboundShortCode
  */
 type CreateListInboundShortCodeInput struct {
+    ResponseType    string          //Response type format xml or json
     Page            *int64          //Which page of the overall response will be returned. Zero indexed
     Pagesize        *int64          //Number of individual resources listed in the response per page
     From            *string         //From Number to Inbound ShortCode
     Shortcode       *string         //Only list messages sent to this Short Code
     DateReceived    *string         //Only list messages sent with the specified date
-    ResponseType    *string         //Response type format xml or json
 }
 
 /*
  * Input structure for the method CreateListShortCode
  */
 type CreateListShortCodeInput struct {
+    ResponseType    string          //Response type format xml or json
     Page            *int64          //Which page of the overall response will be returned. Zero indexed
     Pagesize        *int64          //Number of individual resources listed in the response per page
     From            *string         //Messages sent from this number
     To              *string         //Messages sent to this number
     Datesent        *string         //Only list SMS messages sent in the specified date range
-    ResponseType    *string         //Response type format xml or json
 }
 
 /*
  * Input structure for the method CreateListTemplates
  */
 type CreateListTemplatesInput struct {
+    ResponseType    string          //Response type format xml or json
     Type            *string         //The type (category) of template Valid values: marketing, authorization
     Page            *int64          //The page count to retrieve from the total results in the collection. Page indexing starts at 1.
     Pagesize        *int64          //The count of objects to return per page.
-    ResponseType    *string         //Response type format xml or json
 }
 
 /*
@@ -74,7 +75,7 @@ type CreateListTemplatesInput struct {
  */
 type CreateViewShortCodeInput struct {
     Messagesid      string          //Message sid
-    ResponseType    *string         //Response type format xml or json
+    ResponseType    string          //Response type format xml or json
 }
 
 /*
@@ -153,10 +154,9 @@ func (me *SHORTCODE_IMPL) CreateViewTemplate (input *CreateViewTemplateInput) (s
 /**
  * Send an SMS from a message360 ShortCode
  * @param  CreateSendShortCodeInput     Structure with all inputs
- * @param    fieldParameters    Additional optional form parameters are supported by this endpoint
  * @return	Returns the string response from the API call
  */
-func (me *SHORTCODE_IMPL) CreateSendShortCode (input *CreateSendShortCodeInput, fieldParameters map[string]interface{}) (string, error) {
+func (me *SHORTCODE_IMPL) CreateSendShortCode (input *CreateSendShortCodeInput) (string, error) {
     //validating required parameters
     if (input.Templateid == nil){
         return nil,errors.New("The property 'templateid' in the input object cannot be nil.")
@@ -170,7 +170,7 @@ func (me *SHORTCODE_IMPL) CreateSendShortCode (input *CreateSendShortCodeInput, 
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -196,17 +196,12 @@ func (me *SHORTCODE_IMPL) CreateSendShortCode (input *CreateSendShortCodeInput, 
         "tocountrycode" : input.Tocountrycode,
         "to" : input.To,
         "templateid" : input.Templateid,
+        "data" : input.Data,
         "Method" : apihelper_pkg.ToString(*input.Method, "GET"),
         "MessageStatusCallback" : input.MessageStatusCallback,
 
     }
 
-    //append optional form parameters
-    if fieldParameters != nil {
-        for k, v := range fieldParameters {
-            parameters[k] = v
-        }
-    }
 
     //prepare API request
     _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
@@ -246,7 +241,7 @@ func (me *SHORTCODE_IMPL) CreateListInboundShortCode (input *CreateListInboundSh
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -323,7 +318,7 @@ func (me *SHORTCODE_IMPL) CreateListShortCode (input *CreateListShortCodeInput) 
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -392,7 +387,7 @@ func (me *SHORTCODE_IMPL) CreateListTemplates (input *CreateListTemplatesInput) 
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
@@ -459,7 +454,7 @@ func (me *SHORTCODE_IMPL) CreateViewShortCode (input *CreateViewShortCodeInput) 
     var err error = nil
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : apihelper_pkg.ToString(*input.ResponseType, "json"),
+        "ResponseType" : input.ResponseType,
     })
     if err != nil {
         //error in template param handling
