@@ -11,25 +11,25 @@ package call_pkg
  * Interface for the CALL_IMPL
  */
 type CALL interface {
-    CreateGroupCall (*CreateGroupCallInput) (string, error)
+    MakeCall (*MakeCallInput) (string, error)
 
-    CreateVoiceEffect (*CreateVoiceEffectInput) (string, error)
+    PlayAudio (*PlayAudioInput) (string, error)
 
-    CreateRecordCall (*CreateRecordCallInput) (string, error)
+    RecordCall (*RecordCallInput) (string, error)
 
-    CreatePlayAudio (*CreatePlayAudioInput) (string, error)
+    VoiceEffect (*VoiceEffectInput) (string, error)
 
-    CreateInterruptedCall (*CreateInterruptedCallInput) (string, error)
+    SendDigit (*SendDigitInput) (string, error)
 
-    CreateSendDigit (*CreateSendDigitInput) (string, error)
+    InterruptedCall (*InterruptedCallInput) (string, error)
 
-    CreateMakeCall (*CreateMakeCallInput) (string, error)
+    GroupCall (*GroupCallInput) (string, error)
 
-    CreateListCalls (*CreateListCallsInput) (string, error)
+    ListCalls (*ListCallsInput) (string, error)
 
-    CreateSendRinglessVM (*CreateSendRinglessVMInput) (string, error)
+    SendRinglessVM (*SendRinglessVMInput) (string, error)
 
-    CreateViewCall (*CreateViewCallInput) (string, error)
+    ViewCall (*ViewCallInput) (string, error)
 }
 
 /*

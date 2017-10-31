@@ -11,29 +11,29 @@ package email_pkg
  * Interface for the EMAIL_IMPL
  */
 type EMAIL interface {
-    CreateListBlocks (*CreateListBlocksInput) (string, error)
+    DeleteSpam (*DeleteSpamInput) (string, error)
 
-    CreateListSpam (*CreateListSpamInput) (string, error)
-
-    CreateListBounces (*CreateListBouncesInput) (string, error)
-
-    CreateDeleteBounces (*CreateDeleteBouncesInput) (string, error)
-
-    CreateListInvalid (*CreateListInvalidInput) (string, error)
-
-    CreateListUnsubscribes (*CreateListUnsubscribesInput) (string, error)
-
-    CreateDeleteUnsubscribes (*CreateDeleteUnsubscribesInput) (string, error)
+    DeleteBlock (*DeleteBlockInput) (string, error)
 
     AddUnsubscribes (*AddUnsubscribesInput) (string, error)
 
-    CreateDeleteBlock (*CreateDeleteBlockInput) (string, error)
+    SendEmail (*SendEmailInput) (string, error)
 
-    CreateDeleteSpam (*CreateDeleteSpamInput) (string, error)
+    DeleteUnsubscribes (*DeleteUnsubscribesInput) (string, error)
 
-    CreateSendEmail (*CreateSendEmailInput) (string, error)
+    ListUnsubscribes (*ListUnsubscribesInput) (string, error)
 
-    CreateDeleteInvalid (*CreateDeleteInvalidInput) (string, error)
+    ListInvalid (*ListInvalidInput) (string, error)
+
+    DeleteBounces (*DeleteBouncesInput) (string, error)
+
+    ListBounces (*ListBouncesInput) (string, error)
+
+    ListSpam (*ListSpamInput) (string, error)
+
+    ListBlocks (*ListBlocksInput) (string, error)
+
+    DeleteInvalid (*DeleteInvalidInput) (string, error)
 }
 
 /*

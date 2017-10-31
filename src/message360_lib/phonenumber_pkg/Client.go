@@ -14,44 +14,9 @@ import(
 )
 
 /*
- * Input structure for the method CreateBuyNumber
+ * Input structure for the method AvailablePhoneNumber
  */
-type CreateBuyNumberInput struct {
-    PhoneNumber     string          //Phone number to be purchase
-    ResponseType    string          //Response type format xml or json
-}
-
-/*
- * Input structure for the method CreateReleaseNumber
- */
-type CreateReleaseNumberInput struct {
-    PhoneNumber     string          //Phone number to be relase
-    ResponseType    string          //Response type format xml or json
-}
-
-/*
- * Input structure for the method CreateViewNumberDetails
- */
-type CreateViewNumberDetailsInput struct {
-    PhoneNumber     string          //Get Phone number Detail
-    ResponseType    string          //Response type format xml or json
-}
-
-/*
- * Input structure for the method CreateListNumber
- */
-type CreateListNumberInput struct {
-    ResponseType    string          //Response type format xml or json
-    Page            *int64          //Which page of the overall response will be returned. Zero indexed
-    PageSize        *int64          //Number of individual resources listed in the response per page
-    NumberType      models_pkg.NumberTypeEnum //TODO: Write general description for this field
-    FriendlyName    *string         //TODO: Write general description for this field
-}
-
-/*
- * Input structure for the method CreateAvailablePhoneNumber
- */
-type CreateAvailablePhoneNumberInput struct {
+type AvailablePhoneNumberInput struct {
     NumberType      models_pkg.NumberTypeEnum //Number type either SMS,Voice or all
     AreaCode        string          //Phone Number Area Code
     ResponseType    string          //Response type format xml or json
@@ -59,22 +24,57 @@ type CreateAvailablePhoneNumberInput struct {
 }
 
 /*
+ * Input structure for the method ListNumber
+ */
+type ListNumberInput struct {
+    ResponseType    string          //Response type format xml or json
+    Page            *int64          //Which page of the overall response will be returned. Zero indexed
+    PageSize        *int64          //Number of individual resources listed in the response per page
+    NumberType      models_pkg.NumberTypeEnum //SMS or Voice
+    FriendlyName    *string         //Friendly name of the number
+}
+
+/*
+ * Input structure for the method ViewNumberDetails
+ */
+type ViewNumberDetailsInput struct {
+    PhoneNumber     string          //Get Phone number Detail
+    ResponseType    string          //Response type format xml or json
+}
+
+/*
+ * Input structure for the method ReleaseNumber
+ */
+type ReleaseNumberInput struct {
+    PhoneNumber     string          //Phone number to be relase
+    ResponseType    string          //Response type format xml or json
+}
+
+/*
+ * Input structure for the method BuyNumber
+ */
+type BuyNumberInput struct {
+    PhoneNumber     string          //Phone number to be purchase
+    ResponseType    string          //Response type format xml or json
+}
+
+/*
  * Input structure for the method UpdatePhoneNumber
  */
 type UpdatePhoneNumberInput struct {
-    PhoneNumber          string          //TODO: Write general description for this field
+    PhoneNumber          string          //The phone number to update
+    VoiceUrl             string          //URL requested once the call connects
     ResponseType         string          //Response type format xml or json
-    FriendlyName         *string         //TODO: Write general description for this field
-    VoiceUrl             *string         //URL requested once the call connects
-    VoiceMethod          models_pkg.HttpActionEnum //TODO: Write general description for this field
+    FriendlyName         *string         //Phone number friendly name description
+    VoiceMethod          models_pkg.HttpActionEnum //Post or Get
     VoiceFallbackUrl     *string         //URL requested if the voice URL is not available
-    VoiceFallbackMethod  models_pkg.HttpActionEnum //TODO: Write general description for this field
-    HangupCallback       *string         //TODO: Write general description for this field
-    HangupCallbackMethod models_pkg.HttpActionEnum //TODO: Write general description for this field
+    VoiceFallbackMethod  models_pkg.HttpActionEnum //Post or Get
+    HangupCallback       *string         //callback url after a hangup occurs
+    HangupCallbackMethod models_pkg.HttpActionEnum //Post or Get
     HeartbeatUrl         *string         //URL requested once the call connects
     HeartbeatMethod      models_pkg.HttpActionEnum //URL that can be requested every 60 seconds during the call to notify of elapsed time
     SmsUrl               *string         //URL requested when an SMS is received
-    SmsMethod            models_pkg.HttpActionEnum //TODO: Write general description for this field
+    SmsMethod            models_pkg.HttpActionEnum //Post or Get
     SmsFallbackUrl       *string         //URL requested once the call connects
     SmsFallbackMethod    models_pkg.HttpActionEnum //URL requested if the sms URL is not available
 }
@@ -85,16 +85,16 @@ type UpdatePhoneNumberInput struct {
 type PHONENUMBER_IMPL struct { }
 
 /**
- * Buy Phone Number 
- * @param  CreateBuyNumberInput     Structure with all inputs
+ * Available Phone Number
+ * @param  AvailablePhoneNumberInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *PHONENUMBER_IMPL) CreateBuyNumber (input *CreateBuyNumberInput) (string, error) {
+func (me *PHONENUMBER_IMPL) AvailablePhoneNumber (input *AvailablePhoneNumberInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/incomingphone/buynumber.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/incomingphone/availablenumber.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -122,7 +122,9 @@ func (me *PHONENUMBER_IMPL) CreateBuyNumber (input *CreateBuyNumberInput) (strin
     //form parameters
     parameters := map[string]interface{} {
 
-        "PhoneNumber" : input.PhoneNumber,
+        "NumberType" : models_pkg.NumberTypeEnumToValue(input.NumberType),
+        "AreaCode" : input.AreaCode,
+        "PageSize" : apihelper_pkg.ToString(*input.PageSize, "10"),
 
     }
 
@@ -150,16 +152,16 @@ func (me *PHONENUMBER_IMPL) CreateBuyNumber (input *CreateBuyNumberInput) (strin
 }
 
 /**
- * Release number from account
- * @param  CreateReleaseNumberInput     Structure with all inputs
+ * List Account's Phone number details
+ * @param  ListNumberInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *PHONENUMBER_IMPL) CreateReleaseNumber (input *CreateReleaseNumberInput) (string, error) {
+func (me *PHONENUMBER_IMPL) ListNumber (input *ListNumberInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/incomingphone/releasenumber.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/incomingphone/listnumber.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -187,7 +189,10 @@ func (me *PHONENUMBER_IMPL) CreateReleaseNumber (input *CreateReleaseNumberInput
     //form parameters
     parameters := map[string]interface{} {
 
-        "PhoneNumber" : input.PhoneNumber,
+        "Page" : apihelper_pkg.ToString(*input.Page, "1"),
+        "PageSize" : apihelper_pkg.ToString(*input.PageSize, "10"),
+        "NumberType" : models_pkg.NumberTypeEnumToValue(input.NumberType),
+        "FriendlyName" : input.FriendlyName,
 
     }
 
@@ -216,10 +221,10 @@ func (me *PHONENUMBER_IMPL) CreateReleaseNumber (input *CreateReleaseNumberInput
 
 /**
  * Get Phone Number Details
- * @param  CreateViewNumberDetailsInput     Structure with all inputs
+ * @param  ViewNumberDetailsInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *PHONENUMBER_IMPL) CreateViewNumberDetails (input *CreateViewNumberDetailsInput) (string, error) {
+func (me *PHONENUMBER_IMPL) ViewNumberDetails (input *ViewNumberDetailsInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -280,16 +285,16 @@ func (me *PHONENUMBER_IMPL) CreateViewNumberDetails (input *CreateViewNumberDeta
 }
 
 /**
- * List Account's Phone number details
- * @param  CreateListNumberInput     Structure with all inputs
+ * Release number from account
+ * @param  ReleaseNumberInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *PHONENUMBER_IMPL) CreateListNumber (input *CreateListNumberInput) (string, error) {
+func (me *PHONENUMBER_IMPL) ReleaseNumber (input *ReleaseNumberInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/incomingphone/listnumber.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/incomingphone/releasenumber.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -317,10 +322,7 @@ func (me *PHONENUMBER_IMPL) CreateListNumber (input *CreateListNumberInput) (str
     //form parameters
     parameters := map[string]interface{} {
 
-        "Page" : input.Page,
-        "PageSize" : apihelper_pkg.ToString(*input.PageSize, "10"),
-        "NumberType" : models_pkg.NumberTypeEnumToValue(input.NumberType),
-        "FriendlyName" : input.FriendlyName,
+        "PhoneNumber" : input.PhoneNumber,
 
     }
 
@@ -348,16 +350,16 @@ func (me *PHONENUMBER_IMPL) CreateListNumber (input *CreateListNumberInput) (str
 }
 
 /**
- * Available Phone Number
- * @param  CreateAvailablePhoneNumberInput     Structure with all inputs
+ * Buy Phone Number 
+ * @param  BuyNumberInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *PHONENUMBER_IMPL) CreateAvailablePhoneNumber (input *CreateAvailablePhoneNumberInput) (string, error) {
+func (me *PHONENUMBER_IMPL) BuyNumber (input *BuyNumberInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/incomingphone/availablenumber.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/incomingphone/buynumber.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -385,9 +387,7 @@ func (me *PHONENUMBER_IMPL) CreateAvailablePhoneNumber (input *CreateAvailablePh
     //form parameters
     parameters := map[string]interface{} {
 
-        "NumberType" : models_pkg.NumberTypeEnumToValue(input.NumberType),
-        "AreaCode" : input.AreaCode,
-        "PageSize" : apihelper_pkg.ToString(*input.PageSize, "10"),
+        "PhoneNumber" : input.PhoneNumber,
 
     }
 
@@ -453,8 +453,8 @@ func (me *PHONENUMBER_IMPL) UpdatePhoneNumber (input *UpdatePhoneNumberInput) (s
     parameters := map[string]interface{} {
 
         "PhoneNumber" : input.PhoneNumber,
-        "FriendlyName" : input.FriendlyName,
         "VoiceUrl" : input.VoiceUrl,
+        "FriendlyName" : input.FriendlyName,
         "VoiceMethod" : models_pkg.HttpActionEnumToValue(input.VoiceMethod),
         "VoiceFallbackUrl" : input.VoiceFallbackUrl,
         "VoiceFallbackMethod" : models_pkg.HttpActionEnumToValue(input.VoiceFallbackMethod),

@@ -11,17 +11,23 @@ package conference_pkg
  * Interface for the CONFERENCE_IMPL
  */
 type CONFERENCE interface {
-    CreateDeafMuteParticipant (*CreateDeafMuteParticipantInput) (string, error)
+    DeafMuteParticipant (*DeafMuteParticipantInput) (string, error)
 
-    CreateListConference (*CreateListConferenceInput) (string, error)
-
-    CreateViewConference (*CreateViewConferenceInput) (string, error)
+    ViewParticipant (*ViewParticipantInput) (string, error)
 
     AddParticipant (*AddParticipantInput) (string, error)
 
-    CreateListParticipant (*CreateListParticipantInput) (string, error)
+    ViewConference (*ViewConferenceInput) (string, error)
 
-    CreateViewParticipant (*CreateViewParticipantInput) (string, error)
+    CreateConference (*CreateConferenceInput) (string, error)
+
+    HangupParticipant (*HangupParticipantInput) (string, error)
+
+    PlayConferenceAudio (*PlayConferenceAudioInput) (string, error)
+
+    ListParticipant (*ListParticipantInput) (string, error)
+
+    ListConference (*ListConferenceInput) (string, error)
 }
 
 /*

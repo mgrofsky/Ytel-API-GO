@@ -11,7 +11,7 @@ package account_pkg
  * Interface for the ACCOUNT_IMPL
  */
 type ACCOUNT interface {
-    CreateViewAccount (*CreateViewAccountInput) (string, error)
+    ViewAccount (*ViewAccountInput) (string, error)
 }
 
 /*

@@ -11,9 +11,9 @@ package carrier_pkg
  * Interface for the CARRIER_IMPL
  */
 type CARRIER interface {
-    CreateCarrierLookupList (*CreateCarrierLookupListInput) (string, error)
+    CarrierLookupList (*CarrierLookupListInput) (string, error)
 
-    CreateCarrierLookup (*CreateCarrierLookupInput) (string, error)
+    CarrierLookup (*CarrierLookupInput) (string, error)
 }
 
 /*

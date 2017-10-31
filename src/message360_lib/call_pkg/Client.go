@@ -14,50 +14,52 @@ import(
 )
 
 /*
- * Input structure for the method CreateGroupCall
+ * Input structure for the method MakeCall
  */
-type CreateGroupCallInput struct {
-    FromCountryCode       string          //TODO: Write general description for this field
-    From                  string          //TODO: Write general description for this field
-    ToCountryCode         string          //TODO: Write general description for this field
-    To                    string          //TODO: Write general description for this field
-    Url                   string          //TODO: Write general description for this field
-    ResponseType          string          //TODO: Write general description for this field
-    Method                models_pkg.HttpActionEnum //TODO: Write general description for this field
-    StatusCallBackUrl     *string         //TODO: Write general description for this field
-    StatusCallBackMethod  models_pkg.HttpActionEnum //TODO: Write general description for this field
-    FallBackUrl           *string         //TODO: Write general description for this field
-    FallBackMethod        models_pkg.HttpActionEnum //TODO: Write general description for this field
-    HeartBeatUrl          *string         //TODO: Write general description for this field
-    HeartBeatMethod       models_pkg.HttpActionEnum //TODO: Write general description for this field
-    Timeout               *int64          //TODO: Write general description for this field
-    PlayDtmf              *string         //TODO: Write general description for this field
-    HideCallerId          *string         //TODO: Write general description for this field
-    Record                *bool           //TODO: Write general description for this field
-    RecordCallBackUrl     *string         //TODO: Write general description for this field
-    RecordCallBackMethod  models_pkg.HttpActionEnum //TODO: Write general description for this field
-    Transcribe            *bool           //TODO: Write general description for this field
-    TranscribeCallBackUrl *string         //TODO: Write general description for this field
+type MakeCallInput struct {
+    From                  string          //This number to display on Caller ID as calling
+    To                    string          //To number
+    Url                   string          //URL requested once the call connects
+    ResponseType          string          //Response type format xml or json
+    Method                models_pkg.HttpActionEnum //Specifies the HTTP method used to request the required URL once call connects.
+    StatusCallBackUrl     *string         //specifies the HTTP methodlinkclass used to request StatusCallbackUrl.
+    StatusCallBackMethod  models_pkg.HttpActionEnum //Specifies the HTTP methodlinkclass used to request StatusCallbackUrl.
+    FallBackUrl           *string         //URL requested if the initial Url parameter fails or encounters an error
+    FallBackMethod        models_pkg.HttpActionEnum //Specifies the HTTP method used to request the required FallbackUrl once call connects.
+    HeartBeatUrl          *string         //URL that can be requested every 60 seconds during the call to notify of elapsed tim
+    HeartBeatMethod       models_pkg.HttpActionEnum //Specifies the HTTP method used to request HeartbeatUrl.
+    Timeout               *int64          //Time (in seconds) Message360 should wait while the call is ringing before canceling the call
+    PlayDtmf              *string         //DTMF Digits to play to the call once it connects. 0-9, #, or *
+    HideCallerId          *bool           //Specifies if the caller id will be hidden
+    Record                *bool           //Specifies if the call should be recorded
+    RecordCallBackUrl     *string         //Recording parameters will be sent here upon completion
+    RecordCallBackMethod  models_pkg.HttpActionEnum //Method used to request the RecordCallback URL.
+    Transcribe            *bool           //Specifies if the call recording should be transcribed
+    TranscribeCallBackUrl *string         //Transcription parameters will be sent here upon completion
+    IfMachine             models_pkg.IfMachineEnum //How Message360 should handle the receiving numbers voicemail machine
+    IfMachineUrl          *string         //URL requested when IfMachine=continue
+    IfMachineMethod       models_pkg.HttpActionEnum //Method used to request the IfMachineUrl.
+    Feedback              *bool           //Specify if survey should be enable or not
+    SurveyId              *string         //The unique identifier for the survey.
 }
 
 /*
- * Input structure for the method CreateVoiceEffect
+ * Input structure for the method PlayAudio
  */
-type CreateVoiceEffectInput struct {
-    CallSid         string          //TODO: Write general description for this field
+type PlayAudioInput struct {
+    CallSid         string          //The unique identifier of each call resource
+    AudioUrl        string          //URL to sound that should be played. You also can add more than one audio file using semicolons e.g. http://example.com/audio1.mp3;http://example.com/audio2.wav
+    SayText         string          //Valid alphanumeric string that should be played to the In-progress call.
     ResponseType    string          //Response type format xml or json
-    AudioDirection  models_pkg.AudioDirectionEnum //TODO: Write general description for this field
-    PitchSemiTones  *float64        //value between -14 and 14
-    PitchOctaves    *float64        //value between -1 and 1
-    Pitch           *float64        //value greater than 0
-    Rate            *float64        //value greater than 0
-    Tempo           *float64        //value greater than 0
+    Length          *int64          //Time limit in seconds for audio play back
+    Direction       models_pkg.DirectionEnum //The leg of the call audio will be played to
+    Mix             *bool           //If false, all other audio will be muted
 }
 
 /*
- * Input structure for the method CreateRecordCall
+ * Input structure for the method RecordCall
  */
-type CreateRecordCallInput struct {
+type RecordCallInput struct {
     CallSid         string          //The unique identifier of each call resource
     Record          bool            //Set true to initiate recording or false to terminate recording
     ResponseType    string          //Response format, xml or json
@@ -68,22 +70,33 @@ type CreateRecordCallInput struct {
 }
 
 /*
- * Input structure for the method CreatePlayAudio
+ * Input structure for the method VoiceEffect
  */
-type CreatePlayAudioInput struct {
-    CallSid         string          //The unique identifier of each call resource
-    AudioUrl        string          //URL to sound that should be played. You also can add more than one audio file using semicolons e.g. http://example.com/audio1.mp3;http://example.com/audio2.wav
+type VoiceEffectInput struct {
+    CallSid         string          //The unique identifier for the in-progress voice call.
     ResponseType    string          //Response type format xml or json
-    Length          *int64          //Time limit in seconds for audio play back
-    Direction       models_pkg.DirectionEnum //The leg of the call audio will be played to
-    Loop            *bool           //Repeat audio playback indefinitely
-    Mix             *bool           //If false, all other audio will be muted
+    AudioDirection  models_pkg.AudioDirectionEnum //The direction the audio effect should be placed on. If IN, the effects will occur on the incoming audio stream. If OUT, the effects will occur on the outgoing audio stream.
+    PitchSemiTones  *float64        //value between -14 and 14
+    PitchOctaves    *float64        //value between -1 and 1
+    Pitch           *float64        //value greater than 0
+    Rate            *float64        //value greater than 0
+    Tempo           *float64        //value greater than 0
 }
 
 /*
- * Input structure for the method CreateInterruptedCall
+ * Input structure for the method SendDigit
  */
-type CreateInterruptedCallInput struct {
+type SendDigitInput struct {
+    CallSid           string          //The unique identifier of each call resource
+    PlayDtmf          string          //DTMF digits to play to the call. 0-9, #, *, W, or w
+    ResponseType      string          //Response type format xml or json
+    PlayDtmfDirection models_pkg.DirectionEnum //The leg of the call DTMF digits should be sent to
+}
+
+/*
+ * Input structure for the method InterruptedCall
+ */
+type InterruptedCallInput struct {
     CallSid         string          //Call SId
     ResponseType    string          //Response type format xml or json
     Url             *string         //URL the in-progress call will be redirected to
@@ -92,47 +105,36 @@ type CreateInterruptedCallInput struct {
 }
 
 /*
- * Input structure for the method CreateSendDigit
+ * Input structure for the method GroupCall
  */
-type CreateSendDigitInput struct {
-    CallSid           string          //The unique identifier of each call resource
-    PlayDtmf          string          //DTMF digits to play to the call. 0-9, #, *, W, or w
-    ResponseType      string          //Response type format xml or json
-    PlayDtmfDirection models_pkg.DirectionEnum //The leg of the call DTMF digits should be sent to
-}
-
-/*
- * Input structure for the method CreateMakeCall
- */
-type CreateMakeCallInput struct {
-    FromCountryCode       string          //from country code
+type GroupCallInput struct {
     From                  string          //This number to display on Caller ID as calling
-    ToCountryCode         string          //To cuntry code number
-    To                    string          //To number
+    To                    string          //Please enter multiple E164 number. You can add max 10 numbers. Add numbers separated with comma. e.g : 1111111111,2222222222
     Url                   string          //URL requested once the call connects
-    ResponseType          string          //Response type format xml or json
+    ResponseType          string          //TODO: Write general description for this field
+    GroupConfirmKey       string          //Define the DTMF that the called party should send to bridge the call. Allowed Values : 0-9, #, *
+    GroupConfirmFile      models_pkg.AudioFormatEnum //Specify the audio file you want to play when the called party picks up the call
     Method                models_pkg.HttpActionEnum //Specifies the HTTP method used to request the required URL once call connects.
-    StatusCallBackUrl     *string         //specifies the HTTP methodlinkclass used to request StatusCallbackUrl.
+    StatusCallBackUrl     *string         //Specifies the HTTP method used to request the required URL once call connects.
     StatusCallBackMethod  models_pkg.HttpActionEnum //Specifies the HTTP methodlinkclass used to request StatusCallbackUrl.
     FallBackUrl           *string         //URL requested if the initial Url parameter fails or encounters an error
     FallBackMethod        models_pkg.HttpActionEnum //Specifies the HTTP method used to request the required FallbackUrl once call connects.
     HeartBeatUrl          *string         //URL that can be requested every 60 seconds during the call to notify of elapsed tim
-    HeartBeatMethod       *bool           //Specifies the HTTP method used to request HeartbeatUrl.
+    HeartBeatMethod       models_pkg.HttpActionEnum //Specifies the HTTP method used to request HeartbeatUrl.
     Timeout               *int64          //Time (in seconds) Message360 should wait while the call is ringing before canceling the call
     PlayDtmf              *string         //DTMF Digits to play to the call once it connects. 0-9, #, or *
-    HideCallerId          *bool           //Specifies if the caller id will be hidden
+    HideCallerId          *string         //Specifies if the caller id will be hidden
     Record                *bool           //Specifies if the call should be recorded
     RecordCallBackUrl     *string         //Recording parameters will be sent here upon completion
     RecordCallBackMethod  models_pkg.HttpActionEnum //Method used to request the RecordCallback URL.
     Transcribe            *bool           //Specifies if the call recording should be transcribed
     TranscribeCallBackUrl *string         //Transcription parameters will be sent here upon completion
-    IfMachine             models_pkg.IfMachineEnum //How Message360 should handle the receiving numbers voicemail machine
 }
 
 /*
- * Input structure for the method CreateListCalls
+ * Input structure for the method ListCalls
  */
-type CreateListCallsInput struct {
+type ListCallsInput struct {
     ResponseType    string          //Response type format xml or json
     Page            *int64          //Which page of the overall response will be returned. Zero indexed
     PageSize        *int64          //Number of individual resources listed in the response per page
@@ -142,24 +144,23 @@ type CreateListCallsInput struct {
 }
 
 /*
- * Input structure for the method CreateSendRinglessVM
+ * Input structure for the method SendRinglessVM
  */
-type CreateSendRinglessVMInput struct {
-    FromCountryCode     string          //From country code
+type SendRinglessVMInput struct {
     From                string          //This number to display on Caller ID as calling
-    ToCountryCode       string          //To country code
+    RVMCallerId         string          //Alternate caller ID required for RVM
     To                  string          //To number
     VoiceMailURL        string          //URL to an audio file
-    Method              string          //Not currently used in this version
     ResponseType        string          //Response type format xml or json
+    Method              models_pkg.HttpActionEnum //Not currently used in this version
     StatusCallBackUrl   *string         //URL to post the status of the Ringless request
-    StatsCallBackMethod *string         //POST or GET
+    StatsCallBackMethod models_pkg.HttpActionEnum //POST or GET
 }
 
 /*
- * Input structure for the method CreateViewCall
+ * Input structure for the method ViewCall
  */
-type CreateViewCallInput struct {
+type ViewCallInput struct {
     Callsid         string          //Call Sid id for particular Call
     ResponseType    string          //Response type format xml or json
 }
@@ -170,16 +171,16 @@ type CreateViewCallInput struct {
 type CALL_IMPL struct { }
 
 /**
- * Group Call
- * @param  CreateGroupCallInput     Structure with all inputs
+ * You can experiment with initiating a call through Message360 and view the request response generated when doing so and get the response in json
+ * @param  MakeCallInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CALL_IMPL) CreateGroupCall (input *CreateGroupCallInput) (string, error) {
+func (me *CALL_IMPL) MakeCall (input *MakeCallInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/calls/groupcall.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/calls/makecall.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -207,9 +208,7 @@ func (me *CALL_IMPL) CreateGroupCall (input *CreateGroupCallInput) (string, erro
     //form parameters
     parameters := map[string]interface{} {
 
-        "FromCountryCode" : input.FromCountryCode,
         "From" : input.From,
-        "ToCountryCode" : input.ToCountryCode,
         "To" : input.To,
         "Url" : input.Url,
         "Method" : models_pkg.HttpActionEnumToValue(input.Method),
@@ -227,6 +226,151 @@ func (me *CALL_IMPL) CreateGroupCall (input *CreateGroupCallInput) (string, erro
         "RecordCallBackMethod" : models_pkg.HttpActionEnumToValue(input.RecordCallBackMethod),
         "Transcribe" : input.Transcribe,
         "TranscribeCallBackUrl" : input.TranscribeCallBackUrl,
+        "IfMachine" : models_pkg.IfMachineEnumToValue(input.IfMachine),
+        "IfMachineUrl" : input.IfMachineUrl,
+        "IfMachineMethod" : models_pkg.HttpActionEnumToValue(input.IfMachineMethod),
+        "Feedback" : input.Feedback,
+        "SurveyId" : input.SurveyId,
+
+    }
+
+
+    //prepare API request
+    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request);
+    if err != nil {
+        //error in API invocation
+        return "", err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return "", err
+    }
+
+    //returning the response
+    return _response.Body, nil
+}
+
+/**
+ * Play Dtmf and send the Digit
+ * @param  PlayAudioInput     Structure with all inputs
+ * @return	Returns the string response from the API call
+ */
+func (me *CALL_IMPL) PlayAudio (input *PlayAudioInput) (string, error) {
+        //the base uri for api requests
+    _queryBuilder := message360_lib.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + "/calls/playaudios.{ResponseType}"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional query parameters
+    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
+        "ResponseType" : input.ResponseType,
+    })
+    if err != nil {
+        //error in template param handling
+        return "", err
+    }
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return "", err
+    }
+
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "message360-api",
+    }
+
+    //form parameters
+    parameters := map[string]interface{} {
+
+        "CallSid" : input.CallSid,
+        "AudioUrl" : input.AudioUrl,
+        "SayText" : input.SayText,
+        "Length" : input.Length,
+        "Direction" : models_pkg.DirectionEnumToValue(input.Direction),
+        "Mix" : input.Mix,
+
+    }
+
+
+    //prepare API request
+    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request);
+    if err != nil {
+        //error in API invocation
+        return "", err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return "", err
+    }
+
+    //returning the response
+    return _response.Body, nil
+}
+
+/**
+ * Record a Call
+ * @param  RecordCallInput     Structure with all inputs
+ * @return	Returns the string response from the API call
+ */
+func (me *CALL_IMPL) RecordCall (input *RecordCallInput) (string, error) {
+        //the base uri for api requests
+    _queryBuilder := message360_lib.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + "/calls/recordcalls.{ResponseType}"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional query parameters
+    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
+        "ResponseType" : input.ResponseType,
+    })
+    if err != nil {
+        //error in template param handling
+        return "", err
+    }
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return "", err
+    }
+
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "message360-api",
+    }
+
+    //form parameters
+    parameters := map[string]interface{} {
+
+        "CallSid" : input.CallSid,
+        "Record" : input.Record,
+        "Direction" : models_pkg.DirectionEnumToValue(input.Direction),
+        "TimeLimit" : input.TimeLimit,
+        "CallBackUrl" : input.CallBackUrl,
+        "Fileformat" : models_pkg.AudioFormatEnumToValue(input.Fileformat),
 
     }
 
@@ -255,10 +399,10 @@ func (me *CALL_IMPL) CreateGroupCall (input *CreateGroupCallInput) (string, erro
 
 /**
  * Voice Effect
- * @param  CreateVoiceEffectInput     Structure with all inputs
+ * @param  VoiceEffectInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CALL_IMPL) CreateVoiceEffect (input *CreateVoiceEffectInput) (string, error) {
+func (me *CALL_IMPL) VoiceEffect (input *VoiceEffectInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -325,86 +469,16 @@ func (me *CALL_IMPL) CreateVoiceEffect (input *CreateVoiceEffectInput) (string, 
 }
 
 /**
- * Record a Call
- * @param  CreateRecordCallInput     Structure with all inputs
- * @return	Returns the string response from the API call
- */
-func (me *CALL_IMPL) CreateRecordCall (input *CreateRecordCallInput) (string, error) {
-        //the base uri for api requests
-    _queryBuilder := message360_lib.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/calls/recordcalls.{ResponseType}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : input.ResponseType,
-    })
-    if err != nil {
-        //error in template param handling
-        return "", err
-    }
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return "", err
-    }
-
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "message360-api",
-    }
-
-    //form parameters
-    parameters := map[string]interface{} {
-
-        "CallSid" : input.CallSid,
-        "Record" : input.Record,
-        "Direction" : models_pkg.DirectionEnumToValue(input.Direction),
-        "TimeLimit" : input.TimeLimit,
-        "CallBackUrl" : input.CallBackUrl,
-        "Fileformat" : models_pkg.AudioFormatEnumToValue(input.Fileformat),
-
-    }
-
-
-    //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
-    if err != nil {
-        //error in API invocation
-        return "", err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return "", err
-    }
-
-    //returning the response
-    return _response.Body, nil
-}
-
-/**
  * Play Dtmf and send the Digit
- * @param  CreatePlayAudioInput     Structure with all inputs
+ * @param  SendDigitInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CALL_IMPL) CreatePlayAudio (input *CreatePlayAudioInput) (string, error) {
+func (me *CALL_IMPL) SendDigit (input *SendDigitInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/calls/playaudios.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/calls/senddigits.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -433,11 +507,8 @@ func (me *CALL_IMPL) CreatePlayAudio (input *CreatePlayAudioInput) (string, erro
     parameters := map[string]interface{} {
 
         "CallSid" : input.CallSid,
-        "AudioUrl" : input.AudioUrl,
-        "Length" : input.Length,
-        "Direction" : models_pkg.DirectionEnumToValue(input.Direction),
-        "Loop" : input.Loop,
-        "Mix" : input.Mix,
+        "PlayDtmf" : input.PlayDtmf,
+        "PlayDtmfDirection" : models_pkg.DirectionEnumToValue(input.PlayDtmfDirection),
 
     }
 
@@ -466,10 +537,10 @@ func (me *CALL_IMPL) CreatePlayAudio (input *CreatePlayAudioInput) (string, erro
 
 /**
  * Interrupt the Call by Call Sid
- * @param  CreateInterruptedCallInput     Structure with all inputs
+ * @param  InterruptedCallInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CALL_IMPL) CreateInterruptedCall (input *CreateInterruptedCallInput) (string, error) {
+func (me *CALL_IMPL) InterruptedCall (input *InterruptedCallInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -533,16 +604,16 @@ func (me *CALL_IMPL) CreateInterruptedCall (input *CreateInterruptedCallInput) (
 }
 
 /**
- * Play Dtmf and send the Digit
- * @param  CreateSendDigitInput     Structure with all inputs
+ * Group Call
+ * @param  GroupCallInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CALL_IMPL) CreateSendDigit (input *CreateSendDigitInput) (string, error) {
+func (me *CALL_IMPL) GroupCall (input *GroupCallInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/calls/senddigits.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/calls/groupcall.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -570,93 +641,18 @@ func (me *CALL_IMPL) CreateSendDigit (input *CreateSendDigitInput) (string, erro
     //form parameters
     parameters := map[string]interface{} {
 
-        "CallSid" : input.CallSid,
-        "PlayDtmf" : input.PlayDtmf,
-        "PlayDtmfDirection" : models_pkg.DirectionEnumToValue(input.PlayDtmfDirection),
-
-    }
-
-
-    //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
-    if err != nil {
-        //error in API invocation
-        return "", err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return "", err
-    }
-
-    //returning the response
-    return _response.Body, nil
-}
-
-/**
- * You can experiment with initiating a call through Message360 and view the request response generated when doing so and get the response in json
- * @param  CreateMakeCallInput     Structure with all inputs
- * @return	Returns the string response from the API call
- */
-func (me *CALL_IMPL) CreateMakeCall (input *CreateMakeCallInput) (string, error) {
-        //the base uri for api requests
-    _queryBuilder := message360_lib.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/calls/makecall.{ResponseType}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : input.ResponseType,
-    })
-    if err != nil {
-        //error in template param handling
-        return "", err
-    }
-
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
-        "Method" : models_pkg.HttpActionEnumToValue(input.Method),
-    })
-    if err != nil {
-        //error in query param handling
-        return "", err
-    }
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return "", err
-    }
-
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "message360-api",
-    }
-
-    //form parameters
-    parameters := map[string]interface{} {
-
-        "FromCountryCode" : input.FromCountryCode,
         "From" : input.From,
-        "ToCountryCode" : input.ToCountryCode,
         "To" : input.To,
         "Url" : input.Url,
+        "GroupConfirmKey" : input.GroupConfirmKey,
+        "GroupConfirmFile" : models_pkg.AudioFormatEnumToValue(input.GroupConfirmFile),
+        "Method" : models_pkg.HttpActionEnumToValue(input.Method),
         "StatusCallBackUrl" : input.StatusCallBackUrl,
         "StatusCallBackMethod" : models_pkg.HttpActionEnumToValue(input.StatusCallBackMethod),
         "FallBackUrl" : input.FallBackUrl,
         "FallBackMethod" : models_pkg.HttpActionEnumToValue(input.FallBackMethod),
         "HeartBeatUrl" : input.HeartBeatUrl,
-        "HeartBeatMethod" : input.HeartBeatMethod,
+        "HeartBeatMethod" : models_pkg.HttpActionEnumToValue(input.HeartBeatMethod),
         "Timeout" : input.Timeout,
         "PlayDtmf" : input.PlayDtmf,
         "HideCallerId" : input.HideCallerId,
@@ -665,7 +661,6 @@ func (me *CALL_IMPL) CreateMakeCall (input *CreateMakeCallInput) (string, error)
         "RecordCallBackMethod" : models_pkg.HttpActionEnumToValue(input.RecordCallBackMethod),
         "Transcribe" : input.Transcribe,
         "TranscribeCallBackUrl" : input.TranscribeCallBackUrl,
-        "IfMachine" : models_pkg.IfMachineEnumToValue(input.IfMachine),
 
     }
 
@@ -694,10 +689,10 @@ func (me *CALL_IMPL) CreateMakeCall (input *CreateMakeCallInput) (string, error)
 
 /**
  * A list of calls associated with your Message360 account
- * @param  CreateListCallsInput     Structure with all inputs
+ * @param  ListCallsInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CALL_IMPL) CreateListCalls (input *CreateListCallsInput) (string, error) {
+func (me *CALL_IMPL) ListCalls (input *ListCallsInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -730,7 +725,7 @@ func (me *CALL_IMPL) CreateListCalls (input *CreateListCallsInput) (string, erro
     //form parameters
     parameters := map[string]interface{} {
 
-        "Page" : input.Page,
+        "Page" : apihelper_pkg.ToString(*input.Page, "1"),
         "PageSize" : apihelper_pkg.ToString(*input.PageSize, "10"),
         "To" : input.To,
         "From" : input.From,
@@ -763,10 +758,10 @@ func (me *CALL_IMPL) CreateListCalls (input *CreateListCallsInput) (string, erro
 
 /**
  * API endpoint used to send a Ringless Voicemail
- * @param  CreateSendRinglessVMInput     Structure with all inputs
+ * @param  SendRinglessVMInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CALL_IMPL) CreateSendRinglessVM (input *CreateSendRinglessVMInput) (string, error) {
+func (me *CALL_IMPL) SendRinglessVM (input *SendRinglessVMInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -799,14 +794,13 @@ func (me *CALL_IMPL) CreateSendRinglessVM (input *CreateSendRinglessVMInput) (st
     //form parameters
     parameters := map[string]interface{} {
 
-        "FromCountryCode" : input.FromCountryCode,
         "From" : input.From,
-        "ToCountryCode" : input.ToCountryCode,
+        "RVMCallerId" : input.RVMCallerId,
         "To" : input.To,
         "VoiceMailURL" : input.VoiceMailURL,
-        "Method" : input.Method,
+        "Method" : models_pkg.HttpActionEnumToValue(input.Method),
         "StatusCallBackUrl" : input.StatusCallBackUrl,
-        "StatsCallBackMethod" : input.StatsCallBackMethod,
+        "StatsCallBackMethod" : models_pkg.HttpActionEnumToValue(input.StatsCallBackMethod),
 
     }
 
@@ -835,10 +829,10 @@ func (me *CALL_IMPL) CreateSendRinglessVM (input *CreateSendRinglessVMInput) (st
 
 /**
  * View Call Response
- * @param  CreateViewCallInput     Structure with all inputs
+ * @param  ViewCallInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CALL_IMPL) CreateViewCall (input *CreateViewCallInput) (string, error) {
+func (me *CALL_IMPL) ViewCall (input *ViewCallInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 

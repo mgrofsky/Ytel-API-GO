@@ -11,11 +11,11 @@ package subaccount_pkg
  * Interface for the SUBACCOUNT_IMPL
  */
 type SUBACCOUNT interface {
+    DeleteSubAccount (*DeleteSubAccountInput) (string, error)
+
+    SuspendSubAccount (*SuspendSubAccountInput) (string, error)
+
     CreateSubAccount (*CreateSubAccountInput) (string, error)
-
-    CreateSuspendSubAccount (*CreateSuspendSubAccountInput) (string, error)
-
-    CreateDeleteSubAccount (*CreateDeleteSubAccountInput) (string, error)
 }
 
 /*

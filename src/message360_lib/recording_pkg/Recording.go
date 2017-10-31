@@ -11,11 +11,11 @@ package recording_pkg
  * Interface for the RECORDING_IMPL
  */
 type RECORDING interface {
-    CreateListRecording (*CreateListRecordingInput) (string, error)
+    ViewRecording (*ViewRecordingInput) (string, error)
 
-    CreateDeleteRecording (*CreateDeleteRecordingInput) (string, error)
+    DeleteRecording (*DeleteRecordingInput) (string, error)
 
-    CreateViewRecording (*CreateViewRecordingInput) (string, error)
+    ListRecording (*ListRecordingInput) (string, error)
 }
 
 /*

@@ -11,15 +11,15 @@ package phonenumber_pkg
  * Interface for the PHONENUMBER_IMPL
  */
 type PHONENUMBER interface {
-    CreateBuyNumber (*CreateBuyNumberInput) (string, error)
+    AvailablePhoneNumber (*AvailablePhoneNumberInput) (string, error)
 
-    CreateReleaseNumber (*CreateReleaseNumberInput) (string, error)
+    ListNumber (*ListNumberInput) (string, error)
 
-    CreateViewNumberDetails (*CreateViewNumberDetailsInput) (string, error)
+    ViewNumberDetails (*ViewNumberDetailsInput) (string, error)
 
-    CreateListNumber (*CreateListNumberInput) (string, error)
+    ReleaseNumber (*ReleaseNumberInput) (string, error)
 
-    CreateAvailablePhoneNumber (*CreateAvailablePhoneNumberInput) (string, error)
+    BuyNumber (*BuyNumberInput) (string, error)
 
     UpdatePhoneNumber (*UpdatePhoneNumberInput) (string, error)
 }

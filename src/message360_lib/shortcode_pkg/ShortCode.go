@@ -6,23 +6,19 @@
 
 package shortcode_pkg
 
-import "github.com/satori/go.uuid"
+import "time"
 
 /*
  * Interface for the SHORTCODE_IMPL
  */
 type SHORTCODE interface {
-    CreateViewTemplate (*CreateViewTemplateInput) (string, error)
+    SendDedicatedShortcode (*SendDedicatedShortcodeInput) (string, error)
 
-    CreateSendShortCode (*CreateSendShortCodeInput) (string, error)
+    ViewShortcode (*ViewShortcodeInput) (string, error)
 
-    CreateListInboundShortCode (*CreateListInboundShortCodeInput) (string, error)
+    ListShortcode (*ListShortcodeInput) (string, error)
 
-    CreateListShortCode (*CreateListShortCodeInput) (string, error)
-
-    CreateListTemplates (*CreateListTemplatesInput) (string, error)
-
-    CreateViewShortCode (*CreateViewShortCodeInput) (string, error)
+    ListInboundShortcode (*ListInboundShortcodeInput) (string, error)
 }
 
 /*

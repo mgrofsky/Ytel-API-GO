@@ -13,9 +13,9 @@ import(
 )
 
 /*
- * Input structure for the method CreateCheckFunds
+ * Input structure for the method CheckFunds
  */
-type CreateCheckFundsInput struct {
+type CheckFundsInput struct {
     AccountSid      string          //Your message360 Account SID
     AuthToken       string          //Your message360 Token
 }
@@ -37,10 +37,10 @@ type WEBRTC_IMPL struct { }
 
 /**
  * TODO: type endpoint description here
- * @param  CreateCheckFundsInput     Structure with all inputs
+ * @param  CheckFundsInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *WEBRTC_IMPL) CreateCheckFunds (input *CreateCheckFundsInput) (string, error) {
+func (me *WEBRTC_IMPL) CheckFunds (input *CheckFundsInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 

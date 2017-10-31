@@ -3,140 +3,151 @@
  *
  * This file was automatically generated for message360 by APIMATIC v2.0 ( https://apimatic.io )
  */
-package email_pkg
+package sharedshortcode_pkg
 
 
 import(
+	"errors"
 	"message360_lib/models_pkg"
+	"github.com/satori/go.uuid"
 	"github.com/apimatic/unirest-go"
 	"message360_lib"
 	"message360_lib/apihelper_pkg"
 )
 
 /*
- * Input structure for the method DeleteSpam
+ * Input structure for the method ViewTemplate
  */
-type DeleteSpamInput struct {
-    ResponseType    string          //Response type format xml or json
-    Email           string          //Email address
-}
-
-/*
- * Input structure for the method DeleteBlock
- */
-type DeleteBlockInput struct {
-    Email           string          //Email address to remove from block list
+type ViewTemplateInput struct {
+    Templateid      uuid.UUID       //The unique identifier for a template object
     ResponseType    string          //Response type format xml or json
 }
 
 /*
- * Input structure for the method AddUnsubscribes
+ * Input structure for the method ViewSharedShortcodes
  */
-type AddUnsubscribesInput struct {
-    Email           string          //The email to add to the unsubscribe list
+type ViewSharedShortcodesInput struct {
+    Messagesid      string          //Message sid
     ResponseType    string          //Response type format xml or json
 }
 
 /*
- * Input structure for the method SendEmail
+ * Input structure for the method ListOutboundSharedShortcodes
  */
-type SendEmailInput struct {
-    To              string          //The to email address
-    From            string          //The from email address
-    Type            models_pkg.SendEmailAsEnum //email format type, html or text
-    Subject         string          //Email subject
-    Message         string          //The body of the email message
+type ListOutboundSharedShortcodesInput struct {
     ResponseType    string          //Response type format xml or json
-    Cc              *string         //CC Email address
-    Bcc             *string         //BCC Email address
-    Attachment      *string         //File to be attached.File must be less than 7MB.
+    Page            *int64          //Which page of the overall response will be returned. Zero indexed
+    Pagesize        *int64          //Number of individual resources listed in the response per page
+    From            *string         //Messages sent from this number
+    To              *string         //Messages sent to this number
+    Datesent        *string         //Only list SMS messages sent in the specified date range
 }
 
 /*
- * Input structure for the method DeleteUnsubscribes
+ * Input structure for the method ListInboundSharedShortcodes
  */
-type DeleteUnsubscribesInput struct {
-    Email           string          //The email to remove from the unsubscribe list
+type ListInboundSharedShortcodesInput struct {
+    ResponseType    string          //Response type format xml or json
+    Page            *int64          //Which page of the overall response will be returned. Zero indexed
+    Pagesize        *int64          //Number of individual resources listed in the response per page
+    From            *string         //From Number to Inbound ShortCode
+    Shortcode       *string         //Only list messages sent to this Short Code
+    DateReceived    *string         //Only list messages sent with the specified date
+}
+
+/*
+ * Input structure for the method SendSharedShortcode
+ */
+type SendSharedShortcodeInput struct {
+    Shortcode             string          //The Short Code number that is the sender of this message
+    To                    string          //A valid 10-digit number that should receive the message
+    Templateid            uuid.UUID       //The unique identifier for the template used for the message
+    ResponseType          string          //Response type format xml or json
+    Data                  string          //format of your data, example: {companyname}:test,{otpcode}:1234
+    Method                models_pkg.HttpActionEnum //Specifies the HTTP method used to request the required URL once the Short Code message is sent.
+    MessageStatusCallback *string         //URL that can be requested to receive notification when Short Code message was sent.
+}
+
+/*
+ * Input structure for the method ListTemplates
+ */
+type ListTemplatesInput struct {
+    ResponseType    string          //Response type format xml or json
+    Type            *string         //The type (category) of template Valid values: marketing, authorization
+    Page            *int64          //The page count to retrieve from the total results in the collection. Page indexing starts at 1.
+    Pagesize        *int64          //The count of objects to return per page.
+    Shortcode       *string         //Only list templates of type
+}
+
+/*
+ * Input structure for the method ViewKeyword
+ */
+type ViewKeywordInput struct {
+    Keywordid       string          //The unique identifier of each keyword
     ResponseType    string          //Response type format xml or json
 }
 
 /*
- * Input structure for the method ListUnsubscribes
+ * Input structure for the method ListKeyword
  */
-type ListUnsubscribesInput struct {
+type ListKeywordInput struct {
     ResponseType    string          //Response type format xml or json
-    Offset          *string         //Starting record of the list
-    Limit           *string         //Maximum number of records to be returned
+    Page            *int64          //Which page of the overall response will be returned. Zero indexed
+    PageSize        *int64          //Number of individual resources listed in the response per page
+    Keyword         *string         //Only list keywords of keyword
+    Shortcode       *int64          //Only list keywords of shortcode
 }
 
 /*
- * Input structure for the method ListInvalid
+ * Input structure for the method ViewAssignement
  */
-type ListInvalidInput struct {
+type ViewAssignementInput struct {
+    Shortcode       string          //List of valid Shortcode to your message360 account
     ResponseType    string          //Response type format xml or json
-    Offet           *string         //Starting record for listing out emails
-    Limit           *string         //Maximum number of records to return
 }
 
 /*
- * Input structure for the method DeleteBounces
+ * Input structure for the method ListAssignment
  */
-type DeleteBouncesInput struct {
+type ListAssignmentInput struct {
     ResponseType    string          //Response type format xml or json
-    Email           string          //The email address to remove from the bounce list
+    Page            *int64          //Which page of the overall response will be returned. Zero indexed
+    PageSize        *int64          //Number of individual resources listed in the response per page
+    Shortcode       *string         //Only list keywords of shortcode
 }
 
 /*
- * Input structure for the method ListBounces
+ * Input structure for the method UpdateAssignment
  */
-type ListBouncesInput struct {
-    ResponseType    string          //Response type format xml or json
-    Offset          *string         //The record to start the list at
-    Limit           *string         //The maximum number of records to return
-}
-
-/*
- * Input structure for the method ListSpam
- */
-type ListSpamInput struct {
-    ResponseType    string          //Response type format xml or json
-    Offset          *string         //The record number to start the list at
-    Limit           *string         //Maximum number of records to return
-}
-
-/*
- * Input structure for the method ListBlocks
- */
-type ListBlocksInput struct {
-    ResponseType    string          //Response type format xml or json
-    Offset          *string         //Where to start in the output list
-    Limit           *string         //Maximum number of records to return
-}
-
-/*
- * Input structure for the method DeleteInvalid
- */
-type DeleteInvalidInput struct {
-    Email           string          //Email that was marked invalid
-    ResponseType    string          //Json or xml
+type UpdateAssignmentInput struct {
+    Shortcode         string          //List of valid shortcode to your message360 account
+    ResponseType      string          //Response type format xml or json
+    FriendlyName      *string         //User generated name of the shortcode
+    CallbackUrl       *string         //URL that can be requested to receive notification when call has ended. A set of default parameters will be sent here once the call is finished.
+    CallbackMethod    models_pkg.HttpActionEnum //Specifies the HTTP method used to request the required StatusCallBackUrl once call connects.
+    FallbackUrl       *string         //URL used if any errors occur during execution of InboundXML or at initial request of the required Url provided with the POST.
+    FallbackUrlMethod models_pkg.HttpActionEnum //Specifies the HTTP method used to request the required FallbackUrl once call connects.
 }
 
 /*
  * Client structure as interface implementation
  */
-type EMAIL_IMPL struct { }
+type SHAREDSHORTCODE_IMPL struct { }
 
 /**
- * Deletes a email address marked as spam from the spam list
- * @param  DeleteSpamInput     Structure with all inputs
+ * View a Shared ShortCode Template
+ * @param  ViewTemplateInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *EMAIL_IMPL) DeleteSpam (input *DeleteSpamInput) (string, error) {
-        //the base uri for api requests
+func (me *SHAREDSHORTCODE_IMPL) ViewTemplate (input *ViewTemplateInput) (string, error) {
+    //validating required parameters
+    if (input.Templateid == nil){
+        return nil,errors.New("The property 'templateid' in the input object cannot be nil.")
+}     //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/email/deletespamemail.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/template/view.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -164,7 +175,7 @@ func (me *EMAIL_IMPL) DeleteSpam (input *DeleteSpamInput) (string, error) {
     //form parameters
     parameters := map[string]interface{} {
 
-        "email" : input.Email,
+        "templateid" : input.Templateid,
 
     }
 
@@ -192,16 +203,16 @@ func (me *EMAIL_IMPL) DeleteSpam (input *DeleteSpamInput) (string, error) {
 }
 
 /**
- * Deletes a blocked email
- * @param  DeleteBlockInput     Structure with all inputs
+ * View a ShortCode Message
+ * @param  ViewSharedShortcodesInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *EMAIL_IMPL) DeleteBlock (input *DeleteBlockInput) (string, error) {
+func (me *SHAREDSHORTCODE_IMPL) ViewSharedShortcodes (input *ViewSharedShortcodesInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/email/deleteblocksemail.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/shortcode/viewsms.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -229,7 +240,7 @@ func (me *EMAIL_IMPL) DeleteBlock (input *DeleteBlockInput) (string, error) {
     //form parameters
     parameters := map[string]interface{} {
 
-        "email" : input.Email,
+        "messagesid" : input.Messagesid,
 
     }
 
@@ -257,16 +268,16 @@ func (me *EMAIL_IMPL) DeleteBlock (input *DeleteBlockInput) (string, error) {
 }
 
 /**
- * Add an email to the unsubscribe list
- * @param  AddUnsubscribesInput     Structure with all inputs
+ * List ShortCode Messages
+ * @param  ListOutboundSharedShortcodesInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *EMAIL_IMPL) AddUnsubscribes (input *AddUnsubscribesInput) (string, error) {
+func (me *SHAREDSHORTCODE_IMPL) ListOutboundSharedShortcodes (input *ListOutboundSharedShortcodesInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/email/addunsubscribesemail.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/shortcode/listsms.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -294,79 +305,11 @@ func (me *EMAIL_IMPL) AddUnsubscribes (input *AddUnsubscribesInput) (string, err
     //form parameters
     parameters := map[string]interface{} {
 
-        "email" : input.Email,
-
-    }
-
-
-    //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
-    if err != nil {
-        //error in API invocation
-        return "", err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return "", err
-    }
-
-    //returning the response
-    return _response.Body, nil
-}
-
-/**
- * Send out an email
- * @param  SendEmailInput     Structure with all inputs
- * @return	Returns the string response from the API call
- */
-func (me *EMAIL_IMPL) SendEmail (input *SendEmailInput) (string, error) {
-        //the base uri for api requests
-    _queryBuilder := message360_lib.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/email/sendemails.{ResponseType}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : input.ResponseType,
-    })
-    if err != nil {
-        //error in template param handling
-        return "", err
-    }
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return "", err
-    }
-
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "message360-api",
-    }
-
-    //form parameters
-    parameters := map[string]interface{} {
-
-        "to" : input.To,
+        "page" : apihelper_pkg.ToString(*input.Page, "1"),
+        "pagesize" : apihelper_pkg.ToString(*input.Pagesize, "10"),
         "from" : input.From,
-        "type" : models_pkg.SendEmailAsEnumToValue(input.Type),
-        "subject" : input.Subject,
-        "message" : input.Message,
-        "cc" : input.Cc,
-        "bcc" : input.Bcc,
-        "attachment" : input.Attachment,
+        "to" : input.To,
+        "datesent" : input.Datesent,
 
     }
 
@@ -394,16 +337,16 @@ func (me *EMAIL_IMPL) SendEmail (input *SendEmailInput) (string, error) {
 }
 
 /**
- * Delete emails from the unsubscribe list
- * @param  DeleteUnsubscribesInput     Structure with all inputs
+ * List All Inbound ShortCode
+ * @param  ListInboundSharedShortcodesInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *EMAIL_IMPL) DeleteUnsubscribes (input *DeleteUnsubscribesInput) (string, error) {
+func (me *SHAREDSHORTCODE_IMPL) ListInboundSharedShortcodes (input *ListInboundSharedShortcodesInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/email/deleteunsubscribedemail.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/shortcode/getinboundsms.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -413,6 +356,15 @@ func (me *EMAIL_IMPL) DeleteUnsubscribes (input *DeleteUnsubscribesInput) (strin
     })
     if err != nil {
         //error in template param handling
+        return "", err
+    }
+
+    //process optional query parameters
+    _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
+        "DateReceived" : input.DateReceived,
+    })
+    if err != nil {
+        //error in query param handling
         return "", err
     }
 
@@ -431,7 +383,10 @@ func (me *EMAIL_IMPL) DeleteUnsubscribes (input *DeleteUnsubscribesInput) (strin
     //form parameters
     parameters := map[string]interface{} {
 
-        "email" : input.Email,
+        "page" : apihelper_pkg.ToString(*input.Page, "1"),
+        "pagesize" : apihelper_pkg.ToString(*input.Pagesize, "10"),
+        "from" : input.From,
+        "Shortcode" : input.Shortcode,
 
     }
 
@@ -459,16 +414,19 @@ func (me *EMAIL_IMPL) DeleteUnsubscribes (input *DeleteUnsubscribesInput) (strin
 }
 
 /**
- * List all unsubscribed email addresses
- * @param  ListUnsubscribesInput     Structure with all inputs
+ * Send an SMS from a message360 ShortCode
+ * @param  SendSharedShortcodeInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *EMAIL_IMPL) ListUnsubscribes (input *ListUnsubscribesInput) (string, error) {
-        //the base uri for api requests
+func (me *SHAREDSHORTCODE_IMPL) SendSharedShortcode (input *SendSharedShortcodeInput) (string, error) {
+    //validating required parameters
+    if (input.Templateid == nil){
+        return nil,errors.New("The property 'templateid' in the input object cannot be nil.")
+}     //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/email/listunsubscribedemail.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/shortcode/sendsms.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -496,8 +454,12 @@ func (me *EMAIL_IMPL) ListUnsubscribes (input *ListUnsubscribesInput) (string, e
     //form parameters
     parameters := map[string]interface{} {
 
-        "offset" : input.Offset,
-        "limit" : input.Limit,
+        "shortcode" : input.Shortcode,
+        "to" : input.To,
+        "templateid" : input.Templateid,
+        "data" : input.Data,
+        "Method" : models_pkg.HttpActionEnumToValue(input.Method),
+        "MessageStatusCallback" : input.MessageStatusCallback,
 
     }
 
@@ -525,16 +487,16 @@ func (me *EMAIL_IMPL) ListUnsubscribes (input *ListUnsubscribesInput) (string, e
 }
 
 /**
- * List out all invalid email addresses
- * @param  ListInvalidInput     Structure with all inputs
+ * List Shortcode Templates by Type
+ * @param  ListTemplatesInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *EMAIL_IMPL) ListInvalid (input *ListInvalidInput) (string, error) {
+func (me *SHAREDSHORTCODE_IMPL) ListTemplates (input *ListTemplatesInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/email/listinvalidemail.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/template/lists.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -562,8 +524,10 @@ func (me *EMAIL_IMPL) ListInvalid (input *ListInvalidInput) (string, error) {
     //form parameters
     parameters := map[string]interface{} {
 
-        "offet" : input.Offet,
-        "limit" : input.Limit,
+        "type" : apihelper_pkg.ToString(*input.Type, "authorization"),
+        "page" : apihelper_pkg.ToString(*input.Page, "1"),
+        "pagesize" : apihelper_pkg.ToString(*input.Pagesize, "10"),
+        "Shortcode" : input.Shortcode,
 
     }
 
@@ -591,16 +555,16 @@ func (me *EMAIL_IMPL) ListInvalid (input *ListInvalidInput) (string, error) {
 }
 
 /**
- * Delete an email address from the bounced address list
- * @param  DeleteBouncesInput     Structure with all inputs
+ * View a set of properties for a single keyword.
+ * @param  ViewKeywordInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *EMAIL_IMPL) DeleteBounces (input *DeleteBouncesInput) (string, error) {
+func (me *SHAREDSHORTCODE_IMPL) ViewKeyword (input *ViewKeywordInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/email/deletebouncesemail.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/keyword/view.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -628,7 +592,7 @@ func (me *EMAIL_IMPL) DeleteBounces (input *DeleteBouncesInput) (string, error) 
     //form parameters
     parameters := map[string]interface{} {
 
-        "email" : input.Email,
+        "Keywordid" : input.Keywordid,
 
     }
 
@@ -656,16 +620,16 @@ func (me *EMAIL_IMPL) DeleteBounces (input *DeleteBouncesInput) (string, error) 
 }
 
 /**
- * List out all email addresses that have bounced
- * @param  ListBouncesInput     Structure with all inputs
+ * Retrieve a list of keywords associated with your message360 account.
+ * @param  ListKeywordInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *EMAIL_IMPL) ListBounces (input *ListBouncesInput) (string, error) {
+func (me *SHAREDSHORTCODE_IMPL) ListKeyword (input *ListKeywordInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/email/listbounceemail.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/keyword/lists.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -693,8 +657,10 @@ func (me *EMAIL_IMPL) ListBounces (input *ListBouncesInput) (string, error) {
     //form parameters
     parameters := map[string]interface{} {
 
-        "offset" : input.Offset,
-        "limit" : input.Limit,
+        "Page" : apihelper_pkg.ToString(*input.Page, "1"),
+        "PageSize" : apihelper_pkg.ToString(*input.PageSize, "10"),
+        "Keyword" : input.Keyword,
+        "Shortcode" : input.Shortcode,
 
     }
 
@@ -722,16 +688,16 @@ func (me *EMAIL_IMPL) ListBounces (input *ListBouncesInput) (string, error) {
 }
 
 /**
- * List out all email addresses marked as spam
- * @param  ListSpamInput     Structure with all inputs
+ * The response returned here contains all resource properties associated with the given Shortcode.
+ * @param  ViewAssignementInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *EMAIL_IMPL) ListSpam (input *ListSpamInput) (string, error) {
+func (me *SHAREDSHORTCODE_IMPL) ViewAssignement (input *ViewAssignementInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/email/listspamemail.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/shortcode/viewshortcode.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -759,8 +725,7 @@ func (me *EMAIL_IMPL) ListSpam (input *ListSpamInput) (string, error) {
     //form parameters
     parameters := map[string]interface{} {
 
-        "offset" : input.Offset,
-        "limit" : input.Limit,
+        "Shortcode" : input.Shortcode,
 
     }
 
@@ -788,16 +753,16 @@ func (me *EMAIL_IMPL) ListSpam (input *ListSpamInput) (string, error) {
 }
 
 /**
- * Outputs email addresses on your blocklist
- * @param  ListBlocksInput     Structure with all inputs
+ * Retrieve a list of shortcode assignment associated with your message360 account.
+ * @param  ListAssignmentInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *EMAIL_IMPL) ListBlocks (input *ListBlocksInput) (string, error) {
+func (me *SHAREDSHORTCODE_IMPL) ListAssignment (input *ListAssignmentInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/email/listblockemail.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/shortcode/listshortcode.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -807,6 +772,15 @@ func (me *EMAIL_IMPL) ListBlocks (input *ListBlocksInput) (string, error) {
     })
     if err != nil {
         //error in template param handling
+        return "", err
+    }
+
+    //process optional query parameters
+    _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
+        "Shortcode" : input.Shortcode,
+    })
+    if err != nil {
+        //error in query param handling
         return "", err
     }
 
@@ -825,8 +799,8 @@ func (me *EMAIL_IMPL) ListBlocks (input *ListBlocksInput) (string, error) {
     //form parameters
     parameters := map[string]interface{} {
 
-        "offset" : input.Offset,
-        "limit" : input.Limit,
+        "Page" : apihelper_pkg.ToString(*input.Page, "1"),
+        "PageSize" : apihelper_pkg.ToString(*input.PageSize, "10"),
 
     }
 
@@ -854,16 +828,16 @@ func (me *EMAIL_IMPL) ListBlocks (input *ListBlocksInput) (string, error) {
 }
 
 /**
- * This endpoint allows you to delete entries in the Invalid Emails list.
- * @param  DeleteInvalidInput     Structure with all inputs
+ * TODO: type endpoint description here
+ * @param  UpdateAssignmentInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *EMAIL_IMPL) DeleteInvalid (input *DeleteInvalidInput) (string, error) {
+func (me *SHAREDSHORTCODE_IMPL) UpdateAssignment (input *UpdateAssignmentInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/email/deleteinvalidemail.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/shortcode/updateshortcode.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -891,7 +865,12 @@ func (me *EMAIL_IMPL) DeleteInvalid (input *DeleteInvalidInput) (string, error) 
     //form parameters
     parameters := map[string]interface{} {
 
-        "email" : input.Email,
+        "Shortcode" : input.Shortcode,
+        "FriendlyName" : input.FriendlyName,
+        "CallbackUrl" : input.CallbackUrl,
+        "CallbackMethod" : models_pkg.HttpActionEnumToValue(input.CallbackMethod),
+        "FallbackUrl" : input.FallbackUrl,
+        "FallbackUrlMethod" : models_pkg.HttpActionEnumToValue(input.FallbackUrlMethod),
 
     }
 

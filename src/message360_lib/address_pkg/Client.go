@@ -29,25 +29,17 @@ type CreateAddressInput struct {
 }
 
 /*
- * Input structure for the method CreateDeleteAddress
+ * Input structure for the method ViewAddress
  */
-type CreateDeleteAddressInput struct {
-    AddressSID      string          //The identifier of the address to be deleted.
-    ResponseType    string          //Response type either json or xml
+type ViewAddressInput struct {
+    AddressSID      string          //The identifier of the address to be retrieved.
+    ResponseType    string          //Response Type either json or xml
 }
 
 /*
- * Input structure for the method CreateVerifyAddress
+ * Input structure for the method ListAddress
  */
-type CreateVerifyAddressInput struct {
-    AddressSID      string          //The identifier of the address to be verified.
-    ResponseType    string          //Response type either json or xml
-}
-
-/*
- * Input structure for the method CreateListAddress
- */
-type CreateListAddressInput struct {
+type ListAddressInput struct {
     ResponseType    string          //Response Type either json or xml
     Page            *int64          //Return requested # of items starting the value, default=0, must be an integer
     PageSize        *int64          //How many results to return, default is 10, max is 100, must be an integer
@@ -56,11 +48,19 @@ type CreateListAddressInput struct {
 }
 
 /*
- * Input structure for the method CreateViewAddress
+ * Input structure for the method VerifyAddress
  */
-type CreateViewAddressInput struct {
-    AddressSID      string          //The identifier of the address to be retrieved.
-    ResponseType    string          //Response Type either json or xml
+type VerifyAddressInput struct {
+    AddressSID      string          //The identifier of the address to be verified.
+    ResponseType    string          //Response type either json or xml
+}
+
+/*
+ * Input structure for the method DeleteAddress
+ */
+type DeleteAddressInput struct {
+    AddressSID      string          //The identifier of the address to be deleted.
+    ResponseType    string          //Response type either json or xml
 }
 
 /*
@@ -142,81 +142,16 @@ func (me *ADDRESS_IMPL) CreateAddress (input *CreateAddressInput) (string, error
 }
 
 /**
- * To delete Address to your address book
- * @param  CreateDeleteAddressInput     Structure with all inputs
+ * View Address Specific address Book by providing the address id
+ * @param  ViewAddressInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *ADDRESS_IMPL) CreateDeleteAddress (input *CreateDeleteAddressInput) (string, error) {
+func (me *ADDRESS_IMPL) ViewAddress (input *ViewAddressInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/address/deleteaddress.{ResponseType}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
-        "ResponseType" : input.ResponseType,
-    })
-    if err != nil {
-        //error in template param handling
-        return "", err
-    }
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return "", err
-    }
-
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "message360-api",
-    }
-
-    //form parameters
-    parameters := map[string]interface{} {
-
-        "AddressSID" : input.AddressSID,
-
-    }
-
-
-    //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
-    if err != nil {
-        //error in API invocation
-        return "", err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return "", err
-    }
-
-    //returning the response
-    return _response.Body, nil
-}
-
-/**
- * Validates an address given.
- * @param  CreateVerifyAddressInput     Structure with all inputs
- * @return	Returns the string response from the API call
- */
-func (me *ADDRESS_IMPL) CreateVerifyAddress (input *CreateVerifyAddressInput) (string, error) {
-        //the base uri for api requests
-    _queryBuilder := message360_lib.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/address/verifyaddress.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/address/viewaddress.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -273,10 +208,10 @@ func (me *ADDRESS_IMPL) CreateVerifyAddress (input *CreateVerifyAddressInput) (s
 
 /**
  * List All Address 
- * @param  CreateListAddressInput     Structure with all inputs
+ * @param  ListAddressInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *ADDRESS_IMPL) CreateListAddress (input *CreateListAddressInput) (string, error) {
+func (me *ADDRESS_IMPL) ListAddress (input *ListAddressInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -340,16 +275,81 @@ func (me *ADDRESS_IMPL) CreateListAddress (input *CreateListAddressInput) (strin
 }
 
 /**
- * View Address Specific address Book by providing the address id
- * @param  CreateViewAddressInput     Structure with all inputs
+ * Validates an address given.
+ * @param  VerifyAddressInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *ADDRESS_IMPL) CreateViewAddress (input *CreateViewAddressInput) (string, error) {
+func (me *ADDRESS_IMPL) VerifyAddress (input *VerifyAddressInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/address/viewaddress.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/address/verifyaddress.{ResponseType}"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional query parameters
+    _queryBuilder, err = apihelper_pkg.AppendUrlWithTemplateParameters(_queryBuilder, map[string]interface{} {
+        "ResponseType" : input.ResponseType,
+    })
+    if err != nil {
+        //error in template param handling
+        return "", err
+    }
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return "", err
+    }
+
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "message360-api",
+    }
+
+    //form parameters
+    parameters := map[string]interface{} {
+
+        "AddressSID" : input.AddressSID,
+
+    }
+
+
+    //prepare API request
+    _request := unirest.PostWithAuth(_queryBuilder, headers, parameters, message360_lib.Config.BasicAuthUserName, message360_lib.Config.BasicAuthPassword)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request);
+    if err != nil {
+        //error in API invocation
+        return "", err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+        err = apihelper_pkg.NewAPIError("HTTP Response Not OK" , _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return "", err
+    }
+
+    //returning the response
+    return _response.Body, nil
+}
+
+/**
+ * To delete Address to your address book
+ * @param  DeleteAddressInput     Structure with all inputs
+ * @return	Returns the string response from the API call
+ */
+func (me *ADDRESS_IMPL) DeleteAddress (input *DeleteAddressInput) (string, error) {
+        //the base uri for api requests
+    _queryBuilder := message360_lib.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + "/address/deleteaddress.{ResponseType}"
 
     //variable to hold errors
     var err error = nil

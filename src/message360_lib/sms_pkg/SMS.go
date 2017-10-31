@@ -11,13 +11,13 @@ package sms_pkg
  * Interface for the SMS_IMPL
  */
 type SMS interface {
-    CreateListSMS (*CreateListSMSInput) (string, error)
+    SendSMS (*SendSMSInput) (string, error)
 
-    CreateListInboundSMS (*CreateListInboundSMSInput) (string, error)
+    ViewSMS (*ViewSMSInput) (string, error)
 
-    CreateSendSMS (*CreateSendSMSInput) (string, error)
+    ListSMS (*ListSMSInput) (string, error)
 
-    CreateViewSMS (*CreateViewSMSInput) (string, error)
+    ListInboundSMS (*ListInboundSMSInput) (string, error)
 }
 
 /*

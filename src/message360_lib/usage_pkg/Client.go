@@ -14,13 +14,13 @@ import(
 )
 
 /*
- * Input structure for the method CreateListUsage
+ * Input structure for the method ListUsage
  */
-type CreateListUsageInput struct {
-    ProductCode     models_pkg.ProductCodeEnum //Product Code
-    StartDate       string          //Start Usage Date
-    EndDate         string          //End Usage Date
+type ListUsageInput struct {
     ResponseType    string          //Response type format xml or json
+    ProductCode     models_pkg.ProductCodeEnum //Product Code
+    StartDate       *string         //Start Usage Date
+    EndDate         *string         //End Usage Date
 }
 
 /*
@@ -30,10 +30,10 @@ type USAGE_IMPL struct { }
 
 /**
  * Get all usage 
- * @param  CreateListUsageInput     Structure with all inputs
+ * @param  ListUsageInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *USAGE_IMPL) CreateListUsage (input *CreateListUsageInput) (string, error) {
+func (me *USAGE_IMPL) ListUsage (input *ListUsageInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -67,8 +67,8 @@ func (me *USAGE_IMPL) CreateListUsage (input *CreateListUsageInput) (string, err
     parameters := map[string]interface{} {
 
         "ProductCode" : models_pkg.ProductCodeEnumToValue(input.ProductCode),
-        "startDate" : input.StartDate,
-        "endDate" : input.EndDate,
+        "startDate" : apihelper_pkg.ToString(*input.StartDate, "2016-09-06"),
+        "endDate" : apihelper_pkg.ToString(*input.EndDate, "2016-09-06"),
 
     }
 

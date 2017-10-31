@@ -13,13 +13,13 @@ package address_pkg
 type ADDRESS interface {
     CreateAddress (*CreateAddressInput) (string, error)
 
-    CreateDeleteAddress (*CreateDeleteAddressInput) (string, error)
+    ViewAddress (*ViewAddressInput) (string, error)
 
-    CreateVerifyAddress (*CreateVerifyAddressInput) (string, error)
+    ListAddress (*ListAddressInput) (string, error)
 
-    CreateListAddress (*CreateListAddressInput) (string, error)
+    VerifyAddress (*VerifyAddressInput) (string, error)
 
-    CreateViewAddress (*CreateViewAddressInput) (string, error)
+    DeleteAddress (*DeleteAddressInput) (string, error)
 }
 
 /*
