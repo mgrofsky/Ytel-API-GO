@@ -11,7 +11,7 @@ package usage_pkg
  * Interface for the USAGE_IMPL
  */
 type USAGE interface {
-    CreateListUsage (*CreateListUsageInput) (string, error)
+    ListUsage (*ListUsageInput) (string, error)
 }
 
 /*

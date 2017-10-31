@@ -13,30 +13,30 @@ import(
 )
 
 /*
- * Input structure for the method CreateListRecording
+ * Input structure for the method ViewRecording
  */
-type CreateListRecordingInput struct {
+type ViewRecordingInput struct {
+    RecordingSid    string          //Search Recording sid
     ResponseType    string          //Response type format xml or json
-    Page            *int64          //Which page of the overall response will be returned. Zero indexed
-    PageSize        *int64          //Number of individual resources listed in the response per page
-    DateCreated     *string         //TODO: Write general description for this field
-    CallSid         *string         //TODO: Write general description for this field
 }
 
 /*
- * Input structure for the method CreateDeleteRecording
+ * Input structure for the method DeleteRecording
  */
-type CreateDeleteRecordingInput struct {
+type DeleteRecordingInput struct {
     RecordingSid    string          //Unique Recording Sid to be delete
     ResponseType    string          //Response type format xml or json
 }
 
 /*
- * Input structure for the method CreateViewRecording
+ * Input structure for the method ListRecording
  */
-type CreateViewRecordingInput struct {
-    RecordingSid    string          //Search Recording sid
+type ListRecordingInput struct {
     ResponseType    string          //Response type format xml or json
+    Page            *int64          //Which page of the overall response will be returned. Zero indexed
+    PageSize        *int64          //Number of individual resources listed in the response per page
+    DateCreated     *string         //Recording date
+    CallSid         *string         //Call ID
 }
 
 /*
@@ -45,16 +45,16 @@ type CreateViewRecordingInput struct {
 type RECORDING_IMPL struct { }
 
 /**
- * List out Recordings
- * @param  CreateListRecordingInput     Structure with all inputs
+ * View a specific Recording
+ * @param  ViewRecordingInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *RECORDING_IMPL) CreateListRecording (input *CreateListRecordingInput) (string, error) {
+func (me *RECORDING_IMPL) ViewRecording (input *ViewRecordingInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/recording/listrecording.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/recording/viewrecording.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -82,10 +82,7 @@ func (me *RECORDING_IMPL) CreateListRecording (input *CreateListRecordingInput) 
     //form parameters
     parameters := map[string]interface{} {
 
-        "Page" : input.Page,
-        "PageSize" : input.PageSize,
-        "DateCreated" : input.DateCreated,
-        "CallSid" : input.CallSid,
+        "RecordingSid" : input.RecordingSid,
 
     }
 
@@ -114,10 +111,10 @@ func (me *RECORDING_IMPL) CreateListRecording (input *CreateListRecordingInput) 
 
 /**
  * Delete Recording Record
- * @param  CreateDeleteRecordingInput     Structure with all inputs
+ * @param  DeleteRecordingInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *RECORDING_IMPL) CreateDeleteRecording (input *CreateDeleteRecordingInput) (string, error) {
+func (me *RECORDING_IMPL) DeleteRecording (input *DeleteRecordingInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -178,16 +175,16 @@ func (me *RECORDING_IMPL) CreateDeleteRecording (input *CreateDeleteRecordingInp
 }
 
 /**
- * View a specific Recording
- * @param  CreateViewRecordingInput     Structure with all inputs
+ * List out Recordings
+ * @param  ListRecordingInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *RECORDING_IMPL) CreateViewRecording (input *CreateViewRecordingInput) (string, error) {
+func (me *RECORDING_IMPL) ListRecording (input *ListRecordingInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/recording/viewrecording.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/recording/listrecording.{ResponseType}"
 
     //variable to hold errors
     var err error = nil
@@ -215,7 +212,10 @@ func (me *RECORDING_IMPL) CreateViewRecording (input *CreateViewRecordingInput) 
     //form parameters
     parameters := map[string]interface{} {
 
-        "RecordingSid" : input.RecordingSid,
+        "Page" : apihelper_pkg.ToString(*input.Page, "1"),
+        "PageSize" : apihelper_pkg.ToString(*input.PageSize, "10"),
+        "DateCreated" : input.DateCreated,
+        "CallSid" : input.CallSid,
 
     }
 

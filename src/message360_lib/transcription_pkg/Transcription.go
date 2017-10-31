@@ -11,13 +11,13 @@ package transcription_pkg
  * Interface for the TRANSCRIPTION_IMPL
  */
 type TRANSCRIPTION interface {
-    CreateAudioURLTranscription (*CreateAudioURLTranscriptionInput) (string, error)
+    ListTranscription (*ListTranscriptionInput) (string, error)
 
-    CreateRecordingTranscription (*CreateRecordingTranscriptionInput) (string, error)
+    ViewTranscription (*ViewTranscriptionInput) (string, error)
 
-    CreateViewTranscription (*CreateViewTranscriptionInput) (string, error)
+    RecordingTranscription (*RecordingTranscriptionInput) (string, error)
 
-    CreateListTranscription (*CreateListTranscriptionInput) (string, error)
+    AudioURLTranscription (*AudioURLTranscriptionInput) (string, error)
 }
 
 /*

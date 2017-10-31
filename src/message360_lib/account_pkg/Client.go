@@ -13,9 +13,9 @@ import(
 )
 
 /*
- * Input structure for the method CreateViewAccount
+ * Input structure for the method ViewAccount
  */
-type CreateViewAccountInput struct {
+type ViewAccountInput struct {
     Date            string          //TODO: Write general description for this field
     ResponseType    string          //Response type format xml or json
 }
@@ -27,10 +27,10 @@ type ACCOUNT_IMPL struct { }
 
 /**
  * Display Account Description
- * @param  CreateViewAccountInput     Structure with all inputs
+ * @param  ViewAccountInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *ACCOUNT_IMPL) CreateViewAccount (input *CreateViewAccountInput) (string, error) {
+func (me *ACCOUNT_IMPL) ViewAccount (input *ViewAccountInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 

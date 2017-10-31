@@ -1,5 +1,7 @@
 # Getting started
 
+message360 API version 3
+
 ## How to Build
 
 
@@ -111,43 +113,43 @@ In order to setup authentication of the API client, you need the following infor
 To configure these for your generated code, open the file "Configuration.go" and edit it's contents.
 
 
-## Class Reference
+# Class Reference
 
-### <a name="list_of_controllers"></a>List of Controllers
+## <a name="list_of_controllers"></a>List of Controllers
 
-* [shortcode_pkg](#shortcode_pkg)
+* [sharedshortcode_pkg](#sharedshortcode_pkg)
 * [conference_pkg](#conference_pkg)
-* [numberverification_pkg](#numberverification_pkg)
+* [transcription_pkg](#transcription_pkg)
+* [phonenumber_pkg](#phonenumber_pkg)
+* [usage_pkg](#usage_pkg)
 * [webrtc_pkg](#webrtc_pkg)
-* [call_pkg](#call_pkg)
-* [subaccount_pkg](#subaccount_pkg)
-* [address_pkg](#address_pkg)
+* [recording_pkg](#recording_pkg)
 * [email_pkg](#email_pkg)
 * [sms_pkg](#sms_pkg)
-* [recording_pkg](#recording_pkg)
+* [call_pkg](#call_pkg)
 * [carrier_pkg](#carrier_pkg)
-* [phonenumber_pkg](#phonenumber_pkg)
-* [transcription_pkg](#transcription_pkg)
-* [usage_pkg](#usage_pkg)
+* [address_pkg](#address_pkg)
+* [subaccount_pkg](#subaccount_pkg)
 * [account_pkg](#account_pkg)
+* [shortcode_pkg](#shortcode_pkg)
 
-### <a name="shortcode_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".shortcode_pkg") shortcode_pkg
+## <a name="sharedshortcode_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".sharedshortcode_pkg") sharedshortcode_pkg
 
-#### Get instance
+### Get instance
 
-Factory for the ``` SHORTCODE ``` interface can be accessed from the package shortcode_pkg.
+Factory for the ``` SHAREDSHORTCODE ``` interface can be accessed from the package sharedshortcode_pkg.
 
 ```go
-shortCode := shortcode_pkg.NewSHORTCODE()
+sharedShortCode := sharedshortcode_pkg.NewSHAREDSHORTCODE()
 ```
 
-#### <a name="create_view_template"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateViewTemplate") CreateViewTemplate
+### <a name="view_template"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.ViewTemplate") ViewTemplate
 
 > View a Shared ShortCode Template
 
 
 ```go
-func (me *SHORTCODE_IMPL) CreateViewTemplate(input *CreateViewTemplateInput)(string,error)
+func (me *SHAREDSHORTCODE_IMPL) ViewTemplate(input *ViewTemplateInput)(string,error)
 ```
 
 #### Parameters
@@ -161,7 +163,7 @@ func (me *SHORTCODE_IMPL) CreateViewTemplate(input *CreateViewTemplateInput)(str
 #### Example Usage
 
 ```go
-collect := new (shortcode_pkg.CreateViewTemplateInput)
+collect := new (sharedshortcode_pkg.ViewTemplateInput)
 
 templateid := uuid.NewV4()
 collect.Templateid = templateid
@@ -171,128 +173,53 @@ collect.ResponseType = responseType
 
 
 var result string
-result,_ = shortCode.CreateViewTemplate(collect)
+result,_ = sharedShortCode.ViewTemplate(collect)
 
 ```
 
 
-#### <a name="create_send_short_code"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateSendShortCode") CreateSendShortCode
+### <a name="view_shared_shortcodes"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.ViewSharedShortcodes") ViewSharedShortcodes
 
-> Send an SMS from a message360 ShortCode
+> View a ShortCode Message
 
 
 ```go
-func (me *SHORTCODE_IMPL) CreateSendShortCode(input *CreateSendShortCodeInput)(string,error)
+func (me *SHAREDSHORTCODE_IMPL) ViewSharedShortcodes(input *ViewSharedShortcodesInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| shortcode |  ``` Required ```  | The Short Code number that is the sender of this message |
-| tocountrycode |  ``` Required ```  ``` DefaultValue ```  | The country code for sending this message |
-| to |  ``` Required ```  | A valid 10-digit number that should receive the message+ |
-| templateid |  ``` Required ```  | The unique identifier for the template used for the message |
+| messagesid |  ``` Required ```  | Message sid |
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| data |  ``` Required ```  | format of your data, example: {companyname}:test,{otpcode}:1234 |
-| method |  ``` Optional ```  ``` DefaultValue ```  | Specifies the HTTP method used to request the required URL once the Short Code message is sent. |
-| messageStatusCallback |  ``` Optional ```  | URL that can be requested to receive notification when Short Code message was sent. |
 
 
 #### Example Usage
 
 ```go
-collect := new (shortcode_pkg.CreateSendShortCodeInput)
+collect := new (sharedshortcode_pkg.ViewSharedShortcodesInput)
 
-shortcode := "shortcode"
-collect.Shortcode = shortcode
-
-tocountrycode := "1"
-collect.Tocountrycode = tocountrycode
-
-to := "to"
-collect.To = to
-
-templateid := uuid.NewV4()
-collect.Templateid = templateid
+messagesid := "messagesid"
+collect.Messagesid = messagesid
 
 responseType := "json"
 collect.ResponseType = responseType
 
-data := "data"
-collect.Data = data
-
-method := "GET"
-collect.Method = method
-
-messageStatusCallback := "MessageStatusCallback"
-collect.MessageStatusCallback = messageStatusCallback
-
 
 var result string
-result,_ = shortCode.CreateSendShortCode(collect)
+result,_ = sharedShortCode.ViewSharedShortcodes(collect)
 
 ```
 
 
-#### <a name="create_list_inbound_short_code"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateListInboundShortCode") CreateListInboundShortCode
-
-> List All Inbound ShortCode
-
-
-```go
-func (me *SHORTCODE_IMPL) CreateListInboundShortCode(input *CreateListInboundShortCodeInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| page |  ``` Optional ```  | Which page of the overall response will be returned. Zero indexed |
-| pagesize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
-| from |  ``` Optional ```  | From Number to Inbound ShortCode |
-| shortcode |  ``` Optional ```  | Only list messages sent to this Short Code |
-| dateReceived |  ``` Optional ```  | Only list messages sent with the specified date |
-
-
-#### Example Usage
-
-```go
-collect := new (shortcode_pkg.CreateListInboundShortCodeInput)
-
-responseType := "json"
-collect.ResponseType = responseType
-
-page,_ := strconv.ParseInt("61", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("10", 10, 8)
-collect.Pagesize = pagesize
-
-from := "from"
-collect.From = from
-
-shortcode := "Shortcode"
-collect.Shortcode = shortcode
-
-dateReceived := "DateReceived"
-collect.DateReceived = dateReceived
-
-
-var result string
-result,_ = shortCode.CreateListInboundShortCode(collect)
-
-```
-
-
-#### <a name="create_list_short_code"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateListShortCode") CreateListShortCode
+### <a name="list_outbound_shared_shortcodes"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.ListOutboundSharedShortcodes") ListOutboundSharedShortcodes
 
 > List ShortCode Messages
 
 
 ```go
-func (me *SHORTCODE_IMPL) CreateListShortCode(input *CreateListShortCodeInput)(string,error)
+func (me *SHAREDSHORTCODE_IMPL) ListOutboundSharedShortcodes(input *ListOutboundSharedShortcodesInput)(string,error)
 ```
 
 #### Parameters
@@ -300,7 +227,7 @@ func (me *SHORTCODE_IMPL) CreateListShortCode(input *CreateListShortCodeInput)(s
 | Parameter | Tags | Description |
 |-----------|------|-------------|
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| page |  ``` Optional ```  | Which page of the overall response will be returned. Zero indexed |
+| page |  ``` Optional ```  ``` DefaultValue ```  | Which page of the overall response will be returned. Zero indexed |
 | pagesize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
 | from |  ``` Optional ```  | Messages sent from this number |
 | to |  ``` Optional ```  | Messages sent to this number |
@@ -310,12 +237,12 @@ func (me *SHORTCODE_IMPL) CreateListShortCode(input *CreateListShortCodeInput)(s
 #### Example Usage
 
 ```go
-collect := new (shortcode_pkg.CreateListShortCodeInput)
+collect := new (sharedshortcode_pkg.ListOutboundSharedShortcodesInput)
 
 responseType := "json"
 collect.ResponseType = responseType
 
-page,_ := strconv.ParseInt("61", 10, 8)
+page,_ := strconv.ParseInt("1", 10, 8)
 collect.Page = page
 
 pagesize,_ := strconv.ParseInt("10", 10, 8)
@@ -332,18 +259,124 @@ collect.Datesent = datesent
 
 
 var result string
-result,_ = shortCode.CreateListShortCode(collect)
+result,_ = sharedShortCode.ListOutboundSharedShortcodes(collect)
 
 ```
 
 
-#### <a name="create_list_templates"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateListTemplates") CreateListTemplates
+### <a name="list_inbound_shared_shortcodes"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.ListInboundSharedShortcodes") ListInboundSharedShortcodes
+
+> List All Inbound ShortCode
+
+
+```go
+func (me *SHAREDSHORTCODE_IMPL) ListInboundSharedShortcodes(input *ListInboundSharedShortcodesInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| page |  ``` Optional ```  ``` DefaultValue ```  | Which page of the overall response will be returned. Zero indexed |
+| pagesize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
+| from |  ``` Optional ```  | From Number to Inbound ShortCode |
+| shortcode |  ``` Optional ```  | Only list messages sent to this Short Code |
+| dateReceived |  ``` Optional ```  | Only list messages sent with the specified date |
+
+
+#### Example Usage
+
+```go
+collect := new (sharedshortcode_pkg.ListInboundSharedShortcodesInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+page,_ := strconv.ParseInt("1", 10, 8)
+collect.Page = page
+
+pagesize,_ := strconv.ParseInt("10", 10, 8)
+collect.Pagesize = pagesize
+
+from := "from"
+collect.From = from
+
+shortcode := "Shortcode"
+collect.Shortcode = shortcode
+
+dateReceived := "DateReceived"
+collect.DateReceived = dateReceived
+
+
+var result string
+result,_ = sharedShortCode.ListInboundSharedShortcodes(collect)
+
+```
+
+
+### <a name="send_shared_shortcode"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.SendSharedShortcode") SendSharedShortcode
+
+> Send an SMS from a message360 ShortCode
+
+
+```go
+func (me *SHAREDSHORTCODE_IMPL) SendSharedShortcode(input *SendSharedShortcodeInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| shortcode |  ``` Required ```  | The Short Code number that is the sender of this message |
+| to |  ``` Required ```  | A valid 10-digit number that should receive the message |
+| templateid |  ``` Required ```  | The unique identifier for the template used for the message |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| data |  ``` Required ```  | format of your data, example: {companyname}:test,{otpcode}:1234 |
+| method |  ``` Optional ```  ``` DefaultValue ```  | Specifies the HTTP method used to request the required URL once the Short Code message is sent. |
+| messageStatusCallback |  ``` Optional ```  | URL that can be requested to receive notification when Short Code message was sent. |
+
+
+#### Example Usage
+
+```go
+collect := new (sharedshortcode_pkg.SendSharedShortcodeInput)
+
+shortcode := "shortcode"
+collect.Shortcode = shortcode
+
+to := "to"
+collect.To = to
+
+templateid := uuid.NewV4()
+collect.Templateid = templateid
+
+responseType := "json"
+collect.ResponseType = responseType
+
+data := "data"
+collect.Data = data
+
+method := models_pkg.HttpAction_GET
+collect.Method = method
+
+messageStatusCallback := "MessageStatusCallback"
+collect.MessageStatusCallback = messageStatusCallback
+
+
+var result string
+result,_ = sharedShortCode.SendSharedShortcode(collect)
+
+```
+
+
+### <a name="list_templates"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.ListTemplates") ListTemplates
 
 > List Shortcode Templates by Type
 
 
 ```go
-func (me *SHORTCODE_IMPL) CreateListTemplates(input *CreateListTemplatesInput)(string,error)
+func (me *SHAREDSHORTCODE_IMPL) ListTemplates(input *ListTemplatesInput)(string,error)
 ```
 
 #### Parameters
@@ -352,14 +385,15 @@ func (me *SHORTCODE_IMPL) CreateListTemplates(input *CreateListTemplatesInput)(s
 |-----------|------|-------------|
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
 | mtype |  ``` Optional ```  ``` DefaultValue ```  | The type (category) of template Valid values: marketing, authorization |
-| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
 | pagesize |  ``` Optional ```  ``` DefaultValue ```  | The count of objects to return per page. |
+| shortcode |  ``` Optional ```  | Only list templates of type |
 
 
 #### Example Usage
 
 ```go
-collect := new (shortcode_pkg.CreateListTemplatesInput)
+collect := new (sharedshortcode_pkg.ListTemplatesInput)
 
 responseType := "json"
 collect.ResponseType = responseType
@@ -367,59 +401,242 @@ collect.ResponseType = responseType
 mtype := "authorization"
 collect.Mtype = mtype
 
-page,_ := strconv.ParseInt("61", 10, 8)
+page,_ := strconv.ParseInt("1", 10, 8)
 collect.Page = page
 
 pagesize,_ := strconv.ParseInt("10", 10, 8)
 collect.Pagesize = pagesize
 
+shortcode := "Shortcode"
+collect.Shortcode = shortcode
+
 
 var result string
-result,_ = shortCode.CreateListTemplates(collect)
+result,_ = sharedShortCode.ListTemplates(collect)
 
 ```
 
 
-#### <a name="create_view_short_code"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateViewShortCode") CreateViewShortCode
+### <a name="view_keyword"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.ViewKeyword") ViewKeyword
 
-> View a ShortCode Message
+> View a set of properties for a single keyword.
 
 
 ```go
-func (me *SHORTCODE_IMPL) CreateViewShortCode(input *CreateViewShortCodeInput)(string,error)
+func (me *SHAREDSHORTCODE_IMPL) ViewKeyword(input *ViewKeywordInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| messagesid |  ``` Required ```  | Message sid |
+| keywordid |  ``` Required ```  | The unique identifier of each keyword |
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
 
 
 #### Example Usage
 
 ```go
-collect := new (shortcode_pkg.CreateViewShortCodeInput)
+collect := new (sharedshortcode_pkg.ViewKeywordInput)
 
-messagesid := "messagesid"
-collect.Messagesid = messagesid
+keywordid := "Keywordid"
+collect.Keywordid = keywordid
 
 responseType := "json"
 collect.ResponseType = responseType
 
 
 var result string
-result,_ = shortCode.CreateViewShortCode(collect)
+result,_ = sharedShortCode.ViewKeyword(collect)
+
+```
+
+
+### <a name="list_keyword"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.ListKeyword") ListKeyword
+
+> Retrieve a list of keywords associated with your message360 account.
+
+
+```go
+func (me *SHAREDSHORTCODE_IMPL) ListKeyword(input *ListKeywordInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| page |  ``` Optional ```  ``` DefaultValue ```  | Which page of the overall response will be returned. Zero indexed |
+| pageSize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
+| keyword |  ``` Optional ```  | Only list keywords of keyword |
+| shortcode |  ``` Optional ```  | Only list keywords of shortcode |
+
+
+#### Example Usage
+
+```go
+collect := new (sharedshortcode_pkg.ListKeywordInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+page,_ := strconv.ParseInt("1", 10, 8)
+collect.Page = page
+
+pageSize,_ := strconv.ParseInt("10", 10, 8)
+collect.PageSize = pageSize
+
+keyword := "Keyword"
+collect.Keyword = keyword
+
+shortcode,_ := strconv.ParseInt("182", 10, 8)
+collect.Shortcode = shortcode
+
+
+var result string
+result,_ = sharedShortCode.ListKeyword(collect)
+
+```
+
+
+### <a name="view_assignement"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.ViewAssignement") ViewAssignement
+
+> The response returned here contains all resource properties associated with the given Shortcode.
+
+
+```go
+func (me *SHAREDSHORTCODE_IMPL) ViewAssignement(input *ViewAssignementInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| shortcode |  ``` Required ```  | List of valid Shortcode to your message360 account |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+
+
+#### Example Usage
+
+```go
+collect := new (sharedshortcode_pkg.ViewAssignementInput)
+
+shortcode := "Shortcode"
+collect.Shortcode = shortcode
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = sharedShortCode.ViewAssignement(collect)
+
+```
+
+
+### <a name="list_assignment"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.ListAssignment") ListAssignment
+
+> Retrieve a list of shortcode assignment associated with your message360 account.
+
+
+```go
+func (me *SHAREDSHORTCODE_IMPL) ListAssignment(input *ListAssignmentInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| page |  ``` Optional ```  ``` DefaultValue ```  | Which page of the overall response will be returned. Zero indexed |
+| pageSize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
+| shortcode |  ``` Optional ```  | Only list keywords of shortcode |
+
+
+#### Example Usage
+
+```go
+collect := new (sharedshortcode_pkg.ListAssignmentInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+page,_ := strconv.ParseInt("1", 10, 8)
+collect.Page = page
+
+pageSize,_ := strconv.ParseInt("10", 10, 8)
+collect.PageSize = pageSize
+
+shortcode := "Shortcode"
+collect.Shortcode = shortcode
+
+
+var result string
+result,_ = sharedShortCode.ListAssignment(collect)
+
+```
+
+
+### <a name="update_assignment"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.UpdateAssignment") UpdateAssignment
+
+> TODO: Add a method description
+
+
+```go
+func (me *SHAREDSHORTCODE_IMPL) UpdateAssignment(input *UpdateAssignmentInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| shortcode |  ``` Required ```  | List of valid shortcode to your message360 account |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| friendlyName |  ``` Optional ```  | User generated name of the shortcode |
+| callbackUrl |  ``` Optional ```  | URL that can be requested to receive notification when call has ended. A set of default parameters will be sent here once the call is finished. |
+| callbackMethod |  ``` Optional ```  | Specifies the HTTP method used to request the required StatusCallBackUrl once call connects. |
+| fallbackUrl |  ``` Optional ```  | URL used if any errors occur during execution of InboundXML or at initial request of the required Url provided with the POST. |
+| fallbackUrlMethod |  ``` Optional ```  | Specifies the HTTP method used to request the required FallbackUrl once call connects. |
+
+
+#### Example Usage
+
+```go
+collect := new (sharedshortcode_pkg.UpdateAssignmentInput)
+
+shortcode := "Shortcode"
+collect.Shortcode = shortcode
+
+responseType := "json"
+collect.ResponseType = responseType
+
+friendlyName := "FriendlyName"
+collect.FriendlyName = friendlyName
+
+callbackUrl := "CallbackUrl"
+collect.CallbackUrl = callbackUrl
+
+callbackMethod := models_pkg.HttpAction_GET
+collect.CallbackMethod = callbackMethod
+
+fallbackUrl := "FallbackUrl"
+collect.FallbackUrl = fallbackUrl
+
+fallbackUrlMethod := models_pkg.HttpAction_GET
+collect.FallbackUrlMethod = fallbackUrlMethod
+
+
+var result string
+result,_ = sharedShortCode.UpdateAssignment(collect)
 
 ```
 
 
 [Back to List of Controllers](#list_of_controllers)
 
-### <a name="conference_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".conference_pkg") conference_pkg
+## <a name="conference_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".conference_pkg") conference_pkg
 
-#### Get instance
+### Get instance
 
 Factory for the ``` CONFERENCE ``` interface can be accessed from the package conference_pkg.
 
@@ -427,30 +644,30 @@ Factory for the ``` CONFERENCE ``` interface can be accessed from the package co
 conference := conference_pkg.NewCONFERENCE()
 ```
 
-#### <a name="create_deaf_mute_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateDeafMuteParticipant") CreateDeafMuteParticipant
+### <a name="deaf_mute_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.DeafMuteParticipant") DeafMuteParticipant
 
 > Deaf Mute Participant
 
 
 ```go
-func (me *CONFERENCE_IMPL) CreateDeafMuteParticipant(input *CreateDeafMuteParticipantInput)(string,error)
+func (me *CONFERENCE_IMPL) DeafMuteParticipant(input *DeafMuteParticipantInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| conferenceSid |  ``` Required ```  | TODO: Add a parameter description |
-| participantSid |  ``` Required ```  | TODO: Add a parameter description |
+| conferenceSid |  ``` Required ```  | ID of the active conference |
+| participantSid |  ``` Required ```  | ID of an active participant |
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response Type either json or xml |
-| muted |  ``` Optional ```  | TODO: Add a parameter description |
-| deaf |  ``` Optional ```  | TODO: Add a parameter description |
+| muted |  ``` Optional ```  | Mute a participant |
+| deaf |  ``` Optional ```  | Make it so a participant cant hear |
 
 
 #### Example Usage
 
 ```go
-collect := new (conference_pkg.CreateDeafMuteParticipantInput)
+collect := new (conference_pkg.DeafMuteParticipantInput)
 
 conferenceSid := "conferenceSid"
 collect.ConferenceSid = conferenceSid
@@ -461,110 +678,59 @@ collect.ParticipantSid = participantSid
 responseType := "json"
 collect.ResponseType = responseType
 
-muted := false
+muted := true
 collect.Muted = muted
 
-deaf := false
+deaf := true
 collect.Deaf = deaf
 
 
 var result string
-result,_ = conference.CreateDeafMuteParticipant(collect)
+result,_ = conference.DeafMuteParticipant(collect)
 
 ```
 
 
-#### <a name="create_list_conference"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateListConference") CreateListConference
+### <a name="view_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.ViewParticipant") ViewParticipant
 
-> List Conference
+> View Participant
 
 
 ```go
-func (me *CONFERENCE_IMPL) CreateListConference(input *CreateListConferenceInput)(string,error)
+func (me *CONFERENCE_IMPL) ViewParticipant(input *ViewParticipantInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| page |  ``` Optional ```  | Which page of the overall response will be returned. Zero indexed |
-| pageSize |  ``` Optional ```  | Number of individual resources listed in the response per page |
-| friendlyName |  ``` Optional ```  | Only return conferences with the specified FriendlyName |
-| status |  ``` Optional ```  | TODO: Add a parameter description |
-| dateCreated |  ``` Optional ```  | TODO: Add a parameter description |
-| dateUpdated |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-collect := new (conference_pkg.CreateListConferenceInput)
-
-responseType := "json"
-collect.ResponseType = responseType
-
-page,_ := strconv.ParseInt("61", 10, 8)
-collect.Page = page
-
-pageSize,_ := strconv.ParseInt("61", 10, 8)
-collect.PageSize = pageSize
-
-friendlyName := "FriendlyName"
-collect.FriendlyName = friendlyName
-
-status := models_pkg.InterruptedCallStatus_CANCELED
-collect.Status = status
-
-dateCreated := "DateCreated"
-collect.DateCreated = dateCreated
-
-dateUpdated := "DateUpdated"
-collect.DateUpdated = dateUpdated
-
-
-var result string
-result,_ = conference.CreateListConference(collect)
-
-```
-
-
-#### <a name="create_view_conference"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateViewConference") CreateViewConference
-
-> View Conference
-
-
-```go
-func (me *CONFERENCE_IMPL) CreateViewConference(input *CreateViewConferenceInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| conferencesid |  ``` Required ```  | The unique identifier of each conference resource |
+| conferenceSid |  ``` Required ```  | unique conference sid |
+| participantSid |  ``` Required ```  | TODO: Add a parameter description |
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
 
 
 #### Example Usage
 
 ```go
-collect := new (conference_pkg.CreateViewConferenceInput)
+collect := new (conference_pkg.ViewParticipantInput)
 
-conferencesid := "conferencesid"
-collect.Conferencesid = conferencesid
+conferenceSid := "ConferenceSid"
+collect.ConferenceSid = conferenceSid
+
+participantSid := "ParticipantSid"
+collect.ParticipantSid = participantSid
 
 responseType := "json"
 collect.ResponseType = responseType
 
 
 var result string
-result,_ = conference.CreateViewConference(collect)
+result,_ = conference.ViewParticipant(collect)
 
 ```
 
 
-#### <a name="add_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.AddParticipant") AddParticipant
+### <a name="add_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.AddParticipant") AddParticipant
 
 > Add Participant in conference 
 
@@ -579,10 +745,9 @@ func (me *CONFERENCE_IMPL) AddParticipant(input *AddParticipantInput)(string,err
 |-----------|------|-------------|
 | conferencesid |  ``` Required ```  | Unique Conference Sid |
 | participantnumber |  ``` Required ```  | Particiant Number |
-| tocountrycode |  ``` Required ```  | TODO: Add a parameter description |
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| muted |  ``` Optional ```  | TODO: Add a parameter description |
-| deaf |  ``` Optional ```  | TODO: Add a parameter description |
+| muted |  ``` Optional ```  | add muted |
+| deaf |  ``` Optional ```  | add without volume |
 
 
 #### Example Usage
@@ -596,16 +761,13 @@ collect.Conferencesid = conferencesid
 participantnumber := "participantnumber"
 collect.Participantnumber = participantnumber
 
-tocountrycode,_ := strconv.ParseInt("61", 10, 8)
-collect.Tocountrycode = tocountrycode
-
 responseType := "json"
 collect.ResponseType = responseType
 
-muted := false
+muted := true
 collect.Muted = muted
 
-deaf := false
+deaf := true
 collect.Deaf = deaf
 
 
@@ -615,79 +777,146 @@ result,_ = conference.AddParticipant(collect)
 ```
 
 
-#### <a name="create_list_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateListParticipant") CreateListParticipant
+### <a name="view_conference"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.ViewConference") ViewConference
 
-> List Participant
+> View Conference
 
 
 ```go
-func (me *CONFERENCE_IMPL) CreateListParticipant(input *CreateListParticipantInput)(string,error)
+func (me *CONFERENCE_IMPL) ViewConference(input *ViewConferenceInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| conferenceSid |  ``` Required ```  | unique conference sid |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response format, xml or json |
-| page |  ``` Optional ```  | page number |
-| pagesize |  ``` Optional ```  | TODO: Add a parameter description |
-| muted |  ``` Optional ```  | TODO: Add a parameter description |
-| deaf |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-collect := new (conference_pkg.CreateListParticipantInput)
-
-conferenceSid := "ConferenceSid"
-collect.ConferenceSid = conferenceSid
-
-responseType := "json"
-collect.ResponseType = responseType
-
-page,_ := strconv.ParseInt("61", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("61", 10, 8)
-collect.Pagesize = pagesize
-
-muted := false
-collect.Muted = muted
-
-deaf := false
-collect.Deaf = deaf
-
-
-var result string
-result,_ = conference.CreateListParticipant(collect)
-
-```
-
-
-#### <a name="create_view_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateViewParticipant") CreateViewParticipant
-
-> View Participant
-
-
-```go
-func (me *CONFERENCE_IMPL) CreateViewParticipant(input *CreateViewParticipantInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| conferenceSid |  ``` Required ```  | unique conference sid |
-| participantSid |  ``` Required ```  | TODO: Add a parameter description |
+| conferencesid |  ``` Required ```  | The unique identifier of each conference resource |
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
 
 
 #### Example Usage
 
 ```go
-collect := new (conference_pkg.CreateViewParticipantInput)
+collect := new (conference_pkg.ViewConferenceInput)
+
+conferencesid := "conferencesid"
+collect.Conferencesid = conferencesid
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = conference.ViewConference(collect)
+
+```
+
+
+### <a name="create_conference"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateConference") CreateConference
+
+> Here you can experiment with initiating a conference call through message360 and view the request response generated when doing so.
+
+
+```go
+func (me *CONFERENCE_IMPL) CreateConference(input *CreateConferenceInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| from |  ``` Required ```  | This number to display on Caller ID as calling |
+| to |  ``` Required ```  | To number |
+| url |  ``` Required ```  | URL requested once the call connects |
+| method |  ``` Required ```  ``` DefaultValue ```  | Specifies the HTTP method used to request the required URL once call connects. |
+| recordCallbackUrl |  ``` Required ```  | Recording parameters will be sent here upon completion. |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| statusCallBackUrl |  ``` Optional ```  | URL that can be requested to receive notification when call has ended. A set of default parameters will be sent here once the conference is finished. |
+| statusCallBackMethod |  ``` Optional ```  | Specifies the HTTP methodlinkclass used to request StatusCallbackUrl. |
+| fallBackUrl |  ``` Optional ```  | URL requested if the initial Url parameter fails or encounters an error |
+| fallBackMethod |  ``` Optional ```  | Specifies the HTTP method used to request the required FallbackUrl once call connects. |
+| record |  ``` Optional ```  | Specifies if the conference should be recorded. |
+| recordCallbackMethod |  ``` Optional ```  | Specifies the HTTP method used to request the required URL once conference connects. |
+| schdeuleTime |  ``` Optional ```  | Schedule conference in future. Schedule time must be greater than current time |
+| timeout |  ``` Optional ```  | The number of seconds the call stays on the line while waiting for an answer. The max time limit is 999 and the default limit is 60 seconds but lower times can be set. |
+
+
+#### Example Usage
+
+```go
+collect := new (conference_pkg.CreateConferenceInput)
+
+from := "From"
+collect.From = from
+
+to := "To"
+collect.To = to
+
+url := "Url"
+collect.Url = url
+
+method := models_pkg.HttpAction_POST
+collect.Method = method
+
+recordCallbackUrl := "RecordCallbackUrl"
+collect.RecordCallbackUrl = recordCallbackUrl
+
+responseType := "json"
+collect.ResponseType = responseType
+
+statusCallBackUrl := "StatusCallBackUrl"
+collect.StatusCallBackUrl = statusCallBackUrl
+
+statusCallBackMethod := models_pkg.HttpAction_GET
+collect.StatusCallBackMethod = statusCallBackMethod
+
+fallBackUrl := "FallBackUrl"
+collect.FallBackUrl = fallBackUrl
+
+fallBackMethod := models_pkg.HttpAction_GET
+collect.FallBackMethod = fallBackMethod
+
+record := true
+collect.Record = record
+
+recordCallbackMethod := models_pkg.HttpAction_GET
+collect.RecordCallbackMethod = recordCallbackMethod
+
+schdeuleTime := "SchdeuleTime"
+collect.SchdeuleTime = schdeuleTime
+
+timeout,_ := strconv.ParseInt("182", 10, 8)
+collect.Timeout = timeout
+
+
+var result string
+result,_ = conference.CreateConference(collect)
+
+```
+
+
+### <a name="hangup_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.HangupParticipant") HangupParticipant
+
+> Remove a participant from a conference.
+
+
+```go
+func (me *CONFERENCE_IMPL) HangupParticipant(input *HangupParticipantInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| conferenceSid |  ``` Required ```  | The unique identifier for a conference object. |
+| participantSid |  ``` Required ```  | The unique identifier for a participant object. |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+
+
+#### Example Usage
+
+```go
+collect := new (conference_pkg.HangupParticipantInput)
 
 conferenceSid := "ConferenceSid"
 collect.ConferenceSid = conferenceSid
@@ -700,67 +929,670 @@ collect.ResponseType = responseType
 
 
 var result string
-result,_ = conference.CreateViewParticipant(collect)
+result,_ = conference.HangupParticipant(collect)
 
 ```
 
 
-[Back to List of Controllers](#list_of_controllers)
+### <a name="play_conference_audio"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.PlayConferenceAudio") PlayConferenceAudio
 
-### <a name="numberverification_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".numberverification_pkg") numberverification_pkg
-
-#### Get instance
-
-Factory for the ``` NUMBERVERIFICATION ``` interface can be accessed from the package numberverification_pkg.
-
-```go
-numberVerification := numberverification_pkg.NewNUMBERVERIFICATION()
-```
-
-#### <a name="create_verify_number"></a>![Method: ](https://apidocs.io/img/method.png ".numberverification_pkg.CreateVerifyNumber") CreateVerifyNumber
-
-> Number Verification
+> Play an audio file during a conference.
 
 
 ```go
-func (me *NUMBERVERIFICATION_IMPL) CreateVerifyNumber(input *CreateVerifyNumberInput)(string,error)
+func (me *CONFERENCE_IMPL) PlayConferenceAudio(input *PlayConferenceAudioInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| phonenumber |  ``` Required ```  | TODO: Add a parameter description |
-| mtype |  ``` Required ```  | TODO: Add a parameter description |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response Type either json or xml |
+| conferenceSid |  ``` Required ```  | The unique identifier for a conference object. |
+| participantSid |  ``` Required ```  | The unique identifier for a participant object. |
+| audioUrl |  ``` Required ```  | The URL for the audio file that is to be played during the conference. Multiple audio files can be chained by using a semicolon. |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
 
 
 #### Example Usage
 
 ```go
-collect := new (numberverification_pkg.CreateVerifyNumberInput)
+collect := new (conference_pkg.PlayConferenceAudioInput)
 
-phonenumber := "phonenumber"
-collect.Phonenumber = phonenumber
+conferenceSid := "ConferenceSid"
+collect.ConferenceSid = conferenceSid
 
-mtype := "type"
-collect.Mtype = mtype
+participantSid := "ParticipantSid"
+collect.ParticipantSid = participantSid
+
+audioUrl := models_pkg.AudioFormat_MP3
+collect.AudioUrl = audioUrl
 
 responseType := "json"
 collect.ResponseType = responseType
 
 
 var result string
-result,_ = numberVerification.CreateVerifyNumber(collect)
+result,_ = conference.PlayConferenceAudio(collect)
+
+```
+
+
+### <a name="list_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.ListParticipant") ListParticipant
+
+> List Participant
+
+
+```go
+func (me *CONFERENCE_IMPL) ListParticipant(input *ListParticipantInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| conferenceSid |  ``` Required ```  | unique conference sid |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response format, xml or json |
+| page |  ``` Optional ```  ``` DefaultValue ```  | page number |
+| pagesize |  ``` Optional ```  ``` DefaultValue ```  | Amount of records to return per page |
+| muted |  ``` Optional ```  | Participants that are muted |
+| deaf |  ``` Optional ```  | Participants cant hear |
+
+
+#### Example Usage
+
+```go
+collect := new (conference_pkg.ListParticipantInput)
+
+conferenceSid := "ConferenceSid"
+collect.ConferenceSid = conferenceSid
+
+responseType := "json"
+collect.ResponseType = responseType
+
+page,_ := strconv.ParseInt("1", 10, 8)
+collect.Page = page
+
+pagesize,_ := strconv.ParseInt("10", 10, 8)
+collect.Pagesize = pagesize
+
+muted := true
+collect.Muted = muted
+
+deaf := true
+collect.Deaf = deaf
+
+
+var result string
+result,_ = conference.ListParticipant(collect)
+
+```
+
+
+### <a name="list_conference"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.ListConference") ListConference
+
+> List Conference
+
+
+```go
+func (me *CONFERENCE_IMPL) ListConference(input *ListConferenceInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| page |  ``` Optional ```  ``` DefaultValue ```  | Which page of the overall response will be returned. Zero indexed |
+| pageSize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
+| friendlyName |  ``` Optional ```  | Only return conferences with the specified FriendlyName |
+| dateCreated |  ``` Optional ```  | Conference created date |
+
+
+#### Example Usage
+
+```go
+collect := new (conference_pkg.ListConferenceInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+page,_ := strconv.ParseInt("1", 10, 8)
+collect.Page = page
+
+pageSize,_ := strconv.ParseInt("10", 10, 8)
+collect.PageSize = pageSize
+
+friendlyName := "FriendlyName"
+collect.FriendlyName = friendlyName
+
+dateCreated := "DateCreated"
+collect.DateCreated = dateCreated
+
+
+var result string
+result,_ = conference.ListConference(collect)
 
 ```
 
 
 [Back to List of Controllers](#list_of_controllers)
 
-### <a name="webrtc_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".webrtc_pkg") webrtc_pkg
+## <a name="transcription_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".transcription_pkg") transcription_pkg
 
-#### Get instance
+### Get instance
+
+Factory for the ``` TRANSCRIPTION ``` interface can be accessed from the package transcription_pkg.
+
+```go
+transcription := transcription_pkg.NewTRANSCRIPTION()
+```
+
+### <a name="list_transcription"></a>![Method: ](https://apidocs.io/img/method.png ".transcription_pkg.ListTranscription") ListTranscription
+
+> Get All transcriptions
+
+
+```go
+func (me *TRANSCRIPTION_IMPL) ListTranscription(input *ListTranscriptionInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| page |  ``` Optional ```  ``` DefaultValue ```  | page number |
+| pageSize |  ``` Optional ```  ``` DefaultValue ```  | Amount of data per page |
+| status |  ``` Optional ```  | Transcription status |
+| dateTranscribed |  ``` Optional ```  | Transcription date |
+
+
+#### Example Usage
+
+```go
+collect := new (transcription_pkg.ListTranscriptionInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+page,_ := strconv.ParseInt("1", 10, 8)
+collect.Page = page
+
+pageSize,_ := strconv.ParseInt("10", 10, 8)
+collect.PageSize = pageSize
+
+status := models_pkg.Status_INPROGRESS
+collect.Status = status
+
+dateTranscribed := "DateTranscribed"
+collect.DateTranscribed = dateTranscribed
+
+
+var result string
+result,_ = transcription.ListTranscription(collect)
+
+```
+
+
+### <a name="view_transcription"></a>![Method: ](https://apidocs.io/img/method.png ".transcription_pkg.ViewTranscription") ViewTranscription
+
+> View Specific Transcriptions
+
+
+```go
+func (me *TRANSCRIPTION_IMPL) ViewTranscription(input *ViewTranscriptionInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| transcriptionSid |  ``` Required ```  | Unique Transcription ID |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+
+
+#### Example Usage
+
+```go
+collect := new (transcription_pkg.ViewTranscriptionInput)
+
+transcriptionSid := "TranscriptionSid"
+collect.TranscriptionSid = transcriptionSid
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = transcription.ViewTranscription(collect)
+
+```
+
+
+### <a name="recording_transcription"></a>![Method: ](https://apidocs.io/img/method.png ".transcription_pkg.RecordingTranscription") RecordingTranscription
+
+> Recording Transcriptions
+
+
+```go
+func (me *TRANSCRIPTION_IMPL) RecordingTranscription(input *RecordingTranscriptionInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recordingSid |  ``` Required ```  | Unique Recording sid |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+
+
+#### Example Usage
+
+```go
+collect := new (transcription_pkg.RecordingTranscriptionInput)
+
+recordingSid := "RecordingSid"
+collect.RecordingSid = recordingSid
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = transcription.RecordingTranscription(collect)
+
+```
+
+
+### <a name="audio_url_transcription"></a>![Method: ](https://apidocs.io/img/method.png ".transcription_pkg.AudioURLTranscription") AudioURLTranscription
+
+> Audio URL Transcriptions
+
+
+```go
+func (me *TRANSCRIPTION_IMPL) AudioURLTranscription(input *AudioURLTranscriptionInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| audioUrl |  ``` Required ```  | Audio url |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+
+
+#### Example Usage
+
+```go
+collect := new (transcription_pkg.AudioURLTranscriptionInput)
+
+audioUrl := "AudioUrl"
+collect.AudioUrl = audioUrl
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = transcription.AudioURLTranscription(collect)
+
+```
+
+
+[Back to List of Controllers](#list_of_controllers)
+
+## <a name="phonenumber_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".phonenumber_pkg") phonenumber_pkg
+
+### Get instance
+
+Factory for the ``` PHONENUMBER ``` interface can be accessed from the package phonenumber_pkg.
+
+```go
+phoneNumber := phonenumber_pkg.NewPHONENUMBER()
+```
+
+### <a name="available_phone_number"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.AvailablePhoneNumber") AvailablePhoneNumber
+
+> Available Phone Number
+
+
+```go
+func (me *PHONENUMBER_IMPL) AvailablePhoneNumber(input *AvailablePhoneNumberInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| numberType |  ``` Required ```  | Number type either SMS,Voice or all |
+| areaCode |  ``` Required ```  | Phone Number Area Code |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| pageSize |  ``` Optional ```  ``` DefaultValue ```  | Page Size |
+
+
+#### Example Usage
+
+```go
+collect := new (phonenumber_pkg.AvailablePhoneNumberInput)
+
+numberType := models_pkg.Number Type_ALL
+collect.NumberType = numberType
+
+areaCode := "AreaCode"
+collect.AreaCode = areaCode
+
+responseType := "json"
+collect.ResponseType = responseType
+
+pageSize,_ := strconv.ParseInt("10", 10, 8)
+collect.PageSize = pageSize
+
+
+var result string
+result,_ = phoneNumber.AvailablePhoneNumber(collect)
+
+```
+
+
+### <a name="list_number"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.ListNumber") ListNumber
+
+> List Account's Phone number details
+
+
+```go
+func (me *PHONENUMBER_IMPL) ListNumber(input *ListNumberInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| page |  ``` Optional ```  ``` DefaultValue ```  | Which page of the overall response will be returned. Zero indexed |
+| pageSize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
+| numberType |  ``` Optional ```  | SMS or Voice |
+| friendlyName |  ``` Optional ```  | Friendly name of the number |
+
+
+#### Example Usage
+
+```go
+collect := new (phonenumber_pkg.ListNumberInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+page,_ := strconv.ParseInt("1", 10, 8)
+collect.Page = page
+
+pageSize,_ := strconv.ParseInt("10", 10, 8)
+collect.PageSize = pageSize
+
+numberType := models_pkg.Number Type_ALL
+collect.NumberType = numberType
+
+friendlyName := "FriendlyName"
+collect.FriendlyName = friendlyName
+
+
+var result string
+result,_ = phoneNumber.ListNumber(collect)
+
+```
+
+
+### <a name="view_number_details"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.ViewNumberDetails") ViewNumberDetails
+
+> Get Phone Number Details
+
+
+```go
+func (me *PHONENUMBER_IMPL) ViewNumberDetails(input *ViewNumberDetailsInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| phoneNumber |  ``` Required ```  | Get Phone number Detail |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+
+
+#### Example Usage
+
+```go
+collect := new (phonenumber_pkg.ViewNumberDetailsInput)
+
+phoneNumber := "PhoneNumber"
+collect.PhoneNumber = phoneNumber
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = phoneNumber.ViewNumberDetails(collect)
+
+```
+
+
+### <a name="release_number"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.ReleaseNumber") ReleaseNumber
+
+> Release number from account
+
+
+```go
+func (me *PHONENUMBER_IMPL) ReleaseNumber(input *ReleaseNumberInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| phoneNumber |  ``` Required ```  | Phone number to be relase |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+
+
+#### Example Usage
+
+```go
+collect := new (phonenumber_pkg.ReleaseNumberInput)
+
+phoneNumber := "PhoneNumber"
+collect.PhoneNumber = phoneNumber
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = phoneNumber.ReleaseNumber(collect)
+
+```
+
+
+### <a name="buy_number"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.BuyNumber") BuyNumber
+
+> Buy Phone Number 
+
+
+```go
+func (me *PHONENUMBER_IMPL) BuyNumber(input *BuyNumberInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| phoneNumber |  ``` Required ```  | Phone number to be purchase |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+
+
+#### Example Usage
+
+```go
+collect := new (phonenumber_pkg.BuyNumberInput)
+
+phoneNumber := "PhoneNumber"
+collect.PhoneNumber = phoneNumber
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = phoneNumber.BuyNumber(collect)
+
+```
+
+
+### <a name="update_phone_number"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.UpdatePhoneNumber") UpdatePhoneNumber
+
+> Update Phone Number Details
+
+
+```go
+func (me *PHONENUMBER_IMPL) UpdatePhoneNumber(input *UpdatePhoneNumberInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| phoneNumber |  ``` Required ```  | The phone number to update |
+| voiceUrl |  ``` Required ```  | URL requested once the call connects |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| friendlyName |  ``` Optional ```  | Phone number friendly name description |
+| voiceMethod |  ``` Optional ```  | Post or Get |
+| voiceFallbackUrl |  ``` Optional ```  | URL requested if the voice URL is not available |
+| voiceFallbackMethod |  ``` Optional ```  | Post or Get |
+| hangupCallback |  ``` Optional ```  | callback url after a hangup occurs |
+| hangupCallbackMethod |  ``` Optional ```  | Post or Get |
+| heartbeatUrl |  ``` Optional ```  | URL requested once the call connects |
+| heartbeatMethod |  ``` Optional ```  | URL that can be requested every 60 seconds during the call to notify of elapsed time |
+| smsUrl |  ``` Optional ```  | URL requested when an SMS is received |
+| smsMethod |  ``` Optional ```  | Post or Get |
+| smsFallbackUrl |  ``` Optional ```  | URL requested once the call connects |
+| smsFallbackMethod |  ``` Optional ```  | URL requested if the sms URL is not available |
+
+
+#### Example Usage
+
+```go
+collect := new (phonenumber_pkg.UpdatePhoneNumberInput)
+
+phoneNumber := "PhoneNumber"
+collect.PhoneNumber = phoneNumber
+
+voiceUrl := "VoiceUrl"
+collect.VoiceUrl = voiceUrl
+
+responseType := "json"
+collect.ResponseType = responseType
+
+friendlyName := "FriendlyName"
+collect.FriendlyName = friendlyName
+
+voiceMethod := models_pkg.HttpAction_GET
+collect.VoiceMethod = voiceMethod
+
+voiceFallbackUrl := "VoiceFallbackUrl"
+collect.VoiceFallbackUrl = voiceFallbackUrl
+
+voiceFallbackMethod := models_pkg.HttpAction_GET
+collect.VoiceFallbackMethod = voiceFallbackMethod
+
+hangupCallback := "HangupCallback"
+collect.HangupCallback = hangupCallback
+
+hangupCallbackMethod := models_pkg.HttpAction_GET
+collect.HangupCallbackMethod = hangupCallbackMethod
+
+heartbeatUrl := "HeartbeatUrl"
+collect.HeartbeatUrl = heartbeatUrl
+
+heartbeatMethod := models_pkg.HttpAction_GET
+collect.HeartbeatMethod = heartbeatMethod
+
+smsUrl := "SmsUrl"
+collect.SmsUrl = smsUrl
+
+smsMethod := models_pkg.HttpAction_GET
+collect.SmsMethod = smsMethod
+
+smsFallbackUrl := "SmsFallbackUrl"
+collect.SmsFallbackUrl = smsFallbackUrl
+
+smsFallbackMethod := models_pkg.HttpAction_GET
+collect.SmsFallbackMethod = smsFallbackMethod
+
+
+var result string
+result,_ = phoneNumber.UpdatePhoneNumber(collect)
+
+```
+
+
+[Back to List of Controllers](#list_of_controllers)
+
+## <a name="usage_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".usage_pkg") usage_pkg
+
+### Get instance
+
+Factory for the ``` USAGE ``` interface can be accessed from the package usage_pkg.
+
+```go
+usage := usage_pkg.NewUSAGE()
+```
+
+### <a name="list_usage"></a>![Method: ](https://apidocs.io/img/method.png ".usage_pkg.ListUsage") ListUsage
+
+> Get all usage 
+
+
+```go
+func (me *USAGE_IMPL) ListUsage(input *ListUsageInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| productCode |  ``` Optional ```  ``` DefaultValue ```  | Product Code |
+| startDate |  ``` Optional ```  ``` DefaultValue ```  | Start Usage Date |
+| endDate |  ``` Optional ```  ``` DefaultValue ```  | End Usage Date |
+
+
+#### Example Usage
+
+```go
+collect := new (usage_pkg.ListUsageInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+productCode := models_pkg.Product Code_ALL
+collect.ProductCode = productCode
+
+startDate := "2016-09-06"
+collect.StartDate = startDate
+
+endDate := "2016-09-06"
+collect.EndDate = endDate
+
+
+var result string
+result,_ = usage.ListUsage(collect)
+
+```
+
+
+[Back to List of Controllers](#list_of_controllers)
+
+## <a name="webrtc_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".webrtc_pkg") webrtc_pkg
+
+### Get instance
 
 Factory for the ``` WEBRTC ``` interface can be accessed from the package webrtc_pkg.
 
@@ -768,13 +1600,13 @@ Factory for the ``` WEBRTC ``` interface can be accessed from the package webrtc
 webRTC := webrtc_pkg.NewWEBRTC()
 ```
 
-#### <a name="create_check_funds"></a>![Method: ](https://apidocs.io/img/method.png ".webrtc_pkg.CreateCheckFunds") CreateCheckFunds
+### <a name="check_funds"></a>![Method: ](https://apidocs.io/img/method.png ".webrtc_pkg.CheckFunds") CheckFunds
 
 > TODO: Add a method description
 
 
 ```go
-func (me *WEBRTC_IMPL) CreateCheckFunds(input *CreateCheckFundsInput)(string,error)
+func (me *WEBRTC_IMPL) CheckFunds(input *CheckFundsInput)(string,error)
 ```
 
 #### Parameters
@@ -788,7 +1620,7 @@ func (me *WEBRTC_IMPL) CreateCheckFunds(input *CreateCheckFundsInput)(string,err
 #### Example Usage
 
 ```go
-collect := new (webrtc_pkg.CreateCheckFundsInput)
+collect := new (webrtc_pkg.CheckFundsInput)
 
 accountSid := "account_sid"
 collect.AccountSid = accountSid
@@ -798,12 +1630,12 @@ collect.AuthToken = authToken
 
 
 var result string
-result,_ = webRTC.CreateCheckFunds(collect)
+result,_ = webRTC.CheckFunds(collect)
 
 ```
 
 
-#### <a name="create_token"></a>![Method: ](https://apidocs.io/img/method.png ".webrtc_pkg.CreateToken") CreateToken
+### <a name="create_token"></a>![Method: ](https://apidocs.io/img/method.png ".webrtc_pkg.CreateToken") CreateToken
 
 > message360 webrtc
 
@@ -848,9 +1680,822 @@ result,_ = webRTC.CreateToken(collect)
 
 [Back to List of Controllers](#list_of_controllers)
 
-### <a name="call_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".call_pkg") call_pkg
+## <a name="recording_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".recording_pkg") recording_pkg
 
-#### Get instance
+### Get instance
+
+Factory for the ``` RECORDING ``` interface can be accessed from the package recording_pkg.
+
+```go
+recording := recording_pkg.NewRECORDING()
+```
+
+### <a name="view_recording"></a>![Method: ](https://apidocs.io/img/method.png ".recording_pkg.ViewRecording") ViewRecording
+
+> View a specific Recording
+
+
+```go
+func (me *RECORDING_IMPL) ViewRecording(input *ViewRecordingInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recordingSid |  ``` Required ```  | Search Recording sid |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+
+
+#### Example Usage
+
+```go
+collect := new (recording_pkg.ViewRecordingInput)
+
+recordingSid := "RecordingSid"
+collect.RecordingSid = recordingSid
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = recording.ViewRecording(collect)
+
+```
+
+
+### <a name="delete_recording"></a>![Method: ](https://apidocs.io/img/method.png ".recording_pkg.DeleteRecording") DeleteRecording
+
+> Delete Recording Record
+
+
+```go
+func (me *RECORDING_IMPL) DeleteRecording(input *DeleteRecordingInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recordingSid |  ``` Required ```  | Unique Recording Sid to be delete |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+
+
+#### Example Usage
+
+```go
+collect := new (recording_pkg.DeleteRecordingInput)
+
+recordingSid := "RecordingSid"
+collect.RecordingSid = recordingSid
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = recording.DeleteRecording(collect)
+
+```
+
+
+### <a name="list_recording"></a>![Method: ](https://apidocs.io/img/method.png ".recording_pkg.ListRecording") ListRecording
+
+> List out Recordings
+
+
+```go
+func (me *RECORDING_IMPL) ListRecording(input *ListRecordingInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| page |  ``` Optional ```  ``` DefaultValue ```  | Which page of the overall response will be returned. Zero indexed |
+| pageSize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
+| dateCreated |  ``` Optional ```  | Recording date |
+| callSid |  ``` Optional ```  | Call ID |
+
+
+#### Example Usage
+
+```go
+collect := new (recording_pkg.ListRecordingInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+page,_ := strconv.ParseInt("1", 10, 8)
+collect.Page = page
+
+pageSize,_ := strconv.ParseInt("10", 10, 8)
+collect.PageSize = pageSize
+
+dateCreated := "DateCreated"
+collect.DateCreated = dateCreated
+
+callSid := "CallSid"
+collect.CallSid = callSid
+
+
+var result string
+result,_ = recording.ListRecording(collect)
+
+```
+
+
+[Back to List of Controllers](#list_of_controllers)
+
+## <a name="email_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".email_pkg") email_pkg
+
+### Get instance
+
+Factory for the ``` EMAIL ``` interface can be accessed from the package email_pkg.
+
+```go
+email := email_pkg.NewEMAIL()
+```
+
+### <a name="delete_spam"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.DeleteSpam") DeleteSpam
+
+> Deletes a email address marked as spam from the spam list
+
+
+```go
+func (me *EMAIL_IMPL) DeleteSpam(input *DeleteSpamInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| email |  ``` Required ```  | Email address |
+
+
+#### Example Usage
+
+```go
+collect := new (email_pkg.DeleteSpamInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+email := "email"
+collect.Email = email
+
+
+var result string
+result,_ = email.DeleteSpam(collect)
+
+```
+
+
+### <a name="delete_block"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.DeleteBlock") DeleteBlock
+
+> Deletes a blocked email
+
+
+```go
+func (me *EMAIL_IMPL) DeleteBlock(input *DeleteBlockInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| email |  ``` Required ```  | Email address to remove from block list |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+
+
+#### Example Usage
+
+```go
+collect := new (email_pkg.DeleteBlockInput)
+
+email := "email"
+collect.Email = email
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = email.DeleteBlock(collect)
+
+```
+
+
+### <a name="add_unsubscribes"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.AddUnsubscribes") AddUnsubscribes
+
+> Add an email to the unsubscribe list
+
+
+```go
+func (me *EMAIL_IMPL) AddUnsubscribes(input *AddUnsubscribesInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| email |  ``` Required ```  | The email to add to the unsubscribe list |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+
+
+#### Example Usage
+
+```go
+collect := new (email_pkg.AddUnsubscribesInput)
+
+email := "email"
+collect.Email = email
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = email.AddUnsubscribes(collect)
+
+```
+
+
+### <a name="send_email"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.SendEmail") SendEmail
+
+> Send out an email
+
+
+```go
+func (me *EMAIL_IMPL) SendEmail(input *SendEmailInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| to |  ``` Required ```  | The to email address |
+| from |  ``` Required ```  | The from email address |
+| mtype |  ``` Required ```  ``` DefaultValue ```  | email format type, html or text |
+| subject |  ``` Required ```  | Email subject |
+| message |  ``` Required ```  | The body of the email message |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| cc |  ``` Optional ```  | CC Email address |
+| bcc |  ``` Optional ```  | BCC Email address |
+| attachment |  ``` Optional ```  | File to be attached.File must be less than 7MB. |
+
+
+#### Example Usage
+
+```go
+collect := new (email_pkg.SendEmailInput)
+
+to := "to"
+collect.To = to
+
+from := "from"
+collect.From = from
+
+mtype := models_pkg.SendEmailAs_HTML
+collect.Mtype = mtype
+
+subject := "subject"
+collect.Subject = subject
+
+message := "message"
+collect.Message = message
+
+responseType := "json"
+collect.ResponseType = responseType
+
+cc := "cc"
+collect.Cc = cc
+
+bcc := "bcc"
+collect.Bcc = bcc
+
+attachment := "attachment"
+collect.Attachment = attachment
+
+
+var result string
+result,_ = email.SendEmail(collect)
+
+```
+
+
+### <a name="delete_unsubscribes"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.DeleteUnsubscribes") DeleteUnsubscribes
+
+> Delete emails from the unsubscribe list
+
+
+```go
+func (me *EMAIL_IMPL) DeleteUnsubscribes(input *DeleteUnsubscribesInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| email |  ``` Required ```  | The email to remove from the unsubscribe list |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+
+
+#### Example Usage
+
+```go
+collect := new (email_pkg.DeleteUnsubscribesInput)
+
+email := "email"
+collect.Email = email
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = email.DeleteUnsubscribes(collect)
+
+```
+
+
+### <a name="list_unsubscribes"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.ListUnsubscribes") ListUnsubscribes
+
+> List all unsubscribed email addresses
+
+
+```go
+func (me *EMAIL_IMPL) ListUnsubscribes(input *ListUnsubscribesInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| offset |  ``` Optional ```  | Starting record of the list |
+| limit |  ``` Optional ```  | Maximum number of records to be returned |
+
+
+#### Example Usage
+
+```go
+collect := new (email_pkg.ListUnsubscribesInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+offset := "offset"
+collect.Offset = offset
+
+limit := "limit"
+collect.Limit = limit
+
+
+var result string
+result,_ = email.ListUnsubscribes(collect)
+
+```
+
+
+### <a name="list_invalid"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.ListInvalid") ListInvalid
+
+> List out all invalid email addresses
+
+
+```go
+func (me *EMAIL_IMPL) ListInvalid(input *ListInvalidInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| offet |  ``` Optional ```  | Starting record for listing out emails |
+| limit |  ``` Optional ```  | Maximum number of records to return |
+
+
+#### Example Usage
+
+```go
+collect := new (email_pkg.ListInvalidInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+offet := "offet"
+collect.Offet = offet
+
+limit := "limit"
+collect.Limit = limit
+
+
+var result string
+result,_ = email.ListInvalid(collect)
+
+```
+
+
+### <a name="delete_bounces"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.DeleteBounces") DeleteBounces
+
+> Delete an email address from the bounced address list
+
+
+```go
+func (me *EMAIL_IMPL) DeleteBounces(input *DeleteBouncesInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| email |  ``` Required ```  | The email address to remove from the bounce list |
+
+
+#### Example Usage
+
+```go
+collect := new (email_pkg.DeleteBouncesInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+email := "email"
+collect.Email = email
+
+
+var result string
+result,_ = email.DeleteBounces(collect)
+
+```
+
+
+### <a name="list_bounces"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.ListBounces") ListBounces
+
+> List out all email addresses that have bounced
+
+
+```go
+func (me *EMAIL_IMPL) ListBounces(input *ListBouncesInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| offset |  ``` Optional ```  | The record to start the list at |
+| limit |  ``` Optional ```  | The maximum number of records to return |
+
+
+#### Example Usage
+
+```go
+collect := new (email_pkg.ListBouncesInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+offset := "offset"
+collect.Offset = offset
+
+limit := "limit"
+collect.Limit = limit
+
+
+var result string
+result,_ = email.ListBounces(collect)
+
+```
+
+
+### <a name="list_spam"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.ListSpam") ListSpam
+
+> List out all email addresses marked as spam
+
+
+```go
+func (me *EMAIL_IMPL) ListSpam(input *ListSpamInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| offset |  ``` Optional ```  | The record number to start the list at |
+| limit |  ``` Optional ```  | Maximum number of records to return |
+
+
+#### Example Usage
+
+```go
+collect := new (email_pkg.ListSpamInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+offset := "offset"
+collect.Offset = offset
+
+limit := "limit"
+collect.Limit = limit
+
+
+var result string
+result,_ = email.ListSpam(collect)
+
+```
+
+
+### <a name="list_blocks"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.ListBlocks") ListBlocks
+
+> Outputs email addresses on your blocklist
+
+
+```go
+func (me *EMAIL_IMPL) ListBlocks(input *ListBlocksInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| offset |  ``` Optional ```  | Where to start in the output list |
+| limit |  ``` Optional ```  | Maximum number of records to return |
+
+
+#### Example Usage
+
+```go
+collect := new (email_pkg.ListBlocksInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+offset := "offset"
+collect.Offset = offset
+
+limit := "limit"
+collect.Limit = limit
+
+
+var result string
+result,_ = email.ListBlocks(collect)
+
+```
+
+
+### <a name="delete_invalid"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.DeleteInvalid") DeleteInvalid
+
+> This endpoint allows you to delete entries in the Invalid Emails list.
+
+
+```go
+func (me *EMAIL_IMPL) DeleteInvalid(input *DeleteInvalidInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| email |  ``` Required ```  | Email that was marked invalid |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Json or xml |
+
+
+#### Example Usage
+
+```go
+collect := new (email_pkg.DeleteInvalidInput)
+
+email := "email"
+collect.Email = email
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = email.DeleteInvalid(collect)
+
+```
+
+
+[Back to List of Controllers](#list_of_controllers)
+
+## <a name="sms_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".sms_pkg") sms_pkg
+
+### Get instance
+
+Factory for the ``` SMS ``` interface can be accessed from the package sms_pkg.
+
+```go
+sMS := sms_pkg.NewSMS()
+```
+
+### <a name="send_sms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.SendSMS") SendSMS
+
+> Send an SMS from a message360 number
+
+
+```go
+func (me *SMS_IMPL) SendSMS(input *SendSMSInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| from |  ``` Required ```  | SMS enabled Message360 number to send this message from |
+| to |  ``` Required ```  | Number to send the SMS to |
+| body |  ``` Required ```  | Text Message To Send |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| method |  ``` Optional ```  | Specifies the HTTP method used to request the required URL once SMS sent. |
+| messagestatuscallback |  ``` Optional ```  | URL that can be requested to receive notification when SMS has Sent. A set of default parameters will be sent here once the SMS is finished. |
+| smartsms |  ``` Optional ```  ``` DefaultValue ```  | Check's 'to' number can receive sms or not using Carrier API, if wireless = true then text sms is sent, else wireless = false then call is recieved to end user with audible message. |
+
+
+#### Example Usage
+
+```go
+collect := new (sms_pkg.SendSMSInput)
+
+from := "from"
+collect.From = from
+
+to := "to"
+collect.To = to
+
+body := "body"
+collect.Body = body
+
+responseType := "json"
+collect.ResponseType = responseType
+
+method := models_pkg.HttpAction_GET
+collect.Method = method
+
+messagestatuscallback := "messagestatuscallback"
+collect.Messagestatuscallback = messagestatuscallback
+
+smartsms := false
+collect.Smartsms = smartsms
+
+
+var result string
+result,_ = sMS.SendSMS(collect)
+
+```
+
+
+### <a name="view_sms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.ViewSMS") ViewSMS
+
+> View a Particular SMS
+
+
+```go
+func (me *SMS_IMPL) ViewSMS(input *ViewSMSInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| messagesid |  ``` Required ```  | Message sid |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+
+
+#### Example Usage
+
+```go
+collect := new (sms_pkg.ViewSMSInput)
+
+messagesid := "messagesid"
+collect.Messagesid = messagesid
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = sMS.ViewSMS(collect)
+
+```
+
+
+### <a name="list_sms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.ListSMS") ListSMS
+
+> List All SMS
+
+
+```go
+func (me *SMS_IMPL) ListSMS(input *ListSMSInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| page |  ``` Optional ```  ``` DefaultValue ```  | Which page of the overall response will be returned. Zero indexed |
+| pagesize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
+| from |  ``` Optional ```  | Messages sent from this number |
+| to |  ``` Optional ```  | Messages sent to this number |
+| datesent |  ``` Optional ```  | Only list SMS messages sent in the specified date range |
+
+
+#### Example Usage
+
+```go
+collect := new (sms_pkg.ListSMSInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+page,_ := strconv.ParseInt("1", 10, 8)
+collect.Page = page
+
+pagesize,_ := strconv.ParseInt("10", 10, 8)
+collect.Pagesize = pagesize
+
+from := "from"
+collect.From = from
+
+to := "to"
+collect.To = to
+
+datesent := "datesent"
+collect.Datesent = datesent
+
+
+var result string
+result,_ = sMS.ListSMS(collect)
+
+```
+
+
+### <a name="list_inbound_sms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.ListInboundSMS") ListInboundSMS
+
+> List All Inbound SMS
+
+
+```go
+func (me *SMS_IMPL) ListInboundSMS(input *ListInboundSMSInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| page |  ``` Optional ```  ``` DefaultValue ```  | Which page of the overall response will be returned. Zero indexed |
+| pagesize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
+| from |  ``` Optional ```  | From Number to Inbound SMS |
+| to |  ``` Optional ```  | To Number to get Inbound SMS |
+| dateSent |  ``` Optional ```  | Filter sms message objects by this date. |
+
+
+#### Example Usage
+
+```go
+collect := new (sms_pkg.ListInboundSMSInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+page,_ := strconv.ParseInt("1", 10, 8)
+collect.Page = page
+
+pagesize,_ := strconv.ParseInt("10", 10, 8)
+collect.Pagesize = pagesize
+
+from := "from"
+collect.From = from
+
+to := "to"
+collect.To = to
+
+dateSent := "DateSent"
+collect.DateSent = dateSent
+
+
+var result string
+result,_ = sMS.ListInboundSMS(collect)
+
+```
+
+
+[Back to List of Controllers](#list_of_controllers)
+
+## <a name="call_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".call_pkg") call_pkg
+
+### Get instance
 
 Factory for the ``` CALL ``` interface can be accessed from the package call_pkg.
 
@@ -858,55 +2503,52 @@ Factory for the ``` CALL ``` interface can be accessed from the package call_pkg
 call := call_pkg.NewCALL()
 ```
 
-#### <a name="create_group_call"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateGroupCall") CreateGroupCall
+### <a name="make_call"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.MakeCall") MakeCall
 
-> Group Call
+> You can experiment with initiating a call through Message360 and view the request response generated when doing so and get the response in json
 
 
 ```go
-func (me *CALL_IMPL) CreateGroupCall(input *CreateGroupCallInput)(string,error)
+func (me *CALL_IMPL) MakeCall(input *MakeCallInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| fromCountryCode |  ``` Required ```  ``` DefaultValue ```  | TODO: Add a parameter description |
-| from |  ``` Required ```  | TODO: Add a parameter description |
-| toCountryCode |  ``` Required ```  ``` DefaultValue ```  | TODO: Add a parameter description |
-| to |  ``` Required ```  | TODO: Add a parameter description |
-| url |  ``` Required ```  | TODO: Add a parameter description |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | TODO: Add a parameter description |
-| method |  ``` Optional ```  | TODO: Add a parameter description |
-| statusCallBackUrl |  ``` Optional ```  | TODO: Add a parameter description |
-| statusCallBackMethod |  ``` Optional ```  | TODO: Add a parameter description |
-| fallBackUrl |  ``` Optional ```  | TODO: Add a parameter description |
-| fallBackMethod |  ``` Optional ```  | TODO: Add a parameter description |
-| heartBeatUrl |  ``` Optional ```  | TODO: Add a parameter description |
-| heartBeatMethod |  ``` Optional ```  | TODO: Add a parameter description |
-| timeout |  ``` Optional ```  | TODO: Add a parameter description |
-| playDtmf |  ``` Optional ```  | TODO: Add a parameter description |
-| hideCallerId |  ``` Optional ```  | TODO: Add a parameter description |
-| record |  ``` Optional ```  | TODO: Add a parameter description |
-| recordCallBackUrl |  ``` Optional ```  | TODO: Add a parameter description |
-| recordCallBackMethod |  ``` Optional ```  | TODO: Add a parameter description |
-| transcribe |  ``` Optional ```  | TODO: Add a parameter description |
-| transcribeCallBackUrl |  ``` Optional ```  | TODO: Add a parameter description |
+| from |  ``` Required ```  | This number to display on Caller ID as calling |
+| to |  ``` Required ```  | To number |
+| url |  ``` Required ```  | URL requested once the call connects |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| method |  ``` Optional ```  | Specifies the HTTP method used to request the required URL once call connects. |
+| statusCallBackUrl |  ``` Optional ```  | specifies the HTTP methodlinkclass used to request StatusCallbackUrl. |
+| statusCallBackMethod |  ``` Optional ```  | Specifies the HTTP methodlinkclass used to request StatusCallbackUrl. |
+| fallBackUrl |  ``` Optional ```  | URL requested if the initial Url parameter fails or encounters an error |
+| fallBackMethod |  ``` Optional ```  | Specifies the HTTP method used to request the required FallbackUrl once call connects. |
+| heartBeatUrl |  ``` Optional ```  | URL that can be requested every 60 seconds during the call to notify of elapsed tim |
+| heartBeatMethod |  ``` Optional ```  | Specifies the HTTP method used to request HeartbeatUrl. |
+| timeout |  ``` Optional ```  | Time (in seconds) Message360 should wait while the call is ringing before canceling the call |
+| playDtmf |  ``` Optional ```  | DTMF Digits to play to the call once it connects. 0-9, #, or * |
+| hideCallerId |  ``` Optional ```  | Specifies if the caller id will be hidden |
+| record |  ``` Optional ```  | Specifies if the call should be recorded |
+| recordCallBackUrl |  ``` Optional ```  | Recording parameters will be sent here upon completion |
+| recordCallBackMethod |  ``` Optional ```  | Method used to request the RecordCallback URL. |
+| transcribe |  ``` Optional ```  | Specifies if the call recording should be transcribed |
+| transcribeCallBackUrl |  ``` Optional ```  | Transcription parameters will be sent here upon completion |
+| ifMachine |  ``` Optional ```  | How Message360 should handle the receiving numbers voicemail machine |
+| ifMachineUrl |  ``` Optional ```  | URL requested when IfMachine=continue |
+| ifMachineMethod |  ``` Optional ```  | Method used to request the IfMachineUrl. |
+| feedback |  ``` Optional ```  | Specify if survey should be enable or not |
+| surveyId |  ``` Optional ```  | The unique identifier for the survey. |
 
 
 #### Example Usage
 
 ```go
-collect := new (call_pkg.CreateGroupCallInput)
-
-fromCountryCode := "1"
-collect.FromCountryCode = fromCountryCode
+collect := new (call_pkg.MakeCallInput)
 
 from := "From"
 collect.From = from
-
-toCountryCode := "1"
-collect.ToCountryCode = toCountryCode
 
 to := "To"
 collect.To = to
@@ -938,16 +2580,16 @@ collect.HeartBeatUrl = heartBeatUrl
 heartBeatMethod := models_pkg.HttpAction_GET
 collect.HeartBeatMethod = heartBeatMethod
 
-timeout,_ := strconv.ParseInt("61", 10, 8)
+timeout,_ := strconv.ParseInt("140", 10, 8)
 collect.Timeout = timeout
 
 playDtmf := "PlayDtmf"
 collect.PlayDtmf = playDtmf
 
-hideCallerId := "HideCallerId"
+hideCallerId := true
 collect.HideCallerId = hideCallerId
 
-record := false
+record := true
 collect.Record = record
 
 recordCallBackUrl := "RecordCallBackUrl"
@@ -956,85 +2598,96 @@ collect.RecordCallBackUrl = recordCallBackUrl
 recordCallBackMethod := models_pkg.HttpAction_GET
 collect.RecordCallBackMethod = recordCallBackMethod
 
-transcribe := false
+transcribe := true
 collect.Transcribe = transcribe
 
 transcribeCallBackUrl := "TranscribeCallBackUrl"
 collect.TranscribeCallBackUrl = transcribeCallBackUrl
 
+ifMachine := models_pkg.ifMachine_CONTINUE
+collect.IfMachine = ifMachine
+
+ifMachineUrl := "IfMachineUrl"
+collect.IfMachineUrl = ifMachineUrl
+
+ifMachineMethod := models_pkg.HttpAction_GET
+collect.IfMachineMethod = ifMachineMethod
+
+feedback := true
+collect.Feedback = feedback
+
+surveyId := "SurveyId"
+collect.SurveyId = surveyId
+
 
 var result string
-result,_ = call.CreateGroupCall(collect)
+result,_ = call.MakeCall(collect)
 
 ```
 
 
-#### <a name="create_voice_effect"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateVoiceEffect") CreateVoiceEffect
+### <a name="play_audio"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.PlayAudio") PlayAudio
 
-> Voice Effect
+> Play Dtmf and send the Digit
 
 
 ```go
-func (me *CALL_IMPL) CreateVoiceEffect(input *CreateVoiceEffectInput)(string,error)
+func (me *CALL_IMPL) PlayAudio(input *PlayAudioInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| callSid |  ``` Required ```  | TODO: Add a parameter description |
+| callSid |  ``` Required ```  | The unique identifier of each call resource |
+| audioUrl |  ``` Required ```  | URL to sound that should be played. You also can add more than one audio file using semicolons e.g. http://example.com/audio1.mp3;http://example.com/audio2.wav |
+| sayText |  ``` Required ```  | Valid alphanumeric string that should be played to the In-progress call. |
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| audioDirection |  ``` Optional ```  | TODO: Add a parameter description |
-| pitchSemiTones |  ``` Optional ```  | value between -14 and 14 |
-| pitchOctaves |  ``` Optional ```  | value between -1 and 1 |
-| pitch |  ``` Optional ```  | value greater than 0 |
-| rate |  ``` Optional ```  | value greater than 0 |
-| tempo |  ``` Optional ```  | value greater than 0 |
+| length |  ``` Optional ```  | Time limit in seconds for audio play back |
+| direction |  ``` Optional ```  | The leg of the call audio will be played to |
+| mix |  ``` Optional ```  | If false, all other audio will be muted |
 
 
 #### Example Usage
 
 ```go
-collect := new (call_pkg.CreateVoiceEffectInput)
+collect := new (call_pkg.PlayAudioInput)
 
 callSid := "CallSid"
 collect.CallSid = callSid
 
+audioUrl := "AudioUrl"
+collect.AudioUrl = audioUrl
+
+sayText := "SayText"
+collect.SayText = sayText
+
 responseType := "json"
 collect.ResponseType = responseType
 
-audioDirection := models_pkg.AudioDirection_IN
-collect.AudioDirection = audioDirection
+length,_ := strconv.ParseInt("140", 10, 8)
+collect.Length = length
 
-pitchSemiTones := 61.7488090306282
-collect.PitchSemiTones = pitchSemiTones
+direction := models_pkg.Direction_IN
+collect.Direction = direction
 
-pitchOctaves := 61.7488090306282
-collect.PitchOctaves = pitchOctaves
-
-pitch := 61.7488090306282
-collect.Pitch = pitch
-
-rate := 61.7488090306282
-collect.Rate = rate
-
-tempo := 61.7488090306282
-collect.Tempo = tempo
+mix := true
+collect.Mix = mix
 
 
 var result string
-result,_ = call.CreateVoiceEffect(collect)
+result,_ = call.PlayAudio(collect)
 
 ```
 
 
-#### <a name="create_record_call"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateRecordCall") CreateRecordCall
+### <a name="record_call"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.RecordCall") RecordCall
 
 > Record a Call
 
 
 ```go
-func (me *CALL_IMPL) CreateRecordCall(input *CreateRecordCallInput)(string,error)
+func (me *CALL_IMPL) RecordCall(input *RecordCallInput)(string,error)
 ```
 
 #### Parameters
@@ -1053,12 +2706,12 @@ func (me *CALL_IMPL) CreateRecordCall(input *CreateRecordCallInput)(string,error
 #### Example Usage
 
 ```go
-collect := new (call_pkg.CreateRecordCallInput)
+collect := new (call_pkg.RecordCallInput)
 
 callSid := "CallSid"
 collect.CallSid = callSid
 
-record := false
+record := true
 collect.Record = record
 
 responseType := "json"
@@ -1067,7 +2720,7 @@ collect.ResponseType = responseType
 direction := models_pkg.Direction_IN
 collect.Direction = direction
 
-timeLimit,_ := strconv.ParseInt("61", 10, 8)
+timeLimit,_ := strconv.ParseInt("140", 10, 8)
 collect.TimeLimit = timeLimit
 
 callBackUrl := "CallBackUrl"
@@ -1078,18 +2731,77 @@ collect.Fileformat = fileformat
 
 
 var result string
-result,_ = call.CreateRecordCall(collect)
+result,_ = call.RecordCall(collect)
 
 ```
 
 
-#### <a name="create_play_audio"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreatePlayAudio") CreatePlayAudio
+### <a name="voice_effect"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.VoiceEffect") VoiceEffect
+
+> Voice Effect
+
+
+```go
+func (me *CALL_IMPL) VoiceEffect(input *VoiceEffectInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| callSid |  ``` Required ```  | The unique identifier for the in-progress voice call. |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| audioDirection |  ``` Optional ```  | The direction the audio effect should be placed on. If IN, the effects will occur on the incoming audio stream. If OUT, the effects will occur on the outgoing audio stream. |
+| pitchSemiTones |  ``` Optional ```  | value between -14 and 14 |
+| pitchOctaves |  ``` Optional ```  | value between -1 and 1 |
+| pitch |  ``` Optional ```  | value greater than 0 |
+| rate |  ``` Optional ```  | value greater than 0 |
+| tempo |  ``` Optional ```  | value greater than 0 |
+
+
+#### Example Usage
+
+```go
+collect := new (call_pkg.VoiceEffectInput)
+
+callSid := "CallSid"
+collect.CallSid = callSid
+
+responseType := "json"
+collect.ResponseType = responseType
+
+audioDirection := models_pkg.AudioDirection_IN
+collect.AudioDirection = audioDirection
+
+pitchSemiTones := 140.590996688973
+collect.PitchSemiTones = pitchSemiTones
+
+pitchOctaves := 140.590996688973
+collect.PitchOctaves = pitchOctaves
+
+pitch := 140.590996688973
+collect.Pitch = pitch
+
+rate := 140.590996688973
+collect.Rate = rate
+
+tempo := 140.590996688973
+collect.Tempo = tempo
+
+
+var result string
+result,_ = call.VoiceEffect(collect)
+
+```
+
+
+### <a name="send_digit"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.SendDigit") SendDigit
 
 > Play Dtmf and send the Digit
 
 
 ```go
-func (me *CALL_IMPL) CreatePlayAudio(input *CreatePlayAudioInput)(string,error)
+func (me *CALL_IMPL) SendDigit(input *SendDigitInput)(string,error)
 ```
 
 #### Parameters
@@ -1097,54 +2809,42 @@ func (me *CALL_IMPL) CreatePlayAudio(input *CreatePlayAudioInput)(string,error)
 | Parameter | Tags | Description |
 |-----------|------|-------------|
 | callSid |  ``` Required ```  | The unique identifier of each call resource |
-| audioUrl |  ``` Required ```  | URL to sound that should be played. You also can add more than one audio file using semicolons e.g. http://example.com/audio1.mp3;http://example.com/audio2.wav |
+| playDtmf |  ``` Required ```  | DTMF digits to play to the call. 0-9, #, *, W, or w |
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| length |  ``` Optional ```  | Time limit in seconds for audio play back |
-| direction |  ``` Optional ```  | The leg of the call audio will be played to |
-| loop |  ``` Optional ```  | Repeat audio playback indefinitely |
-| mix |  ``` Optional ```  | If false, all other audio will be muted |
+| playDtmfDirection |  ``` Optional ```  | The leg of the call DTMF digits should be sent to |
 
 
 #### Example Usage
 
 ```go
-collect := new (call_pkg.CreatePlayAudioInput)
+collect := new (call_pkg.SendDigitInput)
 
 callSid := "CallSid"
 collect.CallSid = callSid
 
-audioUrl := "AudioUrl"
-collect.AudioUrl = audioUrl
+playDtmf := "PlayDtmf"
+collect.PlayDtmf = playDtmf
 
 responseType := "json"
 collect.ResponseType = responseType
 
-length,_ := strconv.ParseInt("61", 10, 8)
-collect.Length = length
-
-direction := models_pkg.Direction_IN
-collect.Direction = direction
-
-loop := false
-collect.Loop = loop
-
-mix := false
-collect.Mix = mix
+playDtmfDirection := models_pkg.Direction_IN
+collect.PlayDtmfDirection = playDtmfDirection
 
 
 var result string
-result,_ = call.CreatePlayAudio(collect)
+result,_ = call.SendDigit(collect)
 
 ```
 
 
-#### <a name="create_interrupted_call"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateInterruptedCall") CreateInterruptedCall
+### <a name="interrupted_call"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.InterruptedCall") InterruptedCall
 
 > Interrupt the Call by Call Sid
 
 
 ```go
-func (me *CALL_IMPL) CreateInterruptedCall(input *CreateInterruptedCallInput)(string,error)
+func (me *CALL_IMPL) InterruptedCall(input *InterruptedCallInput)(string,error)
 ```
 
 #### Parameters
@@ -1161,7 +2861,7 @@ func (me *CALL_IMPL) CreateInterruptedCall(input *CreateInterruptedCallInput)(st
 #### Example Usage
 
 ```go
-collect := new (call_pkg.CreateInterruptedCallInput)
+collect := new (call_pkg.InterruptedCallInput)
 
 callSid := "CallSid"
 collect.CallSid = callSid
@@ -1180,75 +2880,32 @@ collect.Status = status
 
 
 var result string
-result,_ = call.CreateInterruptedCall(collect)
+result,_ = call.InterruptedCall(collect)
 
 ```
 
 
-#### <a name="create_send_digit"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateSendDigit") CreateSendDigit
+### <a name="group_call"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.GroupCall") GroupCall
 
-> Play Dtmf and send the Digit
+> Group Call
 
 
 ```go
-func (me *CALL_IMPL) CreateSendDigit(input *CreateSendDigitInput)(string,error)
+func (me *CALL_IMPL) GroupCall(input *GroupCallInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| callSid |  ``` Required ```  | The unique identifier of each call resource |
-| playDtmf |  ``` Required ```  | DTMF digits to play to the call. 0-9, #, *, W, or w |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| playDtmfDirection |  ``` Optional ```  | The leg of the call DTMF digits should be sent to |
-
-
-#### Example Usage
-
-```go
-collect := new (call_pkg.CreateSendDigitInput)
-
-callSid := "CallSid"
-collect.CallSid = callSid
-
-playDtmf := "PlayDtmf"
-collect.PlayDtmf = playDtmf
-
-responseType := "json"
-collect.ResponseType = responseType
-
-playDtmfDirection := models_pkg.Direction_IN
-collect.PlayDtmfDirection = playDtmfDirection
-
-
-var result string
-result,_ = call.CreateSendDigit(collect)
-
-```
-
-
-#### <a name="create_make_call"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateMakeCall") CreateMakeCall
-
-> You can experiment with initiating a call through Message360 and view the request response generated when doing so and get the response in json
-
-
-```go
-func (me *CALL_IMPL) CreateMakeCall(input *CreateMakeCallInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| fromCountryCode |  ``` Required ```  | from country code |
 | from |  ``` Required ```  | This number to display on Caller ID as calling |
-| toCountryCode |  ``` Required ```  | To cuntry code number |
-| to |  ``` Required ```  | To number |
+| to |  ``` Required ```  | Please enter multiple E164 number. You can add max 10 numbers. Add numbers separated with comma. e.g : 1111111111,2222222222 |
 | url |  ``` Required ```  | URL requested once the call connects |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | TODO: Add a parameter description |
+| groupConfirmKey |  ``` Required ```  | Define the DTMF that the called party should send to bridge the call. Allowed Values : 0-9, #, * |
+| groupConfirmFile |  ``` Required ```  | Specify the audio file you want to play when the called party picks up the call |
 | method |  ``` Optional ```  | Specifies the HTTP method used to request the required URL once call connects. |
-| statusCallBackUrl |  ``` Optional ```  | specifies the HTTP methodlinkclass used to request StatusCallbackUrl. |
+| statusCallBackUrl |  ``` Optional ```  | Specifies the HTTP method used to request the required URL once call connects. |
 | statusCallBackMethod |  ``` Optional ```  | Specifies the HTTP methodlinkclass used to request StatusCallbackUrl. |
 | fallBackUrl |  ``` Optional ```  | URL requested if the initial Url parameter fails or encounters an error |
 | fallBackMethod |  ``` Optional ```  | Specifies the HTTP method used to request the required FallbackUrl once call connects. |
@@ -1262,22 +2919,15 @@ func (me *CALL_IMPL) CreateMakeCall(input *CreateMakeCallInput)(string,error)
 | recordCallBackMethod |  ``` Optional ```  | Method used to request the RecordCallback URL. |
 | transcribe |  ``` Optional ```  | Specifies if the call recording should be transcribed |
 | transcribeCallBackUrl |  ``` Optional ```  | Transcription parameters will be sent here upon completion |
-| ifMachine |  ``` Optional ```  | How Message360 should handle the receiving numbers voicemail machine |
 
 
 #### Example Usage
 
 ```go
-collect := new (call_pkg.CreateMakeCallInput)
-
-fromCountryCode := "FromCountryCode"
-collect.FromCountryCode = fromCountryCode
+collect := new (call_pkg.GroupCallInput)
 
 from := "From"
 collect.From = from
-
-toCountryCode := "ToCountryCode"
-collect.ToCountryCode = toCountryCode
 
 to := "To"
 collect.To = to
@@ -1287,6 +2937,12 @@ collect.Url = url
 
 responseType := "json"
 collect.ResponseType = responseType
+
+groupConfirmKey := "GroupConfirmKey"
+collect.GroupConfirmKey = groupConfirmKey
+
+groupConfirmFile := models_pkg.AudioFormat_MP3
+collect.GroupConfirmFile = groupConfirmFile
 
 method := models_pkg.HttpAction_GET
 collect.Method = method
@@ -1306,19 +2962,19 @@ collect.FallBackMethod = fallBackMethod
 heartBeatUrl := "HeartBeatUrl"
 collect.HeartBeatUrl = heartBeatUrl
 
-heartBeatMethod := false
+heartBeatMethod := models_pkg.HttpAction_GET
 collect.HeartBeatMethod = heartBeatMethod
 
-timeout,_ := strconv.ParseInt("61", 10, 8)
+timeout,_ := strconv.ParseInt("140", 10, 8)
 collect.Timeout = timeout
 
 playDtmf := "PlayDtmf"
 collect.PlayDtmf = playDtmf
 
-hideCallerId := false
+hideCallerId := "HideCallerId"
 collect.HideCallerId = hideCallerId
 
-record := false
+record := true
 collect.Record = record
 
 recordCallBackUrl := "RecordCallBackUrl"
@@ -1327,29 +2983,26 @@ collect.RecordCallBackUrl = recordCallBackUrl
 recordCallBackMethod := models_pkg.HttpAction_GET
 collect.RecordCallBackMethod = recordCallBackMethod
 
-transcribe := false
+transcribe := true
 collect.Transcribe = transcribe
 
 transcribeCallBackUrl := "TranscribeCallBackUrl"
 collect.TranscribeCallBackUrl = transcribeCallBackUrl
 
-ifMachine := models_pkg.ifMachine_CONTINUE
-collect.IfMachine = ifMachine
-
 
 var result string
-result,_ = call.CreateMakeCall(collect)
+result,_ = call.GroupCall(collect)
 
 ```
 
 
-#### <a name="create_list_calls"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateListCalls") CreateListCalls
+### <a name="list_calls"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.ListCalls") ListCalls
 
 > A list of calls associated with your Message360 account
 
 
 ```go
-func (me *CALL_IMPL) CreateListCalls(input *CreateListCallsInput)(string,error)
+func (me *CALL_IMPL) ListCalls(input *ListCallsInput)(string,error)
 ```
 
 #### Parameters
@@ -1357,7 +3010,7 @@ func (me *CALL_IMPL) CreateListCalls(input *CreateListCallsInput)(string,error)
 | Parameter | Tags | Description |
 |-----------|------|-------------|
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| page |  ``` Optional ```  | Which page of the overall response will be returned. Zero indexed |
+| page |  ``` Optional ```  ``` DefaultValue ```  | Which page of the overall response will be returned. Zero indexed |
 | pageSize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
 | to |  ``` Optional ```  | Only list calls to this number |
 | from |  ``` Optional ```  | Only list calls from this number |
@@ -1367,12 +3020,12 @@ func (me *CALL_IMPL) CreateListCalls(input *CreateListCallsInput)(string,error)
 #### Example Usage
 
 ```go
-collect := new (call_pkg.CreateListCallsInput)
+collect := new (call_pkg.ListCallsInput)
 
 responseType := "json"
 collect.ResponseType = responseType
 
-page,_ := strconv.ParseInt("61", 10, 8)
+page,_ := strconv.ParseInt("1", 10, 8)
 collect.Page = page
 
 pageSize,_ := strconv.ParseInt("10", 10, 8)
@@ -1389,31 +3042,30 @@ collect.DateCreated = dateCreated
 
 
 var result string
-result,_ = call.CreateListCalls(collect)
+result,_ = call.ListCalls(collect)
 
 ```
 
 
-#### <a name="create_send_ringless_vm"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateSendRinglessVM") CreateSendRinglessVM
+### <a name="send_ringless_vm"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.SendRinglessVM") SendRinglessVM
 
 > API endpoint used to send a Ringless Voicemail
 
 
 ```go
-func (me *CALL_IMPL) CreateSendRinglessVM(input *CreateSendRinglessVMInput)(string,error)
+func (me *CALL_IMPL) SendRinglessVM(input *SendRinglessVMInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| fromCountryCode |  ``` Required ```  | From country code |
 | from |  ``` Required ```  | This number to display on Caller ID as calling |
-| toCountryCode |  ``` Required ```  | To country code |
+| rVMCallerId |  ``` Required ```  | Alternate caller ID required for RVM |
 | to |  ``` Required ```  | To number |
 | voiceMailURL |  ``` Required ```  | URL to an audio file |
-| method |  ``` Required ```  ``` DefaultValue ```  | Not currently used in this version |
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| method |  ``` Optional ```  ``` DefaultValue ```  | Not currently used in this version |
 | statusCallBackUrl |  ``` Optional ```  | URL to post the status of the Ringless request |
 | statsCallBackMethod |  ``` Optional ```  | POST or GET |
 
@@ -1421,16 +3073,13 @@ func (me *CALL_IMPL) CreateSendRinglessVM(input *CreateSendRinglessVMInput)(stri
 #### Example Usage
 
 ```go
-collect := new (call_pkg.CreateSendRinglessVMInput)
-
-fromCountryCode := "FromCountryCode"
-collect.FromCountryCode = fromCountryCode
+collect := new (call_pkg.SendRinglessVMInput)
 
 from := "From"
 collect.From = from
 
-toCountryCode := "ToCountryCode"
-collect.ToCountryCode = toCountryCode
+rVMCallerId := "RVMCallerId"
+collect.RVMCallerId = rVMCallerId
 
 to := "To"
 collect.To = to
@@ -1438,32 +3087,32 @@ collect.To = to
 voiceMailURL := "VoiceMailURL"
 collect.VoiceMailURL = voiceMailURL
 
-method := "GET"
-collect.Method = method
-
 responseType := "json"
 collect.ResponseType = responseType
+
+method := models_pkg.HttpAction_GET
+collect.Method = method
 
 statusCallBackUrl := "StatusCallBackUrl"
 collect.StatusCallBackUrl = statusCallBackUrl
 
-statsCallBackMethod := "StatsCallBackMethod"
+statsCallBackMethod := models_pkg.HttpAction_GET
 collect.StatsCallBackMethod = statsCallBackMethod
 
 
 var result string
-result,_ = call.CreateSendRinglessVM(collect)
+result,_ = call.SendRinglessVM(collect)
 
 ```
 
 
-#### <a name="create_view_call"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateViewCall") CreateViewCall
+### <a name="view_call"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.ViewCall") ViewCall
 
 > View Call Response
 
 
 ```go
-func (me *CALL_IMPL) CreateViewCall(input *CreateViewCallInput)(string,error)
+func (me *CALL_IMPL) ViewCall(input *ViewCallInput)(string,error)
 ```
 
 #### Parameters
@@ -1477,7 +3126,7 @@ func (me *CALL_IMPL) CreateViewCall(input *CreateViewCallInput)(string,error)
 #### Example Usage
 
 ```go
-collect := new (call_pkg.CreateViewCallInput)
+collect := new (call_pkg.ViewCallInput)
 
 callsid := "callsid"
 collect.Callsid = callsid
@@ -1487,149 +3136,102 @@ collect.ResponseType = responseType
 
 
 var result string
-result,_ = call.CreateViewCall(collect)
+result,_ = call.ViewCall(collect)
 
 ```
 
 
 [Back to List of Controllers](#list_of_controllers)
 
-### <a name="subaccount_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".subaccount_pkg") subaccount_pkg
+## <a name="carrier_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".carrier_pkg") carrier_pkg
 
-#### Get instance
+### Get instance
 
-Factory for the ``` SUBACCOUNT ``` interface can be accessed from the package subaccount_pkg.
+Factory for the ``` CARRIER ``` interface can be accessed from the package carrier_pkg.
 
 ```go
-subAccount := subaccount_pkg.NewSUBACCOUNT()
+carrier := carrier_pkg.NewCARRIER()
 ```
 
-#### <a name="create_sub_account"></a>![Method: ](https://apidocs.io/img/method.png ".subaccount_pkg.CreateSubAccount") CreateSubAccount
+### <a name="carrier_lookup_list"></a>![Method: ](https://apidocs.io/img/method.png ".carrier_pkg.CarrierLookupList") CarrierLookupList
 
-> Create a sub user account under the parent account
+> Get the All Purchase Number's Carrier lookup
 
 
 ```go
-func (me *SUBACCOUNT_IMPL) CreateSubAccount(input *CreateSubAccountInput)(string,error)
+func (me *CARRIER_IMPL) CarrierLookupList(input *CarrierLookupListInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| firstName |  ``` Required ```  | Sub account user first name |
-| lastName |  ``` Required ```  | sub account user last name |
-| email |  ``` Required ```  | Sub account email address |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+| page |  ``` Optional ```  ``` DefaultValue ```  | Page Number |
+| pagesize |  ``` Optional ```  ``` DefaultValue ```  | Page Size |
+
+
+#### Example Usage
+
+```go
+collect := new (carrier_pkg.CarrierLookupListInput)
+
+responseType := "json"
+collect.ResponseType = responseType
+
+page,_ := strconv.ParseInt("1", 10, 8)
+collect.Page = page
+
+pagesize,_ := strconv.ParseInt("10", 10, 8)
+collect.Pagesize = pagesize
+
+
+var result string
+result,_ = carrier.CarrierLookupList(collect)
+
+```
+
+
+### <a name="carrier_lookup"></a>![Method: ](https://apidocs.io/img/method.png ".carrier_pkg.CarrierLookup") CarrierLookup
+
+> Get the Carrier Lookup
+
+
+```go
+func (me *CARRIER_IMPL) CarrierLookup(input *CarrierLookupInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| phonenumber |  ``` Required ```  | The number to lookup |
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
 
 
 #### Example Usage
 
 ```go
-collect := new (subaccount_pkg.CreateSubAccountInput)
+collect := new (carrier_pkg.CarrierLookupInput)
 
-firstName := "FirstName"
-collect.FirstName = firstName
-
-lastName := "LastName"
-collect.LastName = lastName
-
-email := "Email"
-collect.Email = email
+phonenumber := "phonenumber"
+collect.Phonenumber = phonenumber
 
 responseType := "json"
 collect.ResponseType = responseType
 
 
 var result string
-result,_ = subAccount.CreateSubAccount(collect)
-
-```
-
-
-#### <a name="create_suspend_sub_account"></a>![Method: ](https://apidocs.io/img/method.png ".subaccount_pkg.CreateSuspendSubAccount") CreateSuspendSubAccount
-
-> Suspend or unsuspend
-
-
-```go
-func (me *SUBACCOUNT_IMPL) CreateSuspendSubAccount(input *CreateSuspendSubAccountInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subAccountSID |  ``` Required ```  | The SubaccountSid to be activated or suspended |
-| activate |  ``` Required ```  ``` DefaultValue ```  | 0 to suspend or 1 to activate |
-| responseType |  ``` Required ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-collect := new (subaccount_pkg.CreateSuspendSubAccountInput)
-
-subAccountSID := "SubAccountSID"
-collect.SubAccountSID = subAccountSID
-
-activate := models_pkg.ActivateStatus_DEACTIVATE
-collect.Activate = activate
-
-responseType := "ResponseType"
-collect.ResponseType = responseType
-
-
-var result string
-result,_ = subAccount.CreateSuspendSubAccount(collect)
-
-```
-
-
-#### <a name="create_delete_sub_account"></a>![Method: ](https://apidocs.io/img/method.png ".subaccount_pkg.CreateDeleteSubAccount") CreateDeleteSubAccount
-
-> Delete sub account or merge numbers into parent
-
-
-```go
-func (me *SUBACCOUNT_IMPL) CreateDeleteSubAccount(input *CreateDeleteSubAccountInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subAccountSID |  ``` Required ```  | The SubaccountSid to be deleted |
-| mergeNumber |  ``` Required ```  ``` DefaultValue ```  | 0 to delete or 1 to merge numbers to parent account. |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-
-
-#### Example Usage
-
-```go
-collect := new (subaccount_pkg.CreateDeleteSubAccountInput)
-
-subAccountSID := "SubAccountSID"
-collect.SubAccountSID = subAccountSID
-
-mergeNumber := models_pkg.MergeNumberStatus_DELETE
-collect.MergeNumber = mergeNumber
-
-responseType := "json"
-collect.ResponseType = responseType
-
-
-var result string
-result,_ = subAccount.CreateDeleteSubAccount(collect)
+result,_ = carrier.CarrierLookup(collect)
 
 ```
 
 
 [Back to List of Controllers](#list_of_controllers)
 
-### <a name="address_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".address_pkg") address_pkg
+## <a name="address_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".address_pkg") address_pkg
 
-#### Get instance
+### Get instance
 
 Factory for the ``` ADDRESS ``` interface can be accessed from the package address_pkg.
 
@@ -1637,7 +3239,7 @@ Factory for the ``` ADDRESS ``` interface can be accessed from the package addre
 address := address_pkg.NewADDRESS()
 ```
 
-#### <a name="create_address"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.CreateAddress") CreateAddress
+### <a name="create_address"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.CreateAddress") CreateAddress
 
 > To add an address to your address book, you create a new address object. You can retrieve and delete individual addresses as well as get a list of addresses. Addresses are identified by a unique random ID.
 
@@ -1704,27 +3306,27 @@ result,_ = address.CreateAddress(collect)
 ```
 
 
-#### <a name="create_delete_address"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.CreateDeleteAddress") CreateDeleteAddress
+### <a name="view_address"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.ViewAddress") ViewAddress
 
-> To delete Address to your address book
+> View Address Specific address Book by providing the address id
 
 
 ```go
-func (me *ADDRESS_IMPL) CreateDeleteAddress(input *CreateDeleteAddressInput)(string,error)
+func (me *ADDRESS_IMPL) ViewAddress(input *ViewAddressInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| addressSID |  ``` Required ```  | The identifier of the address to be deleted. |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type either json or xml |
+| addressSID |  ``` Required ```  | The identifier of the address to be retrieved. |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response Type either json or xml |
 
 
 #### Example Usage
 
 ```go
-collect := new (address_pkg.CreateDeleteAddressInput)
+collect := new (address_pkg.ViewAddressInput)
 
 addressSID := "AddressSID"
 collect.AddressSID = addressSID
@@ -1734,53 +3336,18 @@ collect.ResponseType = responseType
 
 
 var result string
-result,_ = address.CreateDeleteAddress(collect)
+result,_ = address.ViewAddress(collect)
 
 ```
 
 
-#### <a name="create_verify_address"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.CreateVerifyAddress") CreateVerifyAddress
-
-> Validates an address given.
-
-
-```go
-func (me *ADDRESS_IMPL) CreateVerifyAddress(input *CreateVerifyAddressInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| addressSID |  ``` Required ```  | The identifier of the address to be verified. |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type either json or xml |
-
-
-#### Example Usage
-
-```go
-collect := new (address_pkg.CreateVerifyAddressInput)
-
-addressSID := "AddressSID"
-collect.AddressSID = addressSID
-
-responseType := "json"
-collect.ResponseType = responseType
-
-
-var result string
-result,_ = address.CreateVerifyAddress(collect)
-
-```
-
-
-#### <a name="create_list_address"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.CreateListAddress") CreateListAddress
+### <a name="list_address"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.ListAddress") ListAddress
 
 > List All Address 
 
 
 ```go
-func (me *ADDRESS_IMPL) CreateListAddress(input *CreateListAddressInput)(string,error)
+func (me *ADDRESS_IMPL) ListAddress(input *ListAddressInput)(string,error)
 ```
 
 #### Parameters
@@ -1797,7 +3364,7 @@ func (me *ADDRESS_IMPL) CreateListAddress(input *CreateListAddressInput)(string,
 #### Example Usage
 
 ```go
-collect := new (address_pkg.CreateListAddressInput)
+collect := new (address_pkg.ListAddressInput)
 
 responseType := "json"
 collect.ResponseType = responseType
@@ -1816,32 +3383,32 @@ collect.DateCreated = dateCreated
 
 
 var result string
-result,_ = address.CreateListAddress(collect)
+result,_ = address.ListAddress(collect)
 
 ```
 
 
-#### <a name="create_view_address"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.CreateViewAddress") CreateViewAddress
+### <a name="verify_address"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.VerifyAddress") VerifyAddress
 
-> View Address Specific address Book by providing the address id
+> Validates an address given.
 
 
 ```go
-func (me *ADDRESS_IMPL) CreateViewAddress(input *CreateViewAddressInput)(string,error)
+func (me *ADDRESS_IMPL) VerifyAddress(input *VerifyAddressInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| addressSID |  ``` Required ```  | The identifier of the address to be retrieved. |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response Type either json or xml |
+| addressSID |  ``` Required ```  | The identifier of the address to be verified. |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type either json or xml |
 
 
 #### Example Usage
 
 ```go
-collect := new (address_pkg.CreateViewAddressInput)
+collect := new (address_pkg.VerifyAddressInput)
 
 addressSID := "AddressSID"
 collect.AddressSID = addressSID
@@ -1851,479 +3418,167 @@ collect.ResponseType = responseType
 
 
 var result string
-result,_ = address.CreateViewAddress(collect)
+result,_ = address.VerifyAddress(collect)
+
+```
+
+
+### <a name="delete_address"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.DeleteAddress") DeleteAddress
+
+> To delete Address to your address book
+
+
+```go
+func (me *ADDRESS_IMPL) DeleteAddress(input *DeleteAddressInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| addressSID |  ``` Required ```  | The identifier of the address to be deleted. |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type either json or xml |
+
+
+#### Example Usage
+
+```go
+collect := new (address_pkg.DeleteAddressInput)
+
+addressSID := "AddressSID"
+collect.AddressSID = addressSID
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = address.DeleteAddress(collect)
 
 ```
 
 
 [Back to List of Controllers](#list_of_controllers)
 
-### <a name="email_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".email_pkg") email_pkg
+## <a name="subaccount_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".subaccount_pkg") subaccount_pkg
 
-#### Get instance
+### Get instance
 
-Factory for the ``` EMAIL ``` interface can be accessed from the package email_pkg.
+Factory for the ``` SUBACCOUNT ``` interface can be accessed from the package subaccount_pkg.
 
 ```go
-email := email_pkg.NewEMAIL()
+subAccount := subaccount_pkg.NewSUBACCOUNT()
 ```
 
-#### <a name="create_list_blocks"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateListBlocks") CreateListBlocks
+### <a name="delete_sub_account"></a>![Method: ](https://apidocs.io/img/method.png ".subaccount_pkg.DeleteSubAccount") DeleteSubAccount
 
-> Outputs email addresses on your blocklist
-
-
-```go
-func (me *EMAIL_IMPL) CreateListBlocks(input *CreateListBlocksInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| offset |  ``` Optional ```  | Where to start in the output list |
-| limit |  ``` Optional ```  | Maximum number of records to return |
-
-
-#### Example Usage
-
-```go
-collect := new (email_pkg.CreateListBlocksInput)
-
-responseType := "json"
-collect.ResponseType = responseType
-
-offset := "offset"
-collect.Offset = offset
-
-limit := "limit"
-collect.Limit = limit
-
-
-var result string
-result,_ = email.CreateListBlocks(collect)
-
-```
-
-
-#### <a name="create_list_spam"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateListSpam") CreateListSpam
-
-> List out all email addresses marked as spam
+> Delete sub account or merge numbers into parent
 
 
 ```go
-func (me *EMAIL_IMPL) CreateListSpam(input *CreateListSpamInput)(string,error)
+func (me *SUBACCOUNT_IMPL) DeleteSubAccount(input *DeleteSubAccountInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| offset |  ``` Optional ```  | The record number to start the list at |
-| limit |  ``` Optional ```  | Maximum number of records to return |
-
-
-#### Example Usage
-
-```go
-collect := new (email_pkg.CreateListSpamInput)
-
-responseType := "json"
-collect.ResponseType = responseType
-
-offset := "offset"
-collect.Offset = offset
-
-limit := "limit"
-collect.Limit = limit
-
-
-var result string
-result,_ = email.CreateListSpam(collect)
-
-```
-
-
-#### <a name="create_list_bounces"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateListBounces") CreateListBounces
-
-> List out all email addresses that have bounced
-
-
-```go
-func (me *EMAIL_IMPL) CreateListBounces(input *CreateListBouncesInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| offset |  ``` Optional ```  | The record to start the list at |
-| limit |  ``` Optional ```  | The maximum number of records to return |
-
-
-#### Example Usage
-
-```go
-collect := new (email_pkg.CreateListBouncesInput)
-
-responseType := "json"
-collect.ResponseType = responseType
-
-offset := "offset"
-collect.Offset = offset
-
-limit := "limit"
-collect.Limit = limit
-
-
-var result string
-result,_ = email.CreateListBounces(collect)
-
-```
-
-
-#### <a name="create_delete_bounces"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateDeleteBounces") CreateDeleteBounces
-
-> Delete an email address from the bounced address list
-
-
-```go
-func (me *EMAIL_IMPL) CreateDeleteBounces(input *CreateDeleteBouncesInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| email |  ``` Required ```  | The email address to remove from the bounce list |
-
-
-#### Example Usage
-
-```go
-collect := new (email_pkg.CreateDeleteBouncesInput)
-
-responseType := "json"
-collect.ResponseType = responseType
-
-email := "email"
-collect.Email = email
-
-
-var result string
-result,_ = email.CreateDeleteBounces(collect)
-
-```
-
-
-#### <a name="create_list_invalid"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateListInvalid") CreateListInvalid
-
-> List out all invalid email addresses
-
-
-```go
-func (me *EMAIL_IMPL) CreateListInvalid(input *CreateListInvalidInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| offet |  ``` Optional ```  | Starting record for listing out emails |
-| limit |  ``` Optional ```  | Maximum number of records to return |
-
-
-#### Example Usage
-
-```go
-collect := new (email_pkg.CreateListInvalidInput)
-
-responseType := "json"
-collect.ResponseType = responseType
-
-offet := "offet"
-collect.Offet = offet
-
-limit := "limit"
-collect.Limit = limit
-
-
-var result string
-result,_ = email.CreateListInvalid(collect)
-
-```
-
-
-#### <a name="create_list_unsubscribes"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateListUnsubscribes") CreateListUnsubscribes
-
-> List all unsubscribed email addresses
-
-
-```go
-func (me *EMAIL_IMPL) CreateListUnsubscribes(input *CreateListUnsubscribesInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| offset |  ``` Optional ```  | Starting record of the list |
-| limit |  ``` Optional ```  | Maximum number of records to be returned |
-
-
-#### Example Usage
-
-```go
-collect := new (email_pkg.CreateListUnsubscribesInput)
-
-responseType := "json"
-collect.ResponseType = responseType
-
-offset := "offset"
-collect.Offset = offset
-
-limit := "limit"
-collect.Limit = limit
-
-
-var result string
-result,_ = email.CreateListUnsubscribes(collect)
-
-```
-
-
-#### <a name="create_delete_unsubscribes"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateDeleteUnsubscribes") CreateDeleteUnsubscribes
-
-> Delete emails from the unsubscribe list
-
-
-```go
-func (me *EMAIL_IMPL) CreateDeleteUnsubscribes(input *CreateDeleteUnsubscribesInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| email |  ``` Required ```  | The email to remove from the unsubscribe list |
+| subAccountSID |  ``` Required ```  | The SubaccountSid to be deleted |
+| mergeNumber |  ``` Required ```  ``` DefaultValue ```  | 0 to delete or 1 to merge numbers to parent account. |
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
 
 
 #### Example Usage
 
 ```go
-collect := new (email_pkg.CreateDeleteUnsubscribesInput)
+collect := new (subaccount_pkg.DeleteSubAccountInput)
 
-email := "email"
-collect.Email = email
+subAccountSID := "SubAccountSID"
+collect.SubAccountSID = subAccountSID
 
-responseType := "json"
-collect.ResponseType = responseType
-
-
-var result string
-result,_ = email.CreateDeleteUnsubscribes(collect)
-
-```
-
-
-#### <a name="add_unsubscribes"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.AddUnsubscribes") AddUnsubscribes
-
-> Add an email to the unsubscribe list
-
-
-```go
-func (me *EMAIL_IMPL) AddUnsubscribes(input *AddUnsubscribesInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| email |  ``` Required ```  | The email to add to the unsubscribe list |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-
-
-#### Example Usage
-
-```go
-collect := new (email_pkg.AddUnsubscribesInput)
-
-email := "email"
-collect.Email = email
+mergeNumber := models_pkg.MergeNumberStatus_DELETE
+collect.MergeNumber = mergeNumber
 
 responseType := "json"
 collect.ResponseType = responseType
 
 
 var result string
-result,_ = email.AddUnsubscribes(collect)
+result,_ = subAccount.DeleteSubAccount(collect)
 
 ```
 
 
-#### <a name="create_delete_block"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateDeleteBlock") CreateDeleteBlock
+### <a name="suspend_sub_account"></a>![Method: ](https://apidocs.io/img/method.png ".subaccount_pkg.SuspendSubAccount") SuspendSubAccount
 
-> Deletes a blocked email
+> Suspend or unsuspend
 
 
 ```go
-func (me *EMAIL_IMPL) CreateDeleteBlock(input *CreateDeleteBlockInput)(string,error)
+func (me *SUBACCOUNT_IMPL) SuspendSubAccount(input *SuspendSubAccountInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| email |  ``` Required ```  | Email address to remove from block list |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-
-
-#### Example Usage
-
-```go
-collect := new (email_pkg.CreateDeleteBlockInput)
-
-email := "email"
-collect.Email = email
-
-responseType := "json"
-collect.ResponseType = responseType
-
-
-var result string
-result,_ = email.CreateDeleteBlock(collect)
-
-```
-
-
-#### <a name="create_delete_spam"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateDeleteSpam") CreateDeleteSpam
-
-> Deletes a email address marked as spam from the spam list
-
-
-```go
-func (me *EMAIL_IMPL) CreateDeleteSpam(input *CreateDeleteSpamInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| email |  ``` Required ```  | Email address |
-
-
-#### Example Usage
-
-```go
-collect := new (email_pkg.CreateDeleteSpamInput)
-
-responseType := "json"
-collect.ResponseType = responseType
-
-email := "email"
-collect.Email = email
-
-
-var result string
-result,_ = email.CreateDeleteSpam(collect)
-
-```
-
-
-#### <a name="create_send_email"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateSendEmail") CreateSendEmail
-
-> Send out an email
-
-
-```go
-func (me *EMAIL_IMPL) CreateSendEmail(input *CreateSendEmailInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| to |  ``` Required ```  | The to email address |
-| from |  ``` Required ```  | The from email address |
-| mtype |  ``` Required ```  ``` DefaultValue ```  | email format type, html or text |
-| subject |  ``` Required ```  | Email subject |
-| message |  ``` Required ```  | The body of the email message |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| cc |  ``` Optional ```  | CC Email address |
-| bcc |  ``` Optional ```  | BCC Email address |
-| attachment |  ``` Optional ```  | File to be attached.File must be less than 7MB. |
-
-
-#### Example Usage
-
-```go
-collect := new (email_pkg.CreateSendEmailInput)
-
-to := "to"
-collect.To = to
-
-from := "from"
-collect.From = from
-
-mtype := models_pkg.SendEmailAs_HTML
-collect.Mtype = mtype
-
-subject := "subject"
-collect.Subject = subject
-
-message := "message"
-collect.Message = message
-
-responseType := "json"
-collect.ResponseType = responseType
-
-cc := "cc"
-collect.Cc = cc
-
-bcc := "bcc"
-collect.Bcc = bcc
-
-attachment := "attachment"
-collect.Attachment = attachment
-
-
-var result string
-result,_ = email.CreateSendEmail(collect)
-
-```
-
-
-#### <a name="create_delete_invalid"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateDeleteInvalid") CreateDeleteInvalid
-
-> This endpoint allows you to delete entries in the Invalid Emails list.
-
-
-```go
-func (me *EMAIL_IMPL) CreateDeleteInvalid(input *CreateDeleteInvalidInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| email |  ``` Required ```  | TODO: Add a parameter description |
+| subAccountSID |  ``` Required ```  | The SubaccountSid to be activated or suspended |
+| activate |  ``` Required ```  ``` DefaultValue ```  | 0 to suspend or 1 to activate |
 | responseType |  ``` Required ```  ``` DefaultValue ```  | TODO: Add a parameter description |
 
 
 #### Example Usage
 
 ```go
-collect := new (email_pkg.CreateDeleteInvalidInput)
+collect := new (subaccount_pkg.SuspendSubAccountInput)
 
-email := "email"
+subAccountSID := "SubAccountSID"
+collect.SubAccountSID = subAccountSID
+
+activate := models_pkg.ActivateStatus_DEACTIVATE
+collect.Activate = activate
+
+responseType := "json"
+collect.ResponseType = responseType
+
+
+var result string
+result,_ = subAccount.SuspendSubAccount(collect)
+
+```
+
+
+### <a name="create_sub_account"></a>![Method: ](https://apidocs.io/img/method.png ".subaccount_pkg.CreateSubAccount") CreateSubAccount
+
+> Create a sub user account under the parent account
+
+
+```go
+func (me *SUBACCOUNT_IMPL) CreateSubAccount(input *CreateSubAccountInput)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| firstName |  ``` Required ```  | Sub account user first name |
+| lastName |  ``` Required ```  | sub account user last name |
+| email |  ``` Required ```  | Sub account email address |
+| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
+
+
+#### Example Usage
+
+```go
+collect := new (subaccount_pkg.CreateSubAccountInput)
+
+firstName := "FirstName"
+collect.FirstName = firstName
+
+lastName := "LastName"
+collect.LastName = lastName
+
+email := "Email"
 collect.Email = email
 
 responseType := "json"
@@ -2331,159 +3586,100 @@ collect.ResponseType = responseType
 
 
 var result string
-result,_ = email.CreateDeleteInvalid(collect)
+result,_ = subAccount.CreateSubAccount(collect)
 
 ```
 
 
 [Back to List of Controllers](#list_of_controllers)
 
-### <a name="sms_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".sms_pkg") sms_pkg
+## <a name="account_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".account_pkg") account_pkg
 
-#### Get instance
+### Get instance
 
-Factory for the ``` SMS ``` interface can be accessed from the package sms_pkg.
+Factory for the ``` ACCOUNT ``` interface can be accessed from the package account_pkg.
 
 ```go
-sMS := sms_pkg.NewSMS()
+account := account_pkg.NewACCOUNT()
 ```
 
-#### <a name="create_list_sms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.CreateListSMS") CreateListSMS
+### <a name="view_account"></a>![Method: ](https://apidocs.io/img/method.png ".account_pkg.ViewAccount") ViewAccount
 
-> List All SMS
+> Display Account Description
 
 
 ```go
-func (me *SMS_IMPL) CreateListSMS(input *CreateListSMSInput)(string,error)
+func (me *ACCOUNT_IMPL) ViewAccount(input *ViewAccountInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
+| date |  ``` Required ```  | TODO: Add a parameter description |
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| page |  ``` Optional ```  | Which page of the overall response will be returned. Zero indexed |
-| pagesize |  ``` Optional ```  | Number of individual resources listed in the response per page |
-| from |  ``` Optional ```  | Messages sent from this number |
-| to |  ``` Optional ```  | Messages sent to this number |
-| datesent |  ``` Optional ```  | Only list SMS messages sent in the specified date range |
 
 
 #### Example Usage
 
 ```go
-collect := new (sms_pkg.CreateListSMSInput)
+collect := new (account_pkg.ViewAccountInput)
+
+date := "Date"
+collect.Date = date
 
 responseType := "json"
 collect.ResponseType = responseType
 
-page,_ := strconv.ParseInt("153", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("153", 10, 8)
-collect.Pagesize = pagesize
-
-from := "from"
-collect.From = from
-
-to := "to"
-collect.To = to
-
-datesent := "datesent"
-collect.Datesent = datesent
-
 
 var result string
-result,_ = sMS.CreateListSMS(collect)
+result,_ = account.ViewAccount(collect)
 
 ```
 
 
-#### <a name="create_list_inbound_sms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.CreateListInboundSMS") CreateListInboundSMS
+[Back to List of Controllers](#list_of_controllers)
 
-> List All Inbound SMS
+## <a name="shortcode_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".shortcode_pkg") shortcode_pkg
+
+### Get instance
+
+Factory for the ``` SHORTCODE ``` interface can be accessed from the package shortcode_pkg.
+
+```go
+shortCode := shortcode_pkg.NewSHORTCODE()
+```
+
+### <a name="send_dedicated_shortcode"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.SendDedicatedShortcode") SendDedicatedShortcode
+
+> TODO: Add a method description
 
 
 ```go
-func (me *SMS_IMPL) CreateListInboundSMS(input *CreateListInboundSMSInput)(string,error)
+func (me *SHORTCODE_IMPL) SendDedicatedShortcode(input *SendDedicatedShortcodeInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
+| shortcode |  ``` Required ```  | Your dedicated shortcode |
+| to |  ``` Required ```  | The number to send your SMS to |
+| body |  ``` Required ```  | The body of your message |
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| page |  ``` Optional ```  | Which page of the overall response will be returned. Zero indexed |
-| pagesize |  ``` Optional ```  | Number of individual resources listed in the response per page |
-| from |  ``` Optional ```  | From Number to Inbound SMS |
-| to |  ``` Optional ```  | To Number to get Inbound SMS |
+| method |  ``` Optional ```  | Callback status method, POST or GET |
+| messagestatuscallback |  ``` Optional ```  | Callback url for SMS status |
 
 
 #### Example Usage
 
 ```go
-collect := new (sms_pkg.CreateListInboundSMSInput)
+collect := new (shortcode_pkg.SendDedicatedShortcodeInput)
 
-responseType := "json"
-collect.ResponseType = responseType
+shortcode,_ := strconv.ParseInt("140", 10, 8)
+collect.Shortcode = shortcode
 
-page,_ := strconv.ParseInt("153", 10, 8)
-collect.Page = page
-
-pagesize := "pagesize"
-collect.Pagesize = pagesize
-
-from := "from"
-collect.From = from
-
-to := "to"
-collect.To = to
-
-
-var result string
-result,_ = sMS.CreateListInboundSMS(collect)
-
-```
-
-
-#### <a name="create_send_sms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.CreateSendSMS") CreateSendSMS
-
-> Send an SMS from a message360 number
-
-
-```go
-func (me *SMS_IMPL) CreateSendSMS(input *CreateSendSMSInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| fromcountrycode |  ``` Required ```  ``` DefaultValue ```  | From Country Code |
-| from |  ``` Required ```  | SMS enabled Message360 number to send this message from |
-| tocountrycode |  ``` Required ```  ``` DefaultValue ```  | To country code |
-| to |  ``` Required ```  | Number to send the SMS to |
-| body |  ``` Required ```  | Text Message To Send |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| method |  ``` Optional ```  | Specifies the HTTP method used to request the required URL once SMS sent. |
-| messagestatuscallback |  ``` Optional ```  | URL that can be requested to receive notification when SMS has Sent. A set of default parameters will be sent here once the SMS is finished. |
-
-
-#### Example Usage
-
-```go
-collect := new (sms_pkg.CreateSendSMSInput)
-
-fromcountrycode,_ := strconv.ParseInt("1", 10, 8)
-collect.Fromcountrycode = fromcountrycode
-
-from := "from"
-collect.From = from
-
-tocountrycode,_ := strconv.ParseInt("1", 10, 8)
-collect.Tocountrycode = tocountrycode
-
-to := "to"
+to := 140.590996688973
 collect.To = to
 
 body := "body"
@@ -2500,65 +3696,53 @@ collect.Messagestatuscallback = messagestatuscallback
 
 
 var result string
-result,_ = sMS.CreateSendSMS(collect)
+result,_ = shortCode.SendDedicatedShortcode(collect)
 
 ```
 
 
-#### <a name="create_view_sms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.CreateViewSMS") CreateViewSMS
+### <a name="view_shortcode"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.ViewShortcode") ViewShortcode
 
-> View a Particular SMS
+> View a single Sms Short Code message.
 
 
 ```go
-func (me *SMS_IMPL) CreateViewSMS(input *CreateViewSMSInput)(string,error)
+func (me *SHORTCODE_IMPL) ViewShortcode(input *ViewShortcodeInput)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| messagesid |  ``` Required ```  | Message sid |
+| messageSid |  ``` Required ```  | The unique identifier for the sms resource |
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
 
 
 #### Example Usage
 
 ```go
-collect := new (sms_pkg.CreateViewSMSInput)
+collect := new (shortcode_pkg.ViewShortcodeInput)
 
-messagesid := "messagesid"
-collect.Messagesid = messagesid
+messageSid := "MessageSid"
+collect.MessageSid = messageSid
 
 responseType := "json"
 collect.ResponseType = responseType
 
 
 var result string
-result,_ = sMS.CreateViewSMS(collect)
+result,_ = shortCode.ViewShortcode(collect)
 
 ```
 
 
-[Back to List of Controllers](#list_of_controllers)
+### <a name="list_shortcode"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.ListShortcode") ListShortcode
 
-### <a name="recording_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".recording_pkg") recording_pkg
-
-#### Get instance
-
-Factory for the ``` RECORDING ``` interface can be accessed from the package recording_pkg.
-
-```go
-recording := recording_pkg.NewRECORDING()
-```
-
-#### <a name="create_list_recording"></a>![Method: ](https://apidocs.io/img/method.png ".recording_pkg.CreateListRecording") CreateListRecording
-
-> List out Recordings
+> Retrieve a list of Short Code message objects.
 
 
 ```go
-func (me *RECORDING_IMPL) CreateListRecording(input *CreateListRecordingInput)(string,error)
+func (me *SHORTCODE_IMPL) ListShortcode(input *ListShortcodeInput)(string,error)
 ```
 
 #### Parameters
@@ -2566,128 +3750,50 @@ func (me *RECORDING_IMPL) CreateListRecording(input *CreateListRecordingInput)(s
 | Parameter | Tags | Description |
 |-----------|------|-------------|
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| page |  ``` Optional ```  | Which page of the overall response will be returned. Zero indexed |
-| pageSize |  ``` Optional ```  | Number of individual resources listed in the response per page |
-| dateCreated |  ``` Optional ```  | TODO: Add a parameter description |
-| callSid |  ``` Optional ```  | TODO: Add a parameter description |
+| shortcode |  ``` Optional ```  | Only list messages sent from this Short Code |
+| to |  ``` Optional ```  | Only list messages sent to this number |
+| dateSent |  ``` Optional ```  | Only list messages sent with the specified date |
+| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pageSize |  ``` Optional ```  ``` DefaultValue ```  | The count of objects to return per page. |
 
 
 #### Example Usage
 
 ```go
-collect := new (recording_pkg.CreateListRecordingInput)
+collect := new (shortcode_pkg.ListShortcodeInput)
 
 responseType := "json"
 collect.ResponseType = responseType
 
-page,_ := strconv.ParseInt("153", 10, 8)
+shortcode := "Shortcode"
+collect.Shortcode = shortcode
+
+to := "To"
+collect.To = to
+
+dateSent := time.Now()
+collect.DateSent = dateSent
+
+page,_ := strconv.ParseInt("1", 10, 8)
 collect.Page = page
 
-pageSize,_ := strconv.ParseInt("153", 10, 8)
+pageSize,_ := strconv.ParseInt("10", 10, 8)
 collect.PageSize = pageSize
 
-dateCreated := "DateCreated"
-collect.DateCreated = dateCreated
-
-callSid := "CallSid"
-collect.CallSid = callSid
-
 
 var result string
-result,_ = recording.CreateListRecording(collect)
+result,_ = shortCode.ListShortcode(collect)
 
 ```
 
 
-#### <a name="create_delete_recording"></a>![Method: ](https://apidocs.io/img/method.png ".recording_pkg.CreateDeleteRecording") CreateDeleteRecording
+### <a name="list_inbound_shortcode"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.ListInboundShortcode") ListInboundShortcode
 
-> Delete Recording Record
-
-
-```go
-func (me *RECORDING_IMPL) CreateDeleteRecording(input *CreateDeleteRecordingInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recordingSid |  ``` Required ```  | Unique Recording Sid to be delete |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-
-
-#### Example Usage
-
-```go
-collect := new (recording_pkg.CreateDeleteRecordingInput)
-
-recordingSid := "RecordingSid"
-collect.RecordingSid = recordingSid
-
-responseType := "json"
-collect.ResponseType = responseType
-
-
-var result string
-result,_ = recording.CreateDeleteRecording(collect)
-
-```
-
-
-#### <a name="create_view_recording"></a>![Method: ](https://apidocs.io/img/method.png ".recording_pkg.CreateViewRecording") CreateViewRecording
-
-> View a specific Recording
+> Retrive a list of inbound Sms Short Code messages associated with your message360 account.
 
 
 ```go
-func (me *RECORDING_IMPL) CreateViewRecording(input *CreateViewRecordingInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recordingSid |  ``` Required ```  | Search Recording sid |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-
-
-#### Example Usage
-
-```go
-collect := new (recording_pkg.CreateViewRecordingInput)
-
-recordingSid := "RecordingSid"
-collect.RecordingSid = recordingSid
-
-responseType := "json"
-collect.ResponseType = responseType
-
-
-var result string
-result,_ = recording.CreateViewRecording(collect)
-
-```
-
-
-[Back to List of Controllers](#list_of_controllers)
-
-### <a name="carrier_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".carrier_pkg") carrier_pkg
-
-#### Get instance
-
-Factory for the ``` CARRIER ``` interface can be accessed from the package carrier_pkg.
-
-```go
-carrier := carrier_pkg.NewCARRIER()
-```
-
-#### <a name="create_carrier_lookup_list"></a>![Method: ](https://apidocs.io/img/method.png ".carrier_pkg.CreateCarrierLookupList") CreateCarrierLookupList
-
-> Get the All Purchase Number's Carrier lookup
-
-
-```go
-func (me *CARRIER_IMPL) CreateCarrierLookupList(input *CreateCarrierLookupListInput)(string,error)
+func (me *SHORTCODE_IMPL) ListInboundShortcode(input *ListInboundShortcodeInput)(string,error)
 ```
 
 #### Parameters
@@ -2695,622 +3801,39 @@ func (me *CARRIER_IMPL) CreateCarrierLookupList(input *CreateCarrierLookupListIn
 | Parameter | Tags | Description |
 |-----------|------|-------------|
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| page |  ``` Optional ```  | Page Number |
-| pagesize |  ``` Optional ```  | Page Size |
-
-
-#### Example Usage
-
-```go
-collect := new (carrier_pkg.CreateCarrierLookupListInput)
-
-responseType := "json"
-collect.ResponseType = responseType
-
-page,_ := strconv.ParseInt("153", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("153", 10, 8)
-collect.Pagesize = pagesize
-
-
-var result string
-result,_ = carrier.CreateCarrierLookupList(collect)
-
-```
-
-
-#### <a name="create_carrier_lookup"></a>![Method: ](https://apidocs.io/img/method.png ".carrier_pkg.CreateCarrierLookup") CreateCarrierLookup
-
-> Get the Carrier Lookup
-
-
-```go
-func (me *CARRIER_IMPL) CreateCarrierLookup(input *CreateCarrierLookupInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| phonenumber |  ``` Required ```  | The number to lookup |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-
-
-#### Example Usage
-
-```go
-collect := new (carrier_pkg.CreateCarrierLookupInput)
-
-phonenumber := "phonenumber"
-collect.Phonenumber = phonenumber
-
-responseType := "json"
-collect.ResponseType = responseType
-
-
-var result string
-result,_ = carrier.CreateCarrierLookup(collect)
-
-```
-
-
-[Back to List of Controllers](#list_of_controllers)
-
-### <a name="phonenumber_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".phonenumber_pkg") phonenumber_pkg
-
-#### Get instance
-
-Factory for the ``` PHONENUMBER ``` interface can be accessed from the package phonenumber_pkg.
-
-```go
-phoneNumber := phonenumber_pkg.NewPHONENUMBER()
-```
-
-#### <a name="create_buy_number"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateBuyNumber") CreateBuyNumber
-
-> Buy Phone Number 
-
-
-```go
-func (me *PHONENUMBER_IMPL) CreateBuyNumber(input *CreateBuyNumberInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| phoneNumber |  ``` Required ```  | Phone number to be purchase |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-
-
-#### Example Usage
-
-```go
-collect := new (phonenumber_pkg.CreateBuyNumberInput)
-
-phoneNumber := "PhoneNumber"
-collect.PhoneNumber = phoneNumber
-
-responseType := "json"
-collect.ResponseType = responseType
-
-
-var result string
-result,_ = phoneNumber.CreateBuyNumber(collect)
-
-```
-
-
-#### <a name="create_release_number"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateReleaseNumber") CreateReleaseNumber
-
-> Release number from account
-
-
-```go
-func (me *PHONENUMBER_IMPL) CreateReleaseNumber(input *CreateReleaseNumberInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| phoneNumber |  ``` Required ```  | Phone number to be relase |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-
-
-#### Example Usage
-
-```go
-collect := new (phonenumber_pkg.CreateReleaseNumberInput)
-
-phoneNumber := "PhoneNumber"
-collect.PhoneNumber = phoneNumber
-
-responseType := "json"
-collect.ResponseType = responseType
-
-
-var result string
-result,_ = phoneNumber.CreateReleaseNumber(collect)
-
-```
-
-
-#### <a name="create_view_number_details"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateViewNumberDetails") CreateViewNumberDetails
-
-> Get Phone Number Details
-
-
-```go
-func (me *PHONENUMBER_IMPL) CreateViewNumberDetails(input *CreateViewNumberDetailsInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| phoneNumber |  ``` Required ```  | Get Phone number Detail |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-
-
-#### Example Usage
-
-```go
-collect := new (phonenumber_pkg.CreateViewNumberDetailsInput)
-
-phoneNumber := "PhoneNumber"
-collect.PhoneNumber = phoneNumber
-
-responseType := "json"
-collect.ResponseType = responseType
-
-
-var result string
-result,_ = phoneNumber.CreateViewNumberDetails(collect)
-
-```
-
-
-#### <a name="create_list_number"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateListNumber") CreateListNumber
-
-> List Account's Phone number details
-
-
-```go
-func (me *PHONENUMBER_IMPL) CreateListNumber(input *CreateListNumberInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| page |  ``` Optional ```  | Which page of the overall response will be returned. Zero indexed |
+| page |  ``` Optional ```  ``` DefaultValue ```  | Which page of the overall response will be returned. Zero indexed |
 | pageSize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
-| numberType |  ``` Optional ```  | TODO: Add a parameter description |
-| friendlyName |  ``` Optional ```  | TODO: Add a parameter description |
+| from |  ``` Optional ```  | Only list SMS messages sent from this number |
+| shortcode |  ``` Optional ```  | Only list SMS messages sent to Shortcode |
+| dateReceived |  ``` Optional ```  | Only list SMS messages sent in the specified date MAKE REQUEST |
 
 
 #### Example Usage
 
 ```go
-collect := new (phonenumber_pkg.CreateListNumberInput)
+collect := new (shortcode_pkg.ListInboundShortcodeInput)
 
 responseType := "json"
 collect.ResponseType = responseType
 
-page,_ := strconv.ParseInt("153", 10, 8)
+page,_ := strconv.ParseInt("1", 10, 8)
 collect.Page = page
 
 pageSize,_ := strconv.ParseInt("10", 10, 8)
 collect.PageSize = pageSize
 
-numberType := models_pkg.Number Type_ALL
-collect.NumberType = numberType
+from := "From"
+collect.From = from
 
-friendlyName := "FriendlyName"
-collect.FriendlyName = friendlyName
+shortcode := "Shortcode"
+collect.Shortcode = shortcode
 
-
-var result string
-result,_ = phoneNumber.CreateListNumber(collect)
-
-```
-
-
-#### <a name="create_available_phone_number"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateAvailablePhoneNumber") CreateAvailablePhoneNumber
-
-> Available Phone Number
-
-
-```go
-func (me *PHONENUMBER_IMPL) CreateAvailablePhoneNumber(input *CreateAvailablePhoneNumberInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| numberType |  ``` Required ```  | Number type either SMS,Voice or all |
-| areaCode |  ``` Required ```  | Phone Number Area Code |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| pageSize |  ``` Optional ```  ``` DefaultValue ```  | Page Size |
-
-
-#### Example Usage
-
-```go
-collect := new (phonenumber_pkg.CreateAvailablePhoneNumberInput)
-
-numberType := models_pkg.Number Type_ALL
-collect.NumberType = numberType
-
-areaCode := "AreaCode"
-collect.AreaCode = areaCode
-
-responseType := "json"
-collect.ResponseType = responseType
-
-pageSize,_ := strconv.ParseInt("10", 10, 8)
-collect.PageSize = pageSize
+dateReceived := "DateReceived"
+collect.DateReceived = dateReceived
 
 
 var result string
-result,_ = phoneNumber.CreateAvailablePhoneNumber(collect)
-
-```
-
-
-#### <a name="update_phone_number"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.UpdatePhoneNumber") UpdatePhoneNumber
-
-> Update Phone Number Details
-
-
-```go
-func (me *PHONENUMBER_IMPL) UpdatePhoneNumber(input *UpdatePhoneNumberInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| phoneNumber |  ``` Required ```  | TODO: Add a parameter description |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| friendlyName |  ``` Optional ```  | TODO: Add a parameter description |
-| voiceUrl |  ``` Optional ```  | URL requested once the call connects |
-| voiceMethod |  ``` Optional ```  | TODO: Add a parameter description |
-| voiceFallbackUrl |  ``` Optional ```  | URL requested if the voice URL is not available |
-| voiceFallbackMethod |  ``` Optional ```  | TODO: Add a parameter description |
-| hangupCallback |  ``` Optional ```  | TODO: Add a parameter description |
-| hangupCallbackMethod |  ``` Optional ```  | TODO: Add a parameter description |
-| heartbeatUrl |  ``` Optional ```  | URL requested once the call connects |
-| heartbeatMethod |  ``` Optional ```  | URL that can be requested every 60 seconds during the call to notify of elapsed time |
-| smsUrl |  ``` Optional ```  | URL requested when an SMS is received |
-| smsMethod |  ``` Optional ```  | TODO: Add a parameter description |
-| smsFallbackUrl |  ``` Optional ```  | URL requested once the call connects |
-| smsFallbackMethod |  ``` Optional ```  | URL requested if the sms URL is not available |
-
-
-#### Example Usage
-
-```go
-collect := new (phonenumber_pkg.UpdatePhoneNumberInput)
-
-phoneNumber := "PhoneNumber"
-collect.PhoneNumber = phoneNumber
-
-responseType := "json"
-collect.ResponseType = responseType
-
-friendlyName := "FriendlyName"
-collect.FriendlyName = friendlyName
-
-voiceUrl := "VoiceUrl"
-collect.VoiceUrl = voiceUrl
-
-voiceMethod := models_pkg.HttpAction_GET
-collect.VoiceMethod = voiceMethod
-
-voiceFallbackUrl := "VoiceFallbackUrl"
-collect.VoiceFallbackUrl = voiceFallbackUrl
-
-voiceFallbackMethod := models_pkg.HttpAction_GET
-collect.VoiceFallbackMethod = voiceFallbackMethod
-
-hangupCallback := "HangupCallback"
-collect.HangupCallback = hangupCallback
-
-hangupCallbackMethod := models_pkg.HttpAction_GET
-collect.HangupCallbackMethod = hangupCallbackMethod
-
-heartbeatUrl := "HeartbeatUrl"
-collect.HeartbeatUrl = heartbeatUrl
-
-heartbeatMethod := models_pkg.HttpAction_GET
-collect.HeartbeatMethod = heartbeatMethod
-
-smsUrl := "SmsUrl"
-collect.SmsUrl = smsUrl
-
-smsMethod := models_pkg.HttpAction_GET
-collect.SmsMethod = smsMethod
-
-smsFallbackUrl := "SmsFallbackUrl"
-collect.SmsFallbackUrl = smsFallbackUrl
-
-smsFallbackMethod := models_pkg.HttpAction_GET
-collect.SmsFallbackMethod = smsFallbackMethod
-
-
-var result string
-result,_ = phoneNumber.UpdatePhoneNumber(collect)
-
-```
-
-
-[Back to List of Controllers](#list_of_controllers)
-
-### <a name="transcription_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".transcription_pkg") transcription_pkg
-
-#### Get instance
-
-Factory for the ``` TRANSCRIPTION ``` interface can be accessed from the package transcription_pkg.
-
-```go
-transcription := transcription_pkg.NewTRANSCRIPTION()
-```
-
-#### <a name="create_audio_url_transcription"></a>![Method: ](https://apidocs.io/img/method.png ".transcription_pkg.CreateAudioURLTranscription") CreateAudioURLTranscription
-
-> Audio URL Transcriptions
-
-
-```go
-func (me *TRANSCRIPTION_IMPL) CreateAudioURLTranscription(input *CreateAudioURLTranscriptionInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| audioUrl |  ``` Required ```  | Audio url |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-
-
-#### Example Usage
-
-```go
-collect := new (transcription_pkg.CreateAudioURLTranscriptionInput)
-
-audioUrl := "AudioUrl"
-collect.AudioUrl = audioUrl
-
-responseType := "json"
-collect.ResponseType = responseType
-
-
-var result string
-result,_ = transcription.CreateAudioURLTranscription(collect)
-
-```
-
-
-#### <a name="create_recording_transcription"></a>![Method: ](https://apidocs.io/img/method.png ".transcription_pkg.CreateRecordingTranscription") CreateRecordingTranscription
-
-> Recording Transcriptions
-
-
-```go
-func (me *TRANSCRIPTION_IMPL) CreateRecordingTranscription(input *CreateRecordingTranscriptionInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recordingSid |  ``` Required ```  | Unique Recording sid |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-
-
-#### Example Usage
-
-```go
-collect := new (transcription_pkg.CreateRecordingTranscriptionInput)
-
-recordingSid := "RecordingSid"
-collect.RecordingSid = recordingSid
-
-responseType := "json"
-collect.ResponseType = responseType
-
-
-var result string
-result,_ = transcription.CreateRecordingTranscription(collect)
-
-```
-
-
-#### <a name="create_view_transcription"></a>![Method: ](https://apidocs.io/img/method.png ".transcription_pkg.CreateViewTranscription") CreateViewTranscription
-
-> View Specific Transcriptions
-
-
-```go
-func (me *TRANSCRIPTION_IMPL) CreateViewTranscription(input *CreateViewTranscriptionInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| transcriptionSid |  ``` Required ```  | Unique Transcription ID |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-
-
-#### Example Usage
-
-```go
-collect := new (transcription_pkg.CreateViewTranscriptionInput)
-
-transcriptionSid := "TranscriptionSid"
-collect.TranscriptionSid = transcriptionSid
-
-responseType := "json"
-collect.ResponseType = responseType
-
-
-var result string
-result,_ = transcription.CreateViewTranscription(collect)
-
-```
-
-
-#### <a name="create_list_transcription"></a>![Method: ](https://apidocs.io/img/method.png ".transcription_pkg.CreateListTranscription") CreateListTranscription
-
-> Get All transcriptions
-
-
-```go
-func (me *TRANSCRIPTION_IMPL) CreateListTranscription(input *CreateListTranscriptionInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-| page |  ``` Optional ```  | TODO: Add a parameter description |
-| pageSize |  ``` Optional ```  | TODO: Add a parameter description |
-| status |  ``` Optional ```  | TODO: Add a parameter description |
-| dateTranscribed |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-collect := new (transcription_pkg.CreateListTranscriptionInput)
-
-responseType := "json"
-collect.ResponseType = responseType
-
-page,_ := strconv.ParseInt("153", 10, 8)
-collect.Page = page
-
-pageSize,_ := strconv.ParseInt("153", 10, 8)
-collect.PageSize = pageSize
-
-status := models_pkg.Status_INPROGRESS
-collect.Status = status
-
-dateTranscribed := "DateTranscribed"
-collect.DateTranscribed = dateTranscribed
-
-
-var result string
-result,_ = transcription.CreateListTranscription(collect)
-
-```
-
-
-[Back to List of Controllers](#list_of_controllers)
-
-### <a name="usage_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".usage_pkg") usage_pkg
-
-#### Get instance
-
-Factory for the ``` USAGE ``` interface can be accessed from the package usage_pkg.
-
-```go
-usage := usage_pkg.NewUSAGE()
-```
-
-#### <a name="create_list_usage"></a>![Method: ](https://apidocs.io/img/method.png ".usage_pkg.CreateListUsage") CreateListUsage
-
-> Get all usage 
-
-
-```go
-func (me *USAGE_IMPL) CreateListUsage(input *CreateListUsageInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| productCode |  ``` Required ```  ``` DefaultValue ```  | Product Code |
-| startDate |  ``` Required ```  ``` DefaultValue ```  | Start Usage Date |
-| endDate |  ``` Required ```  ``` DefaultValue ```  | End Usage Date |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-
-
-#### Example Usage
-
-```go
-collect := new (usage_pkg.CreateListUsageInput)
-
-productCode := models_pkg.Product Code_ALL
-collect.ProductCode = productCode
-
-startDate := "2016-09-06"
-collect.StartDate = startDate
-
-endDate := "2016-09-06"
-collect.EndDate = endDate
-
-responseType := "json"
-collect.ResponseType = responseType
-
-
-var result string
-result,_ = usage.CreateListUsage(collect)
-
-```
-
-
-[Back to List of Controllers](#list_of_controllers)
-
-### <a name="account_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".account_pkg") account_pkg
-
-#### Get instance
-
-Factory for the ``` ACCOUNT ``` interface can be accessed from the package account_pkg.
-
-```go
-account := account_pkg.NewACCOUNT()
-```
-
-#### <a name="create_view_account"></a>![Method: ](https://apidocs.io/img/method.png ".account_pkg.CreateViewAccount") CreateViewAccount
-
-> Display Account Description
-
-
-```go
-func (me *ACCOUNT_IMPL) CreateViewAccount(input *CreateViewAccountInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| date |  ``` Required ```  | TODO: Add a parameter description |
-| responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
-
-
-#### Example Usage
-
-```go
-collect := new (account_pkg.CreateViewAccountInput)
-
-date := "Date"
-collect.Date = date
-
-responseType := "json"
-collect.ResponseType = responseType
-
-
-var result string
-result,_ = account.CreateViewAccount(collect)
+result,_ = shortCode.ListInboundShortcode(collect)
 
 ```
 

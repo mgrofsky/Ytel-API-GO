@@ -13,18 +13,18 @@ import(
 )
 
 /*
- * Input structure for the method CreateCarrierLookupList
+ * Input structure for the method CarrierLookupList
  */
-type CreateCarrierLookupListInput struct {
+type CarrierLookupListInput struct {
     ResponseType    string          //Response type format xml or json
     Page            *int64          //Page Number
     Pagesize        *int64          //Page Size
 }
 
 /*
- * Input structure for the method CreateCarrierLookup
+ * Input structure for the method CarrierLookup
  */
-type CreateCarrierLookupInput struct {
+type CarrierLookupInput struct {
     Phonenumber     string          //The number to lookup
     ResponseType    string          //Response type format xml or json
 }
@@ -36,10 +36,10 @@ type CARRIER_IMPL struct { }
 
 /**
  * Get the All Purchase Number's Carrier lookup
- * @param  CreateCarrierLookupListInput     Structure with all inputs
+ * @param  CarrierLookupListInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CARRIER_IMPL) CreateCarrierLookupList (input *CreateCarrierLookupListInput) (string, error) {
+func (me *CARRIER_IMPL) CarrierLookupList (input *CarrierLookupListInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 
@@ -72,8 +72,8 @@ func (me *CARRIER_IMPL) CreateCarrierLookupList (input *CreateCarrierLookupListI
     //form parameters
     parameters := map[string]interface{} {
 
-        "page" : input.Page,
-        "pagesize" : input.Pagesize,
+        "page" : apihelper_pkg.ToString(*input.Page, "1"),
+        "pagesize" : apihelper_pkg.ToString(*input.Pagesize, "10"),
 
     }
 
@@ -102,10 +102,10 @@ func (me *CARRIER_IMPL) CreateCarrierLookupList (input *CreateCarrierLookupListI
 
 /**
  * Get the Carrier Lookup
- * @param  CreateCarrierLookupInput     Structure with all inputs
+ * @param  CarrierLookupInput     Structure with all inputs
  * @return	Returns the string response from the API call
  */
-func (me *CARRIER_IMPL) CreateCarrierLookup (input *CreateCarrierLookupInput) (string, error) {
+func (me *CARRIER_IMPL) CarrierLookup (input *CarrierLookupInput) (string, error) {
         //the base uri for api requests
     _queryBuilder := message360_lib.BASEURI;
 

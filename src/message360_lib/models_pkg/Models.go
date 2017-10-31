@@ -8,13 +8,6 @@ package models_pkg
 
 
 /*
- * Structure for the custom type ShortCodeTestResponseModel
- */
-type ShortCodeTestResponseModel struct {
-    Message360      Message360Model `json:"Message360" form:"Message360"` //TODO: Write general description for this field
-}
-
-/*
  * Structure for the custom type MessageModel
  */
 type MessageModel struct {
@@ -31,21 +24,6 @@ type MessageModel struct {
 }
 
 /*
- * Structure for the custom type DataModel
- */
-type DataModel struct {
-    Companyname     string          `json:"companyname" form:"companyname"` //TODO: Write general description for this field
-    Otpcode         int64           `json:"otpcode" form:"otpcode"` //TODO: Write general description for this field
-}
-
-/*
- * Structure for the custom type SendShortCodeTestResponseModel
- */
-type SendShortCodeTestResponseModel struct {
-    Message360      Message360Model `json:"Message360" form:"Message360"` //TODO: Write general description for this field
-}
-
-/*
  * Structure for the custom type TemplateDataModel
  */
 type TemplateDataModel struct {
@@ -54,18 +32,17 @@ type TemplateDataModel struct {
 }
 
 /*
- * Structure for the custom type Message360Model
+ * Structure for the custom type ErrorsModel
  */
-type Message360Model struct {
-    ResponseStatus  int64           `json:"ResponseStatus" form:"ResponseStatus"` //TODO: Write general description for this field
-    MessageCount    int64           `json:"MessageCount" form:"MessageCount"` //TODO: Write general description for this field
-    Message         MessageModel    `json:"Message" form:"Message"` //TODO: Write general description for this field
+type ErrorsModel struct {
+    Error           []*ErrorModel   `json:"Error" form:"Error"` //TODO: Write general description for this field
 }
 
 /*
- * Structure for the custom type Data17Model
+ * Structure for the custom type ErrorModel
  */
-type Data17Model struct {
-    Companyname     string          `json:"companyname" form:"companyname"` //TODO: Write general description for this field
-    Otpcode         int64           `json:"otpcode" form:"otpcode"` //TODO: Write general description for this field
+type ErrorModel struct {
+    Code            string          `json:"Code" form:"Code"` //TODO: Write general description for this field
+    Message         string          `json:"Message" form:"Message"` //TODO: Write general description for this field
+    MoreInfo        []string        `json:"MoreInfo" form:"MoreInfo"` //TODO: Write general description for this field
 }

@@ -11,7 +11,7 @@ package webrtc_pkg
  * Interface for the WEBRTC_IMPL
  */
 type WEBRTC interface {
-    CreateCheckFunds (*CreateCheckFundsInput) (string, error)
+    CheckFunds (*CheckFundsInput) (string, error)
 
     CreateToken (*CreateTokenInput) (string, error)
 }
