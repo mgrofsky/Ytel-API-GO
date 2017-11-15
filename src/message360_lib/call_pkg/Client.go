@@ -766,7 +766,7 @@ func (me *CALL_IMPL) SendRinglessVM (input *SendRinglessVMInput) (string, error)
     _queryBuilder := message360_lib.BASEURI;
 
     //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/calls/makeringlessvoicemailcall.{ResponseType}"
+   _queryBuilder = _queryBuilder + "/calls/makervm.{ResponseType}"
 
     //variable to hold errors
     var err error = nil

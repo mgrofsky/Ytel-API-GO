@@ -489,7 +489,7 @@ collect.PageSize = pageSize
 keyword := "Keyword"
 collect.Keyword = keyword
 
-shortcode,_ := strconv.ParseInt("182", 10, 8)
+shortcode,_ := strconv.ParseInt("172", 10, 8)
 collect.Shortcode = shortcode
 
 
@@ -885,7 +885,7 @@ collect.RecordCallbackMethod = recordCallbackMethod
 schdeuleTime := "SchdeuleTime"
 collect.SchdeuleTime = schdeuleTime
 
-timeout,_ := strconv.ParseInt("182", 10, 8)
+timeout,_ := strconv.ParseInt("172", 10, 8)
 collect.Timeout = timeout
 
 
@@ -2580,16 +2580,16 @@ collect.HeartBeatUrl = heartBeatUrl
 heartBeatMethod := models_pkg.HttpAction_GET
 collect.HeartBeatMethod = heartBeatMethod
 
-timeout,_ := strconv.ParseInt("140", 10, 8)
+timeout,_ := strconv.ParseInt("9", 10, 8)
 collect.Timeout = timeout
 
 playDtmf := "PlayDtmf"
 collect.PlayDtmf = playDtmf
 
-hideCallerId := true
+hideCallerId := false
 collect.HideCallerId = hideCallerId
 
-record := true
+record := false
 collect.Record = record
 
 recordCallBackUrl := "RecordCallBackUrl"
@@ -2598,7 +2598,7 @@ collect.RecordCallBackUrl = recordCallBackUrl
 recordCallBackMethod := models_pkg.HttpAction_GET
 collect.RecordCallBackMethod = recordCallBackMethod
 
-transcribe := true
+transcribe := false
 collect.Transcribe = transcribe
 
 transcribeCallBackUrl := "TranscribeCallBackUrl"
@@ -2613,7 +2613,7 @@ collect.IfMachineUrl = ifMachineUrl
 ifMachineMethod := models_pkg.HttpAction_GET
 collect.IfMachineMethod = ifMachineMethod
 
-feedback := true
+feedback := false
 collect.Feedback = feedback
 
 surveyId := "SurveyId"
@@ -2665,13 +2665,13 @@ collect.SayText = sayText
 responseType := "json"
 collect.ResponseType = responseType
 
-length,_ := strconv.ParseInt("140", 10, 8)
+length,_ := strconv.ParseInt("9", 10, 8)
 collect.Length = length
 
 direction := models_pkg.Direction_IN
 collect.Direction = direction
 
-mix := true
+mix := false
 collect.Mix = mix
 
 
@@ -2711,7 +2711,7 @@ collect := new (call_pkg.RecordCallInput)
 callSid := "CallSid"
 collect.CallSid = callSid
 
-record := true
+record := false
 collect.Record = record
 
 responseType := "json"
@@ -2720,7 +2720,7 @@ collect.ResponseType = responseType
 direction := models_pkg.Direction_IN
 collect.Direction = direction
 
-timeLimit,_ := strconv.ParseInt("140", 10, 8)
+timeLimit,_ := strconv.ParseInt("9", 10, 8)
 collect.TimeLimit = timeLimit
 
 callBackUrl := "CallBackUrl"
@@ -2773,19 +2773,19 @@ collect.ResponseType = responseType
 audioDirection := models_pkg.AudioDirection_IN
 collect.AudioDirection = audioDirection
 
-pitchSemiTones := 140.590996688973
+pitchSemiTones := 9.41756666145174
 collect.PitchSemiTones = pitchSemiTones
 
-pitchOctaves := 140.590996688973
+pitchOctaves := 9.41756666145174
 collect.PitchOctaves = pitchOctaves
 
-pitch := 140.590996688973
+pitch := 9.41756666145174
 collect.Pitch = pitch
 
-rate := 140.590996688973
+rate := 9.41756666145174
 collect.Rate = rate
 
-tempo := 140.590996688973
+tempo := 9.41756666145174
 collect.Tempo = tempo
 
 
@@ -2965,7 +2965,7 @@ collect.HeartBeatUrl = heartBeatUrl
 heartBeatMethod := models_pkg.HttpAction_GET
 collect.HeartBeatMethod = heartBeatMethod
 
-timeout,_ := strconv.ParseInt("140", 10, 8)
+timeout,_ := strconv.ParseInt("222", 10, 8)
 collect.Timeout = timeout
 
 playDtmf := "PlayDtmf"
@@ -3564,6 +3564,8 @@ func (me *SUBACCOUNT_IMPL) CreateSubAccount(input *CreateSubAccountInput)(string
 | firstName |  ``` Required ```  | Sub account user first name |
 | lastName |  ``` Required ```  | sub account user last name |
 | email |  ``` Required ```  | Sub account email address |
+| friendlyName |  ``` Required ```  | Descriptive name of the sub account |
+| password |  ``` Required ```  | The password of the sub account.  Please make sure to make as password that is at least 8 characters long, contain a symbol, uppercase and a number. |
 | responseType |  ``` Required ```  ``` DefaultValue ```  | Response type format xml or json |
 
 
@@ -3580,6 +3582,12 @@ collect.LastName = lastName
 
 email := "Email"
 collect.Email = email
+
+friendlyName := "FriendlyName"
+collect.FriendlyName = friendlyName
+
+password := "Password"
+collect.Password = password
 
 responseType := "json"
 collect.ResponseType = responseType
@@ -3676,10 +3684,10 @@ func (me *SHORTCODE_IMPL) SendDedicatedShortcode(input *SendDedicatedShortcodeIn
 ```go
 collect := new (shortcode_pkg.SendDedicatedShortcodeInput)
 
-shortcode,_ := strconv.ParseInt("140", 10, 8)
+shortcode,_ := strconv.ParseInt("222", 10, 8)
 collect.Shortcode = shortcode
 
-to := 140.590996688973
+to := 222.694393434885
 collect.To = to
 
 body := "body"
@@ -3771,7 +3779,7 @@ collect.Shortcode = shortcode
 to := "To"
 collect.To = to
 
-dateSent := time.Now()
+dateSent := "DateSent"
 collect.DateSent = dateSent
 
 page,_ := strconv.ParseInt("1", 10, 8)
