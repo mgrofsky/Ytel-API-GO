@@ -38,6 +38,8 @@ type CreateSubAccountInput struct {
     FirstName       string          //Sub account user first name
     LastName        string          //sub account user last name
     Email           string          //Sub account email address
+    FriendlyName    string          //Descriptive name of the sub account
+    Password        string          //The password of the sub account.  Please make sure to make as password that is at least 8 characters long, contain a symbol, uppercase and a number.
     ResponseType    string          //Response type format xml or json
 }
 
@@ -219,6 +221,8 @@ func (me *SUBACCOUNT_IMPL) CreateSubAccount (input *CreateSubAccountInput) (stri
         "FirstName" : input.FirstName,
         "LastName" : input.LastName,
         "Email" : input.Email,
+        "FriendlyName" : input.FriendlyName,
+        "Password" : input.Password,
 
     }
 

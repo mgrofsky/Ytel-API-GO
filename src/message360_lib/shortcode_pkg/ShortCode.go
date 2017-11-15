@@ -6,7 +6,6 @@
 
 package shortcode_pkg
 
-import "time"
 
 /*
  * Interface for the SHORTCODE_IMPL

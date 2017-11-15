@@ -7,7 +7,6 @@ package shortcode_pkg
 
 
 import(
-	"time"
 	"message360_lib/models_pkg"
 	"github.com/apimatic/unirest-go"
 	"message360_lib"
@@ -41,7 +40,7 @@ type ListShortcodeInput struct {
     ResponseType    string          //Response type format xml or json
     Shortcode       *string         //Only list messages sent from this Short Code
     To              *string         //Only list messages sent to this number
-    DateSent        *time.Time      //Only list messages sent with the specified date
+    DateSent        *string         //Only list messages sent with the specified date
     Page            *int64          //The page count to retrieve from the total results in the collection. Page indexing starts at 1.
     PageSize        *int64          //The count of objects to return per page.
 }
