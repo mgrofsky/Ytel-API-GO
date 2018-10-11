@@ -31,15 +31,15 @@ Now follow the steps mentioned below to build your SDK:
 
 3. In ```Select root directory```, provide path to the unzipped archive for the generated code. Once the path is set and the Project becomes visible under ```Projects``` click ```Finish```
 
-![Importing SDK into Eclipse - Step 3](https://apidocs.io/illustration/go?step=import2&workspaceFolder=Ytel%20API-GoLang&projectName=ytelapi_lib)
+![Importing SDK into Eclipse - Step 3](https://apidocs.io/illustration/go?step=import2&workspaceFolder=Ytel%20API%20V3-GoLang&projectName=ytelapiv3_lib)
 
 4. The Go library will be imported and its files will be visible in the Project Explorer
 
-![Importing SDK into Eclipse - Step 4](https://apidocs.io/illustration/go?step=import3&projectName=ytelapi_lib)
+![Importing SDK into Eclipse - Step 4](https://apidocs.io/illustration/go?step=import3&projectName=ytelapiv3_lib)
 
 ## How to Use
 
-The following section explains how to use the YtelapiLib library in a new project.
+The following section explains how to use the Ytelapiv3Lib library in a new project.
 
 ### 1. Add a new Test Project
 
@@ -53,19 +53,19 @@ Name the Project as ```Test``` and click ```Finish```
 
 Create a new directory in the ```src``` directory of this project
 
-![Create a new Maven Project - Step 2](https://apidocs.io/illustration/go?step=createNewProject2&projectName=ytelapi_lib)
+![Create a new Maven Project - Step 2](https://apidocs.io/illustration/go?step=createNewProject2&projectName=ytelapiv3_lib)
 
 Name it ```test.com```
 
-![Create a new Maven Project - Step 3](https://apidocs.io/illustration/go?step=createNewProject3&projectName=ytelapi_lib)
+![Create a new Maven Project - Step 3](https://apidocs.io/illustration/go?step=createNewProject3&projectName=ytelapiv3_lib)
 
 Now create a new file inside ```src/test.com```
 
-![Create a new Maven Project - Step 4](https://apidocs.io/illustration/go?step=createNewProject4&projectName=ytelapi_lib)
+![Create a new Maven Project - Step 4](https://apidocs.io/illustration/go?step=createNewProject4&projectName=ytelapiv3_lib)
 
 Name it ```testsdk.go```
 
-![Create a new Maven Project - Step 5](https://apidocs.io/illustration/go?step=createNewProject5&projectName=ytelapi_lib)
+![Create a new Maven Project - Step 5](https://apidocs.io/illustration/go?step=createNewProject5&projectName=ytelapiv3_lib)
 
 In this Go file, you can start adding code to initialize the client library. Sample code to initialize the client library and using its methods is given in the subsequent sections.
 
@@ -75,7 +75,7 @@ You need to import your generated library in this project in order to make use o
 
 Right click on the project name and click on ```Properties```
 
-![Adding dependency to the client library - Step 1](https://apidocs.io/illustration/go?step=testProject0&projectName=ytelapi_lib)
+![Adding dependency to the client library - Step 1](https://apidocs.io/illustration/go?step=testProject0&projectName=ytelapiv3_lib)
 
 Choose ```Go Compiler``` from the side menu. Check ```Use project specific settings``` and uncheck ```Use same value as the GOPATH environment variable.```. By default, the GOPATH value from the environment variables will be visible in ```Eclipse GOPATH```. Do not remove this as this points to the unirest dependency.
 
@@ -83,7 +83,7 @@ Choose ```Go Compiler``` from the side menu. Check ```Use project specific setti
 
 Append the library path to this GOPATH
 
-![Adding dependency to the client library - Step 3](https://apidocs.io/illustration/go?step=testProject2&workspaceFolder=Ytel%20API-GoLang)
+![Adding dependency to the client library - Step 3](https://apidocs.io/illustration/go?step=testProject2&workspaceFolder=Ytel%20API%20V3-GoLang)
 
 Once the path is appended, click on ```OK```
 
@@ -91,13 +91,13 @@ Once the path is appended, click on ```OK```
 
 Right click on the project name and click on ```Build Project```
 
-![Build Project](https://apidocs.io/illustration/go?step=buildProject&projectName=ytelapi_lib)
+![Build Project](https://apidocs.io/illustration/go?step=buildProject&projectName=ytelapiv3_lib)
 
 ### 4. Run the Test Project
 
 If the build is successful, right click on your Go file and click on ```Run As``` -> ```Go Application```
 
-![Run Project](https://apidocs.io/illustration/go?step=runProject&projectName=ytelapi_lib)
+![Run Project](https://apidocs.io/illustration/go?step=runProject&projectName=ytelapiv3_lib)
 
 ## Initialization
 
@@ -145,13 +145,16 @@ Factory for the ``` SHORTCODE ``` interface can be accessed from the package sho
 shortCode := shortcode_pkg.NewSHORTCODE()
 ```
 
-### <a name="create_dedicatedshortcode_listshortcode"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateDedicatedshortcodeListshortcode") CreateDedicatedshortcodeListshortcode
+### <a name="create_list_shortcodes"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateListShortcodes") CreateListShortcodes
 
 > Retrieve a list of Short Code assignment associated with your Ytel account.
 
 
 ```go
-func (me *SHORTCODE_IMPL) CreateDedicatedshortcodeListshortcode(input *CreateDedicatedshortcodeListshortcodeInput)(string,error)
+func (me *SHORTCODE_IMPL) CreateListShortcodes(
+            shortcode *string,
+            page *string,
+            pagesize *string)(string,error)
 ```
 
 #### Parameters
@@ -166,31 +169,203 @@ func (me *SHORTCODE_IMPL) CreateDedicatedshortcodeListshortcode(input *CreateDed
 #### Example Usage
 
 ```go
-collect := new (shortcode_pkg.CreateDedicatedshortcodeListshortcodeInput)
-
 shortcode := "Shortcode"
-collect.Shortcode = shortcode
-
 page := "page"
-collect.Page = page
-
 pagesize := "pagesize"
-collect.Pagesize = pagesize
-
 
 var result string
-result,_ = shortCode.CreateDedicatedshortcodeListshortcode(collect)
+result,_ = shortCode.CreateListShortcodes(shortcode, page, pagesize)
 
 ```
 
 
-### <a name="create_dedicatedshortcode_updateshortcode"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateDedicatedshortcodeUpdateshortcode") CreateDedicatedshortcodeUpdateshortcode
+### <a name="create_view_sms"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateViewSMS") CreateViewSMS
+
+> Retrieve a single Short Code object by its shortcode assignment.
+
+
+```go
+func (me *SHORTCODE_IMPL) CreateViewSMS(shortcode string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| shortcode |  ``` Required ```  | List of valid Dedicated Short Code to your Ytel account |
+
+
+#### Example Usage
+
+```go
+shortcode := "Shortcode"
+
+var result string
+result,_ = shortCode.CreateViewSMS(shortcode)
+
+```
+
+
+### <a name="create_view_sms"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateViewSMS") CreateViewSMS
+
+> View a single Sms Short Code message.
+
+
+```go
+func (me *SHORTCODE_IMPL) CreateViewSMS(messageSid string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| messageSid |  ``` Required ```  | The unique identifier for the sms resource |
+
+
+#### Example Usage
+
+```go
+messageSid := "MessageSid"
+
+var result string
+result,_ = shortCode.CreateViewSMS(messageSid)
+
+```
+
+
+### <a name="create_list_sms"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateListSMS") CreateListSMS
+
+> Retrieve a list of Short Code messages.
+
+
+```go
+func (me *SHORTCODE_IMPL) CreateListSMS(
+            shortcode *string,
+            to *string,
+            dateSent *string,
+            page *int64,
+            pageSize *int64)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| shortcode |  ``` Optional ```  | Only list messages sent from this Short Code |
+| to |  ``` Optional ```  | Only list messages sent to this number |
+| dateSent |  ``` Optional ```  | Only list messages sent with the specified date |
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pageSize |  ``` Optional ```  | The count of objects to return per page. |
+
+
+#### Example Usage
+
+```go
+shortcode := "Shortcode"
+to := "To"
+dateSent := "DateSent"
+page,_ := strconv.ParseInt("71", 10, 8)
+pageSize,_ := strconv.ParseInt("71", 10, 8)
+
+var result string
+result,_ = shortCode.CreateListSMS(shortcode, to, dateSent, page, pageSize)
+
+```
+
+
+### <a name="create_send_sms"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateSendSMS") CreateSendSMS
+
+> Send Dedicated Shortcode
+
+
+```go
+func (me *SHORTCODE_IMPL) CreateSendSMS(
+            shortcode int64,
+            to float64,
+            body string,
+            method *string,
+            messagestatuscallback *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| shortcode |  ``` Required ```  | Your dedicated shortcode |
+| to |  ``` Required ```  | The number to send your SMS to |
+| body |  ``` Required ```  | The body of your message |
+| method |  ``` Optional ```  | Specifies the HTTP method used to request the required URL once the Short Code message is sent.GET or POST |
+| messagestatuscallback |  ``` Optional ```  | URL that can be requested to receive notification when Short Code message was sent. |
+
+
+#### Example Usage
+
+```go
+shortcode,_ := strconv.ParseInt("71", 10, 8)
+to := 71.9849464120273
+body := "body"
+method := "method"
+messagestatuscallback := "messagestatuscallback"
+
+var result string
+result,_ = shortCode.CreateSendSMS(shortcode, to, body, method, messagestatuscallback)
+
+```
+
+
+### <a name="create_list_inbound_sms"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateListInboundSMS") CreateListInboundSMS
+
+> Retrive a list of inbound Sms Short Code messages associated with your Ytel account.
+
+
+```go
+func (me *SHORTCODE_IMPL) CreateListInboundSMS(
+            page *int64,
+            pagesize *int64,
+            from *string,
+            shortcode *string,
+            datecreated *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pagesize |  ``` Optional ```  | Number of individual resources listed in the response per page |
+| from |  ``` Optional ```  | Only list SMS messages sent from this number |
+| shortcode |  ``` Optional ```  | Only list SMS messages sent to Shortcode |
+| datecreated |  ``` Optional ```  | Only list SMS messages sent in the specified date MAKE REQUEST |
+
+
+#### Example Usage
+
+```go
+page,_ := strconv.ParseInt("71", 10, 8)
+pagesize,_ := strconv.ParseInt("71", 10, 8)
+from := "From"
+shortcode := "Shortcode"
+datecreated := "Datecreated"
+
+var result string
+result,_ = shortCode.CreateListInboundSMS(page, pagesize, from, shortcode, datecreated)
+
+```
+
+
+### <a name="update_shortcode"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.UpdateShortcode") UpdateShortcode
 
 > Update a dedicated shortcode.
 
 
 ```go
-func (me *SHORTCODE_IMPL) CreateDedicatedshortcodeUpdateshortcode(input *CreateDedicatedshortcodeUpdateshortcodeInput)(string,error)
+func (me *SHORTCODE_IMPL) UpdateShortcode(
+            shortcode string,
+            friendlyName *string,
+            callbackMethod *string,
+            callbackUrl *string,
+            fallbackMethod *string,
+            fallbackUrl *string)(string,error)
 ```
 
 #### Parameters
@@ -208,224 +383,15 @@ func (me *SHORTCODE_IMPL) CreateDedicatedshortcodeUpdateshortcode(input *CreateD
 #### Example Usage
 
 ```go
-collect := new (shortcode_pkg.CreateDedicatedshortcodeUpdateshortcodeInput)
-
 shortcode := "Shortcode"
-collect.Shortcode = shortcode
-
 friendlyName := "FriendlyName"
-collect.FriendlyName = friendlyName
-
 callbackMethod := "CallbackMethod"
-collect.CallbackMethod = callbackMethod
-
 callbackUrl := "CallbackUrl"
-collect.CallbackUrl = callbackUrl
-
 fallbackMethod := "FallbackMethod"
-collect.FallbackMethod = fallbackMethod
-
 fallbackUrl := "FallbackUrl"
-collect.FallbackUrl = fallbackUrl
-
 
 var result string
-result,_ = shortCode.CreateDedicatedshortcodeUpdateshortcode(collect)
-
-```
-
-
-### <a name="create_dedicatedshortcode_viewshortcode"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateDedicatedshortcodeViewshortcode") CreateDedicatedshortcodeViewshortcode
-
-> Retrieve a single Short Code object by its shortcode assignment.
-
-
-```go
-func (me *SHORTCODE_IMPL) CreateDedicatedshortcodeViewshortcode(shortcode string)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| shortcode |  ``` Required ```  | List of valid Dedicated Short Code to your Ytel account |
-
-
-#### Example Usage
-
-```go
-shortcode := "Shortcode"
-
-var result string
-result,_ = shortCode.CreateDedicatedshortcodeViewshortcode(shortcode)
-
-```
-
-
-### <a name="create_shortcode_viewsms"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateShortcodeViewsms") CreateShortcodeViewsms
-
-> View a single Sms Short Code message.
-
-
-```go
-func (me *SHORTCODE_IMPL) CreateShortcodeViewsms(messageSid string)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| messageSid |  ``` Required ```  | The unique identifier for the sms resource |
-
-
-#### Example Usage
-
-```go
-messageSid := "MessageSid"
-
-var result string
-result,_ = shortCode.CreateShortcodeViewsms(messageSid)
-
-```
-
-
-### <a name="create_dedicatedshortcode_getinboundsms"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateDedicatedshortcodeGetinboundsms") CreateDedicatedshortcodeGetinboundsms
-
-> Retrive a list of inbound Sms Short Code messages associated with your Ytel account.
-
-
-```go
-func (me *SHORTCODE_IMPL) CreateDedicatedshortcodeGetinboundsms(input *CreateDedicatedshortcodeGetinboundsmsInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pagesize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
-| from |  ``` Optional ```  | Only list SMS messages sent from this number |
-| shortcode |  ``` Optional ```  | Only list SMS messages sent to Shortcode |
-| datecreated |  ``` Optional ```  | Only list SMS messages sent in the specified date MAKE REQUEST |
-
-
-#### Example Usage
-
-```go
-collect := new (shortcode_pkg.CreateDedicatedshortcodeGetinboundsmsInput)
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("10", 10, 8)
-collect.Pagesize = pagesize
-
-from := "From"
-collect.From = from
-
-shortcode := "Shortcode"
-collect.Shortcode = shortcode
-
-datecreated := "Datecreated"
-collect.Datecreated = datecreated
-
-
-var result string
-result,_ = shortCode.CreateDedicatedshortcodeGetinboundsms(collect)
-
-```
-
-
-### <a name="create_dedicatedshortcode_sendsms"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateDedicatedshortcodeSendsms") CreateDedicatedshortcodeSendsms
-
-> Send Dedicated Shortcode
-
-
-```go
-func (me *SHORTCODE_IMPL) CreateDedicatedshortcodeSendsms(input *CreateDedicatedshortcodeSendsmsInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| shortcode |  ``` Required ```  | Your dedicated shortcode |
-| to |  ``` Required ```  | The number to send your SMS to |
-| body |  ``` Required ```  | The body of your message |
-| method |  ``` Optional ```  | Specifies the HTTP method used to request the required URL once the Short Code message is sent.GET or POST |
-| messagestatuscallback |  ``` Optional ```  | URL that can be requested to receive notification when Short Code message was sent. |
-
-
-#### Example Usage
-
-```go
-collect := new (shortcode_pkg.CreateDedicatedshortcodeSendsmsInput)
-
-shortcode,_ := strconv.ParseInt("206", 10, 8)
-collect.Shortcode = shortcode
-
-to := 206.488525940333
-collect.To = to
-
-body := "body"
-collect.Body = body
-
-method := "method"
-collect.Method = method
-
-messagestatuscallback := "messagestatuscallback"
-collect.Messagestatuscallback = messagestatuscallback
-
-
-var result string
-result,_ = shortCode.CreateDedicatedshortcodeSendsms(collect)
-
-```
-
-
-### <a name="create_shortcode_listsms"></a>![Method: ](https://apidocs.io/img/method.png ".shortcode_pkg.CreateShortcodeListsms") CreateShortcodeListsms
-
-> Retrieve a list of Short Code messages.
-
-
-```go
-func (me *SHORTCODE_IMPL) CreateShortcodeListsms(input *CreateShortcodeListsmsInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| shortcode |  ``` Optional ```  | Only list messages sent from this Short Code |
-| to |  ``` Optional ```  | Only list messages sent to this number |
-| dateSent |  ``` Optional ```  | Only list messages sent with the specified date |
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pageSize |  ``` Optional ```  ``` DefaultValue ```  | The count of objects to return per page. |
-
-
-#### Example Usage
-
-```go
-collect := new (shortcode_pkg.CreateShortcodeListsmsInput)
-
-shortcode := "Shortcode"
-collect.Shortcode = shortcode
-
-to := "To"
-collect.To = to
-
-dateSent := "DateSent"
-collect.DateSent = dateSent
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pageSize,_ := strconv.ParseInt("10", 10, 8)
-collect.PageSize = pageSize
-
-
-var result string
-result,_ = shortCode.CreateShortcodeListsms(collect)
+result,_ = shortCode.UpdateShortcode(shortcode, friendlyName, callbackMethod, callbackUrl, fallbackMethod, fallbackUrl)
 
 ```
 
@@ -442,13 +408,13 @@ Factory for the ``` AREAMAIL ``` interface can be accessed from the package area
 areaMail := areamail_pkg.NewAREAMAIL()
 ```
 
-### <a name="create_areamail_delete"></a>![Method: ](https://apidocs.io/img/method.png ".areamail_pkg.CreateAreamailDelete") CreateAreamailDelete
+### <a name="create_delete_area_mail"></a>![Method: ](https://apidocs.io/img/method.png ".areamail_pkg.CreateDeleteAreaMail") CreateDeleteAreaMail
 
 > Remove an AreaMail object by its AreaMailId.
 
 
 ```go
-func (me *AREAMAIL_IMPL) CreateAreamailDelete(areamailid string)(string,error)
+func (me *AREAMAIL_IMPL) CreateDeleteAreaMail(areamailid string)(string,error)
 ```
 
 #### Parameters
@@ -464,18 +430,89 @@ func (me *AREAMAIL_IMPL) CreateAreamailDelete(areamailid string)(string,error)
 areamailid := "areamailid"
 
 var result string
-result,_ = areaMail.CreateAreamailDelete(areamailid)
+result,_ = areaMail.CreateDeleteAreaMail(areamailid)
 
 ```
 
 
-### <a name="create_areamail_create"></a>![Method: ](https://apidocs.io/img/method.png ".areamail_pkg.CreateAreamailCreate") CreateAreamailCreate
+### <a name="create_view_area_mail"></a>![Method: ](https://apidocs.io/img/method.png ".areamail_pkg.CreateViewAreaMail") CreateViewAreaMail
+
+> Retrieve an AreaMail object by its AreaMailId.
+
+
+```go
+func (me *AREAMAIL_IMPL) CreateViewAreaMail(areamailid string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| areamailid |  ``` Required ```  | The unique identifier for an AreaMail object. |
+
+
+#### Example Usage
+
+```go
+areamailid := "areamailid"
+
+var result string
+result,_ = areaMail.CreateViewAreaMail(areamailid)
+
+```
+
+
+### <a name="create_list_area_mails"></a>![Method: ](https://apidocs.io/img/method.png ".areamail_pkg.CreateListAreaMails") CreateListAreaMails
+
+> Retrieve a list of AreaMail objects.
+
+
+```go
+func (me *AREAMAIL_IMPL) CreateListAreaMails(
+            page *int64,
+            pagesize *int64,
+            areamailsid *string,
+            dateCreated *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pagesize |  ``` Optional ```  | The count of objects to return per page. |
+| areamailsid |  ``` Optional ```  | The unique identifier for an AreaMail object. |
+| dateCreated |  ``` Optional ```  | The date the AreaMail was created. |
+
+
+#### Example Usage
+
+```go
+page,_ := strconv.ParseInt("71", 10, 8)
+pagesize,_ := strconv.ParseInt("71", 10, 8)
+areamailsid := "areamailsid"
+dateCreated := "dateCreated"
+
+var result string
+result,_ = areaMail.CreateListAreaMails(page, pagesize, areamailsid, dateCreated)
+
+```
+
+
+### <a name="create_area_mail"></a>![Method: ](https://apidocs.io/img/method.png ".areamail_pkg.CreateAreaMail") CreateAreaMail
 
 > Create a new AreaMail object.
 
 
 ```go
-func (me *AREAMAIL_IMPL) CreateAreamailCreate(input *CreateAreamailCreateInput)(string,error)
+func (me *AREAMAIL_IMPL) CreateAreaMail(
+            routes string,
+            attachbyid string,
+            front string,
+            back string,
+            description *string,
+            targettype *string,
+            htmldata *string)(string,error)
 ```
 
 #### Parameters
@@ -494,102 +531,16 @@ func (me *AREAMAIL_IMPL) CreateAreamailCreate(input *CreateAreamailCreateInput)(
 #### Example Usage
 
 ```go
-collect := new (areamail_pkg.CreateAreamailCreateInput)
-
 routes := "routes"
-collect.Routes = routes
-
 attachbyid := "attachbyid"
-collect.Attachbyid = attachbyid
-
 front := "front"
-collect.Front = front
-
 back := "back"
-collect.Back = back
-
 description := "description"
-collect.Description = description
-
 targettype := "targettype"
-collect.Targettype = targettype
-
 htmldata := "htmldata"
-collect.Htmldata = htmldata
-
 
 var result string
-result,_ = areaMail.CreateAreamailCreate(collect)
-
-```
-
-
-### <a name="create_areamail_view"></a>![Method: ](https://apidocs.io/img/method.png ".areamail_pkg.CreateAreamailView") CreateAreamailView
-
-> Retrieve an AreaMail object by its AreaMailId.
-
-
-```go
-func (me *AREAMAIL_IMPL) CreateAreamailView(areamailid string)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| areamailid |  ``` Required ```  | The unique identifier for an AreaMail object. |
-
-
-#### Example Usage
-
-```go
-areamailid := "areamailid"
-
-var result string
-result,_ = areaMail.CreateAreamailView(areamailid)
-
-```
-
-
-### <a name="create_areamail_lists"></a>![Method: ](https://apidocs.io/img/method.png ".areamail_pkg.CreateAreamailLists") CreateAreamailLists
-
-> Retrieve a list of AreaMail objects.
-
-
-```go
-func (me *AREAMAIL_IMPL) CreateAreamailLists(input *CreateAreamailListsInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pagesize |  ``` Optional ```  ``` DefaultValue ```  | The count of objects to return per page. |
-| areamailsid |  ``` Optional ```  | The unique identifier for an AreaMail object. |
-| dateCreated |  ``` Optional ```  | The date the AreaMail was created. |
-
-
-#### Example Usage
-
-```go
-collect := new (areamail_pkg.CreateAreamailListsInput)
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("10", 10, 8)
-collect.Pagesize = pagesize
-
-areamailsid := "areamailsid"
-collect.Areamailsid = areamailsid
-
-dateCreated := "dateCreated"
-collect.DateCreated = dateCreated
-
-
-var result string
-result,_ = areaMail.CreateAreamailLists(collect)
+result,_ = areaMail.CreateAreaMail(routes, attachbyid, front, back, description, targettype, htmldata)
 
 ```
 
@@ -606,13 +557,13 @@ Factory for the ``` POSTCARD ``` interface can be accessed from the package post
 postCard := postcard_pkg.NewPOSTCARD()
 ```
 
-### <a name="postcard_deletepostcard"></a>![Method: ](https://apidocs.io/img/method.png ".postcard_pkg.PostcardDeletepostcard") PostcardDeletepostcard
+### <a name="create_delete_postcard"></a>![Method: ](https://apidocs.io/img/method.png ".postcard_pkg.CreateDeletePostcard") CreateDeletePostcard
 
 > Remove a postcard object.
 
 
 ```go
-func (me *POSTCARD_IMPL) PostcardDeletepostcard(postcardid string)(string,error)
+func (me *POSTCARD_IMPL) CreateDeletePostcard(postcardid string)(string,error)
 ```
 
 #### Parameters
@@ -628,18 +579,18 @@ func (me *POSTCARD_IMPL) PostcardDeletepostcard(postcardid string)(string,error)
 postcardid := "postcardid"
 
 var result string
-result,_ = postCard.PostcardDeletepostcard(postcardid)
+result,_ = postCard.CreateDeletePostcard(postcardid)
 
 ```
 
 
-### <a name="postcard_viewpostcard"></a>![Method: ](https://apidocs.io/img/method.png ".postcard_pkg.PostcardViewpostcard") PostcardViewpostcard
+### <a name="create_view_postcard"></a>![Method: ](https://apidocs.io/img/method.png ".postcard_pkg.CreateViewPostcard") CreateViewPostcard
 
 > Retrieve a postcard object by its PostcardId.
 
 
 ```go
-func (me *POSTCARD_IMPL) PostcardViewpostcard(postcardid string)(string,error)
+func (me *POSTCARD_IMPL) CreateViewPostcard(postcardid string)(string,error)
 ```
 
 #### Parameters
@@ -655,61 +606,27 @@ func (me *POSTCARD_IMPL) PostcardViewpostcard(postcardid string)(string,error)
 postcardid := "postcardid"
 
 var result string
-result,_ = postCard.PostcardViewpostcard(postcardid)
+result,_ = postCard.CreateViewPostcard(postcardid)
 
 ```
 
 
-### <a name="postcard_listpostcard"></a>![Method: ](https://apidocs.io/img/method.png ".postcard_pkg.PostcardListpostcard") PostcardListpostcard
-
-> Retrieve a list of postcard objects. The postcards objects are sorted by creation date, with the most recently created postcards appearing first.
-
-
-```go
-func (me *POSTCARD_IMPL) PostcardListpostcard(input *PostcardListpostcardInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pagesize |  ``` Optional ```  ``` DefaultValue ```  | The count of objects to return per page. |
-| postcardid |  ``` Optional ```  | The unique identifier for a postcard object. |
-| dateCreated |  ``` Optional ```  | The date the postcard was created. |
-
-
-#### Example Usage
-
-```go
-collect := new (postcard_pkg.PostcardListpostcardInput)
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("10", 10, 8)
-collect.Pagesize = pagesize
-
-postcardid := "postcardid"
-collect.Postcardid = postcardid
-
-dateCreated := "dateCreated"
-collect.DateCreated = dateCreated
-
-
-var result string
-result,_ = postCard.PostcardListpostcard(collect)
-
-```
-
-
-### <a name="postcard_createpostcard"></a>![Method: ](https://apidocs.io/img/method.png ".postcard_pkg.PostcardCreatepostcard") PostcardCreatepostcard
+### <a name="create_postcard"></a>![Method: ](https://apidocs.io/img/method.png ".postcard_pkg.CreatePostcard") CreatePostcard
 
 > Create, print, and mail a postcard to an address. The postcard front must be supplied as a PDF, image, or an HTML string. The back can be a PDF, image, HTML string, or it can be automatically generated by supplying a custom message.
 
 
 ```go
-func (me *POSTCARD_IMPL) PostcardCreatepostcard(input *PostcardCreatepostcardInput)(string,error)
+func (me *POSTCARD_IMPL) CreatePostcard(
+            to string,
+            from string,
+            attachbyid string,
+            front string,
+            back string,
+            message string,
+            setting string,
+            description *string,
+            htmldata *string)(string,error)
 ```
 
 #### Parameters
@@ -730,38 +647,55 @@ func (me *POSTCARD_IMPL) PostcardCreatepostcard(input *PostcardCreatepostcardInp
 #### Example Usage
 
 ```go
-collect := new (postcard_pkg.PostcardCreatepostcardInput)
-
 to := "to"
-collect.To = to
-
 from := "from"
-collect.From = from
-
 attachbyid := "attachbyid"
-collect.Attachbyid = attachbyid
-
 front := "front"
-collect.Front = front
-
 back := "back"
-collect.Back = back
-
 message := "message"
-collect.Message = message
-
 setting := "setting"
-collect.Setting = setting
-
 description := "description"
-collect.Description = description
-
 htmldata := "htmldata"
-collect.Htmldata = htmldata
-
 
 var result string
-result,_ = postCard.PostcardCreatepostcard(collect)
+result,_ = postCard.CreatePostcard(to, from, attachbyid, front, back, message, setting, description, htmldata)
+
+```
+
+
+### <a name="create_list_postcards"></a>![Method: ](https://apidocs.io/img/method.png ".postcard_pkg.CreateListPostcards") CreateListPostcards
+
+> Retrieve a list of postcard objects. The postcards objects are sorted by creation date, with the most recently created postcards appearing first.
+
+
+```go
+func (me *POSTCARD_IMPL) CreateListPostcards(
+            page *int64,
+            pagesize *int64,
+            postcardid *string,
+            dateCreated *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pagesize |  ``` Optional ```  | The count of objects to return per page. |
+| postcardid |  ``` Optional ```  | The unique identifier for a postcard object. |
+| dateCreated |  ``` Optional ```  | The date the postcard was created. |
+
+
+#### Example Usage
+
+```go
+page,_ := strconv.ParseInt("71", 10, 8)
+pagesize,_ := strconv.ParseInt("71", 10, 8)
+postcardid := "postcardid"
+dateCreated := "dateCreated"
+
+var result string
+result,_ = postCard.CreateListPostcards(page, pagesize, postcardid, dateCreated)
 
 ```
 
@@ -778,13 +712,13 @@ Factory for the ``` LETTER ``` interface can be accessed from the package letter
 letter := letter_pkg.NewLETTER()
 ```
 
-### <a name="create_letter_delete"></a>![Method: ](https://apidocs.io/img/method.png ".letter_pkg.CreateLetterDelete") CreateLetterDelete
+### <a name="create_delete_letter"></a>![Method: ](https://apidocs.io/img/method.png ".letter_pkg.CreateDeleteLetter") CreateDeleteLetter
 
 > Remove a letter object by its LetterId.
 
 
 ```go
-func (me *LETTER_IMPL) CreateLetterDelete(lettersid string)(string,error)
+func (me *LETTER_IMPL) CreateDeleteLetter(lettersid string)(string,error)
 ```
 
 #### Parameters
@@ -800,18 +734,18 @@ func (me *LETTER_IMPL) CreateLetterDelete(lettersid string)(string,error)
 lettersid := "lettersid"
 
 var result string
-result,_ = letter.CreateLetterDelete(lettersid)
+result,_ = letter.CreateDeleteLetter(lettersid)
 
 ```
 
 
-### <a name="create_letter_viewletter"></a>![Method: ](https://apidocs.io/img/method.png ".letter_pkg.CreateLetterViewletter") CreateLetterViewletter
+### <a name="create_view_letter"></a>![Method: ](https://apidocs.io/img/method.png ".letter_pkg.CreateViewLetter") CreateViewLetter
 
 > Retrieve a letter object by its LetterSid.
 
 
 ```go
-func (me *LETTER_IMPL) CreateLetterViewletter(lettersid string)(string,error)
+func (me *LETTER_IMPL) CreateViewLetter(lettersid string)(string,error)
 ```
 
 #### Parameters
@@ -827,61 +761,28 @@ func (me *LETTER_IMPL) CreateLetterViewletter(lettersid string)(string,error)
 lettersid := "lettersid"
 
 var result string
-result,_ = letter.CreateLetterViewletter(lettersid)
+result,_ = letter.CreateViewLetter(lettersid)
 
 ```
 
 
-### <a name="create_letter_listsletter"></a>![Method: ](https://apidocs.io/img/method.png ".letter_pkg.CreateLetterListsletter") CreateLetterListsletter
-
-> Retrieve a list of letter objects. The letter objects are sorted by creation date, with the most recently created letters appearing first.
-
-
-```go
-func (me *LETTER_IMPL) CreateLetterListsletter(input *CreateLetterListsletterInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pagesize |  ``` Optional ```  ``` DefaultValue ```  | The count of objects to return per page. |
-| lettersid |  ``` Optional ```  | The unique identifier for a letter object. |
-| dateCreated |  ``` Optional ```  | The date the letter was created. |
-
-
-#### Example Usage
-
-```go
-collect := new (letter_pkg.CreateLetterListsletterInput)
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("10", 10, 8)
-collect.Pagesize = pagesize
-
-lettersid := "lettersid"
-collect.Lettersid = lettersid
-
-dateCreated := "dateCreated"
-collect.DateCreated = dateCreated
-
-
-var result string
-result,_ = letter.CreateLetterListsletter(collect)
-
-```
-
-
-### <a name="create_letter_create"></a>![Method: ](https://apidocs.io/img/method.png ".letter_pkg.CreateLetterCreate") CreateLetterCreate
+### <a name="create_letter"></a>![Method: ](https://apidocs.io/img/method.png ".letter_pkg.CreateLetter") CreateLetter
 
 > Create, print, and mail a letter to an address. The letter file must be supplied as a PDF or an HTML string.
 
 
 ```go
-func (me *LETTER_IMPL) CreateLetterCreate(input *CreateLetterCreateInput)(string,error)
+func (me *LETTER_IMPL) CreateLetter(
+            to string,
+            from string,
+            attachbyid string,
+            file string,
+            color string,
+            description *string,
+            extraservice *string,
+            doublesided *string,
+            template *string,
+            htmldata *string)(string,error)
 ```
 
 #### Parameters
@@ -903,41 +804,56 @@ func (me *LETTER_IMPL) CreateLetterCreate(input *CreateLetterCreateInput)(string
 #### Example Usage
 
 ```go
-collect := new (letter_pkg.CreateLetterCreateInput)
-
 to := "to"
-collect.To = to
-
 from := "from"
-collect.From = from
-
 attachbyid := "attachbyid"
-collect.Attachbyid = attachbyid
-
 file := "file"
-collect.File = file
-
 color := "color"
-collect.Color = color
-
 description := "description"
-collect.Description = description
-
 extraservice := "extraservice"
-collect.Extraservice = extraservice
-
 doublesided := "doublesided"
-collect.Doublesided = doublesided
-
 template := "template"
-collect.Template = template
-
 htmldata := "htmldata"
-collect.Htmldata = htmldata
-
 
 var result string
-result,_ = letter.CreateLetterCreate(collect)
+result,_ = letter.CreateLetter(to, from, attachbyid, file, color, description, extraservice, doublesided, template, htmldata)
+
+```
+
+
+### <a name="create_list_letters"></a>![Method: ](https://apidocs.io/img/method.png ".letter_pkg.CreateListLetters") CreateListLetters
+
+> Retrieve a list of letter objects. The letter objects are sorted by creation date, with the most recently created letters appearing first.
+
+
+```go
+func (me *LETTER_IMPL) CreateListLetters(
+            page *int64,
+            pagesize *int64,
+            lettersid *string,
+            dateCreated *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pagesize |  ``` Optional ```  | The count of objects to return per page. |
+| lettersid |  ``` Optional ```  | The unique identifier for a letter object. |
+| dateCreated |  ``` Optional ```  | The date the letter was created. |
+
+
+#### Example Usage
+
+```go
+page,_ := strconv.ParseInt("113", 10, 8)
+pagesize,_ := strconv.ParseInt("113", 10, 8)
+lettersid := "lettersid"
+dateCreated := "dateCreated"
+
+var result string
+result,_ = letter.CreateListLetters(page, pagesize, lettersid, dateCreated)
 
 ```
 
@@ -954,13 +870,13 @@ Factory for the ``` CALL ``` interface can be accessed from the package call_pkg
 call := call_pkg.NewCALL()
 ```
 
-### <a name="create_calls_viewcalldetail"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateCallsViewcalldetail") CreateCallsViewcalldetail
+### <a name="create_view_call1"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateViewCall1") CreateViewCall1
 
 > Retrieve a single voice call’s information by its CallSid.
 
 
 ```go
-func (me *CALL_IMPL) CreateCallsViewcalldetail(callSid string)(string,error)
+func (me *CALL_IMPL) CreateViewCall1(callSid string)(string,error)
 ```
 
 #### Parameters
@@ -976,18 +892,18 @@ func (me *CALL_IMPL) CreateCallsViewcalldetail(callSid string)(string,error)
 callSid := "callSid"
 
 var result string
-result,_ = call.CreateCallsViewcalldetail(callSid)
+result,_ = call.CreateViewCall1(callSid)
 
 ```
 
 
-### <a name="create_calls_viewcalls"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateCallsViewcalls") CreateCallsViewcalls
+### <a name="create_view_call"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateViewCall") CreateViewCall
 
 > Retrieve a single voice call’s information by its CallSid.
 
 
 ```go
-func (me *CALL_IMPL) CreateCallsViewcalls(callsid string)(string,error)
+func (me *CALL_IMPL) CreateViewCall(callsid string)(string,error)
 ```
 
 #### Parameters
@@ -1003,18 +919,21 @@ func (me *CALL_IMPL) CreateCallsViewcalls(callsid string)(string,error)
 callsid := "callsid"
 
 var result string
-result,_ = call.CreateCallsViewcalls(callsid)
+result,_ = call.CreateViewCall(callsid)
 
 ```
 
 
-### <a name="create_calls_senddigits"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateCallsSenddigits") CreateCallsSenddigits
+### <a name="create_play_dtmf"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreatePlayDTMF") CreatePlayDTMF
 
 > Play Dtmf and send the Digit
 
 
 ```go
-func (me *CALL_IMPL) CreateCallsSenddigits(input *CreateCallsSenddigitsInput)(string,error)
+func (me *CALL_IMPL) CreatePlayDTMF(
+            callSid string,
+            playDtmf string,
+            playDtmfDirection models_pkg.PlayDtmfDirectionEnum)(string,error)
 ```
 
 #### Parameters
@@ -1029,440 +948,46 @@ func (me *CALL_IMPL) CreateCallsSenddigits(input *CreateCallsSenddigitsInput)(st
 #### Example Usage
 
 ```go
-collect := new (call_pkg.CreateCallsSenddigitsInput)
-
 callSid := "CallSid"
-collect.CallSid = callSid
-
 playDtmf := "PlayDtmf"
-collect.PlayDtmf = playDtmf
-
 playDtmfDirection := models_pkg.PlayDtmfDirection_IN
-collect.PlayDtmfDirection = playDtmfDirection
-
 
 var result string
-result,_ = call.CreateCallsSenddigits(collect)
+result,_ = call.CreatePlayDTMF(callSid, playDtmf, playDtmfDirection)
 
 ```
 
 
-### <a name="create_calls_makervm"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateCallsMakervm") CreateCallsMakervm
-
-> Initiate an outbound Ringless Voicemail through Ytel.
-
-
-```go
-func (me *CALL_IMPL) CreateCallsMakervm(input *CreateCallsMakervmInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| from |  ``` Required ```  | A valid Ytel Voice enabled number (E.164 format) that will be initiating the phone call. |
-| rVMCallerId |  ``` Required ```  | A required secondary Caller ID for RVM to work. |
-| to |  ``` Required ```  | A valid number (E.164 format) that will receive the phone call. |
-| voiceMailURL |  ``` Required ```  | The URL requested once the RVM connects. A set of default parameters will be sent here. |
-| method |  ``` Optional ```  ``` DefaultValue ```  | Specifies the HTTP method used to request the required URL once call connects. |
-| statusCallBackUrl |  ``` Optional ```  | URL that can be requested to receive notification when call has ended. A set of default parameters will be sent here once the call is finished. |
-| statsCallBackMethod |  ``` Optional ```  | Specifies the HTTP method used to request the required StatusCallBackUrl once call connects. |
-
-
-#### Example Usage
-
-```go
-collect := new (call_pkg.CreateCallsMakervmInput)
-
-from := "From"
-collect.From = from
-
-rVMCallerId := "RVMCallerId"
-collect.RVMCallerId = rVMCallerId
-
-to := "To"
-collect.To = to
-
-voiceMailURL := "VoiceMailURL"
-collect.VoiceMailURL = voiceMailURL
-
-method := "GET"
-collect.Method = method
-
-statusCallBackUrl := "StatusCallBackUrl"
-collect.StatusCallBackUrl = statusCallBackUrl
-
-statsCallBackMethod := "StatsCallBackMethod"
-collect.StatsCallBackMethod = statsCallBackMethod
-
-
-var result string
-result,_ = call.CreateCallsMakervm(collect)
-
-```
-
-
-### <a name="create_calls_listcalls"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateCallsListcalls") CreateCallsListcalls
-
-> A list of calls associated with your Ytel account
-
-
-```go
-func (me *CALL_IMPL) CreateCallsListcalls(input *CreateCallsListcallsInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pageSize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
-| to |  ``` Optional ```  | Filter calls that were sent to this 10-digit number (E.164 format). |
-| from |  ``` Optional ```  | Filter calls that were sent from this 10-digit number (E.164 format). |
-| dateCreated |  ``` Optional ```  | Return calls that are from a specified date. |
-
-
-#### Example Usage
-
-```go
-collect := new (call_pkg.CreateCallsListcallsInput)
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pageSize,_ := strconv.ParseInt("10", 10, 8)
-collect.PageSize = pageSize
-
-to := "To"
-collect.To = to
-
-from := "From"
-collect.From = from
-
-dateCreated := "DateCreated"
-collect.DateCreated = dateCreated
-
-
-var result string
-result,_ = call.CreateCallsListcalls(collect)
-
-```
-
-
-### <a name="create_calls_interruptcalls"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateCallsInterruptcalls") CreateCallsInterruptcalls
-
-> Interrupt the Call by Call Sid
-
-
-```go
-func (me *CALL_IMPL) CreateCallsInterruptcalls(input *CreateCallsInterruptcallsInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| callSid |  ``` Required ```  | The unique identifier for voice call that is in progress. |
-| url |  ``` Optional ```  | URL the in-progress call will be redirected to |
-| method |  ``` Optional ```  | The method used to request the above Url parameter |
-| status |  ``` Optional ```  | Status to set the in-progress call to |
-
-
-#### Example Usage
-
-```go
-collect := new (call_pkg.CreateCallsInterruptcallsInput)
-
-callSid := "CallSid"
-collect.CallSid = callSid
-
-url := "Url"
-collect.Url = url
-
-method := "Method"
-collect.Method = method
-
-status := models_pkg.Status24_CANCELED
-collect.Status = status
-
-
-var result string
-result,_ = call.CreateCallsInterruptcalls(collect)
-
-```
-
-
-### <a name="create_calls_recordcalls"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateCallsRecordcalls") CreateCallsRecordcalls
-
-> Start or stop recording of an in-progress voice call.
-
-
-```go
-func (me *CALL_IMPL) CreateCallsRecordcalls(input *CreateCallsRecordcallsInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| callSid |  ``` Required ```  | The unique identifier of each call resource |
-| record |  ``` Required ```  | Set true to initiate recording or false to terminate recording |
-| direction |  ``` Optional ```  | The leg of the call to record |
-| timeLimit |  ``` Optional ```  | Time in seconds the recording duration should not exceed |
-| callBackUrl |  ``` Optional ```  | URL consulted after the recording completes |
-| fileformat |  ``` Optional ```  | Format of the recording file. Can be .mp3 or .wav |
-
-
-#### Example Usage
-
-```go
-collect := new (call_pkg.CreateCallsRecordcallsInput)
-
-callSid := "CallSid"
-collect.CallSid = callSid
-
-record := true
-collect.Record = record
-
-direction := models_pkg.Direction_IN
-collect.Direction = direction
-
-timeLimit,_ := strconv.ParseInt("206", 10, 8)
-collect.TimeLimit = timeLimit
-
-callBackUrl := "CallBackUrl"
-collect.CallBackUrl = callBackUrl
-
-fileformat := models_pkg.Fileformat_MP3
-collect.Fileformat = fileformat
-
-
-var result string
-result,_ = call.CreateCallsRecordcalls(collect)
-
-```
-
-
-### <a name="create_calls_playaudios"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateCallsPlayaudios") CreateCallsPlayaudios
-
-> Play Audio from a url
-
-
-```go
-func (me *CALL_IMPL) CreateCallsPlayaudios(input *CreateCallsPlayaudiosInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| callSid |  ``` Required ```  | The unique identifier of each call resource |
-| audioUrl |  ``` Required ```  | URL to sound that should be played. You also can add more than one audio file using semicolons e.g. http://example.com/audio1.mp3;http://example.com/audio2.wav |
-| sayText |  ``` Required ```  | Valid alphanumeric string that should be played to the In-progress call. |
-| length |  ``` Optional ```  | Time limit in seconds for audio play back |
-| direction |  ``` Optional ```  | The leg of the call audio will be played to |
-| mix |  ``` Optional ```  | If false, all other audio will be muted |
-
-
-#### Example Usage
-
-```go
-collect := new (call_pkg.CreateCallsPlayaudiosInput)
-
-callSid := "CallSid"
-collect.CallSid = callSid
-
-audioUrl := "AudioUrl"
-collect.AudioUrl = audioUrl
-
-sayText := "SayText"
-collect.SayText = sayText
-
-length,_ := strconv.ParseInt("206", 10, 8)
-collect.Length = length
-
-direction := models_pkg.Direction_IN
-collect.Direction = direction
-
-mix := true
-collect.Mix = mix
-
-
-var result string
-result,_ = call.CreateCallsPlayaudios(collect)
-
-```
-
-
-### <a name="create_calls_voiceeffect"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateCallsVoiceeffect") CreateCallsVoiceeffect
-
-> Add audio voice effects to the an in-progress voice call.
-
-
-```go
-func (me *CALL_IMPL) CreateCallsVoiceeffect(input *CreateCallsVoiceeffectInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| callSid |  ``` Required ```  | The unique identifier for the in-progress voice call. |
-| audioDirection |  ``` Optional ```  | The direction the audio effect should be placed on. If IN, the effects will occur on the incoming audio stream. If OUT, the effects will occur on the outgoing audio stream. |
-| pitchSemiTones |  ``` Optional ```  | Set the pitch in semitone (half-step) intervals. Value between -14 and 14 |
-| pitchOctaves |  ``` Optional ```  | Set the pitch in octave intervals.. Value between -1 and 1 |
-| pitch |  ``` Optional ```  | Set the pitch (lowness/highness) of the audio. The higher the value, the higher the pitch. Value greater than 0 |
-| rate |  ``` Optional ```  | Set the rate for audio. The lower the value, the lower the rate. value greater than 0 |
-| tempo |  ``` Optional ```  | Set the tempo (speed) of the audio. A higher value denotes a faster tempo. Value greater than 0 |
-
-
-#### Example Usage
-
-```go
-collect := new (call_pkg.CreateCallsVoiceeffectInput)
-
-callSid := "CallSid"
-collect.CallSid = callSid
-
-audioDirection := models_pkg.AudioDirection_IN
-collect.AudioDirection = audioDirection
-
-pitchSemiTones := 206.488525940333
-collect.PitchSemiTones = pitchSemiTones
-
-pitchOctaves := 206.488525940333
-collect.PitchOctaves = pitchOctaves
-
-pitch := 206.488525940333
-collect.Pitch = pitch
-
-rate := 206.488525940333
-collect.Rate = rate
-
-tempo := 206.488525940333
-collect.Tempo = tempo
-
-
-var result string
-result,_ = call.CreateCallsVoiceeffect(collect)
-
-```
-
-
-### <a name="create_calls_groupcall"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateCallsGroupcall") CreateCallsGroupcall
-
-> Group Call
-
-
-```go
-func (me *CALL_IMPL) CreateCallsGroupcall(input *CreateCallsGroupcallInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| from |  ``` Required ```  | This number to display on Caller ID as calling |
-| to |  ``` Required ```  | Please enter multiple E164 number. You can add max 10 numbers. Add numbers separated with comma. e.g : 1111111111,2222222222 |
-| url |  ``` Required ```  | URL requested once the call connects |
-| groupConfirmKey |  ``` Required ```  | Define the DTMF that the called party should send to bridge the call. Allowed Values : 0-9, #, * |
-| groupConfirmFile |  ``` Required ```  | Specify the audio file you want to play when the called party picks up the call |
-| method |  ``` Optional ```  | Specifies the HTTP method used to request the required URL once call connects. |
-| statusCallBackUrl |  ``` Optional ```  | URL that can be requested to receive notification when call has ended. A set of default parameters will be sent here once the call is finished. |
-| statusCallBackMethod |  ``` Optional ```  | Specifies the HTTP methodlinkclass used to request StatusCallbackUrl. |
-| fallBackUrl |  ``` Optional ```  | URL requested if the initial Url parameter fails or encounters an error |
-| fallBackMethod |  ``` Optional ```  | Specifies the HTTP method used to request the required FallbackUrl once call connects. |
-| heartBeatUrl |  ``` Optional ```  | URL that can be requested every 60 seconds during the call to notify of elapsed time and pass other general information. |
-| heartBeatMethod |  ``` Optional ```  | Specifies the HTTP method used to request HeartbeatUrl. |
-| timeout |  ``` Optional ```  | Time (in seconds) we should wait while the call is ringing before canceling the call |
-| playDtmf |  ``` Optional ```  | DTMF Digits to play to the call once it connects. 0-9, #, or * |
-| hideCallerId |  ``` Optional ```  | Specifies if the caller id will be hidden |
-| record |  ``` Optional ```  | Specifies if the call should be recorded |
-| recordCallBackUrl |  ``` Optional ```  | Recording parameters will be sent here upon completion |
-| recordCallBackMethod |  ``` Optional ```  | Method used to request the RecordCallback URL. |
-| transcribe |  ``` Optional ```  | Specifies if the call recording should be transcribed |
-| transcribeCallBackUrl |  ``` Optional ```  | Transcription parameters will be sent here upon completion |
-
-
-#### Example Usage
-
-```go
-collect := new (call_pkg.CreateCallsGroupcallInput)
-
-from := "From"
-collect.From = from
-
-to := "To"
-collect.To = to
-
-url := "Url"
-collect.Url = url
-
-groupConfirmKey := "GroupConfirmKey"
-collect.GroupConfirmKey = groupConfirmKey
-
-groupConfirmFile := models_pkg.GroupConfirmFile_MP3
-collect.GroupConfirmFile = groupConfirmFile
-
-method := "Method"
-collect.Method = method
-
-statusCallBackUrl := "StatusCallBackUrl"
-collect.StatusCallBackUrl = statusCallBackUrl
-
-statusCallBackMethod := "StatusCallBackMethod"
-collect.StatusCallBackMethod = statusCallBackMethod
-
-fallBackUrl := "FallBackUrl"
-collect.FallBackUrl = fallBackUrl
-
-fallBackMethod := "FallBackMethod"
-collect.FallBackMethod = fallBackMethod
-
-heartBeatUrl := "HeartBeatUrl"
-collect.HeartBeatUrl = heartBeatUrl
-
-heartBeatMethod := "HeartBeatMethod"
-collect.HeartBeatMethod = heartBeatMethod
-
-timeout,_ := strconv.ParseInt("206", 10, 8)
-collect.Timeout = timeout
-
-playDtmf := "PlayDtmf"
-collect.PlayDtmf = playDtmf
-
-hideCallerId := "HideCallerId"
-collect.HideCallerId = hideCallerId
-
-record := true
-collect.Record = record
-
-recordCallBackUrl := "RecordCallBackUrl"
-collect.RecordCallBackUrl = recordCallBackUrl
-
-recordCallBackMethod := "RecordCallBackMethod"
-collect.RecordCallBackMethod = recordCallBackMethod
-
-transcribe := true
-collect.Transcribe = transcribe
-
-transcribeCallBackUrl := "TranscribeCallBackUrl"
-collect.TranscribeCallBackUrl = transcribeCallBackUrl
-
-
-var result string
-result,_ = call.CreateCallsGroupcall(collect)
-
-```
-
-
-### <a name="create_calls_makecall"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateCallsMakecall") CreateCallsMakecall
+### <a name="create_make_call"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateMakeCall") CreateMakeCall
 
 > You can experiment with initiating a call through Ytel and view the request response generated when doing so and get the response in json
 
 
 ```go
-func (me *CALL_IMPL) CreateCallsMakecall(input *CreateCallsMakecallInput)(string,error)
+func (me *CALL_IMPL) CreateMakeCall(
+            from string,
+            to string,
+            url string,
+            method *string,
+            statusCallBackUrl *string,
+            statusCallBackMethod *string,
+            fallBackUrl *string,
+            fallBackMethod *string,
+            heartBeatUrl *string,
+            heartBeatMethod *string,
+            timeout *int64,
+            playDtmf *string,
+            hideCallerId *bool,
+            record *bool,
+            recordCallBackUrl *string,
+            recordCallBackMethod *string,
+            transcribe *bool,
+            transcribeCallBackUrl *string,
+            ifMachine models_pkg.IfMachineEnum,
+            ifMachineUrl *string,
+            ifMachineMethod *string,
+            feedback *bool,
+            surveyId *string)(string,error)
 ```
 
 #### Parameters
@@ -1497,80 +1022,372 @@ func (me *CALL_IMPL) CreateCallsMakecall(input *CreateCallsMakecallInput)(string
 #### Example Usage
 
 ```go
-collect := new (call_pkg.CreateCallsMakecallInput)
-
 from := "From"
-collect.From = from
-
 to := "To"
-collect.To = to
-
 url := "Url"
-collect.Url = url
-
 method := "Method"
-collect.Method = method
-
 statusCallBackUrl := "StatusCallBackUrl"
-collect.StatusCallBackUrl = statusCallBackUrl
-
 statusCallBackMethod := "StatusCallBackMethod"
-collect.StatusCallBackMethod = statusCallBackMethod
-
 fallBackUrl := "FallBackUrl"
-collect.FallBackUrl = fallBackUrl
-
 fallBackMethod := "FallBackMethod"
-collect.FallBackMethod = fallBackMethod
-
 heartBeatUrl := "HeartBeatUrl"
-collect.HeartBeatUrl = heartBeatUrl
-
 heartBeatMethod := "HeartBeatMethod"
-collect.HeartBeatMethod = heartBeatMethod
-
-timeout,_ := strconv.ParseInt("206", 10, 8)
-collect.Timeout = timeout
-
+timeout,_ := strconv.ParseInt("113", 10, 8)
 playDtmf := "PlayDtmf"
-collect.PlayDtmf = playDtmf
-
-hideCallerId := true
-collect.HideCallerId = hideCallerId
-
-record := true
-collect.Record = record
-
+hideCallerId := false
+record := false
 recordCallBackUrl := "RecordCallBackUrl"
-collect.RecordCallBackUrl = recordCallBackUrl
-
 recordCallBackMethod := "RecordCallBackMethod"
-collect.RecordCallBackMethod = recordCallBackMethod
-
-transcribe := true
-collect.Transcribe = transcribe
-
+transcribe := false
 transcribeCallBackUrl := "TranscribeCallBackUrl"
-collect.TranscribeCallBackUrl = transcribeCallBackUrl
-
-ifMachine := models_pkg.ifMachine_CONTINUE
-collect.IfMachine = ifMachine
-
+ifMachine := models_pkg.IfMachine_CONTINUE
 ifMachineUrl := "IfMachineUrl"
-collect.IfMachineUrl = ifMachineUrl
-
 ifMachineMethod := "IfMachineMethod"
-collect.IfMachineMethod = ifMachineMethod
-
-feedback := true
-collect.Feedback = feedback
-
+feedback := false
 surveyId := "SurveyId"
-collect.SurveyId = surveyId
-
 
 var result string
-result,_ = call.CreateCallsMakecall(collect)
+result,_ = call.CreateMakeCall(from, to, url, method, statusCallBackUrl, statusCallBackMethod, fallBackUrl, fallBackMethod, heartBeatUrl, heartBeatMethod, timeout, playDtmf, hideCallerId, record, recordCallBackUrl, recordCallBackMethod, transcribe, transcribeCallBackUrl, ifMachine, ifMachineUrl, ifMachineMethod, feedback, surveyId)
+
+```
+
+
+### <a name="create_play_audio"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreatePlayAudio") CreatePlayAudio
+
+> Play Audio from a url
+
+
+```go
+func (me *CALL_IMPL) CreatePlayAudio(
+            callSid string,
+            audioUrl string,
+            sayText string,
+            length *int64,
+            direction models_pkg.DirectionEnum,
+            mix *bool)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| callSid |  ``` Required ```  | The unique identifier of each call resource |
+| audioUrl |  ``` Required ```  | URL to sound that should be played. You also can add more than one audio file using semicolons e.g. http://example.com/audio1.mp3;http://example.com/audio2.wav |
+| sayText |  ``` Required ```  | Valid alphanumeric string that should be played to the In-progress call. |
+| length |  ``` Optional ```  | Time limit in seconds for audio play back |
+| direction |  ``` Optional ```  | The leg of the call audio will be played to |
+| mix |  ``` Optional ```  | If false, all other audio will be muted |
+
+
+#### Example Usage
+
+```go
+callSid := "CallSid"
+audioUrl := "AudioUrl"
+sayText := "SayText"
+length,_ := strconv.ParseInt("113", 10, 8)
+direction := models_pkg.Direction_IN
+mix := false
+
+var result string
+result,_ = call.CreatePlayAudio(callSid, audioUrl, sayText, length, direction, mix)
+
+```
+
+
+### <a name="create_record_call"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateRecordCall") CreateRecordCall
+
+> Start or stop recording of an in-progress voice call.
+
+
+```go
+func (me *CALL_IMPL) CreateRecordCall(
+            callSid string,
+            record bool,
+            direction models_pkg.Direction4Enum,
+            timeLimit *int64,
+            callBackUrl *string,
+            fileformat models_pkg.FileformatEnum)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| callSid |  ``` Required ```  | The unique identifier of each call resource |
+| record |  ``` Required ```  | Set true to initiate recording or false to terminate recording |
+| direction |  ``` Optional ```  | The leg of the call to record |
+| timeLimit |  ``` Optional ```  | Time in seconds the recording duration should not exceed |
+| callBackUrl |  ``` Optional ```  | URL consulted after the recording completes |
+| fileformat |  ``` Optional ```  | Format of the recording file. Can be .mp3 or .wav |
+
+
+#### Example Usage
+
+```go
+callSid := "CallSid"
+record := false
+direction := models_pkg.Direction4_IN
+timeLimit,_ := strconv.ParseInt("113", 10, 8)
+callBackUrl := "CallBackUrl"
+fileformat := models_pkg.Fileformat_MP3
+
+var result string
+result,_ = call.CreateRecordCall(callSid, record, direction, timeLimit, callBackUrl, fileformat)
+
+```
+
+
+### <a name="create_voice_effect"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateVoiceEffect") CreateVoiceEffect
+
+> Add audio voice effects to the an in-progress voice call.
+
+
+```go
+func (me *CALL_IMPL) CreateVoiceEffect(
+            callSid string,
+            audioDirection models_pkg.AudioDirectionEnum,
+            pitchSemiTones *float64,
+            pitchOctaves *float64,
+            pitch *float64,
+            rate *float64,
+            tempo *float64)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| callSid |  ``` Required ```  | The unique identifier for the in-progress voice call. |
+| audioDirection |  ``` Optional ```  | The direction the audio effect should be placed on. If IN, the effects will occur on the incoming audio stream. If OUT, the effects will occur on the outgoing audio stream. |
+| pitchSemiTones |  ``` Optional ```  | Set the pitch in semitone (half-step) intervals. Value between -14 and 14 |
+| pitchOctaves |  ``` Optional ```  | Set the pitch in octave intervals.. Value between -1 and 1 |
+| pitch |  ``` Optional ```  | Set the pitch (lowness/highness) of the audio. The higher the value, the higher the pitch. Value greater than 0 |
+| rate |  ``` Optional ```  | Set the rate for audio. The lower the value, the lower the rate. value greater than 0 |
+| tempo |  ``` Optional ```  | Set the tempo (speed) of the audio. A higher value denotes a faster tempo. Value greater than 0 |
+
+
+#### Example Usage
+
+```go
+callSid := "CallSid"
+audioDirection := models_pkg.AudioDirection_IN
+pitchSemiTones := 113.708119638594
+pitchOctaves := 113.708119638594
+pitch := 113.708119638594
+rate := 113.708119638594
+tempo := 113.708119638594
+
+var result string
+result,_ = call.CreateVoiceEffect(callSid, audioDirection, pitchSemiTones, pitchOctaves, pitch, rate, tempo)
+
+```
+
+
+### <a name="create_interrupt_call"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateInterruptCall") CreateInterruptCall
+
+> Interrupt the Call by Call Sid
+
+
+```go
+func (me *CALL_IMPL) CreateInterruptCall(
+            callSid string,
+            url *string,
+            method *string,
+            status models_pkg.StatusEnum)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| callSid |  ``` Required ```  | The unique identifier for voice call that is in progress. |
+| url |  ``` Optional ```  | URL the in-progress call will be redirected to |
+| method |  ``` Optional ```  | The method used to request the above Url parameter |
+| status |  ``` Optional ```  | Status to set the in-progress call to |
+
+
+#### Example Usage
+
+```go
+callSid := "CallSid"
+url := "Url"
+method := "Method"
+status := models_pkg.Status_CANCELED
+
+var result string
+result,_ = call.CreateInterruptCall(callSid, url, method, status)
+
+```
+
+
+### <a name="create_list_calls"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateListCalls") CreateListCalls
+
+> A list of calls associated with your Ytel account
+
+
+```go
+func (me *CALL_IMPL) CreateListCalls(
+            page *int64,
+            pageSize *int64,
+            to *string,
+            from *string,
+            dateCreated *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pageSize |  ``` Optional ```  | Number of individual resources listed in the response per page |
+| to |  ``` Optional ```  | Filter calls that were sent to this 10-digit number (E.164 format). |
+| from |  ``` Optional ```  | Filter calls that were sent from this 10-digit number (E.164 format). |
+| dateCreated |  ``` Optional ```  | Return calls that are from a specified date. |
+
+
+#### Example Usage
+
+```go
+page,_ := strconv.ParseInt("113", 10, 8)
+pageSize,_ := strconv.ParseInt("113", 10, 8)
+to := "To"
+from := "From"
+dateCreated := "DateCreated"
+
+var result string
+result,_ = call.CreateListCalls(page, pageSize, to, from, dateCreated)
+
+```
+
+
+### <a name="create_send_rvm"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateSendRVM") CreateSendRVM
+
+> Initiate an outbound Ringless Voicemail through Ytel.
+
+
+```go
+func (me *CALL_IMPL) CreateSendRVM(
+            from string,
+            rVMCallerId string,
+            to string,
+            voiceMailURL string,
+            method *string,
+            statusCallBackUrl *string,
+            statsCallBackMethod *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| from |  ``` Required ```  | A valid Ytel Voice enabled number (E.164 format) that will be initiating the phone call. |
+| rVMCallerId |  ``` Required ```  | A required secondary Caller ID for RVM to work. |
+| to |  ``` Required ```  | A valid number (E.164 format) that will receive the phone call. |
+| voiceMailURL |  ``` Required ```  | The URL requested once the RVM connects. A set of default parameters will be sent here. |
+| method |  ``` Optional ```  | Specifies the HTTP method used to request the required URL once call connects. |
+| statusCallBackUrl |  ``` Optional ```  | URL that can be requested to receive notification when call has ended. A set of default parameters will be sent here once the call is finished. |
+| statsCallBackMethod |  ``` Optional ```  | Specifies the HTTP method used to request the required StatusCallBackUrl once call connects. |
+
+
+#### Example Usage
+
+```go
+from := "From"
+rVMCallerId := "RVMCallerId"
+to := "To"
+voiceMailURL := "VoiceMailURL"
+method := "Method"
+statusCallBackUrl := "StatusCallBackUrl"
+statsCallBackMethod := "StatsCallBackMethod"
+
+var result string
+result,_ = call.CreateSendRVM(from, rVMCallerId, to, voiceMailURL, method, statusCallBackUrl, statsCallBackMethod)
+
+```
+
+
+### <a name="create_group_call"></a>![Method: ](https://apidocs.io/img/method.png ".call_pkg.CreateGroupCall") CreateGroupCall
+
+> Group Call
+
+
+```go
+func (me *CALL_IMPL) CreateGroupCall(
+            from string,
+            to string,
+            url string,
+            groupConfirmKey string,
+            groupConfirmFile models_pkg.GroupConfirmFileEnum,
+            method *string,
+            statusCallBackUrl *string,
+            statusCallBackMethod *string,
+            fallBackUrl *string,
+            fallBackMethod *string,
+            heartBeatUrl *string,
+            heartBeatMethod *string,
+            timeout *int64,
+            playDtmf *string,
+            hideCallerId *string,
+            record *bool,
+            recordCallBackUrl *string,
+            recordCallBackMethod *string,
+            transcribe *bool,
+            transcribeCallBackUrl *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| from |  ``` Required ```  | This number to display on Caller ID as calling |
+| to |  ``` Required ```  | Please enter multiple E164 number. You can add max 10 numbers. Add numbers separated with comma. e.g : 1111111111,2222222222 |
+| url |  ``` Required ```  | URL requested once the call connects |
+| groupConfirmKey |  ``` Required ```  | Define the DTMF that the called party should send to bridge the call. Allowed Values : 0-9, #, * |
+| groupConfirmFile |  ``` Required ```  | Specify the audio file you want to play when the called party picks up the call |
+| method |  ``` Optional ```  | Specifies the HTTP method used to request the required URL once call connects. |
+| statusCallBackUrl |  ``` Optional ```  | URL that can be requested to receive notification when call has ended. A set of default parameters will be sent here once the call is finished. |
+| statusCallBackMethod |  ``` Optional ```  | Specifies the HTTP methodlinkclass used to request StatusCallbackUrl. |
+| fallBackUrl |  ``` Optional ```  | URL requested if the initial Url parameter fails or encounters an error |
+| fallBackMethod |  ``` Optional ```  | Specifies the HTTP method used to request the required FallbackUrl once call connects. |
+| heartBeatUrl |  ``` Optional ```  | URL that can be requested every 60 seconds during the call to notify of elapsed time and pass other general information. |
+| heartBeatMethod |  ``` Optional ```  | Specifies the HTTP method used to request HeartbeatUrl. |
+| timeout |  ``` Optional ```  | Time (in seconds) we should wait while the call is ringing before canceling the call |
+| playDtmf |  ``` Optional ```  | DTMF Digits to play to the call once it connects. 0-9, #, or * |
+| hideCallerId |  ``` Optional ```  | Specifies if the caller id will be hidden |
+| record |  ``` Optional ```  | Specifies if the call should be recorded |
+| recordCallBackUrl |  ``` Optional ```  | Recording parameters will be sent here upon completion |
+| recordCallBackMethod |  ``` Optional ```  | Method used to request the RecordCallback URL. |
+| transcribe |  ``` Optional ```  | Specifies if the call recording should be transcribed |
+| transcribeCallBackUrl |  ``` Optional ```  | Transcription parameters will be sent here upon completion |
+
+
+#### Example Usage
+
+```go
+from := "From"
+to := "To"
+url := "Url"
+groupConfirmKey := "GroupConfirmKey"
+groupConfirmFile := models_pkg.GroupConfirmFile_MP3
+method := "Method"
+statusCallBackUrl := "StatusCallBackUrl"
+statusCallBackMethod := "StatusCallBackMethod"
+fallBackUrl := "FallBackUrl"
+fallBackMethod := "FallBackMethod"
+heartBeatUrl := "HeartBeatUrl"
+heartBeatMethod := "HeartBeatMethod"
+timeout,_ := strconv.ParseInt("113", 10, 8)
+playDtmf := "PlayDtmf"
+hideCallerId := "HideCallerId"
+record := false
+recordCallBackUrl := "RecordCallBackUrl"
+recordCallBackMethod := "RecordCallBackMethod"
+transcribe := false
+transcribeCallBackUrl := "TranscribeCallBackUrl"
+
+var result string
+result,_ = call.CreateGroupCall(from, to, url, groupConfirmKey, groupConfirmFile, method, statusCallBackUrl, statusCallBackMethod, fallBackUrl, fallBackMethod, heartBeatUrl, heartBeatMethod, timeout, playDtmf, hideCallerId, record, recordCallBackUrl, recordCallBackMethod, transcribe, transcribeCallBackUrl)
 
 ```
 
@@ -1587,13 +1404,13 @@ Factory for the ``` PHONENUMBER ``` interface can be accessed from the package p
 phoneNumber := phonenumber_pkg.NewPHONENUMBER()
 ```
 
-### <a name="create_incomingphone_getdidscore"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateIncomingphoneGetdidscore") CreateIncomingphoneGetdidscore
+### <a name="create_get_did_score"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateGetDIDScore") CreateGetDIDScore
 
 > Get DID Score Number
 
 
 ```go
-func (me *PHONENUMBER_IMPL) CreateIncomingphoneGetdidscore(phonenumber string)(string,error)
+func (me *PHONENUMBER_IMPL) CreateGetDIDScore(phonenumber string)(string,error)
 ```
 
 #### Parameters
@@ -1609,104 +1426,52 @@ func (me *PHONENUMBER_IMPL) CreateIncomingphoneGetdidscore(phonenumber string)(s
 phonenumber := "Phonenumber"
 
 var result string
-result,_ = phoneNumber.CreateIncomingphoneGetdidscore(phonenumber)
+result,_ = phoneNumber.CreateGetDIDScore(phonenumber)
 
 ```
 
 
-### <a name="create_incomingphone_bulkbuy"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateIncomingphoneBulkbuy") CreateIncomingphoneBulkbuy
+### <a name="create_move_number"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateMoveNumber") CreateMoveNumber
 
-> Purchase a selected number of DID's from specific area codes to be used with your Ytel account.
+> Transfer phone number that has been purchased for from one account to another account.
 
 
 ```go
-func (me *PHONENUMBER_IMPL) CreateIncomingphoneBulkbuy(input *CreateIncomingphoneBulkbuyInput)(string,error)
+func (me *PHONENUMBER_IMPL) CreateMoveNumber(
+            phonenumber string,
+            fromaccountsid string,
+            toaccountsid string)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| numberType |  ``` Required ```  | The capability the number supports. |
-| areaCode |  ``` Required ```  | Specifies the area code for the returned list of available numbers. Only available for North American numbers. |
-| quantity |  ``` Required ```  | A positive integer that tells how many number you want to buy at a time. |
-| leftover |  ``` Optional ```  | If desired quantity is unavailable purchase what is available . |
+| phonenumber |  ``` Required ```  | A valid 10-digit Ytel number (E.164 format). |
+| fromaccountsid |  ``` Required ```  | A specific Accountsid from where Number is getting transfer. |
+| toaccountsid |  ``` Required ```  | A specific Accountsid to which Number is getting transfer. |
 
 
 #### Example Usage
 
 ```go
-collect := new (phonenumber_pkg.CreateIncomingphoneBulkbuyInput)
-
-numberType := models_pkg.numbertype16_ALL
-collect.NumberType = numberType
-
-areaCode := "AreaCode"
-collect.AreaCode = areaCode
-
-quantity := "Quantity"
-collect.Quantity = quantity
-
-leftover := "Leftover"
-collect.Leftover = leftover
-
+phonenumber := "phonenumber"
+fromaccountsid := "fromaccountsid"
+toaccountsid := "toaccountsid"
 
 var result string
-result,_ = phoneNumber.CreateIncomingphoneBulkbuy(collect)
+result,_ = phoneNumber.CreateMoveNumber(phonenumber, fromaccountsid, toaccountsid)
 
 ```
 
 
-### <a name="create_incomingphone_listnumber"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateIncomingphoneListnumber") CreateIncomingphoneListnumber
-
-> Retrieve a list of purchased phones numbers associated with your Ytel account.
-
-
-```go
-func (me *PHONENUMBER_IMPL) CreateIncomingphoneListnumber(input *CreateIncomingphoneListnumberInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  ``` DefaultValue ```  | Which page of the overall response will be returned. Page indexing starts at 1. |
-| pageSize |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| numberType |  ``` Optional ```  | The capability supported by the number.Number type either SMS,Voice or all |
-| friendlyName |  ``` Optional ```  | A human-readable label added to the number object. |
-
-
-#### Example Usage
-
-```go
-collect := new (phonenumber_pkg.CreateIncomingphoneListnumberInput)
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pageSize,_ := strconv.ParseInt("10", 10, 8)
-collect.PageSize = pageSize
-
-numberType := models_pkg.numbertype16_ALL
-collect.NumberType = numberType
-
-friendlyName := "FriendlyName"
-collect.FriendlyName = friendlyName
-
-
-var result string
-result,_ = phoneNumber.CreateIncomingphoneListnumber(collect)
-
-```
-
-
-### <a name="create_incomingphone_buynumber"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateIncomingphoneBuynumber") CreateIncomingphoneBuynumber
+### <a name="create_purchase_number"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreatePurchaseNumber") CreatePurchaseNumber
 
 > Purchase a phone number to be used with your Ytel account
 
 
 ```go
-func (me *PHONENUMBER_IMPL) CreateIncomingphoneBuynumber(phoneNumber string)(string,error)
+func (me *PHONENUMBER_IMPL) CreatePurchaseNumber(phoneNumber string)(string,error)
 ```
 
 #### Parameters
@@ -1722,53 +1487,49 @@ func (me *PHONENUMBER_IMPL) CreateIncomingphoneBuynumber(phoneNumber string)(str
 phoneNumber := "PhoneNumber"
 
 var result string
-result,_ = phoneNumber.CreateIncomingphoneBuynumber(phoneNumber)
+result,_ = phoneNumber.CreatePurchaseNumber(phoneNumber)
 
 ```
 
 
-### <a name="create_incomingphone_releasenumber_by_response_type_post"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateIncomingphoneReleasenumberByResponseTypePost") CreateIncomingphoneReleasenumberByResponseTypePost
+### <a name="create_release_number"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateReleaseNumber") CreateReleaseNumber
 
 > Remove a purchased Ytel number from your account.
 
 
 ```go
-func (me *PHONENUMBER_IMPL) CreateIncomingphoneReleasenumberByResponseTypePost(input *CreateIncomingphoneReleasenumberByResponseTypePostInput)(string,error)
+func (me *PHONENUMBER_IMPL) CreateReleaseNumber(
+            responseType string,
+            phoneNumber string)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| phoneNumber |  ``` Required ```  | A valid 10-digit Ytel number (E.164 format). |
 | responseType |  ``` Required ```  | Response type format xml or json |
+| phoneNumber |  ``` Required ```  | A valid 10-digit Ytel number (E.164 format). |
 
 
 #### Example Usage
 
 ```go
-collect := new (phonenumber_pkg.CreateIncomingphoneReleasenumberByResponseTypePostInput)
-
-phoneNumber := "PhoneNumber"
-collect.PhoneNumber = phoneNumber
-
 responseType := "ResponseType"
-collect.ResponseType = responseType
-
+phoneNumber := "PhoneNumber"
 
 var result string
-result,_ = phoneNumber.CreateIncomingphoneReleasenumberByResponseTypePost(collect)
+result,_ = phoneNumber.CreateReleaseNumber(responseType, phoneNumber)
 
 ```
 
 
-### <a name="create_incomingphone_viewnumber"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateIncomingphoneViewnumber") CreateIncomingphoneViewnumber
+### <a name="create_view_details"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateViewDetails") CreateViewDetails
 
 > Retrieve the details for a phone number by its number.
 
 
 ```go
-func (me *PHONENUMBER_IMPL) CreateIncomingphoneViewnumber(phoneNumber string)(string,error)
+func (me *PHONENUMBER_IMPL) CreateViewDetails(phoneNumber string)(string,error)
 ```
 
 #### Parameters
@@ -1784,57 +1545,18 @@ func (me *PHONENUMBER_IMPL) CreateIncomingphoneViewnumber(phoneNumber string)(st
 phoneNumber := "PhoneNumber"
 
 var result string
-result,_ = phoneNumber.CreateIncomingphoneViewnumber(phoneNumber)
+result,_ = phoneNumber.CreateViewDetails(phoneNumber)
 
 ```
 
 
-### <a name="create_incomingphone_transferphonenumbers"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateIncomingphoneTransferphonenumbers") CreateIncomingphoneTransferphonenumbers
-
-> Transfer phone number that has been purchased for from one account to another account.
-
-
-```go
-func (me *PHONENUMBER_IMPL) CreateIncomingphoneTransferphonenumbers(input *CreateIncomingphoneTransferphonenumbersInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| phonenumber |  ``` Required ```  | A valid 10-digit Ytel number (E.164 format). |
-| fromaccountsid |  ``` Required ```  | A specific Accountsid from where Number is getting transfer. |
-| toaccountsid |  ``` Required ```  | A specific Accountsid to which Number is getting transfer. |
-
-
-#### Example Usage
-
-```go
-collect := new (phonenumber_pkg.CreateIncomingphoneTransferphonenumbersInput)
-
-phonenumber := "phonenumber"
-collect.Phonenumber = phonenumber
-
-fromaccountsid := "fromaccountsid"
-collect.Fromaccountsid = fromaccountsid
-
-toaccountsid := "toaccountsid"
-collect.Toaccountsid = toaccountsid
-
-
-var result string
-result,_ = phoneNumber.CreateIncomingphoneTransferphonenumbers(collect)
-
-```
-
-
-### <a name="create_incomingphone_massreleasenumber"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateIncomingphoneMassreleasenumber") CreateIncomingphoneMassreleasenumber
+### <a name="create_bulk_release"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateBulkRelease") CreateBulkRelease
 
 > Remove a purchased Ytel number from your account.
 
 
 ```go
-func (me *PHONENUMBER_IMPL) CreateIncomingphoneMassreleasenumber(phoneNumber string)(string,error)
+func (me *PHONENUMBER_IMPL) CreateBulkRelease(phoneNumber string)(string,error)
 ```
 
 #### Parameters
@@ -1850,101 +1572,66 @@ func (me *PHONENUMBER_IMPL) CreateIncomingphoneMassreleasenumber(phoneNumber str
 phoneNumber := "PhoneNumber"
 
 var result string
-result,_ = phoneNumber.CreateIncomingphoneMassreleasenumber(phoneNumber)
+result,_ = phoneNumber.CreateBulkRelease(phoneNumber)
 
 ```
 
 
-### <a name="create_incomingphone_massupdatenumber"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateIncomingphoneMassupdatenumber") CreateIncomingphoneMassupdatenumber
+### <a name="create_available_numbers"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateAvailableNumbers") CreateAvailableNumbers
 
-> Update properties for a Ytel numbers that has been purchased for your account. Refer to the parameters list for the list of properties that can be updated.
+> Retrieve a list of available phone numbers that can be purchased and used for your Ytel account.
 
 
 ```go
-func (me *PHONENUMBER_IMPL) CreateIncomingphoneMassupdatenumber(input *CreateIncomingphoneMassupdatenumberInput)(string,error)
+func (me *PHONENUMBER_IMPL) CreateAvailableNumbers(
+            numbertype models_pkg.NumbertypeEnum,
+            areacode string,
+            pagesize *int64)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| phoneNumber |  ``` Required ```  | A valid comma(,) separated Ytel numbers. (E.164 format). |
-| voiceUrl |  ``` Required ```  | The URL returning InboundXML incoming calls should execute when connected. |
-| friendlyName |  ``` Optional ```  | A human-readable value for labeling the number. |
-| voiceMethod |  ``` Optional ```  | Specifies the HTTP method used to request the VoiceUrl once incoming call connects. |
-| voiceFallbackUrl |  ``` Optional ```  | URL used if any errors occur during execution of InboundXML on a call or at initial request of the voice url |
-| voiceFallbackMethod |  ``` Optional ```  | Specifies the HTTP method used to request the VoiceFallbackUrl once incoming call connects. |
-| hangupCallback |  ``` Optional ```  | URL that can be requested to receive notification when and how incoming call has ended. |
-| hangupCallbackMethod |  ``` Optional ```  | The HTTP method Ytel will use when requesting the HangupCallback URL. |
-| heartbeatUrl |  ``` Optional ```  | URL that can be used to monitor the phone number. |
-| heartbeatMethod |  ``` Optional ```  | The HTTP method Ytel will use when requesting the HeartbeatUrl. |
-| smsUrl |  ``` Optional ```  | URL requested when an SMS is received. |
-| smsMethod |  ``` Optional ```  | The HTTP method Ytel will use when requesting the SmsUrl. |
-| smsFallbackUrl |  ``` Optional ```  | URL used if any errors occur during execution of InboundXML from an SMS or at initial request of the SmsUrl. |
-| smsFallbackMethod |  ``` Optional ```  | The HTTP method Ytel will use when URL requested if the SmsUrl is not available. |
+| numbertype |  ``` Required ```  | Number type either SMS,Voice or all |
+| areacode |  ``` Required ```  | Specifies the area code for the returned list of available numbers. Only available for North American numbers. |
+| pagesize |  ``` Optional ```  | The count of objects to return. |
 
 
 #### Example Usage
 
 ```go
-collect := new (phonenumber_pkg.CreateIncomingphoneMassupdatenumberInput)
-
-phoneNumber := "PhoneNumber"
-collect.PhoneNumber = phoneNumber
-
-voiceUrl := "VoiceUrl"
-collect.VoiceUrl = voiceUrl
-
-friendlyName := "FriendlyName"
-collect.FriendlyName = friendlyName
-
-voiceMethod := "VoiceMethod"
-collect.VoiceMethod = voiceMethod
-
-voiceFallbackUrl := "VoiceFallbackUrl"
-collect.VoiceFallbackUrl = voiceFallbackUrl
-
-voiceFallbackMethod := "VoiceFallbackMethod"
-collect.VoiceFallbackMethod = voiceFallbackMethod
-
-hangupCallback := "HangupCallback"
-collect.HangupCallback = hangupCallback
-
-hangupCallbackMethod := "HangupCallbackMethod"
-collect.HangupCallbackMethod = hangupCallbackMethod
-
-heartbeatUrl := "HeartbeatUrl"
-collect.HeartbeatUrl = heartbeatUrl
-
-heartbeatMethod := "HeartbeatMethod"
-collect.HeartbeatMethod = heartbeatMethod
-
-smsUrl := "SmsUrl"
-collect.SmsUrl = smsUrl
-
-smsMethod := "SmsMethod"
-collect.SmsMethod = smsMethod
-
-smsFallbackUrl := "SmsFallbackUrl"
-collect.SmsFallbackUrl = smsFallbackUrl
-
-smsFallbackMethod := "SmsFallbackMethod"
-collect.SmsFallbackMethod = smsFallbackMethod
-
+numbertype := models_pkg.numbertype_ALL
+areacode := "areacode"
+pagesize,_ := strconv.ParseInt("113", 10, 8)
 
 var result string
-result,_ = phoneNumber.CreateIncomingphoneMassupdatenumber(collect)
+result,_ = phoneNumber.CreateAvailableNumbers(numbertype, areacode, pagesize)
 
 ```
 
 
-### <a name="create_incomingphone_updatenumber"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateIncomingphoneUpdatenumber") CreateIncomingphoneUpdatenumber
+### <a name="update_number"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.UpdateNumber") UpdateNumber
 
 > Update properties for a Ytel number that has been purchased for your account. Refer to the parameters list for the list of properties that can be updated.
 
 
 ```go
-func (me *PHONENUMBER_IMPL) CreateIncomingphoneUpdatenumber(input *CreateIncomingphoneUpdatenumberInput)(string,error)
+func (me *PHONENUMBER_IMPL) UpdateNumber(
+            phoneNumber string,
+            voiceUrl string,
+            friendlyName *string,
+            voiceMethod *string,
+            voiceFallbackUrl *string,
+            voiceFallbackMethod *string,
+            hangupCallback *string,
+            hangupCallbackMethod *string,
+            heartbeatUrl *string,
+            heartbeatMethod *string,
+            smsUrl *string,
+            smsMethod *string,
+            smsFallbackUrl *string,
+            smsFallbackMethod *string)(string,error)
 ```
 
 #### Parameters
@@ -1970,92 +1657,164 @@ func (me *PHONENUMBER_IMPL) CreateIncomingphoneUpdatenumber(input *CreateIncomin
 #### Example Usage
 
 ```go
-collect := new (phonenumber_pkg.CreateIncomingphoneUpdatenumberInput)
-
 phoneNumber := "PhoneNumber"
-collect.PhoneNumber = phoneNumber
-
 voiceUrl := "VoiceUrl"
-collect.VoiceUrl = voiceUrl
-
 friendlyName := "FriendlyName"
-collect.FriendlyName = friendlyName
-
 voiceMethod := "VoiceMethod"
-collect.VoiceMethod = voiceMethod
-
 voiceFallbackUrl := "VoiceFallbackUrl"
-collect.VoiceFallbackUrl = voiceFallbackUrl
-
 voiceFallbackMethod := "VoiceFallbackMethod"
-collect.VoiceFallbackMethod = voiceFallbackMethod
-
 hangupCallback := "HangupCallback"
-collect.HangupCallback = hangupCallback
-
 hangupCallbackMethod := "HangupCallbackMethod"
-collect.HangupCallbackMethod = hangupCallbackMethod
-
 heartbeatUrl := "HeartbeatUrl"
-collect.HeartbeatUrl = heartbeatUrl
-
 heartbeatMethod := "HeartbeatMethod"
-collect.HeartbeatMethod = heartbeatMethod
-
 smsUrl := "SmsUrl"
-collect.SmsUrl = smsUrl
-
 smsMethod := "SmsMethod"
-collect.SmsMethod = smsMethod
-
 smsFallbackUrl := "SmsFallbackUrl"
-collect.SmsFallbackUrl = smsFallbackUrl
-
 smsFallbackMethod := "SmsFallbackMethod"
-collect.SmsFallbackMethod = smsFallbackMethod
-
 
 var result string
-result,_ = phoneNumber.CreateIncomingphoneUpdatenumber(collect)
+result,_ = phoneNumber.UpdateNumber(phoneNumber, voiceUrl, friendlyName, voiceMethod, voiceFallbackUrl, voiceFallbackMethod, hangupCallback, hangupCallbackMethod, heartbeatUrl, heartbeatMethod, smsUrl, smsMethod, smsFallbackUrl, smsFallbackMethod)
 
 ```
 
 
-### <a name="create_incomingphone_availablenumber"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateIncomingphoneAvailablenumber") CreateIncomingphoneAvailablenumber
+### <a name="create_list_numbers"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateListNumbers") CreateListNumbers
 
-> Retrieve a list of available phone numbers that can be purchased and used for your Ytel account.
+> Retrieve a list of purchased phones numbers associated with your Ytel account.
 
 
 ```go
-func (me *PHONENUMBER_IMPL) CreateIncomingphoneAvailablenumber(input *CreateIncomingphoneAvailablenumberInput)(string,error)
+func (me *PHONENUMBER_IMPL) CreateListNumbers(
+            page *int64,
+            pageSize *int64,
+            numberType models_pkg.NumberType14Enum,
+            friendlyName *string)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| numbertype |  ``` Required ```  | Number type either SMS,Voice or all |
-| areacode |  ``` Required ```  | Specifies the area code for the returned list of available numbers. Only available for North American numbers. |
-| pagesize |  ``` Optional ```  ``` DefaultValue ```  | The count of objects to return. |
+| page |  ``` Optional ```  | Which page of the overall response will be returned. Page indexing starts at 1. |
+| pageSize |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| numberType |  ``` Optional ```  | The capability supported by the number.Number type either SMS,Voice or all |
+| friendlyName |  ``` Optional ```  | A human-readable label added to the number object. |
 
 
 #### Example Usage
 
 ```go
-collect := new (phonenumber_pkg.CreateIncomingphoneAvailablenumberInput)
-
-numbertype := models_pkg.numbertype16_ALL
-collect.Numbertype = numbertype
-
-areacode := "areacode"
-collect.Areacode = areacode
-
-pagesize,_ := strconv.ParseInt("10", 10, 8)
-collect.Pagesize = pagesize
-
+page,_ := strconv.ParseInt("113", 10, 8)
+pageSize,_ := strconv.ParseInt("113", 10, 8)
+numberType := models_pkg.NumberType14_ALL
+friendlyName := "FriendlyName"
 
 var result string
-result,_ = phoneNumber.CreateIncomingphoneAvailablenumber(collect)
+result,_ = phoneNumber.CreateListNumbers(page, pageSize, numberType, friendlyName)
+
+```
+
+
+### <a name="create_bulk_update_numbers"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateBulkUpdateNumbers") CreateBulkUpdateNumbers
+
+> Update properties for a Ytel numbers that has been purchased for your account. Refer to the parameters list for the list of properties that can be updated.
+
+
+```go
+func (me *PHONENUMBER_IMPL) CreateBulkUpdateNumbers(
+            phoneNumber string,
+            voiceUrl string,
+            friendlyName *string,
+            voiceMethod *string,
+            voiceFallbackUrl *string,
+            voiceFallbackMethod *string,
+            hangupCallback *string,
+            hangupCallbackMethod *string,
+            heartbeatUrl *string,
+            heartbeatMethod *string,
+            smsUrl *string,
+            smsMethod *string,
+            smsFallbackUrl *string,
+            smsFallbackMethod *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| phoneNumber |  ``` Required ```  | A valid comma(,) separated Ytel numbers. (E.164 format). |
+| voiceUrl |  ``` Required ```  | The URL returning InboundXML incoming calls should execute when connected. |
+| friendlyName |  ``` Optional ```  | A human-readable value for labeling the number. |
+| voiceMethod |  ``` Optional ```  | Specifies the HTTP method used to request the VoiceUrl once incoming call connects. |
+| voiceFallbackUrl |  ``` Optional ```  | URL used if any errors occur during execution of InboundXML on a call or at initial request of the voice url |
+| voiceFallbackMethod |  ``` Optional ```  | Specifies the HTTP method used to request the VoiceFallbackUrl once incoming call connects. |
+| hangupCallback |  ``` Optional ```  | URL that can be requested to receive notification when and how incoming call has ended. |
+| hangupCallbackMethod |  ``` Optional ```  | The HTTP method Ytel will use when requesting the HangupCallback URL. |
+| heartbeatUrl |  ``` Optional ```  | URL that can be used to monitor the phone number. |
+| heartbeatMethod |  ``` Optional ```  | The HTTP method Ytel will use when requesting the HeartbeatUrl. |
+| smsUrl |  ``` Optional ```  | URL requested when an SMS is received. |
+| smsMethod |  ``` Optional ```  | The HTTP method Ytel will use when requesting the SmsUrl. |
+| smsFallbackUrl |  ``` Optional ```  | URL used if any errors occur during execution of InboundXML from an SMS or at initial request of the SmsUrl. |
+| smsFallbackMethod |  ``` Optional ```  | The HTTP method Ytel will use when URL requested if the SmsUrl is not available. |
+
+
+#### Example Usage
+
+```go
+phoneNumber := "PhoneNumber"
+voiceUrl := "VoiceUrl"
+friendlyName := "FriendlyName"
+voiceMethod := "VoiceMethod"
+voiceFallbackUrl := "VoiceFallbackUrl"
+voiceFallbackMethod := "VoiceFallbackMethod"
+hangupCallback := "HangupCallback"
+hangupCallbackMethod := "HangupCallbackMethod"
+heartbeatUrl := "HeartbeatUrl"
+heartbeatMethod := "HeartbeatMethod"
+smsUrl := "SmsUrl"
+smsMethod := "SmsMethod"
+smsFallbackUrl := "SmsFallbackUrl"
+smsFallbackMethod := "SmsFallbackMethod"
+
+var result string
+result,_ = phoneNumber.CreateBulkUpdateNumbers(phoneNumber, voiceUrl, friendlyName, voiceMethod, voiceFallbackUrl, voiceFallbackMethod, hangupCallback, hangupCallbackMethod, heartbeatUrl, heartbeatMethod, smsUrl, smsMethod, smsFallbackUrl, smsFallbackMethod)
+
+```
+
+
+### <a name="create_bulk_buy_numbers"></a>![Method: ](https://apidocs.io/img/method.png ".phonenumber_pkg.CreateBulkBuyNumbers") CreateBulkBuyNumbers
+
+> Purchase a selected number of DID's from specific area codes to be used with your Ytel account.
+
+
+```go
+func (me *PHONENUMBER_IMPL) CreateBulkBuyNumbers(
+            numberType models_pkg.NumberType15Enum,
+            areaCode string,
+            quantity string,
+            leftover *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| numberType |  ``` Required ```  | The capability the number supports. |
+| areaCode |  ``` Required ```  | Specifies the area code for the returned list of available numbers. Only available for North American numbers. |
+| quantity |  ``` Required ```  | A positive integer that tells how many number you want to buy at a time. |
+| leftover |  ``` Optional ```  | If desired quantity is unavailable purchase what is available . |
+
+
+#### Example Usage
+
+```go
+numberType := models_pkg.NumberType15_ALL
+areaCode := "AreaCode"
+quantity := "Quantity"
+leftover := "Leftover"
+
+var result string
+result,_ = phoneNumber.CreateBulkBuyNumbers(numberType, areaCode, quantity, leftover)
 
 ```
 
@@ -2072,13 +1831,13 @@ Factory for the ``` SMS ``` interface can be accessed from the package sms_pkg.
 sMS := sms_pkg.NewSMS()
 ```
 
-### <a name="create_sms_viewdetailsms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.CreateSmsViewdetailsms") CreateSmsViewdetailsms
+### <a name="create_view_sms1"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.CreateViewSMS1") CreateViewSMS1
 
 > Retrieve a single SMS message object with details by its SmsSid.
 
 
 ```go
-func (me *SMS_IMPL) CreateSmsViewdetailsms(messageSid string)(string,error)
+func (me *SMS_IMPL) CreateViewSMS1(messageSid string)(string,error)
 ```
 
 #### Parameters
@@ -2094,18 +1853,18 @@ func (me *SMS_IMPL) CreateSmsViewdetailsms(messageSid string)(string,error)
 messageSid := "MessageSid"
 
 var result string
-result,_ = sMS.CreateSmsViewdetailsms(messageSid)
+result,_ = sMS.CreateViewSMS1(messageSid)
 
 ```
 
 
-### <a name="create_sms_viewsms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.CreateSmsViewsms") CreateSmsViewsms
+### <a name="create_view_sms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.CreateViewSMS") CreateViewSMS
 
 > Retrieve a single SMS message object by its SmsSid.
 
 
 ```go
-func (me *SMS_IMPL) CreateSmsViewsms(messageSid string)(string,error)
+func (me *SMS_IMPL) CreateViewSMS(messageSid string)(string,error)
 ```
 
 #### Parameters
@@ -2121,112 +1880,25 @@ func (me *SMS_IMPL) CreateSmsViewsms(messageSid string)(string,error)
 messageSid := "MessageSid"
 
 var result string
-result,_ = sMS.CreateSmsViewsms(messageSid)
+result,_ = sMS.CreateViewSMS(messageSid)
 
 ```
 
 
-### <a name="create_sms_getinboundsms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.CreateSmsGetinboundsms") CreateSmsGetinboundsms
-
-> Retrieve a list of Inbound SMS message objects.
-
-
-```go
-func (me *SMS_IMPL) CreateSmsGetinboundsms(input *CreateSmsGetinboundsmsInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pageSize |  ``` Optional ```  ``` DefaultValue ```  | The count of objects to return per page. |
-| from |  ``` Optional ```  | Filter SMS message objects from this valid 10-digit phone number (E.164 format). |
-| to |  ``` Optional ```  | Filter SMS message objects to this valid 10-digit phone number (E.164 format). |
-| dateSent |  ``` Optional ```  | Filter sms message objects by this date. |
-
-
-#### Example Usage
-
-```go
-collect := new (sms_pkg.CreateSmsGetinboundsmsInput)
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pageSize,_ := strconv.ParseInt("10", 10, 8)
-collect.PageSize = pageSize
-
-from := "From"
-collect.From = from
-
-to := "To"
-collect.To = to
-
-dateSent := "DateSent"
-collect.DateSent = dateSent
-
-
-var result string
-result,_ = sMS.CreateSmsGetinboundsms(collect)
-
-```
-
-
-### <a name="create_sms_listsms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.CreateSmsListsms") CreateSmsListsms
-
-> Retrieve a list of Outbound SMS message objects.
-
-
-```go
-func (me *SMS_IMPL) CreateSmsListsms(input *CreateSmsListsmsInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pageSize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
-| from |  ``` Optional ```  | Filter SMS message objects from this valid 10-digit phone number (E.164 format). |
-| to |  ``` Optional ```  | Filter SMS message objects to this valid 10-digit phone number (E.164 format). |
-| dateSent |  ``` Optional ```  | Only list SMS messages sent in the specified date range |
-
-
-#### Example Usage
-
-```go
-collect := new (sms_pkg.CreateSmsListsmsInput)
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pageSize,_ := strconv.ParseInt("10", 10, 8)
-collect.PageSize = pageSize
-
-from := "From"
-collect.From = from
-
-to := "To"
-collect.To = to
-
-dateSent := "DateSent"
-collect.DateSent = dateSent
-
-
-var result string
-result,_ = sMS.CreateSmsListsms(collect)
-
-```
-
-
-### <a name="create_sms_sendsms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.CreateSmsSendsms") CreateSmsSendsms
+### <a name="create_send_sms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.CreateSendSMS") CreateSendSMS
 
 > Send an SMS from a Ytel number
 
 
 ```go
-func (me *SMS_IMPL) CreateSmsSendsms(input *CreateSmsSendsmsInput)(string,error)
+func (me *SMS_IMPL) CreateSendSMS(
+            from string,
+            to string,
+            body string,
+            method *string,
+            messageStatusCallback *string,
+            smartsms *bool,
+            deliveryStatus *bool)(string,error)
 ```
 
 #### Parameters
@@ -2238,39 +1910,103 @@ func (me *SMS_IMPL) CreateSmsSendsms(input *CreateSmsSendsmsInput)(string,error)
 | body |  ``` Required ```  | The body message that is to be sent in the text. |
 | method |  ``` Optional ```  | Specifies the HTTP method used to request the required URL once SMS sent. |
 | messageStatusCallback |  ``` Optional ```  | URL that can be requested to receive notification when SMS has Sent. A set of default parameters will be sent here once the SMS is finished. |
-| smartsms |  ``` Optional ```  ``` DefaultValue ```  | Check's 'to' number can receive sms or not using Carrier API, if wireless = true then text sms is sent, else wireless = false then call is recieved to end user with audible message. |
-| deliveryStatus |  ``` Optional ```  ``` DefaultValue ```  | Delivery reports are a method to tell your system if the message has arrived on the destination phone. |
+| smartsms |  ``` Optional ```  | Check's 'to' number can receive sms or not using Carrier API, if wireless = true then text sms is sent, else wireless = false then call is recieved to end user with audible message. |
+| deliveryStatus |  ``` Optional ```  | Delivery reports are a method to tell your system if the message has arrived on the destination phone. |
 
 
 #### Example Usage
 
 ```go
-collect := new (sms_pkg.CreateSmsSendsmsInput)
-
 from := "From"
-collect.From = from
-
 to := "To"
-collect.To = to
-
 body := "Body"
-collect.Body = body
-
 method := "Method"
-collect.Method = method
-
 messageStatusCallback := "MessageStatusCallback"
-collect.MessageStatusCallback = messageStatusCallback
-
 smartsms := false
-collect.Smartsms = smartsms
-
 deliveryStatus := false
-collect.DeliveryStatus = deliveryStatus
-
 
 var result string
-result,_ = sMS.CreateSmsSendsms(collect)
+result,_ = sMS.CreateSendSMS(from, to, body, method, messageStatusCallback, smartsms, deliveryStatus)
+
+```
+
+
+### <a name="create_list_sms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.CreateListSMS") CreateListSMS
+
+> Retrieve a list of Outbound SMS message objects.
+
+
+```go
+func (me *SMS_IMPL) CreateListSMS(
+            page *int64,
+            pageSize *int64,
+            from *string,
+            to *string,
+            dateSent *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pageSize |  ``` Optional ```  | Number of individual resources listed in the response per page |
+| from |  ``` Optional ```  | Filter SMS message objects from this valid 10-digit phone number (E.164 format). |
+| to |  ``` Optional ```  | Filter SMS message objects to this valid 10-digit phone number (E.164 format). |
+| dateSent |  ``` Optional ```  | Only list SMS messages sent in the specified date range |
+
+
+#### Example Usage
+
+```go
+page,_ := strconv.ParseInt("113", 10, 8)
+pageSize,_ := strconv.ParseInt("113", 10, 8)
+from := "From"
+to := "To"
+dateSent := "DateSent"
+
+var result string
+result,_ = sMS.CreateListSMS(page, pageSize, from, to, dateSent)
+
+```
+
+
+### <a name="create_list_inbound_sms"></a>![Method: ](https://apidocs.io/img/method.png ".sms_pkg.CreateListInboundSMS") CreateListInboundSMS
+
+> Retrieve a list of Inbound SMS message objects.
+
+
+```go
+func (me *SMS_IMPL) CreateListInboundSMS(
+            page *int64,
+            pageSize *int64,
+            from *string,
+            to *string,
+            dateSent *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pageSize |  ``` Optional ```  | The count of objects to return per page. |
+| from |  ``` Optional ```  | Filter SMS message objects from this valid 10-digit phone number (E.164 format). |
+| to |  ``` Optional ```  | Filter SMS message objects to this valid 10-digit phone number (E.164 format). |
+| dateSent |  ``` Optional ```  | Filter sms message objects by this date. |
+
+
+#### Example Usage
+
+```go
+page,_ := strconv.ParseInt("22", 10, 8)
+pageSize,_ := strconv.ParseInt("22", 10, 8)
+from := "From"
+to := "To"
+dateSent := "DateSent"
+
+var result string
+result,_ = sMS.CreateListInboundSMS(page, pageSize, from, to, dateSent)
 
 ```
 
@@ -2287,13 +2023,13 @@ Factory for the ``` SHAREDSHORTCODE ``` interface can be accessed from the packa
 sharedShortCode := sharedshortcode_pkg.NewSHAREDSHORTCODE()
 ```
 
-### <a name="create_shortcode_viewshortcode"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateShortcodeViewshortcode") CreateShortcodeViewshortcode
+### <a name="create_view_shortcode"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateViewShortcode") CreateViewShortcode
 
 > The response returned here contains all resource properties associated with the given Shortcode.
 
 
 ```go
-func (me *SHAREDSHORTCODE_IMPL) CreateShortcodeViewshortcode(shortcode string)(string,error)
+func (me *SHAREDSHORTCODE_IMPL) CreateViewShortcode(shortcode string)(string,error)
 ```
 
 #### Parameters
@@ -2309,18 +2045,18 @@ func (me *SHAREDSHORTCODE_IMPL) CreateShortcodeViewshortcode(shortcode string)(s
 shortcode := "Shortcode"
 
 var result string
-result,_ = sharedShortCode.CreateShortcodeViewshortcode(shortcode)
+result,_ = sharedShortCode.CreateViewShortcode(shortcode)
 
 ```
 
 
-### <a name="create_keyword_view"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateKeywordView") CreateKeywordView
+### <a name="create_view_keyword"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateViewKeyword") CreateViewKeyword
 
 > View a set of properties for a single keyword.
 
 
 ```go
-func (me *SHAREDSHORTCODE_IMPL) CreateKeywordView(keywordid string)(string,error)
+func (me *SHAREDSHORTCODE_IMPL) CreateViewKeyword(keywordid string)(string,error)
 ```
 
 #### Parameters
@@ -2336,18 +2072,242 @@ func (me *SHAREDSHORTCODE_IMPL) CreateKeywordView(keywordid string)(string,error
 keywordid := "Keywordid"
 
 var result string
-result,_ = sharedShortCode.CreateKeywordView(keywordid)
+result,_ = sharedShortCode.CreateViewKeyword(keywordid)
 
 ```
 
 
-### <a name="create_shortcode_updateshortcode"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateShortcodeUpdateshortcode") CreateShortcodeUpdateshortcode
+### <a name="create_view_template"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateViewTemplate") CreateViewTemplate
+
+> View a Shared ShortCode Template
+
+
+```go
+func (me *SHAREDSHORTCODE_IMPL) CreateViewTemplate(templateId uuid.UUID)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| templateId |  ``` Required ```  | The unique identifier for a template object |
+
+
+#### Example Usage
+
+```go
+templateId := uuid.NewV4()
+
+var result string
+result,_ = sharedShortCode.CreateViewTemplate(templateId)
+
+```
+
+
+### <a name="create_list_inbound_sms"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateListInboundSMS") CreateListInboundSMS
+
+> List All Inbound ShortCode
+
+
+```go
+func (me *SHAREDSHORTCODE_IMPL) CreateListInboundSMS(
+            datecreated *string,
+            page *int64,
+            pagesize *int64,
+            from *string,
+            shortcode *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| datecreated |  ``` Optional ```  | Only list messages sent with the specified date |
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pagesize |  ``` Optional ```  | Number of individual resources listed in the response per page |
+| from |  ``` Optional ```  | From Number to Inbound ShortCode |
+| shortcode |  ``` Optional ```  | Only list messages sent to this Short Code |
+
+
+#### Example Usage
+
+```go
+datecreated := "Datecreated"
+page,_ := strconv.ParseInt("22", 10, 8)
+pagesize,_ := strconv.ParseInt("22", 10, 8)
+from := "from"
+shortcode := "Shortcode"
+
+var result string
+result,_ = sharedShortCode.CreateListInboundSMS(datecreated, page, pagesize, from, shortcode)
+
+```
+
+
+### <a name="create_send_sms"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateSendSMS") CreateSendSMS
+
+> Send an SMS from a Ytel ShortCode
+
+
+```go
+func (me *SHAREDSHORTCODE_IMPL) CreateSendSMS(
+            shortcode string,
+            to string,
+            templateid uuid.UUID,
+            data string,
+            method *string,
+            messageStatusCallback *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| shortcode |  ``` Required ```  | The Short Code number that is the sender of this message |
+| to |  ``` Required ```  | A valid 10-digit number that should receive the message |
+| templateid |  ``` Required ```  | The unique identifier for the template used for the message |
+| data |  ``` Required ```  | format of your data, example: {companyname}:test,{otpcode}:1234 |
+| method |  ``` Optional ```  | Specifies the HTTP method used to request the required URL once the Short Code message is sent. |
+| messageStatusCallback |  ``` Optional ```  | URL that can be requested to receive notification when Short Code message was sent. |
+
+
+#### Example Usage
+
+```go
+shortcode := "shortcode"
+to := "to"
+templateid := uuid.NewV4()
+data := "data"
+method := "Method"
+messageStatusCallback := "MessageStatusCallback"
+
+var result string
+result,_ = sharedShortCode.CreateSendSMS(shortcode, to, templateid, data, method, messageStatusCallback)
+
+```
+
+
+### <a name="create_list_templates"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateListTemplates") CreateListTemplates
+
+> List Shortcode Templates by Type
+
+
+```go
+func (me *SHAREDSHORTCODE_IMPL) CreateListTemplates(
+            mtype *string,
+            page *int64,
+            pagesize *int64,
+            shortcode *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| mtype |  ``` Optional ```  | The type (category) of template Valid values: marketing, authorization |
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pagesize |  ``` Optional ```  | The count of objects to return per page. |
+| shortcode |  ``` Optional ```  | Only list templates of type |
+
+
+#### Example Usage
+
+```go
+mtype := "type"
+page,_ := strconv.ParseInt("22", 10, 8)
+pagesize,_ := strconv.ParseInt("22", 10, 8)
+shortcode := "Shortcode"
+
+var result string
+result,_ = sharedShortCode.CreateListTemplates(mtype, page, pagesize, shortcode)
+
+```
+
+
+### <a name="create_list_keywords"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateListKeywords") CreateListKeywords
+
+> Retrieve a list of keywords associated with your Ytel account.
+
+
+```go
+func (me *SHAREDSHORTCODE_IMPL) CreateListKeywords(
+            page *int64,
+            pagesize *int64,
+            keyword *string,
+            shortcode *int64)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pagesize |  ``` Optional ```  | Number of individual resources listed in the response per page |
+| keyword |  ``` Optional ```  | Only list keywords of keyword |
+| shortcode |  ``` Optional ```  | Only list keywords of shortcode |
+
+
+#### Example Usage
+
+```go
+page,_ := strconv.ParseInt("22", 10, 8)
+pagesize,_ := strconv.ParseInt("22", 10, 8)
+keyword := "Keyword"
+shortcode,_ := strconv.ParseInt("22", 10, 8)
+
+var result string
+result,_ = sharedShortCode.CreateListKeywords(page, pagesize, keyword, shortcode)
+
+```
+
+
+### <a name="create_list_shortcodes"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateListShortcodes") CreateListShortcodes
+
+> Retrieve a list of shortcode assignment associated with your Ytel account.
+
+
+```go
+func (me *SHAREDSHORTCODE_IMPL) CreateListShortcodes(
+            shortcode *string,
+            page *int64,
+            pagesize *int64)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| shortcode |  ``` Optional ```  | Only list keywords of shortcode |
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pagesize |  ``` Optional ```  | Number of individual resources listed in the response per page |
+
+
+#### Example Usage
+
+```go
+shortcode := "Shortcode"
+page,_ := strconv.ParseInt("22", 10, 8)
+pagesize,_ := strconv.ParseInt("22", 10, 8)
+
+var result string
+result,_ = sharedShortCode.CreateListShortcodes(shortcode, page, pagesize)
+
+```
+
+
+### <a name="update_shortcode"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.UpdateShortcode") UpdateShortcode
 
 > Update Assignment
 
 
 ```go
-func (me *SHAREDSHORTCODE_IMPL) CreateShortcodeUpdateshortcode(input *CreateShortcodeUpdateshortcodeInput)(string,error)
+func (me *SHAREDSHORTCODE_IMPL) UpdateShortcode(
+            shortcode string,
+            friendlyName *string,
+            callbackUrl *string,
+            callbackMethod *string,
+            fallbackUrl *string,
+            fallbackUrlMethod *string)(string,error)
 ```
 
 #### Parameters
@@ -2365,279 +2325,15 @@ func (me *SHAREDSHORTCODE_IMPL) CreateShortcodeUpdateshortcode(input *CreateShor
 #### Example Usage
 
 ```go
-collect := new (sharedshortcode_pkg.CreateShortcodeUpdateshortcodeInput)
-
 shortcode := "Shortcode"
-collect.Shortcode = shortcode
-
 friendlyName := "FriendlyName"
-collect.FriendlyName = friendlyName
-
 callbackUrl := "CallbackUrl"
-collect.CallbackUrl = callbackUrl
-
 callbackMethod := "CallbackMethod"
-collect.CallbackMethod = callbackMethod
-
 fallbackUrl := "FallbackUrl"
-collect.FallbackUrl = fallbackUrl
-
 fallbackUrlMethod := "FallbackUrlMethod"
-collect.FallbackUrlMethod = fallbackUrlMethod
-
 
 var result string
-result,_ = sharedShortCode.CreateShortcodeUpdateshortcode(collect)
-
-```
-
-
-### <a name="create_template_view"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateTemplateView") CreateTemplateView
-
-> View a Shared ShortCode Template
-
-
-```go
-func (me *SHAREDSHORTCODE_IMPL) CreateTemplateView(templateId uuid.UUID)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| templateId |  ``` Required ```  | The unique identifier for a template object |
-
-
-#### Example Usage
-
-```go
-templateId := uuid.NewV4()
-
-var result string
-result,_ = sharedShortCode.CreateTemplateView(templateId)
-
-```
-
-
-### <a name="create_shortcode_listshortcode"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateShortcodeListshortcode") CreateShortcodeListshortcode
-
-> Retrieve a list of shortcode assignment associated with your Ytel account.
-
-
-```go
-func (me *SHAREDSHORTCODE_IMPL) CreateShortcodeListshortcode(input *CreateShortcodeListshortcodeInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pagesize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
-| shortcode |  ``` Optional ```  | Only list keywords of shortcode |
-
-
-#### Example Usage
-
-```go
-collect := new (sharedshortcode_pkg.CreateShortcodeListshortcodeInput)
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("10", 10, 8)
-collect.Pagesize = pagesize
-
-shortcode := "Shortcode"
-collect.Shortcode = shortcode
-
-
-var result string
-result,_ = sharedShortCode.CreateShortcodeListshortcode(collect)
-
-```
-
-
-### <a name="create_keyword_lists"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateKeywordLists") CreateKeywordLists
-
-> Retrieve a list of keywords associated with your Ytel account.
-
-
-```go
-func (me *SHAREDSHORTCODE_IMPL) CreateKeywordLists(input *CreateKeywordListsInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pagesize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
-| keyword |  ``` Optional ```  | Only list keywords of keyword |
-| shortcode |  ``` Optional ```  | Only list keywords of shortcode |
-
-
-#### Example Usage
-
-```go
-collect := new (sharedshortcode_pkg.CreateKeywordListsInput)
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("10", 10, 8)
-collect.Pagesize = pagesize
-
-keyword := "Keyword"
-collect.Keyword = keyword
-
-shortcode,_ := strconv.ParseInt("42", 10, 8)
-collect.Shortcode = shortcode
-
-
-var result string
-result,_ = sharedShortCode.CreateKeywordLists(collect)
-
-```
-
-
-### <a name="create_template_lists"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateTemplateLists") CreateTemplateLists
-
-> List Shortcode Templates by Type
-
-
-```go
-func (me *SHAREDSHORTCODE_IMPL) CreateTemplateLists(input *CreateTemplateListsInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| mtype |  ``` Optional ```  ``` DefaultValue ```  | The type (category) of template Valid values: marketing, authorization |
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pagesize |  ``` Optional ```  ``` DefaultValue ```  | The count of objects to return per page. |
-| shortcode |  ``` Optional ```  | Only list templates of type |
-
-
-#### Example Usage
-
-```go
-collect := new (sharedshortcode_pkg.CreateTemplateListsInput)
-
-mtype := "authorization"
-collect.Mtype = mtype
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("10", 10, 8)
-collect.Pagesize = pagesize
-
-shortcode := "Shortcode"
-collect.Shortcode = shortcode
-
-
-var result string
-result,_ = sharedShortCode.CreateTemplateLists(collect)
-
-```
-
-
-### <a name="create_shortcode_sendsms"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateShortcodeSendsms") CreateShortcodeSendsms
-
-> Send an SMS from a Ytel ShortCode
-
-
-```go
-func (me *SHAREDSHORTCODE_IMPL) CreateShortcodeSendsms(input *CreateShortcodeSendsmsInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| shortcode |  ``` Required ```  | The Short Code number that is the sender of this message |
-| to |  ``` Required ```  | A valid 10-digit number that should receive the message |
-| templateid |  ``` Required ```  | The unique identifier for the template used for the message |
-| data |  ``` Required ```  | format of your data, example: {companyname}:test,{otpcode}:1234 |
-| method |  ``` Optional ```  ``` DefaultValue ```  | Specifies the HTTP method used to request the required URL once the Short Code message is sent. |
-| messageStatusCallback |  ``` Optional ```  | URL that can be requested to receive notification when Short Code message was sent. |
-
-
-#### Example Usage
-
-```go
-collect := new (sharedshortcode_pkg.CreateShortcodeSendsmsInput)
-
-shortcode := "shortcode"
-collect.Shortcode = shortcode
-
-to := "to"
-collect.To = to
-
-templateid := uuid.NewV4()
-collect.Templateid = templateid
-
-data := "data"
-collect.Data = data
-
-method := "GET"
-collect.Method = method
-
-messageStatusCallback := "MessageStatusCallback"
-collect.MessageStatusCallback = messageStatusCallback
-
-
-var result string
-result,_ = sharedShortCode.CreateShortcodeSendsms(collect)
-
-```
-
-
-### <a name="create_shortcode_getinboundsms"></a>![Method: ](https://apidocs.io/img/method.png ".sharedshortcode_pkg.CreateShortcodeGetinboundsms") CreateShortcodeGetinboundsms
-
-> List All Inbound ShortCode
-
-
-```go
-func (me *SHAREDSHORTCODE_IMPL) CreateShortcodeGetinboundsms(input *CreateShortcodeGetinboundsmsInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pagesize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
-| from |  ``` Optional ```  | From Number to Inbound ShortCode |
-| shortcode |  ``` Optional ```  | Only list messages sent to this Short Code |
-| datecreated |  ``` Optional ```  | Only list messages sent with the specified date |
-
-
-#### Example Usage
-
-```go
-collect := new (sharedshortcode_pkg.CreateShortcodeGetinboundsmsInput)
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("10", 10, 8)
-collect.Pagesize = pagesize
-
-from := "from"
-collect.From = from
-
-shortcode := "Shortcode"
-collect.Shortcode = shortcode
-
-datecreated := "Datecreated"
-collect.Datecreated = datecreated
-
-
-var result string
-result,_ = sharedShortCode.CreateShortcodeGetinboundsms(collect)
+result,_ = sharedShortCode.UpdateShortcode(shortcode, friendlyName, callbackUrl, callbackMethod, fallbackUrl, fallbackUrlMethod)
 
 ```
 
@@ -2654,13 +2350,16 @@ Factory for the ``` CONFERENCE ``` interface can be accessed from the package co
 conference := conference_pkg.NewCONFERENCE()
 ```
 
-### <a name="create_conferences_play_audio"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateConferencesPlayAudio") CreateConferencesPlayAudio
+### <a name="create_play_audio"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreatePlayAudio") CreatePlayAudio
 
 > Play an audio file during a conference.
 
 
 ```go
-func (me *CONFERENCE_IMPL) CreateConferencesPlayAudio(input *CreateConferencesPlayAudioInput)(string,error)
+func (me *CONFERENCE_IMPL) CreatePlayAudio(
+            conferenceSid string,
+            participantSid string,
+            audioUrl models_pkg.AudioUrlEnum)(string,error)
 ```
 
 #### Parameters
@@ -2675,66 +2374,54 @@ func (me *CONFERENCE_IMPL) CreateConferencesPlayAudio(input *CreateConferencesPl
 #### Example Usage
 
 ```go
-collect := new (conference_pkg.CreateConferencesPlayAudioInput)
-
 conferenceSid := "ConferenceSid"
-collect.ConferenceSid = conferenceSid
-
 participantSid := "ParticipantSid"
-collect.ParticipantSid = participantSid
-
 audioUrl := models_pkg.AudioUrl_MP3
-collect.AudioUrl = audioUrl
-
 
 var result string
-result,_ = conference.CreateConferencesPlayAudio(collect)
+result,_ = conference.CreatePlayAudio(conferenceSid, participantSid, audioUrl)
 
 ```
 
 
-### <a name="create_conferences_hangup_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateConferencesHangupParticipant") CreateConferencesHangupParticipant
+### <a name="create_hangup_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateHangupParticipant") CreateHangupParticipant
 
 > Remove a participant from a conference.
 
 
 ```go
-func (me *CONFERENCE_IMPL) CreateConferencesHangupParticipant(input *CreateConferencesHangupParticipantInput)(string,error)
+func (me *CONFERENCE_IMPL) CreateHangupParticipant(
+            participantSid string,
+            conferenceSid string)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| conferenceSid |  ``` Required ```  | The unique identifier for a conference object. |
 | participantSid |  ``` Required ```  | The unique identifier for a participant object. |
+| conferenceSid |  ``` Required ```  | The unique identifier for a conference object. |
 
 
 #### Example Usage
 
 ```go
-collect := new (conference_pkg.CreateConferencesHangupParticipantInput)
-
-conferenceSid := "ConferenceSid"
-collect.ConferenceSid = conferenceSid
-
 participantSid := "ParticipantSid"
-collect.ParticipantSid = participantSid
-
+conferenceSid := "ConferenceSid"
 
 var result string
-result,_ = conference.CreateConferencesHangupParticipant(collect)
+result,_ = conference.CreateHangupParticipant(participantSid, conferenceSid)
 
 ```
 
 
-### <a name="create_conferences_viewconference"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateConferencesViewconference") CreateConferencesViewconference
+### <a name="create_view_conference"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateViewConference") CreateViewConference
 
 > Retrieve information about a conference by its ConferenceSid.
 
 
 ```go
-func (me *CONFERENCE_IMPL) CreateConferencesViewconference(conferenceSid string)(string,error)
+func (me *CONFERENCE_IMPL) CreateViewConference(conferenceSid string)(string,error)
 ```
 
 #### Parameters
@@ -2750,108 +2437,20 @@ func (me *CONFERENCE_IMPL) CreateConferencesViewconference(conferenceSid string)
 conferenceSid := "ConferenceSid"
 
 var result string
-result,_ = conference.CreateConferencesViewconference(conferenceSid)
+result,_ = conference.CreateViewConference(conferenceSid)
 
 ```
 
 
-### <a name="create_conferences_listconference"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateConferencesListconference") CreateConferencesListconference
-
-> Retrieve a list of conference objects.
-
-
-```go
-func (me *CONFERENCE_IMPL) CreateConferencesListconference(input *CreateConferencesListconferenceInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pagesize |  ``` Optional ```  ``` DefaultValue ```  | Number of individual resources listed in the response per page |
-| friendlyName |  ``` Optional ```  | Only return conferences with the specified FriendlyName |
-| dateCreated |  ``` Optional ```  | Conference created date |
-
-
-#### Example Usage
-
-```go
-collect := new (conference_pkg.CreateConferencesListconferenceInput)
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("10", 10, 8)
-collect.Pagesize = pagesize
-
-friendlyName := "FriendlyName"
-collect.FriendlyName = friendlyName
-
-dateCreated := "DateCreated"
-collect.DateCreated = dateCreated
-
-
-var result string
-result,_ = conference.CreateConferencesListconference(collect)
-
-```
-
-
-### <a name="create_conferences_list_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateConferencesListParticipant") CreateConferencesListParticipant
-
-> Retrieve a list of participants for an in-progress conference.
-
-
-```go
-func (me *CONFERENCE_IMPL) CreateConferencesListParticipant(input *CreateConferencesListParticipantInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| conferenceSid |  ``` Required ```  | The unique identifier for a conference. |
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pagesize |  ``` Optional ```  ``` DefaultValue ```  | The count of objects to return per page. |
-| muted |  ``` Optional ```  | Specifies if participant should be muted. |
-| deaf |  ``` Optional ```  | Specifies if the participant should hear audio in the conference. |
-
-
-#### Example Usage
-
-```go
-collect := new (conference_pkg.CreateConferencesListParticipantInput)
-
-conferenceSid := "ConferenceSid"
-collect.ConferenceSid = conferenceSid
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("10", 10, 8)
-collect.Pagesize = pagesize
-
-muted := false
-collect.Muted = muted
-
-deaf := false
-collect.Deaf = deaf
-
-
-var result string
-result,_ = conference.CreateConferencesListParticipant(collect)
-
-```
-
-
-### <a name="create_conferences_view_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateConferencesViewParticipant") CreateConferencesViewParticipant
+### <a name="create_view_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateViewParticipant") CreateViewParticipant
 
 > Retrieve information about a participant by its ParticipantSid.
 
 
 ```go
-func (me *CONFERENCE_IMPL) CreateConferencesViewParticipant(input *CreateConferencesViewParticipantInput)(string,error)
+func (me *CONFERENCE_IMPL) CreateViewParticipant(
+            conferenceSid string,
+            participantSid string)(string,error)
 ```
 
 #### Parameters
@@ -2865,150 +2464,26 @@ func (me *CONFERENCE_IMPL) CreateConferencesViewParticipant(input *CreateConfere
 #### Example Usage
 
 ```go
-collect := new (conference_pkg.CreateConferencesViewParticipantInput)
-
 conferenceSid := "ConferenceSid"
-collect.ConferenceSid = conferenceSid
-
 participantSid := "ParticipantSid"
-collect.ParticipantSid = participantSid
-
 
 var result string
-result,_ = conference.CreateConferencesViewParticipant(collect)
+result,_ = conference.CreateViewParticipant(conferenceSid, participantSid)
 
 ```
 
 
-### <a name="create_conferences_add_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateConferencesAddParticipant") CreateConferencesAddParticipant
-
-> Add Participant in conference 
-
-
-```go
-func (me *CONFERENCE_IMPL) CreateConferencesAddParticipant(input *CreateConferencesAddParticipantInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| conferenceSid |  ``` Required ```  | The unique identifier for a conference object. |
-| participantNumber |  ``` Required ```  | The phone number of the participant to be added. |
-| muted |  ``` Optional ```  | Specifies if participant should be muted. |
-| deaf |  ``` Optional ```  | Specifies if the participant should hear audio in the conference. |
-
-
-#### Example Usage
-
-```go
-collect := new (conference_pkg.CreateConferencesAddParticipantInput)
-
-conferenceSid := "ConferenceSid"
-collect.ConferenceSid = conferenceSid
-
-participantNumber := "ParticipantNumber"
-collect.ParticipantNumber = participantNumber
-
-muted := false
-collect.Muted = muted
-
-deaf := false
-collect.Deaf = deaf
-
-
-var result string
-result,_ = conference.CreateConferencesAddParticipant(collect)
-
-```
-
-
-### <a name="create_conferences_create_conference"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateConferencesCreateConference") CreateConferencesCreateConference
-
-> Here you can experiment with initiating a conference call through Ytel and view the request response generated when doing so.
-
-
-```go
-func (me *CONFERENCE_IMPL) CreateConferencesCreateConference(input *CreateConferencesCreateConferenceInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| from |  ``` Required ```  | A valid 10-digit number (E.164 format) that will be initiating the conference call. |
-| to |  ``` Required ```  | A valid 10-digit number (E.164 format) that is to receive the conference call. |
-| url |  ``` Required ```  | URL requested once the conference connects |
-| method |  ``` Optional ```  ``` DefaultValue ```  | Specifies the HTTP method used to request the required URL once call connects. |
-| statusCallBackUrl |  ``` Optional ```  | URL that can be requested to receive notification when call has ended. A set of default parameters will be sent here once the conference is finished. |
-| statusCallBackMethod |  ``` Optional ```  | Specifies the HTTP methodlinkclass used to request StatusCallbackUrl. |
-| fallbackUrl |  ``` Optional ```  | URL requested if the initial Url parameter fails or encounters an error |
-| fallbackMethod |  ``` Optional ```  | Specifies the HTTP method used to request the required FallbackUrl once call connects. |
-| record |  ``` Optional ```  | Specifies if the conference should be recorded. |
-| recordCallBackUrl |  ``` Optional ```  | Recording parameters will be sent here upon completion. |
-| recordCallBackMethod |  ``` Optional ```  | Specifies the HTTP method used to request the required URL once conference connects. |
-| scheduleTime |  ``` Optional ```  | Schedule conference in future. Schedule time must be greater than current time |
-| timeout |  ``` Optional ```  | The number of seconds the call stays on the line while waiting for an answer. The max time limit is 999 and the default limit is 60 seconds but lower times can be set. |
-
-
-#### Example Usage
-
-```go
-collect := new (conference_pkg.CreateConferencesCreateConferenceInput)
-
-from := "From"
-collect.From = from
-
-to := "To"
-collect.To = to
-
-url := "Url"
-collect.Url = url
-
-method := "POST"
-collect.Method = method
-
-statusCallBackUrl := "StatusCallBackUrl"
-collect.StatusCallBackUrl = statusCallBackUrl
-
-statusCallBackMethod := "StatusCallBackMethod"
-collect.StatusCallBackMethod = statusCallBackMethod
-
-fallbackUrl := "FallbackUrl"
-collect.FallbackUrl = fallbackUrl
-
-fallbackMethod := "FallbackMethod"
-collect.FallbackMethod = fallbackMethod
-
-record := false
-collect.Record = record
-
-recordCallBackUrl := "RecordCallBackUrl"
-collect.RecordCallBackUrl = recordCallBackUrl
-
-recordCallBackMethod := "RecordCallBackMethod"
-collect.RecordCallBackMethod = recordCallBackMethod
-
-scheduleTime := "ScheduleTime"
-collect.ScheduleTime = scheduleTime
-
-timeout,_ := strconv.ParseInt("42", 10, 8)
-collect.Timeout = timeout
-
-
-var result string
-result,_ = conference.CreateConferencesCreateConference(collect)
-
-```
-
-
-### <a name="create_conferences_deaf_mute_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateConferencesDeafMuteParticipant") CreateConferencesDeafMuteParticipant
+### <a name="create_silence_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateSilenceParticipant") CreateSilenceParticipant
 
 > Deaf Mute Participant
 
 
 ```go
-func (me *CONFERENCE_IMPL) CreateConferencesDeafMuteParticipant(input *CreateConferencesDeafMuteParticipantInput)(string,error)
+func (me *CONFERENCE_IMPL) CreateSilenceParticipant(
+            conferenceSid string,
+            participantSid string,
+            muted *bool,
+            deaf *bool)(string,error)
 ```
 
 #### Parameters
@@ -3024,23 +2499,191 @@ func (me *CONFERENCE_IMPL) CreateConferencesDeafMuteParticipant(input *CreateCon
 #### Example Usage
 
 ```go
-collect := new (conference_pkg.CreateConferencesDeafMuteParticipantInput)
-
 conferenceSid := "conferenceSid"
-collect.ConferenceSid = conferenceSid
-
 participantSid := "ParticipantSid"
-collect.ParticipantSid = participantSid
-
 muted := false
-collect.Muted = muted
-
 deaf := false
-collect.Deaf = deaf
-
 
 var result string
-result,_ = conference.CreateConferencesDeafMuteParticipant(collect)
+result,_ = conference.CreateSilenceParticipant(conferenceSid, participantSid, muted, deaf)
+
+```
+
+
+### <a name="add_participant"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.AddParticipant") AddParticipant
+
+> Add Participant in conference 
+
+
+```go
+func (me *CONFERENCE_IMPL) AddParticipant(
+            conferenceSid string,
+            participantNumber string,
+            muted *bool,
+            deaf *bool)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| conferenceSid |  ``` Required ```  | The unique identifier for a conference object. |
+| participantNumber |  ``` Required ```  | The phone number of the participant to be added. |
+| muted |  ``` Optional ```  | Specifies if participant should be muted. |
+| deaf |  ``` Optional ```  | Specifies if the participant should hear audio in the conference. |
+
+
+#### Example Usage
+
+```go
+conferenceSid := "ConferenceSid"
+participantNumber := "ParticipantNumber"
+muted := false
+deaf := false
+
+var result string
+result,_ = conference.AddParticipant(conferenceSid, participantNumber, muted, deaf)
+
+```
+
+
+### <a name="create_conference"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateConference") CreateConference
+
+> Here you can experiment with initiating a conference call through Ytel and view the request response generated when doing so.
+
+
+```go
+func (me *CONFERENCE_IMPL) CreateConference(
+            url string,
+            from string,
+            to string,
+            method *string,
+            statusCallBackUrl *string,
+            statusCallBackMethod *string,
+            fallbackUrl *string,
+            fallbackMethod *string,
+            record *bool,
+            recordCallBackUrl *string,
+            recordCallBackMethod *string,
+            scheduleTime *string,
+            timeout *int64)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| url |  ``` Required ```  | URL requested once the conference connects |
+| from |  ``` Required ```  | A valid 10-digit number (E.164 format) that will be initiating the conference call. |
+| to |  ``` Required ```  | A valid 10-digit number (E.164 format) that is to receive the conference call. |
+| method |  ``` Optional ```  | Specifies the HTTP method used to request the required URL once call connects. |
+| statusCallBackUrl |  ``` Optional ```  | URL that can be requested to receive notification when call has ended. A set of default parameters will be sent here once the conference is finished. |
+| statusCallBackMethod |  ``` Optional ```  | Specifies the HTTP methodlinkclass used to request StatusCallbackUrl. |
+| fallbackUrl |  ``` Optional ```  | URL requested if the initial Url parameter fails or encounters an error |
+| fallbackMethod |  ``` Optional ```  | Specifies the HTTP method used to request the required FallbackUrl once call connects. |
+| record |  ``` Optional ```  | Specifies if the conference should be recorded. |
+| recordCallBackUrl |  ``` Optional ```  | Recording parameters will be sent here upon completion. |
+| recordCallBackMethod |  ``` Optional ```  | Specifies the HTTP method used to request the required URL once conference connects. |
+| scheduleTime |  ``` Optional ```  | Schedule conference in future. Schedule time must be greater than current time |
+| timeout |  ``` Optional ```  | The number of seconds the call stays on the line while waiting for an answer. The max time limit is 999 and the default limit is 60 seconds but lower times can be set. |
+
+
+#### Example Usage
+
+```go
+url := "Url"
+from := "From"
+to := "To"
+method := "Method"
+statusCallBackUrl := "StatusCallBackUrl"
+statusCallBackMethod := "StatusCallBackMethod"
+fallbackUrl := "FallbackUrl"
+fallbackMethod := "FallbackMethod"
+record := false
+recordCallBackUrl := "RecordCallBackUrl"
+recordCallBackMethod := "RecordCallBackMethod"
+scheduleTime := "ScheduleTime"
+timeout,_ := strconv.ParseInt("22", 10, 8)
+
+var result string
+result,_ = conference.CreateConference(url, from, to, method, statusCallBackUrl, statusCallBackMethod, fallbackUrl, fallbackMethod, record, recordCallBackUrl, recordCallBackMethod, scheduleTime, timeout)
+
+```
+
+
+### <a name="create_list_participants"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateListParticipants") CreateListParticipants
+
+> Retrieve a list of participants for an in-progress conference.
+
+
+```go
+func (me *CONFERENCE_IMPL) CreateListParticipants(
+            conferenceSid string,
+            page *int64,
+            pagesize *int64,
+            muted *bool,
+            deaf *bool)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| conferenceSid |  ``` Required ```  | The unique identifier for a conference. |
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pagesize |  ``` Optional ```  | The count of objects to return per page. |
+| muted |  ``` Optional ```  | Specifies if participant should be muted. |
+| deaf |  ``` Optional ```  | Specifies if the participant should hear audio in the conference. |
+
+
+#### Example Usage
+
+```go
+conferenceSid := "ConferenceSid"
+page,_ := strconv.ParseInt("22", 10, 8)
+pagesize,_ := strconv.ParseInt("22", 10, 8)
+muted := false
+deaf := false
+
+var result string
+result,_ = conference.CreateListParticipants(conferenceSid, page, pagesize, muted, deaf)
+
+```
+
+
+### <a name="create_list_conferences"></a>![Method: ](https://apidocs.io/img/method.png ".conference_pkg.CreateListConferences") CreateListConferences
+
+> Retrieve a list of conference objects.
+
+
+```go
+func (me *CONFERENCE_IMPL) CreateListConferences(
+            page *int64,
+            pagesize *int64,
+            friendlyName *string,
+            dateCreated *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pagesize |  ``` Optional ```  | Number of individual resources listed in the response per page |
+| friendlyName |  ``` Optional ```  | Only return conferences with the specified FriendlyName |
+| dateCreated |  ``` Optional ```  | Conference created date |
+
+
+#### Example Usage
+
+```go
+page,_ := strconv.ParseInt("22", 10, 8)
+pagesize,_ := strconv.ParseInt("22", 10, 8)
+friendlyName := "FriendlyName"
+dateCreated := "DateCreated"
+
+var result string
+result,_ = conference.CreateListConferences(page, pagesize, friendlyName, dateCreated)
 
 ```
 
@@ -3057,13 +2700,13 @@ Factory for the ``` CARRIER ``` interface can be accessed from the package carri
 carrier := carrier_pkg.NewCARRIER()
 ```
 
-### <a name="create_carrier_lookup"></a>![Method: ](https://apidocs.io/img/method.png ".carrier_pkg.CreateCarrierLookup") CreateCarrierLookup
+### <a name="create_lookup_carrier"></a>![Method: ](https://apidocs.io/img/method.png ".carrier_pkg.CreateLookupCarrier") CreateLookupCarrier
 
 > Get the Carrier Lookup
 
 
 ```go
-func (me *CARRIER_IMPL) CreateCarrierLookup(phoneNumber string)(string,error)
+func (me *CARRIER_IMPL) CreateLookupCarrier(phoneNumber string)(string,error)
 ```
 
 #### Parameters
@@ -3079,42 +2722,38 @@ func (me *CARRIER_IMPL) CreateCarrierLookup(phoneNumber string)(string,error)
 phoneNumber := "PhoneNumber"
 
 var result string
-result,_ = carrier.CreateCarrierLookup(phoneNumber)
+result,_ = carrier.CreateLookupCarrier(phoneNumber)
 
 ```
 
 
-### <a name="create_carrier_lookuplist"></a>![Method: ](https://apidocs.io/img/method.png ".carrier_pkg.CreateCarrierLookuplist") CreateCarrierLookuplist
+### <a name="create_carrier_results"></a>![Method: ](https://apidocs.io/img/method.png ".carrier_pkg.CreateCarrierResults") CreateCarrierResults
 
 > Retrieve a list of carrier lookup objects.
 
 
 ```go
-func (me *CARRIER_IMPL) CreateCarrierLookuplist(input *CreateCarrierLookuplistInput)(string,error)
+func (me *CARRIER_IMPL) CreateCarrierResults(
+            page *int64,
+            pageSize *int64)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pageSize |  ``` Optional ```  ``` DefaultValue ```  | The count of objects to return per page. |
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pageSize |  ``` Optional ```  | The count of objects to return per page. |
 
 
 #### Example Usage
 
 ```go
-collect := new (carrier_pkg.CreateCarrierLookuplistInput)
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pageSize,_ := strconv.ParseInt("10", 10, 8)
-collect.PageSize = pageSize
-
+page,_ := strconv.ParseInt("22", 10, 8)
+pageSize,_ := strconv.ParseInt("22", 10, 8)
 
 var result string
-result,_ = carrier.CreateCarrierLookuplist(collect)
+result,_ = carrier.CreateCarrierResults(page, pageSize)
 
 ```
 
@@ -3131,13 +2770,13 @@ Factory for the ``` EMAIL ``` interface can be accessed from the package email_p
 email := email_pkg.NewEMAIL()
 ```
 
-### <a name="create_email_deleteinvalidemail"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateEmailDeleteinvalidemail") CreateEmailDeleteinvalidemail
+### <a name="create_remove_invalid_email"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateRemoveInvalidEmail") CreateRemoveInvalidEmail
 
 > Remove an email from the invalid email list.
 
 
 ```go
-func (me *EMAIL_IMPL) CreateEmailDeleteinvalidemail(email string)(string,error)
+func (me *EMAIL_IMPL) CreateRemoveInvalidEmail(email string)(string,error)
 ```
 
 #### Parameters
@@ -3153,18 +2792,20 @@ func (me *EMAIL_IMPL) CreateEmailDeleteinvalidemail(email string)(string,error)
 email := "Email"
 
 var result string
-result,_ = email.CreateEmailDeleteinvalidemail(email)
+result,_ = email.CreateRemoveInvalidEmail(email)
 
 ```
 
 
-### <a name="create_email_listblockemail"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateEmailListblockemail") CreateEmailListblockemail
+### <a name="create_blocked_emails"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateBlockedEmails") CreateBlockedEmails
 
 > Retrieve a list of emails that have been blocked.
 
 
 ```go
-func (me *EMAIL_IMPL) CreateEmailListblockemail(input *CreateEmailListblockemailInput)(string,error)
+func (me *EMAIL_IMPL) CreateBlockedEmails(
+            offset *string,
+            limit *string)(string,error)
 ```
 
 #### Parameters
@@ -3178,28 +2819,24 @@ func (me *EMAIL_IMPL) CreateEmailListblockemail(input *CreateEmailListblockemail
 #### Example Usage
 
 ```go
-collect := new (email_pkg.CreateEmailListblockemailInput)
-
 offset := "Offset"
-collect.Offset = offset
-
 limit := "Limit"
-collect.Limit = limit
-
 
 var result string
-result,_ = email.CreateEmailListblockemail(collect)
+result,_ = email.CreateBlockedEmails(offset, limit)
 
 ```
 
 
-### <a name="create_email_listspamemail"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateEmailListspamemail") CreateEmailListspamemail
+### <a name="create_spam_emails"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateSpamEmails") CreateSpamEmails
 
 > Retrieve a list of emails that are on the spam list.
 
 
 ```go
-func (me *EMAIL_IMPL) CreateEmailListspamemail(input *CreateEmailListspamemailInput)(string,error)
+func (me *EMAIL_IMPL) CreateSpamEmails(
+            offset *string,
+            limit *string)(string,error)
 ```
 
 #### Parameters
@@ -3213,28 +2850,24 @@ func (me *EMAIL_IMPL) CreateEmailListspamemail(input *CreateEmailListspamemailIn
 #### Example Usage
 
 ```go
-collect := new (email_pkg.CreateEmailListspamemailInput)
-
 offset := "Offset"
-collect.Offset = offset
-
 limit := "Limit"
-collect.Limit = limit
-
 
 var result string
-result,_ = email.CreateEmailListspamemail(collect)
+result,_ = email.CreateSpamEmails(offset, limit)
 
 ```
 
 
-### <a name="create_email_listbounceemail"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateEmailListbounceemail") CreateEmailListbounceemail
+### <a name="create_bounced_emails"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateBouncedEmails") CreateBouncedEmails
 
 > Retrieve a list of emails that have bounced.
 
 
 ```go
-func (me *EMAIL_IMPL) CreateEmailListbounceemail(input *CreateEmailListbounceemailInput)(string,error)
+func (me *EMAIL_IMPL) CreateBouncedEmails(
+            offset *string,
+            limit *string)(string,error)
 ```
 
 #### Parameters
@@ -3248,28 +2881,22 @@ func (me *EMAIL_IMPL) CreateEmailListbounceemail(input *CreateEmailListbounceema
 #### Example Usage
 
 ```go
-collect := new (email_pkg.CreateEmailListbounceemailInput)
-
 offset := "Offset"
-collect.Offset = offset
-
 limit := "Limit"
-collect.Limit = limit
-
 
 var result string
-result,_ = email.CreateEmailListbounceemail(collect)
+result,_ = email.CreateBouncedEmails(offset, limit)
 
 ```
 
 
-### <a name="create_email_deletebouncesemail"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateEmailDeletebouncesemail") CreateEmailDeletebouncesemail
+### <a name="create_remove_bounced_email"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateRemoveBouncedEmail") CreateRemoveBouncedEmail
 
 > Remove an email address from the bounced list.
 
 
 ```go
-func (me *EMAIL_IMPL) CreateEmailDeletebouncesemail(email string)(string,error)
+func (me *EMAIL_IMPL) CreateRemoveBouncedEmail(email string)(string,error)
 ```
 
 #### Parameters
@@ -3285,18 +2912,20 @@ func (me *EMAIL_IMPL) CreateEmailDeletebouncesemail(email string)(string,error)
 email := "Email"
 
 var result string
-result,_ = email.CreateEmailDeletebouncesemail(email)
+result,_ = email.CreateRemoveBouncedEmail(email)
 
 ```
 
 
-### <a name="create_email_listinvalidemail"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateEmailListinvalidemail") CreateEmailListinvalidemail
+### <a name="create_invalid_emails"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateInvalidEmails") CreateInvalidEmails
 
 > Retrieve a list of invalid email addresses.
 
 
 ```go
-func (me *EMAIL_IMPL) CreateEmailListinvalidemail(input *CreateEmailListinvalidemailInput)(string,error)
+func (me *EMAIL_IMPL) CreateInvalidEmails(
+            offset *string,
+            limit *string)(string,error)
 ```
 
 #### Parameters
@@ -3310,28 +2939,24 @@ func (me *EMAIL_IMPL) CreateEmailListinvalidemail(input *CreateEmailListinvalide
 #### Example Usage
 
 ```go
-collect := new (email_pkg.CreateEmailListinvalidemailInput)
-
 offset := "Offset"
-collect.Offset = offset
-
 limit := "Limit"
-collect.Limit = limit
-
 
 var result string
-result,_ = email.CreateEmailListinvalidemail(collect)
+result,_ = email.CreateInvalidEmails(offset, limit)
 
 ```
 
 
-### <a name="create_email_listunsubscribedemail"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateEmailListunsubscribedemail") CreateEmailListunsubscribedemail
+### <a name="create_list_unsubscribed_emails"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateListUnsubscribedEmails") CreateListUnsubscribedEmails
 
 > Retrieve a list of email addresses from the unsubscribe list.
 
 
 ```go
-func (me *EMAIL_IMPL) CreateEmailListunsubscribedemail(input *CreateEmailListunsubscribedemailInput)(string,error)
+func (me *EMAIL_IMPL) CreateListUnsubscribedEmails(
+            offset *string,
+            limit *string)(string,error)
 ```
 
 #### Parameters
@@ -3345,28 +2970,22 @@ func (me *EMAIL_IMPL) CreateEmailListunsubscribedemail(input *CreateEmailListuns
 #### Example Usage
 
 ```go
-collect := new (email_pkg.CreateEmailListunsubscribedemailInput)
-
 offset := "Offset"
-collect.Offset = offset
-
 limit := "Limit"
-collect.Limit = limit
-
 
 var result string
-result,_ = email.CreateEmailListunsubscribedemail(collect)
+result,_ = email.CreateListUnsubscribedEmails(offset, limit)
 
 ```
 
 
-### <a name="create_email_deleteunsubscribedemail"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateEmailDeleteunsubscribedemail") CreateEmailDeleteunsubscribedemail
+### <a name="create_remove_unsubscribed_email"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateRemoveUnsubscribedEmail") CreateRemoveUnsubscribedEmail
 
 > Remove an email address from the list of unsubscribed emails.
 
 
 ```go
-func (me *EMAIL_IMPL) CreateEmailDeleteunsubscribedemail(email string)(string,error)
+func (me *EMAIL_IMPL) CreateRemoveUnsubscribedEmail(email string)(string,error)
 ```
 
 #### Parameters
@@ -3382,18 +3001,18 @@ func (me *EMAIL_IMPL) CreateEmailDeleteunsubscribedemail(email string)(string,er
 email := "email"
 
 var result string
-result,_ = email.CreateEmailDeleteunsubscribedemail(email)
+result,_ = email.CreateRemoveUnsubscribedEmail(email)
 
 ```
 
 
-### <a name="create_email_addunsubscribesemail"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateEmailAddunsubscribesemail") CreateEmailAddunsubscribesemail
+### <a name="add_email_unsubscribe"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.AddEmailUnsubscribe") AddEmailUnsubscribe
 
 > Add an email to the unsubscribe list
 
 
 ```go
-func (me *EMAIL_IMPL) CreateEmailAddunsubscribesemail(email string)(string,error)
+func (me *EMAIL_IMPL) AddEmailUnsubscribe(email string)(string,error)
 ```
 
 #### Parameters
@@ -3409,18 +3028,18 @@ func (me *EMAIL_IMPL) CreateEmailAddunsubscribesemail(email string)(string,error
 email := "email"
 
 var result string
-result,_ = email.CreateEmailAddunsubscribesemail(email)
+result,_ = email.AddEmailUnsubscribe(email)
 
 ```
 
 
-### <a name="create_email_deleteblocksemail"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateEmailDeleteblocksemail") CreateEmailDeleteblocksemail
+### <a name="create_remove_blocked_address"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateRemoveBlockedAddress") CreateRemoveBlockedAddress
 
 > Remove an email from blocked emails list.
 
 
 ```go
-func (me *EMAIL_IMPL) CreateEmailDeleteblocksemail(email string)(string,error)
+func (me *EMAIL_IMPL) CreateRemoveBlockedAddress(email string)(string,error)
 ```
 
 #### Parameters
@@ -3436,18 +3055,18 @@ func (me *EMAIL_IMPL) CreateEmailDeleteblocksemail(email string)(string,error)
 email := "Email"
 
 var result string
-result,_ = email.CreateEmailDeleteblocksemail(email)
+result,_ = email.CreateRemoveBlockedAddress(email)
 
 ```
 
 
-### <a name="create_email_deletespamemail"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateEmailDeletespamemail") CreateEmailDeletespamemail
+### <a name="create_remove_spam_address"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateRemoveSpamAddress") CreateRemoveSpamAddress
 
 > Remove an email from the spam email list.
 
 
 ```go
-func (me *EMAIL_IMPL) CreateEmailDeletespamemail(email string)(string,error)
+func (me *EMAIL_IMPL) CreateRemoveSpamAddress(email string)(string,error)
 ```
 
 #### Parameters
@@ -3463,18 +3082,26 @@ func (me *EMAIL_IMPL) CreateEmailDeletespamemail(email string)(string,error)
 email := "Email"
 
 var result string
-result,_ = email.CreateEmailDeletespamemail(email)
+result,_ = email.CreateRemoveSpamAddress(email)
 
 ```
 
 
-### <a name="create_email_sendemails"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateEmailSendemails") CreateEmailSendemails
+### <a name="create_send_email"></a>![Method: ](https://apidocs.io/img/method.png ".email_pkg.CreateSendEmail") CreateSendEmail
 
 > Create and submit an email message to one or more email addresses.
 
 
 ```go
-func (me *EMAIL_IMPL) CreateEmailSendemails(input *CreateEmailSendemailsInput)(string,error)
+func (me *EMAIL_IMPL) CreateSendEmail(
+            to string,
+            mtype models_pkg.TypeEnum,
+            subject string,
+            message string,
+            from *string,
+            cc *string,
+            bcc *string,
+            attachment *string)(string,error)
 ```
 
 #### Parameters
@@ -3494,35 +3121,17 @@ func (me *EMAIL_IMPL) CreateEmailSendemails(input *CreateEmailSendemailsInput)(s
 #### Example Usage
 
 ```go
-collect := new (email_pkg.CreateEmailSendemailsInput)
-
 to := "To"
-collect.To = to
-
 mtype := models_pkg.Type_TEXT
-collect.Mtype = mtype
-
 subject := "Subject"
-collect.Subject = subject
-
 message := "Message"
-collect.Message = message
-
 from := "From"
-collect.From = from
-
 cc := "Cc"
-collect.Cc = cc
-
 bcc := "Bcc"
-collect.Bcc = bcc
-
 attachment := "Attachment"
-collect.Attachment = attachment
-
 
 var result string
-result,_ = email.CreateEmailSendemails(collect)
+result,_ = email.CreateSendEmail(to, mtype, subject, message, from, cc, bcc, attachment)
 
 ```
 
@@ -3539,13 +3148,13 @@ Factory for the ``` ACCOUNT ``` interface can be accessed from the package accou
 account := account_pkg.NewACCOUNT()
 ```
 
-### <a name="create_accounts_viewaccount"></a>![Method: ](https://apidocs.io/img/method.png ".account_pkg.CreateAccountsViewaccount") CreateAccountsViewaccount
+### <a name="create_view_account"></a>![Method: ](https://apidocs.io/img/method.png ".account_pkg.CreateViewAccount") CreateViewAccount
 
 > Retrieve information regarding your Ytel account by a specific date. The response object will contain data such as account status, balance, and account usage totals.
 
 
 ```go
-func (me *ACCOUNT_IMPL) CreateAccountsViewaccount(date string)(string,error)
+func (me *ACCOUNT_IMPL) CreateViewAccount(date string)(string,error)
 ```
 
 #### Parameters
@@ -3561,7 +3170,7 @@ func (me *ACCOUNT_IMPL) CreateAccountsViewaccount(date string)(string,error)
 date := "Date"
 
 var result string
-result,_ = account.CreateAccountsViewaccount(date)
+result,_ = account.CreateViewAccount(date)
 
 ```
 
@@ -3578,13 +3187,15 @@ Factory for the ``` SUBACCOUNT ``` interface can be accessed from the package su
 subAccount := subaccount_pkg.NewSUBACCOUNT()
 ```
 
-### <a name="create_user_subaccountactivation"></a>![Method: ](https://apidocs.io/img/method.png ".subaccount_pkg.CreateUserSubaccountactivation") CreateUserSubaccountactivation
+### <a name="create_toggle_subaccount_status"></a>![Method: ](https://apidocs.io/img/method.png ".subaccount_pkg.CreateToggleSubaccountStatus") CreateToggleSubaccountStatus
 
 > Suspend or unsuspend
 
 
 ```go
-func (me *SUBACCOUNT_IMPL) CreateUserSubaccountactivation(input *CreateUserSubaccountactivationInput)(string,error)
+func (me *SUBACCOUNT_IMPL) CreateToggleSubaccountStatus(
+            subAccountSID string,
+            mActivate models_pkg.MActivateEnum)(string,error)
 ```
 
 #### Parameters
@@ -3598,28 +3209,24 @@ func (me *SUBACCOUNT_IMPL) CreateUserSubaccountactivation(input *CreateUserSubac
 #### Example Usage
 
 ```go
-collect := new (subaccount_pkg.CreateUserSubaccountactivationInput)
-
 subAccountSID := "SubAccountSID"
-collect.SubAccountSID = subAccountSID
-
-mActivate := models_pkg.mActivate_ACTIVATE
-collect.MActivate = mActivate
-
+mActivate := models_pkg.mActivate_ENUM_1
 
 var result string
-result,_ = subAccount.CreateUserSubaccountactivation(collect)
+result,_ = subAccount.CreateToggleSubaccountStatus(subAccountSID, mActivate)
 
 ```
 
 
-### <a name="create_user_deletesubaccount"></a>![Method: ](https://apidocs.io/img/method.png ".subaccount_pkg.CreateUserDeletesubaccount") CreateUserDeletesubaccount
+### <a name="create_delete_subaccount"></a>![Method: ](https://apidocs.io/img/method.png ".subaccount_pkg.CreateDeleteSubaccount") CreateDeleteSubaccount
 
 > Delete sub account or merge numbers into parent
 
 
 ```go
-func (me *SUBACCOUNT_IMPL) CreateUserDeletesubaccount(input *CreateUserDeletesubaccountInput)(string,error)
+func (me *SUBACCOUNT_IMPL) CreateDeleteSubaccount(
+            subAccountSID string,
+            mergeNumber models_pkg.MergeNumberEnum)(string,error)
 ```
 
 #### Parameters
@@ -3633,28 +3240,27 @@ func (me *SUBACCOUNT_IMPL) CreateUserDeletesubaccount(input *CreateUserDeletesub
 #### Example Usage
 
 ```go
-collect := new (subaccount_pkg.CreateUserDeletesubaccountInput)
-
 subAccountSID := "SubAccountSID"
-collect.SubAccountSID = subAccountSID
-
-mergeNumber := models_pkg.MergeNumber_DELETE
-collect.MergeNumber = mergeNumber
-
+mergeNumber := models_pkg.MergeNumber_ENUM_0
 
 var result string
-result,_ = subAccount.CreateUserDeletesubaccount(collect)
+result,_ = subAccount.CreateDeleteSubaccount(subAccountSID, mergeNumber)
 
 ```
 
 
-### <a name="create_user_createsubaccount"></a>![Method: ](https://apidocs.io/img/method.png ".subaccount_pkg.CreateUserCreatesubaccount") CreateUserCreatesubaccount
+### <a name="create_subaccount"></a>![Method: ](https://apidocs.io/img/method.png ".subaccount_pkg.CreateSubaccount") CreateSubaccount
 
 > Create a sub user account under the parent account
 
 
 ```go
-func (me *SUBACCOUNT_IMPL) CreateUserCreatesubaccount(input *CreateUserCreatesubaccountInput)(string,error)
+func (me *SUBACCOUNT_IMPL) CreateSubaccount(
+            firstName string,
+            lastName string,
+            email string,
+            friendlyName string,
+            password string)(string,error)
 ```
 
 #### Parameters
@@ -3671,26 +3277,14 @@ func (me *SUBACCOUNT_IMPL) CreateUserCreatesubaccount(input *CreateUserCreatesub
 #### Example Usage
 
 ```go
-collect := new (subaccount_pkg.CreateUserCreatesubaccountInput)
-
 firstName := "FirstName"
-collect.FirstName = firstName
-
 lastName := "LastName"
-collect.LastName = lastName
-
 email := "Email"
-collect.Email = email
-
 friendlyName := "FriendlyName"
-collect.FriendlyName = friendlyName
-
 password := "Password"
-collect.Password = password
-
 
 var result string
-result,_ = subAccount.CreateUserCreatesubaccount(collect)
+result,_ = subAccount.CreateSubaccount(firstName, lastName, email, friendlyName, password)
 
 ```
 
@@ -3707,13 +3301,13 @@ Factory for the ``` ADDRESS ``` interface can be accessed from the package addre
 address := address_pkg.NewADDRESS()
 ```
 
-### <a name="address_deleteaddress"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.AddressDeleteaddress") AddressDeleteaddress
+### <a name="create_delete_address"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.CreateDeleteAddress") CreateDeleteAddress
 
 > To delete Address to your address book
 
 
 ```go
-func (me *ADDRESS_IMPL) AddressDeleteaddress(addressid string)(string,error)
+func (me *ADDRESS_IMPL) CreateDeleteAddress(addressid string)(string,error)
 ```
 
 #### Parameters
@@ -3729,18 +3323,18 @@ func (me *ADDRESS_IMPL) AddressDeleteaddress(addressid string)(string,error)
 addressid := "addressid"
 
 var result string
-result,_ = address.AddressDeleteaddress(addressid)
+result,_ = address.CreateDeleteAddress(addressid)
 
 ```
 
 
-### <a name="address_verifyaddress"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.AddressVerifyaddress") AddressVerifyaddress
+### <a name="create_verify_address"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.CreateVerifyAddress") CreateVerifyAddress
 
 > Validates an address given.
 
 
 ```go
-func (me *ADDRESS_IMPL) AddressVerifyaddress(addressid string)(string,error)
+func (me *ADDRESS_IMPL) CreateVerifyAddress(addressid string)(string,error)
 ```
 
 #### Parameters
@@ -3756,18 +3350,18 @@ func (me *ADDRESS_IMPL) AddressVerifyaddress(addressid string)(string,error)
 addressid := "addressid"
 
 var result string
-result,_ = address.AddressVerifyaddress(addressid)
+result,_ = address.CreateVerifyAddress(addressid)
 
 ```
 
 
-### <a name="address_viewaddress"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.AddressViewaddress") AddressViewaddress
+### <a name="create_view_address"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.CreateViewAddress") CreateViewAddress
 
 > View Address Specific address Book by providing the address id
 
 
 ```go
-func (me *ADDRESS_IMPL) AddressViewaddress(addressid string)(string,error)
+func (me *ADDRESS_IMPL) CreateViewAddress(addressid string)(string,error)
 ```
 
 #### Parameters
@@ -3783,18 +3377,64 @@ func (me *ADDRESS_IMPL) AddressViewaddress(addressid string)(string,error)
 addressid := "addressid"
 
 var result string
-result,_ = address.AddressViewaddress(addressid)
+result,_ = address.CreateViewAddress(addressid)
 
 ```
 
 
-### <a name="address_createaddress"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.AddressCreateaddress") AddressCreateaddress
+### <a name="create_list_addresses"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.CreateListAddresses") CreateListAddresses
+
+> List All Address 
+
+
+```go
+func (me *ADDRESS_IMPL) CreateListAddresses(
+            page *int64,
+            pagesize *int64,
+            addressid *string,
+            dateCreated *string)(string,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pagesize |  ``` Optional ```  | How many results to return, default is 10, max is 100, must be an integer |
+| addressid |  ``` Optional ```  | addresses Sid |
+| dateCreated |  ``` Optional ```  | date created address. |
+
+
+#### Example Usage
+
+```go
+page,_ := strconv.ParseInt("22", 10, 8)
+pagesize,_ := strconv.ParseInt("22", 10, 8)
+addressid := "addressid"
+dateCreated := "dateCreated"
+
+var result string
+result,_ = address.CreateListAddresses(page, pagesize, addressid, dateCreated)
+
+```
+
+
+### <a name="create_address"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.CreateAddress") CreateAddress
 
 > To add an address to your address book, you create a new address object. You can retrieve and delete individual addresses as well as get a list of addresses. Addresses are identified by a unique random ID.
 
 
 ```go
-func (me *ADDRESS_IMPL) AddressCreateaddress(input *AddressCreateaddressInput)(string,error)
+func (me *ADDRESS_IMPL) CreateAddress(
+            name string,
+            address string,
+            country string,
+            state string,
+            city string,
+            zip string,
+            description *string,
+            email *string,
+            phone *string)(string,error)
 ```
 
 #### Parameters
@@ -3815,81 +3455,18 @@ func (me *ADDRESS_IMPL) AddressCreateaddress(input *AddressCreateaddressInput)(s
 #### Example Usage
 
 ```go
-collect := new (address_pkg.AddressCreateaddressInput)
-
 name := "Name"
-collect.Name = name
-
 address := "Address"
-collect.Address = address
-
 country := "Country"
-collect.Country = country
-
 state := "State"
-collect.State = state
-
 city := "City"
-collect.City = city
-
 zip := "Zip"
-collect.Zip = zip
-
 description := "Description"
-collect.Description = description
-
 email := "email"
-collect.Email = email
-
 phone := "Phone"
-collect.Phone = phone
-
 
 var result string
-result,_ = address.AddressCreateaddress(collect)
-
-```
-
-
-### <a name="address_listaddress"></a>![Method: ](https://apidocs.io/img/method.png ".address_pkg.AddressListaddress") AddressListaddress
-
-> List All Address 
-
-
-```go
-func (me *ADDRESS_IMPL) AddressListaddress(input *AddressListaddressInput)(string,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pagesize |  ``` Optional ```  ``` DefaultValue ```  | How many results to return, default is 10, max is 100, must be an integer |
-| addressid |  ``` Optional ```  | addresses Sid |
-| dateCreated |  ``` Optional ```  | date created address. |
-
-
-#### Example Usage
-
-```go
-collect := new (address_pkg.AddressListaddressInput)
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("10", 10, 8)
-collect.Pagesize = pagesize
-
-addressid := "addressid"
-collect.Addressid = addressid
-
-dateCreated := "dateCreated"
-collect.DateCreated = dateCreated
-
-
-var result string
-result,_ = address.AddressListaddress(collect)
+result,_ = address.CreateAddress(name, address, country, state, city, zip, description, email, phone)
 
 ```
 
@@ -3906,13 +3483,13 @@ Factory for the ``` RECORDING ``` interface can be accessed from the package rec
 recording := recording_pkg.NewRECORDING()
 ```
 
-### <a name="create_recording_deleterecording"></a>![Method: ](https://apidocs.io/img/method.png ".recording_pkg.CreateRecordingDeleterecording") CreateRecordingDeleterecording
+### <a name="create_delete_recording"></a>![Method: ](https://apidocs.io/img/method.png ".recording_pkg.CreateDeleteRecording") CreateDeleteRecording
 
 > Remove a recording from your Ytel account.
 
 
 ```go
-func (me *RECORDING_IMPL) CreateRecordingDeleterecording(recordingsid string)(string,error)
+func (me *RECORDING_IMPL) CreateDeleteRecording(recordingsid string)(string,error)
 ```
 
 #### Parameters
@@ -3928,18 +3505,18 @@ func (me *RECORDING_IMPL) CreateRecordingDeleterecording(recordingsid string)(st
 recordingsid := "recordingsid"
 
 var result string
-result,_ = recording.CreateRecordingDeleterecording(recordingsid)
+result,_ = recording.CreateDeleteRecording(recordingsid)
 
 ```
 
 
-### <a name="create_recording_viewrecording"></a>![Method: ](https://apidocs.io/img/method.png ".recording_pkg.CreateRecordingViewrecording") CreateRecordingViewrecording
+### <a name="create_view_recording"></a>![Method: ](https://apidocs.io/img/method.png ".recording_pkg.CreateViewRecording") CreateViewRecording
 
 > Retrieve the recording of a call by its RecordingSid. This resource will return information regarding the call such as start time, end time, duration, and so forth.
 
 
 ```go
-func (me *RECORDING_IMPL) CreateRecordingViewrecording(recordingsid string)(string,error)
+func (me *RECORDING_IMPL) CreateViewRecording(recordingsid string)(string,error)
 ```
 
 #### Parameters
@@ -3955,26 +3532,30 @@ func (me *RECORDING_IMPL) CreateRecordingViewrecording(recordingsid string)(stri
 recordingsid := "recordingsid"
 
 var result string
-result,_ = recording.CreateRecordingViewrecording(recordingsid)
+result,_ = recording.CreateViewRecording(recordingsid)
 
 ```
 
 
-### <a name="create_recording_listrecording"></a>![Method: ](https://apidocs.io/img/method.png ".recording_pkg.CreateRecordingListrecording") CreateRecordingListrecording
+### <a name="create_list_recordings"></a>![Method: ](https://apidocs.io/img/method.png ".recording_pkg.CreateListRecordings") CreateListRecordings
 
 > Retrieve a list of recording objects.
 
 
 ```go
-func (me *RECORDING_IMPL) CreateRecordingListrecording(input *CreateRecordingListrecordingInput)(string,error)
+func (me *RECORDING_IMPL) CreateListRecordings(
+            page *int64,
+            pagesize *int64,
+            datecreated *string,
+            callsid *string)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pagesize |  ``` Optional ```  ``` DefaultValue ```  | The count of objects to return per page. |
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pagesize |  ``` Optional ```  | The count of objects to return per page. |
 | datecreated |  ``` Optional ```  | Filter results by creation date |
 | callsid |  ``` Optional ```  | The unique identifier for a call. |
 
@@ -3982,23 +3563,13 @@ func (me *RECORDING_IMPL) CreateRecordingListrecording(input *CreateRecordingLis
 #### Example Usage
 
 ```go
-collect := new (recording_pkg.CreateRecordingListrecordingInput)
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("10", 10, 8)
-collect.Pagesize = pagesize
-
+page,_ := strconv.ParseInt("22", 10, 8)
+pagesize,_ := strconv.ParseInt("22", 10, 8)
 datecreated := "Datecreated"
-collect.Datecreated = datecreated
-
 callsid := "callsid"
-collect.Callsid = callsid
-
 
 var result string
-result,_ = recording.CreateRecordingListrecording(collect)
+result,_ = recording.CreateListRecordings(page, pagesize, datecreated, callsid)
 
 ```
 
@@ -4015,13 +3586,13 @@ Factory for the ``` TRANSCRIPTION ``` interface can be accessed from the package
 transcription := transcription_pkg.NewTRANSCRIPTION()
 ```
 
-### <a name="create_transcriptions_audiourltranscription"></a>![Method: ](https://apidocs.io/img/method.png ".transcription_pkg.CreateTranscriptionsAudiourltranscription") CreateTranscriptionsAudiourltranscription
+### <a name="create_transcribe_audio_url"></a>![Method: ](https://apidocs.io/img/method.png ".transcription_pkg.CreateTranscribeAudioURL") CreateTranscribeAudioURL
 
 > Transcribe an audio recording from a file.
 
 
 ```go
-func (me *TRANSCRIPTION_IMPL) CreateTranscriptionsAudiourltranscription(audiourl string)(string,error)
+func (me *TRANSCRIPTION_IMPL) CreateTranscribeAudioURL(audiourl string)(string,error)
 ```
 
 #### Parameters
@@ -4037,18 +3608,18 @@ func (me *TRANSCRIPTION_IMPL) CreateTranscriptionsAudiourltranscription(audiourl
 audiourl := "audiourl"
 
 var result string
-result,_ = transcription.CreateTranscriptionsAudiourltranscription(audiourl)
+result,_ = transcription.CreateTranscribeAudioURL(audiourl)
 
 ```
 
 
-### <a name="create_transcriptions_recordingtranscription"></a>![Method: ](https://apidocs.io/img/method.png ".transcription_pkg.CreateTranscriptionsRecordingtranscription") CreateTranscriptionsRecordingtranscription
+### <a name="create_transcribe_recording"></a>![Method: ](https://apidocs.io/img/method.png ".transcription_pkg.CreateTranscribeRecording") CreateTranscribeRecording
 
 > Transcribe a recording by its RecordingSid.
 
 
 ```go
-func (me *TRANSCRIPTION_IMPL) CreateTranscriptionsRecordingtranscription(recordingSid string)(string,error)
+func (me *TRANSCRIPTION_IMPL) CreateTranscribeRecording(recordingSid string)(string,error)
 ```
 
 #### Parameters
@@ -4064,18 +3635,18 @@ func (me *TRANSCRIPTION_IMPL) CreateTranscriptionsRecordingtranscription(recordi
 recordingSid := "recordingSid"
 
 var result string
-result,_ = transcription.CreateTranscriptionsRecordingtranscription(recordingSid)
+result,_ = transcription.CreateTranscribeRecording(recordingSid)
 
 ```
 
 
-### <a name="create_transcriptions_viewtranscription"></a>![Method: ](https://apidocs.io/img/method.png ".transcription_pkg.CreateTranscriptionsViewtranscription") CreateTranscriptionsViewtranscription
+### <a name="create_view_transcription"></a>![Method: ](https://apidocs.io/img/method.png ".transcription_pkg.CreateViewTranscription") CreateViewTranscription
 
 > Retrieve information about a transaction by its TranscriptionSid.
 
 
 ```go
-func (me *TRANSCRIPTION_IMPL) CreateTranscriptionsViewtranscription(transcriptionsid string)(string,error)
+func (me *TRANSCRIPTION_IMPL) CreateViewTranscription(transcriptionsid string)(string,error)
 ```
 
 #### Parameters
@@ -4091,26 +3662,30 @@ func (me *TRANSCRIPTION_IMPL) CreateTranscriptionsViewtranscription(transcriptio
 transcriptionsid := "transcriptionsid"
 
 var result string
-result,_ = transcription.CreateTranscriptionsViewtranscription(transcriptionsid)
+result,_ = transcription.CreateViewTranscription(transcriptionsid)
 
 ```
 
 
-### <a name="create_transcriptions_listtranscription"></a>![Method: ](https://apidocs.io/img/method.png ".transcription_pkg.CreateTranscriptionsListtranscription") CreateTranscriptionsListtranscription
+### <a name="create_list_transcriptions"></a>![Method: ](https://apidocs.io/img/method.png ".transcription_pkg.CreateListTranscriptions") CreateListTranscriptions
 
 > Retrieve a list of transcription objects for your Ytel account.
 
 
 ```go
-func (me *TRANSCRIPTION_IMPL) CreateTranscriptionsListtranscription(input *CreateTranscriptionsListtranscriptionInput)(string,error)
+func (me *TRANSCRIPTION_IMPL) CreateListTranscriptions(
+            page *int64,
+            pagesize *int64,
+            status models_pkg.Status12Enum,
+            dateTranscribed *string)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| page |  ``` Optional ```  ``` DefaultValue ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
-| pagesize |  ``` Optional ```  ``` DefaultValue ```  | The count of objects to return per page. |
+| page |  ``` Optional ```  | The page count to retrieve from the total results in the collection. Page indexing starts at 1. |
+| pagesize |  ``` Optional ```  | The count of objects to return per page. |
 | status |  ``` Optional ```  | The state of the transcription. |
 | dateTranscribed |  ``` Optional ```  | The date the transcription took place. |
 
@@ -4118,23 +3693,13 @@ func (me *TRANSCRIPTION_IMPL) CreateTranscriptionsListtranscription(input *Creat
 #### Example Usage
 
 ```go
-collect := new (transcription_pkg.CreateTranscriptionsListtranscriptionInput)
-
-page,_ := strconv.ParseInt("1", 10, 8)
-collect.Page = page
-
-pagesize,_ := strconv.ParseInt("10", 10, 8)
-collect.Pagesize = pagesize
-
-status := models_pkg.Status_INPROGRESS
-collect.Status = status
-
+page,_ := strconv.ParseInt("22", 10, 8)
+pagesize,_ := strconv.ParseInt("22", 10, 8)
+status := models_pkg.status12_INPROGRESS
 dateTranscribed := "dateTranscribed"
-collect.DateTranscribed = dateTranscribed
-
 
 var result string
-result,_ = transcription.CreateTranscriptionsListtranscription(collect)
+result,_ = transcription.CreateListTranscriptions(page, pagesize, status, dateTranscribed)
 
 ```
 
@@ -4151,45 +3716,39 @@ Factory for the ``` USAGE ``` interface can be accessed from the package usage_p
 usage := usage_pkg.NewUSAGE()
 ```
 
-### <a name="create_usage_listusage"></a>![Method: ](https://apidocs.io/img/method.png ".usage_pkg.CreateUsageListusage") CreateUsageListusage
+### <a name="create_list_usage"></a>![Method: ](https://apidocs.io/img/method.png ".usage_pkg.CreateListUsage") CreateListUsage
 
 > Retrieve usage metrics regarding your Ytel account. The results includes inbound/outbound voice calls and inbound/outbound SMS messages as well as carrier lookup requests.
 
 
 ```go
-func (me *USAGE_IMPL) CreateUsageListusage(input *CreateUsageListusageInput)(string,error)
+func (me *USAGE_IMPL) CreateListUsage(
+            productCode models_pkg.ProductCodeEnum,
+            startDate *string,
+            endDate *string,
+            includeSubAccounts *string)(string,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| productCode |  ``` Optional ```  ``` DefaultValue ```  | Filter usage results by product type. |
-| startDate |  ``` Optional ```  ``` DefaultValue ```  | Filter usage objects by start date. |
-| endDate |  ``` Optional ```  ``` DefaultValue ```  | Filter usage objects by end date. |
+| productCode |  ``` Optional ```  | Filter usage results by product type. |
+| startDate |  ``` Optional ```  | Filter usage objects by start date. |
+| endDate |  ``` Optional ```  | Filter usage objects by end date. |
 | includeSubAccounts |  ``` Optional ```  | Will include all subaccount usage data |
 
 
 #### Example Usage
 
 ```go
-collect := new (usage_pkg.CreateUsageListusageInput)
-
-productCode := models_pkg.ProductCode27_ALL
-collect.ProductCode = productCode
-
-startDate := "2016-09-06"
-collect.StartDate = startDate
-
-endDate := "2016-09-06"
-collect.EndDate = endDate
-
+productCode := models_pkg.ProductCode_ENUM_0
+startDate := "startDate"
+endDate := "endDate"
 includeSubAccounts := "IncludeSubAccounts"
-collect.IncludeSubAccounts = includeSubAccounts
-
 
 var result string
-result,_ = usage.CreateUsageListusage(collect)
+result,_ = usage.CreateListUsage(productCode, startDate, endDate, includeSubAccounts)
 
 ```
 
